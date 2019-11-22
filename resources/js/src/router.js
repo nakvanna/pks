@@ -39,6 +39,19 @@ const router = new Router({
                         rule: 'editor'
                     }
                 },
+                {
+                    path: '/setting',
+                    name: 'setting',
+                    component: () => import('./views/setting/Setting'),
+                    meta: {
+                        breadcrumb: [
+                            {title: 'កំណត់', url: '/'},
+                            {title: 'កំណត់', active: true},
+                        ],
+                        pageTitle: 'ការកំណត់',
+                        rule: 'editor'
+                    }
+                },
             ],
         },
         // =============================================================================

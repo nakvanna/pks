@@ -16,6 +16,12 @@ export default [
     icon: "HomeIcon",
   },
   {
+    url: "/setting",
+    name: "ការកំណត់",
+    slug: "setting",
+    icon: "SettingsIcon",
+  },
+  {
     url: "/page2",
     name: "Page 2",
     slug: "page2",
