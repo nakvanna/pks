@@ -1,50 +1,74 @@
 <template>
-    <vs-tabs :position="isSmallerScreen ? 'top' : 'left'" class="tabs-shadow-none" id="profile-tabs" :key="isSmallerScreen">
+    <vs-tabs :position="isSmallerScreen ? 'top' : 'top'" class="tabs-shadow-none" id="profile-tabs" :key="isSmallerScreen">
         <!-- GENERAL -->
-        <vs-tab icon-pack="feather" icon="icon-user" :label="!isSmallerScreen ? 'General' : ''">
-            <div class="tab-general md:ml-4 md:mt-0 mt-4 ml-0">
+        <vs-tab icon-pack="feather" icon="icon-user" :label="!isSmallerScreen ? 'Group Section' : ''">
+            <div class="tab-general md:ml-4 md:mt-4 mt-4 ml-0">
                 <vx-card no-shadow>
                     <group-section></group-section>
                 </vx-card>
             </div>
         </vs-tab>
-        <vs-tab icon-pack="feather" icon="icon-user" :label="!isSmallerScreen ? 'General' : ''">
-            <div class="tab-general md:ml-4 md:mt-0 mt-4 ml-0">
+        <vs-tab icon-pack="feather" icon="icon-user" :label="!isSmallerScreen ? 'Section' : ''">
+            <div class="tab-general md:ml-4 md:mt-4 mt-4 ml-0">
                 <vx-card no-shadow>
-
-                    <vs-input class="w-full mb-base" label-placeholder="Old Password" v-model="old_password" />
-                    <vs-input class="w-full mb-base" label-placeholder="New Password" v-model="new_password" />
-                    <vs-input class="w-full mb-base" label-placeholder="Confirm Password" v-model="confirm_new_password" />
-                    <!-- Save & Reset Button -->
-                    <div class="flex justify-end btn-group">
-                        <vs-button icon-pack="feather" type="relief" icon="icon-save">រក្សាទុក</vs-button>
-                        <vs-button icon-pack="feather" icon="icon-delete" type="relief" color="warning">សម្អាត</vs-button>
-                    </div>
+                    <Section></Section>
                 </vx-card>
             </div>
         </vs-tab>
-        <vs-tab icon-pack="feather" icon="icon-lock" :label="!isSmallerScreen ? 'Change Password' : ''">
-            <div class="tab-change-pwd md:ml-4 md:mt-0 mt-4 ml-0">
-                <sub-tab></sub-tab>
+        <vs-tab icon-pack="feather" icon="icon-lock" :label="!isSmallerScreen ? 'Level' : ''">
+            <div class="tab-change-pwd md:ml-4 md:mt-4 mt-4 ml-0">
+                <vx-card no-shadow="">
+                    <Level></Level>
+                </vx-card>
+            </div>
+        </vs-tab>
+        <vs-tab icon-pack="feather" icon="icon-lock" :label="!isSmallerScreen ? 'Class' : ''">
+            <div class="tab-change-pwd md:ml-4 md:mt-4 mt-4 ml-0">
+                <vx-card no-shadow="">
+                    <study-class></study-class>
+                </vx-card>
+            </div>
+        </vs-tab>
+        <vs-tab icon-pack="feather" icon="icon-lock" :label="!isSmallerScreen ? 'Shift' : ''">
+            <div class="tab-change-pwd md:ml-4 md:mt-4 mt-4 ml-0">
+                <vx-card no-shadow="">
+                    <Shift></Shift>
+                </vx-card>
+            </div>
+        </vs-tab>
+        <vs-tab icon-pack="feather" icon="icon-lock" :label="!isSmallerScreen ? 'Collection' : ''">
+            <div class="tab-change-pwd md:ml-4 md:mt-4 mt-4 ml-0">
+                <vx-card no-shadow="">
+                    <Collection></Collection>
+                </vx-card>
             </div>
         </vs-tab>
     </vs-tabs>
 </template>
 <script>
-    import SubTab from "../SubTab";
     import GroupSection from "./GroupSection";
+    import Section from './Section';
+    import Level from './Level';
+    import StudyClass from './StudyClass';
+    import Shift from './Shift';
+    import Collection from './Collection';
     export default {
         components: {
             GroupSection,
-            SubTab
+            Section,
+            Level,
+            StudyClass,
+            Shift,
+            Collection,
         },
         name:'Setting',
-        data() {
-            return {
-                old_password: "",
-                new_password: "",
-                confirm_new_password: "",
-            }
+        async created() {
+            await this.$store.dispatch('fetchGroupSections');
+            await this.$store.dispatch('fetchSections');
+            await this.$store.dispatch('fetchLevels');
+            await this.$store.dispatch('fetchShifts');
+            await this.$store.dispatch('fetchStudyClasses');
+            await this.$store.dispatch('fetchCollections');
         },
         computed: {
             isSmallerScreen() {
