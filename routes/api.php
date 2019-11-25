@@ -18,3 +18,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::post('/file-upload','FileUploadController@upload')->name('file.upload');
+Route::resource('/group-section','GroupSectionController');
+Route::resource('/section','SectionController');
+Route::resource('/level','LevelController');
+Route::resource('/study-class','StudyClassController');
+Route::resource('/shift','ShiftController');
+Route::resource('/collection','CollectionController');
