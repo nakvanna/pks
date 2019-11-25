@@ -1,7 +1,7 @@
 <template>
     <div>
         <vx-input-group class="mb-base">
-            <vs-input class="inputx" placeholder="Level" v-model="name" />
+            <vs-input @keyup.enter="storeLevel" class="inputx" placeholder="Level" v-model="name" />
             <template slot="append">
                 <div class="append-text btn-addon">
                     <vs-button @click="storeLevel" type="relief" icon-pack="feather" v-if="name !== ''" icon="icon-plus-square">បន្ថែម</vs-button>
@@ -64,19 +64,34 @@
         methods: {
             storeLevel(){
                 let self = this;
-                self.$store.dispatch('storeLevel',{name:self.name}).then(function (data) {
-                    if (data){
-                        self.$vs.notify({
-                            title:'ប្រតិបត្តិការណ៍ជោគជ័យ',
-                            text:'ទិន្នន័យត្រូវបានរក្សាទុក',
-                            color:'primary',
-                            iconPack: 'feather',
-                            icon:'icon-check',
-                            position:'top-center'
-                        });
-                        self.name = Math.floor(Math.random() * 100);
-                    }
-                })
+                if (self.name === ''){
+                    self.$vs.notify({
+                        title:'ប្រតិបត្តិការណ៍បរាជ័យ',
+                        text:'ទិន្នន័យមិនមាន!',
+                        color:'danger',
+                        iconPack: 'feather',
+                        icon:'icon-alert-octagon',
+                        position:'top-center'
+                    });
+                } else {
+                    this.$vs.loading({
+                        type:'material',
+                    });
+                    self.$store.dispatch('storeLevel',{name:self.name}).then(function (data) {
+                        if (data){
+                            self.$vs.notify({
+                                title:'ប្រតិបត្តិការណ៍ជោគជ័យ',
+                                text:'ទិន្នន័យត្រូវបានរក្សាទុក',
+                                color:'primary',
+                                iconPack: 'feather',
+                                icon:'icon-check',
+                                position:'top-center'
+                            });
+                            self.name = Math.floor(Math.random() * 100);
+                            self.$vs.loading.close();
+                        }
+                    })
+                }
             },
             async destroyLevel(){
                 let vm = this;

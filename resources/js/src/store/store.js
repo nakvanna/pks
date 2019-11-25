@@ -19,12 +19,13 @@ import actions from "./actions"
 Vue.use(Vuex);
 //Module
 import users from './modules/user';
-import group_section from './modules/group_section';
-import section from './modules/section';
-import study_class from './modules/study_class';
-import level from './modules/level';
-import shift from './modules/shift';
-import collection from './modules/collection';
+import group_section from './modules/setting/group_section';
+import section from './modules/setting/section';
+import study_class from './modules/setting/study_class';
+import level from './modules/setting/level';
+import shift from './modules/setting/shift';
+import collection from './modules/setting/collection';
+import service from './modules/service/service';
 export default new Vuex.Store({
     getters,
     mutations,
@@ -38,5 +39,6 @@ export default new Vuex.Store({
         level,
         shift,
         collection,
+        service,
     }
 })

@@ -6896,10 +6896,25 @@ __webpack_require__.r(__webpack_exports__);
   slug: "home",
   icon: "HomeIcon"
 }, {
+  url: "/student",
+  name: "សិស្ស",
+  slug: "student",
+  icon: "UsersIcon"
+}, {
   url: "/setting",
   name: "ការកំណត់",
   slug: "setting",
   icon: "SettingsIcon"
+}, {
+  url: "/service",
+  name: "សេវាកម្ម",
+  slug: "service",
+  icon: "TruckIcon"
+}, {
+  url: "/employee",
+  name: "បុគ្គលិក",
+  slug: "employee",
+  icon: "UsersIcon"
 }, {
   url: "/page2",
   name: "Page 2",

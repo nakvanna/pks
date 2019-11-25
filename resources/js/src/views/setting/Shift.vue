@@ -20,7 +20,7 @@
             </vs-button>
         </div>
         <vs-divider/>
-        <vs-table multiple v-model="selected" pagination max-items="3" search :data="getShift">
+        <vs-table multiple v-model="selected" pagination max-items="5" search :data="getShift">
 
             <template slot="thead">
                 <vs-th sort-key="id">ID</vs-th>
@@ -34,6 +34,10 @@
 
                     <vs-td :data="data[indextr].id">
                         {{ data[indextr].id }}
+                    </vs-td>
+
+                    <vs-td :data="data[indextr].name">
+                        {{ data[indextr].name }}
                     </vs-td>
 
                     <vs-td :data="data[indextr].start_time">
@@ -90,6 +94,9 @@
         methods: {
             storeShift(){
                 let self = this;
+                this.$vs.loading({
+                    type:'material',
+                });
                 self.$store.dispatch('storeShift', this.shifts).then(function (data) {
                     if (data){
                         self.$vs.notify({
@@ -104,6 +111,7 @@
                         self.shifts.start_time = '';
                         self.shifts.end_time = '';
                         self.shifts.duration = '';
+                        self.$vs.loading.close();
                     }
                 })
             },

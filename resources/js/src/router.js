@@ -65,6 +65,32 @@ const router = new Router({
                         rule: 'editor'
                     }
                 },
+                {
+                    path: '/service',
+                    name: 'service',
+                    component: () => import('./views/service/Service'),
+                    meta: {
+                        breadcrumb: [
+                            {title: 'សេវាកម្ម', url: '/'},
+                            {title: 'សេវាកម្ម', active: true},
+                        ],
+                        pageTitle: 'ប្រភេទសេវាកម្ម',
+                        rule: 'editor'
+                    }
+                },
+                {
+                    path: '/employee',
+                    name: 'employee',
+                    component: () => import('./views/employee/Employee'),
+                    meta: {
+                        breadcrumb: [
+                            {title: 'បុគ្គលិក', url: '/'},
+                            {title: 'បុគ្គលិក', active: true},
+                        ],
+                        pageTitle: 'ចុះឈ្មោះបុគ្គលិក',
+                        rule: 'editor'
+                    }
+                },
             ],
         },
         // =============================================================================
