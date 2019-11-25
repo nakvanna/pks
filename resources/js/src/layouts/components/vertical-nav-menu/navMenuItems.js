@@ -16,6 +16,12 @@ export default [
     icon: "HomeIcon",
   },
   {
+    url: "/student",
+    name: "សិស្ស",
+    slug: "student",
+    icon: "UsersIcon",
+  },
+  {
     url: "/setting",
     name: "ការកំណត់",
     slug: "setting",

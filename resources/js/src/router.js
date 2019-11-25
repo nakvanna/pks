@@ -40,6 +40,19 @@ const router = new Router({
                     }
                 },
                 {
+                    path: '/student',
+                    name: 'student',
+                    component: () => import('./views/student/Student'),
+                    meta: {
+                        breadcrumb: [
+                            {title: 'សិស្ស', url: '/'},
+                            {title: 'សិស្ស', active: true},
+                        ],
+                        pageTitle: 'សិស្ស',
+                        rule: 'editor'
+                    }
+                },
+                {
                     path: '/setting',
                     name: 'setting',
                     component: () => import('./views/setting/Setting'),
