@@ -1,7 +1,7 @@
 <template>
     <div>
         <vx-input-group class="mb-base">
-            <vs-input class="inputx" placeholder="Group section" v-model="name"/>
+            <vs-input @keyup.enter="storeGroupSection" class="inputx" placeholder="Group section" v-model="name"/>
             <template slot="append">
                 <div class="append-text btn-addon">
                     <vs-button v-if="name !== ''" @click="storeGroupSection" type="relief" icon-pack="feather" icon="icon-plus-square">បន្ថែម</vs-button>
@@ -63,19 +63,34 @@
         methods:{
             storeGroupSection(){
                 let self = this;
-                self.$store.dispatch('storeGroupSection',{name:self.name}).then(function (data) {
-                    if (data){
-                        self.$vs.notify({
-                            title:'ប្រតិបត្តិការណ៍ជោគជ័យ',
-                            text:'ទិន្នន័យត្រូវបានរក្សាទុក',
-                            color:'primary',
-                            iconPack: 'feather',
-                            icon:'icon-check',
-                            position:'top-center'
-                        });
-                        self.name = '';
-                    }
-                })
+                if (this.name === ''){
+                    self.$vs.notify({
+                        title:'ប្រតិបត្តិការណ៍បរាជ័យ',
+                        text:'ទិន្នន័យមិនមាន!',
+                        color:'danger',
+                        iconPack: 'feather',
+                        icon:'icon-alert-octagon',
+                        position:'top-center'
+                    });
+                } else {
+                    this.$vs.loading({
+                        type:'material',
+                    });
+                    self.$store.dispatch('storeGroupSection',{name:self.name}).then(function (data) {
+                        if (data){
+                            self.$vs.notify({
+                                title:'ប្រតិបត្តិការណ៍ជោគជ័យ',
+                                text:'ទិន្នន័យត្រូវបានរក្សាទុក',
+                                color:'primary',
+                                iconPack: 'feather',
+                                icon:'icon-check',
+                                position:'top-center'
+                            });
+                            self.name = '';
+                            self.$vs.loading.close()
+                        }
+                    })
+                }
             },
             async destroyGroupSection(){
                 let vm = this;

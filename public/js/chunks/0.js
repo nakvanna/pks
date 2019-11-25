@@ -6901,6 +6901,16 @@ __webpack_require__.r(__webpack_exports__);
   slug: "setting",
   icon: "SettingsIcon"
 }, {
+  url: "/service",
+  name: "សេវាកម្ម",
+  slug: "service",
+  icon: "TruckIcon"
+}, {
+  url: "/employee",
+  name: "បុគ្គលិក",
+  slug: "employee",
+  icon: "UsersIcon"
+}, {
   url: "/page2",
   name: "Page 2",
   slug: "page2",

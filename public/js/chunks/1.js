@@ -152,12 +152,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Section',
   data: function data() {
     return {
       is_update: false,
       collections: {
+        id: '',
         group_section: '',
         section: '',
         level: '',
@@ -166,20 +168,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         cost: ''
       },
       selected: [],
-      'tableList': ['vs-th: Component', 'vs-tr: Component', 'vs-td: Component', 'thread: Slot', 'tbody: Slot', 'header: Slot'],
-      users: [{
-        "id": 1,
-        "name": "Leanne Graham",
-        "username": "Bret",
-        "email": "Sincere@april.biz",
-        "website": "hildegard.org"
-      }, {
-        "id": 2,
-        "name": "Ervin Howell",
-        "username": "Antonette",
-        "email": "Shanna@melissa.tv",
-        "website": "anastasia.net"
-      }]
+      'tableList': ['vs-th: Component', 'vs-tr: Component', 'vs-td: Component', 'thread: Slot', 'tbody: Slot', 'header: Slot']
     };
   },
   computed: {
@@ -208,22 +197,59 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   methods: {
     storeCollection: function storeCollection() {
       var self = this;
-      self.$store.dispatch('storeCollection', this.collections).then(function (data) {
+      var vm = this.collections;
+
+      if (vm.group_section === '' || vm.section === '' || vm.level === '' || vm.shift === '' || vm.class_name === '' || vm.cost === '') {
+        self.$vs.notify({
+          title: 'ប្រតិបត្តិការណ៍បរាជ័យ',
+          text: 'ទិន្នន័យមិនមានគ្រប់គ្រាន់!',
+          color: 'danger',
+          iconPack: 'feather',
+          icon: 'icon-alert-octagon',
+          position: 'top-center'
+        });
+      } else {
+        self.$vs.loading({
+          type: 'material'
+        });
+        self.$store.dispatch('storeCollection', this.collections).then(function (data) {
+          if (data) {
+            self.$vs.notify({
+              title: 'ប្រតិបត្តិការណ៍ជោគជ័យ',
+              text: 'ទិន្នន័យត្រូវបានរក្សាទុក',
+              color: 'primary',
+              iconPack: 'feather',
+              icon: 'icon-check',
+              position: 'top-center'
+            });
+            self.collections.group_section = '';
+            self.collections.section = '';
+            self.collections.level = '';
+            self.collections.shift = '';
+            self.collections.class_name = '';
+            self.collections.cost = '';
+            self.$vs.loading.close();
+          }
+        });
+      }
+    },
+    updateCollection: function updateCollection() {
+      var self = this;
+      this.$vs.loading({
+        type: 'material'
+      });
+      self.$store.dispatch('updateCollection', self.collections).then(function (data) {
         if (data) {
           self.$vs.notify({
             title: 'ប្រតិបត្តិការណ៍ជោគជ័យ',
-            text: 'ទិន្នន័យត្រូវបានរក្សាទុក',
+            text: 'ទិន្នន័យត្រូវបានកែប្រែ',
             color: 'primary',
             iconPack: 'feather',
             icon: 'icon-check',
             position: 'top-center'
           });
-          self.collections.group_section = '';
-          self.collections.section = '';
-          self.collections.level = '';
-          self.collections.shift = '';
-          self.collections.class_name = '';
-          self.collections.cost = '';
+          self.clearCollectionForm();
+          self.$vs.loading.close();
         }
       });
     },
@@ -306,6 +332,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.destroyCollection();
     },
     editCollection: function editCollection() {
+      this.collections.id = this.selected[0].id;
       this.collections.group_section = this.selected[0].group_section;
       this.collections.section = this.selected[0].section;
       this.collections.level = this.selected[0].level;
@@ -421,21 +448,37 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   methods: {
     storeGroupSection: function storeGroupSection() {
       var self = this;
-      self.$store.dispatch('storeGroupSection', {
-        name: self.name
-      }).then(function (data) {
-        if (data) {
-          self.$vs.notify({
-            title: 'ប្រតិបត្តិការណ៍ជោគជ័យ',
-            text: 'ទិន្នន័យត្រូវបានរក្សាទុក',
-            color: 'primary',
-            iconPack: 'feather',
-            icon: 'icon-check',
-            position: 'top-center'
-          });
-          self.name = '';
-        }
-      });
+
+      if (this.name === '') {
+        self.$vs.notify({
+          title: 'ប្រតិបត្តិការណ៍បរាជ័យ',
+          text: 'ទិន្នន័យមិនមាន!',
+          color: 'danger',
+          iconPack: 'feather',
+          icon: 'icon-alert-octagon',
+          position: 'top-center'
+        });
+      } else {
+        this.$vs.loading({
+          type: 'material'
+        });
+        self.$store.dispatch('storeGroupSection', {
+          name: self.name
+        }).then(function (data) {
+          if (data) {
+            self.$vs.notify({
+              title: 'ប្រតិបត្តិការណ៍ជោគជ័យ',
+              text: 'ទិន្នន័យត្រូវបានរក្សាទុក',
+              color: 'primary',
+              iconPack: 'feather',
+              icon: 'icon-check',
+              position: 'top-center'
+            });
+            self.name = '';
+            self.$vs.loading.close();
+          }
+        });
+      }
     },
     destroyGroupSection: function () {
       var _destroyGroupSection = _asyncToGenerator(
@@ -613,21 +656,37 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   methods: {
     storeLevel: function storeLevel() {
       var self = this;
-      self.$store.dispatch('storeLevel', {
-        name: self.name
-      }).then(function (data) {
-        if (data) {
-          self.$vs.notify({
-            title: 'ប្រតិបត្តិការណ៍ជោគជ័យ',
-            text: 'ទិន្នន័យត្រូវបានរក្សាទុក',
-            color: 'primary',
-            iconPack: 'feather',
-            icon: 'icon-check',
-            position: 'top-center'
-          });
-          self.name = Math.floor(Math.random() * 100);
-        }
-      });
+
+      if (self.name === '') {
+        self.$vs.notify({
+          title: 'ប្រតិបត្តិការណ៍បរាជ័យ',
+          text: 'ទិន្នន័យមិនមាន!',
+          color: 'danger',
+          iconPack: 'feather',
+          icon: 'icon-alert-octagon',
+          position: 'top-center'
+        });
+      } else {
+        this.$vs.loading({
+          type: 'material'
+        });
+        self.$store.dispatch('storeLevel', {
+          name: self.name
+        }).then(function (data) {
+          if (data) {
+            self.$vs.notify({
+              title: 'ប្រតិបត្តិការណ៍ជោគជ័យ',
+              text: 'ទិន្នន័យត្រូវបានរក្សាទុក',
+              color: 'primary',
+              iconPack: 'feather',
+              icon: 'icon-check',
+              position: 'top-center'
+            });
+            self.name = Math.floor(Math.random() * 100);
+            self.$vs.loading.close();
+          }
+        });
+      }
     },
     destroyLevel: function () {
       var _destroyLevel = _asyncToGenerator(
@@ -804,21 +863,37 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   methods: {
     storeSection: function storeSection() {
       var self = this;
-      self.$store.dispatch('storeSection', {
-        name: self.name
-      }).then(function (data) {
-        if (data) {
-          self.$vs.notify({
-            title: 'ប្រតិបត្តិការណ៍ជោគជ័យ',
-            text: 'ទិន្នន័យត្រូវបានរក្សាទុក',
-            color: 'primary',
-            iconPack: 'feather',
-            icon: 'icon-check',
-            position: 'top-center'
-          });
-          self.name = '';
-        }
-      });
+
+      if (self.name === '') {
+        self.$vs.notify({
+          title: 'ប្រតិបត្តិការណ៍បរាជ័យ',
+          text: 'ទិន្នន័យមិនមាន!',
+          color: 'danger',
+          iconPack: 'feather',
+          icon: 'icon-alert-octagon',
+          position: 'top-center'
+        });
+      } else {
+        this.$vs.loading({
+          type: 'material'
+        });
+        self.$store.dispatch('storeSection', {
+          name: self.name
+        }).then(function (data) {
+          if (data) {
+            self.$vs.notify({
+              title: 'ប្រតិបត្តិការណ៍ជោគជ័យ',
+              text: 'ទិន្នន័យត្រូវបានរក្សាទុក',
+              color: 'primary',
+              iconPack: 'feather',
+              icon: 'icon-check',
+              position: 'top-center'
+            });
+            self.name = '';
+            self.$vs.loading.close();
+          }
+        });
+      }
     },
     destroySection: function () {
       var _destroySection = _asyncToGenerator(
@@ -1116,6 +1191,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Section',
   data: function data() {
@@ -1162,6 +1241,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   methods: {
     storeShift: function storeShift() {
       var self = this;
+      this.$vs.loading({
+        type: 'material'
+      });
       self.$store.dispatch('storeShift', this.shifts).then(function (data) {
         if (data) {
           self.$vs.notify({
@@ -1176,6 +1258,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           self.shifts.start_time = '';
           self.shifts.end_time = '';
           self.shifts.duration = '';
+          self.$vs.loading.close();
         }
       });
     },
@@ -1355,21 +1438,33 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   methods: {
     storeStudyClass: function storeStudyClass() {
       var self = this;
-      self.$store.dispatch('storeStudyClass', {
-        name: self.name
-      }).then(function (data) {
-        if (data) {
-          self.$vs.notify({
-            title: 'ប្រតិបត្តិការណ៍ជោគជ័យ',
-            text: 'ទិន្នន័យត្រូវបានរក្សាទុក',
-            color: 'primary',
-            iconPack: 'feather',
-            icon: 'icon-check',
-            position: 'top-center'
-          });
-          self.name = '';
-        }
-      });
+
+      if (self.name === '') {
+        self.$vs.notify({
+          title: 'ប្រតិបត្តិការណ៍បរាជ័យ',
+          text: 'ទិន្នន័យមិនមាន!',
+          color: 'danger',
+          iconPack: 'feather',
+          icon: 'icon-alert-octagon',
+          position: 'top-center'
+        });
+      } else {
+        self.$store.dispatch('storeStudyClass', {
+          name: self.name
+        }).then(function (data) {
+          if (data) {
+            self.$vs.notify({
+              title: 'ប្រតិបត្តិការណ៍ជោគជ័យ',
+              text: 'ទិន្នន័យត្រូវបានរក្សាទុក',
+              color: 'primary',
+              iconPack: 'feather',
+              icon: 'icon-check',
+              position: 'top-center'
+            });
+            self.name = '';
+          }
+        });
+      }
     },
     destroyStudyClass: function () {
       var _destroyStudyClass = _asyncToGenerator(
@@ -1999,7 +2094,8 @@ var render = function() {
                     type: "relief",
                     "icon-pack": "feather",
                     icon: "icon-edit"
-                  }
+                  },
+                  on: { click: _vm.updateCollection }
                 },
                 [_vm._v("\n            កែប្រែ\n        ")]
               )
@@ -2012,7 +2108,7 @@ var render = function() {
                   attrs: {
                     type: "relief",
                     "icon-pack": "feather",
-                    icon: "icon-package"
+                    icon: "icon-refresh-ccw"
                   },
                   on: { click: _vm.clearCollectionForm }
                 },
@@ -2228,6 +2324,17 @@ var render = function() {
           _c("vs-input", {
             staticClass: "inputx",
             attrs: { placeholder: "Group section" },
+            on: {
+              keyup: function($event) {
+                if (
+                  !$event.type.indexOf("key") &&
+                  _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                ) {
+                  return null
+                }
+                return _vm.storeGroupSection($event)
+              }
+            },
             model: {
               value: _vm.name,
               callback: function($$v) {
@@ -2387,6 +2494,17 @@ var render = function() {
           _c("vs-input", {
             staticClass: "inputx",
             attrs: { placeholder: "Level" },
+            on: {
+              keyup: function($event) {
+                if (
+                  !$event.type.indexOf("key") &&
+                  _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                ) {
+                  return null
+                }
+                return _vm.storeLevel($event)
+              }
+            },
             model: {
               value: _vm.name,
               callback: function($$v) {
@@ -2546,6 +2664,17 @@ var render = function() {
           _c("vs-input", {
             staticClass: "inputx",
             attrs: { placeholder: "Section" },
+            on: {
+              keyup: function($event) {
+                if (
+                  !$event.type.indexOf("key") &&
+                  _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                ) {
+                  return null
+                }
+                return _vm.storeSection($event)
+              }
+            },
             model: {
               value: _vm.name,
               callback: function($$v) {
@@ -2964,7 +3093,7 @@ var render = function() {
           attrs: {
             multiple: "",
             pagination: "",
-            "max-items": "3",
+            "max-items": "5",
             search: "",
             data: _vm.getShift
           },
@@ -2982,6 +3111,14 @@ var render = function() {
                         _vm._v(
                           "\n                    " +
                             _vm._s(data[indextr].id) +
+                            "\n                "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("vs-td", { attrs: { data: data[indextr].name } }, [
+                        _vm._v(
+                          "\n                    " +
+                            _vm._s(data[indextr].name) +
                             "\n                "
                         )
                       ]),
@@ -3109,6 +3246,17 @@ var render = function() {
           _c("vs-input", {
             staticClass: "inputx",
             attrs: { placeholder: "Class" },
+            on: {
+              keyup: function($event) {
+                if (
+                  !$event.type.indexOf("key") &&
+                  _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                ) {
+                  return null
+                }
+                return _vm.storeStudyClass($event)
+              }
+            },
             model: {
               value: _vm.name,
               callback: function($$v) {

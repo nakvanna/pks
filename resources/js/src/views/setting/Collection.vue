@@ -59,6 +59,7 @@
                 បន្ថែម
             </vs-button>
             <vs-button
+                    @click="updateCollection"
                     color="warning" type="relief"
                     icon-pack="feather" icon="icon-edit"
                     v-if="is_update === true"
@@ -68,7 +69,7 @@
             <vs-button
                     @click="clearCollectionForm"
                     v-if="is_update === true" type="relief"
-                    icon-pack="feather" icon="icon-package"
+                    icon-pack="feather" icon="icon-refresh-ccw"
             >
                 សម្អាត
             </vs-button>
@@ -140,6 +141,7 @@
             return {
                 is_update: false,
                 collections: {
+                    id: '',
                     group_section: '',
                     section: '',
                     level: '',
@@ -156,22 +158,6 @@
                     'tbody: Slot',
                     'header: Slot'
                 ],
-                users: [
-                    {
-                        "id": 1,
-                        "name": "Leanne Graham",
-                        "username": "Bret",
-                        "email": "Sincere@april.biz",
-                        "website": "hildegard.org",
-                    },
-                    {
-                        "id": 2,
-                        "name": "Ervin Howell",
-                        "username": "Antonette",
-                        "email": "Shanna@melissa.tv",
-                        "website": "anastasia.net",
-                    },
-                ]
             }
         },
 
@@ -201,22 +187,58 @@
         methods: {
             storeCollection(){
                 let self = this;
-                self.$store.dispatch('storeCollection', this.collections).then(function (data) {
+                let vm = this.collections;
+                if(vm.group_section === '' || vm.section === '' || vm.level === '' || vm.shift === '' || vm.class_name === '' || vm.cost === ''){
+                    self.$vs.notify({
+                        title:'ប្រតិបត្តិការណ៍បរាជ័យ',
+                        text:'ទិន្នន័យមិនមានគ្រប់គ្រាន់!',
+                        color:'danger',
+                        iconPack: 'feather',
+                        icon:'icon-alert-octagon',
+                        position:'top-center'
+                    });
+                }else {
+                    self.$vs.loading({
+                        type:'material',
+                    });
+                    self.$store.dispatch('storeCollection', this.collections).then(function (data) {
+                        if (data){
+                            self.$vs.notify({
+                                title:'ប្រតិបត្តិការណ៍ជោគជ័យ',
+                                text:'ទិន្នន័យត្រូវបានរក្សាទុក',
+                                color:'primary',
+                                iconPack: 'feather',
+                                icon:'icon-check',
+                                position:'top-center'
+                            });
+                            self.collections.group_section = '';
+                            self.collections.section       = '';
+                            self.collections.level         = '';
+                            self.collections.shift         = '';
+                            self.collections.class_name    = '';
+                            self.collections.cost          = '';
+                            self.$vs.loading.close();
+                        }
+                    })
+                }
+            },
+            updateCollection(){
+                let self = this;
+                this.$vs.loading({
+                    type:'material',
+                });
+                self.$store.dispatch('updateCollection', self.collections).then(function (data) {
                     if (data){
                         self.$vs.notify({
                             title:'ប្រតិបត្តិការណ៍ជោគជ័យ',
-                            text:'ទិន្នន័យត្រូវបានរក្សាទុក',
+                            text:'ទិន្នន័យត្រូវបានកែប្រែ',
                             color:'primary',
                             iconPack: 'feather',
                             icon:'icon-check',
                             position:'top-center'
                         });
-                        self.collections.group_section = '';
-                        self.collections.section       = '';
-                        self.collections.level         = '';
-                        self.collections.shift         = '';
-                        self.collections.class_name    = '';
-                        self.collections.cost          = '';
+                        self.clearCollectionForm();
+                        self.$vs.loading.close();
                     }
                 })
             },
@@ -254,14 +276,15 @@
                 this.destroyCollection();
             },
             editCollection(){
+                this.collections.id            = this.selected[0].id;
                 this.collections.group_section = this.selected[0].group_section;
-                this.collections.section = this.selected[0].section;
-                this.collections.level = this.selected[0].level;
-                this.collections.class_name = this.selected[0].class_name;
-                this.collections.shift = this.selected[0].shift;
-                this.collections.cost = this.selected[0].cost;
-                this.is_update = true;
-                this.selected = [];
+                this.collections.section       = this.selected[0].section;
+                this.collections.level         = this.selected[0].level;
+                this.collections.class_name    = this.selected[0].class_name;
+                this.collections.shift         = this.selected[0].shift;
+                this.collections.cost          = this.selected[0].cost;
+                this.is_update                 = true;
+                this.selected                  = [];
             },
             clearCollectionForm(){
                 this.collections.group_section = '';
@@ -270,7 +293,7 @@
                 this.collections.shift         = '';
                 this.collections.class_name    = '';
                 this.collections.cost          = '';
-                this.is_update = false;
+                this.is_update                 = false;
             }
         }
     }

@@ -24,3 +24,4 @@ Route::resource('/level','LevelController');
 Route::resource('/study-class','StudyClassController');
 Route::resource('/shift','ShiftController');
 Route::resource('/collection','CollectionController');
+Route::resource('/service','ServiceController');

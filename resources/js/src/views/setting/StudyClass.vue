@@ -1,7 +1,7 @@
 <template>
     <div>
         <vx-input-group class="mb-base">
-            <vs-input class="inputx" placeholder="Class" v-model="name"/>
+            <vs-input @keyup.enter="storeStudyClass" class="inputx" placeholder="Class" v-model="name"/>
             <template slot="append">
                 <div class="append-text btn-addon">
                     <vs-button v-if="name !== ''" @click="storeStudyClass" type="relief" icon-pack="feather" icon="icon-plus-square">បន្ថែម</vs-button>
@@ -64,19 +64,30 @@
         methods: {
             storeStudyClass(){
                 let self = this;
-                self.$store.dispatch('storeStudyClass',{name:self.name}).then(function (data) {
-                    if (data){
-                        self.$vs.notify({
-                            title:'ប្រតិបត្តិការណ៍ជោគជ័យ',
-                            text:'ទិន្នន័យត្រូវបានរក្សាទុក',
-                            color:'primary',
-                            iconPack: 'feather',
-                            icon:'icon-check',
-                            position:'top-center'
-                        });
-                        self.name = '';
-                    }
-                })
+                if (self.name ===''){
+                    self.$vs.notify({
+                        title:'ប្រតិបត្តិការណ៍បរាជ័យ',
+                        text:'ទិន្នន័យមិនមាន!',
+                        color:'danger',
+                        iconPack: 'feather',
+                        icon:'icon-alert-octagon',
+                        position:'top-center'
+                    });
+                } else {
+                    self.$store.dispatch('storeStudyClass',{name:self.name}).then(function (data) {
+                        if (data){
+                            self.$vs.notify({
+                                title:'ប្រតិបត្តិការណ៍ជោគជ័យ',
+                                text:'ទិន្នន័យត្រូវបានរក្សាទុក',
+                                color:'primary',
+                                iconPack: 'feather',
+                                icon:'icon-check',
+                                position:'top-center'
+                            });
+                            self.name = '';
+                        }
+                    })
+                }
             },
             async destroyStudyClass(){
                 let vm = this;
