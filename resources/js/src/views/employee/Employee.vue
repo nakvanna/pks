@@ -18,7 +18,11 @@
             <vs-popup fullscreen title="ចុះឈ្មោះបុគ្គលិក" :active.sync="popupActive">
                 <vs-row>
                     <vs-col vs-type="flex" vs-justify="start" vs-align="center" vs-w="3">
-                        <vs-upload action="https://jsonplaceholder.typicode.com/posts/" @on-success="successUpload" />
+                        <image-upload
+                                :upload-url="'file.upload'"
+                                @get-image-path="setThumb"
+                                :image-src="employee.profile?employee.profile:placeholder"
+                                class="mb-2"/>
                     </vs-col>
                     <vs-col vs-type="flex" vs-justify="start" vs-align="center" vs-w="9">
                         <vs-input class="w-1/3 mr-2" label-placeholder="ឈ្មោះខ្មែរ"  />
@@ -113,10 +117,12 @@
     </div>
 </template>
 <script>
+    import ImageUpload from "../../components/ImageUpload";
     import Datepicker from 'vuejs-datepicker';
     export default {
         components: {
-            Datepicker
+            Datepicker,
+            ImageUpload
         },
         name:'Employee',
         data() {
@@ -126,11 +132,8 @@
                 users: [],
                 selected: [],
                 is_update: false,
-                services: {
-                    id: '',
-                    type: '',
-                    service: '',
-                    cost: '',
+                employee: {
+                    profile: null,
                 }
             }
         },
@@ -140,6 +143,9 @@
             },
             getService(){
                 return this.$store.getters.get_services
+            },
+            placeholder() {
+                return this.$store.getters.getAppUrl + 'images/placeholder/placeholder.png'
             }
         },
         async created() {
@@ -245,6 +251,9 @@
                         self.$vs.loading.close();
                     }
                 })
+            },
+            setThumb(thumb) {
+                this.employee.profile = thumb
             },
         }
     }
