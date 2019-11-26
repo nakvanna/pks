@@ -533,12 +533,15 @@ ul.bordered-items {
   -moz-border-radius: 0 !important;
   border-radius: 0 !important;
 }
-.v--modal .close-btn{
-  position: absolute;
-  top: 0;
-  right: 10px;
-  font-size: 60%;
-  z-index: 999;
-  padding: 10px;
-  cursor: pointer;
+.v--modal-overlay{
+  z-index: 99999 !important;
+}
+.v--modal-overlay .v--modal-box{
+  overflow: inherit !important;
+}
+.mce-menu {
+  z-index: 9999999 !important;
+}
+.mce-window {
+  z-index: 999999 !important;
 }

@@ -25,11 +25,11 @@
   white-space: nowrap;
 
   .vs-sidebar--background {
-    z-index: 111;
+    z-index: 51000;
   }
 
   .vs-sidebar{
-    z-index: 111;
+    z-index: 51000;
     position: fixed;
 
     .vs-sidebar--items {
@@ -197,7 +197,7 @@
     z-index: 52000;
   }
   .vs-sidebar-staticPosition{
-    z-index: 110;
+    z-index: 10000;
   }
 
   #parentx-demo-7 {
