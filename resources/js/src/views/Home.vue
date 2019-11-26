@@ -1,6 +1,16 @@
 <template>
 	<div>
-		{{images}}
+		<vs-button @click="$modal.show('add')" type="relief">Show modal</vs-button>
+		<modal width="1000" height="auto" :scrollable="true" :pivotY="0.07" :adaptive="true" :clickToClose="false" name="add">
+			<span class="close-btn">
+					<span @click="$modal.hide('add')">
+						❌
+					</span>
+			</span>
+			<div class="pt-10">
+				<tinymce id="modal" v-model="data" :other_options="options"></tinymce>
+			</div>
+		</modal>
 		<vue-dropzone class="max-content p-1" duplicateCheck ref="myVueDropzone" @vdropzone-success="successUpload" id="dropzone" :options="dropzoneOptions"></vue-dropzone>
 		<tinymce id="d2" v-model="data" :other_options="options"></tinymce>
 		<div class="flex btn-group">

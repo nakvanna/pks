@@ -528,3 +528,17 @@ ul.bordered-items {
 .max-content {
   width: max-content !important;
 }
+.v--modal{
+  -webkit-border-radius: 0 !important;
+  -moz-border-radius: 0 !important;
+  border-radius: 0 !important;
+}
+.v--modal .close-btn{
+  position: absolute;
+  top: 0;
+  right: 10px;
+  font-size: 60%;
+  z-index: 999;
+  padding: 10px;
+  cursor: pointer;
+}
