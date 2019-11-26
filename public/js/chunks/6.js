@@ -30,6 +30,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -419,7 +429,67 @@ var render = function() {
   return _c(
     "div",
     [
-      _vm._v("\n\t" + _vm._s(_vm.images) + "\n\t"),
+      _c(
+        "vs-button",
+        {
+          attrs: { type: "relief" },
+          on: {
+            click: function($event) {
+              return _vm.$modal.show("add")
+            }
+          }
+        },
+        [_vm._v("Show modal")]
+      ),
+      _vm._v(" "),
+      _c(
+        "modal",
+        {
+          attrs: {
+            width: "1000",
+            height: "auto",
+            scrollable: true,
+            pivotY: 0.07,
+            adaptive: true,
+            clickToClose: false,
+            name: "add"
+          }
+        },
+        [
+          _c("span", { staticClass: "close-btn" }, [
+            _c(
+              "span",
+              {
+                on: {
+                  click: function($event) {
+                    return _vm.$modal.hide("add")
+                  }
+                }
+              },
+              [_vm._v("\n\t\t\t\t\t❌\n\t\t\t\t")]
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "pt-10" },
+            [
+              _c("tinymce", {
+                attrs: { id: "modal", other_options: _vm.options },
+                model: {
+                  value: _vm.data,
+                  callback: function($$v) {
+                    _vm.data = $$v
+                  },
+                  expression: "data"
+                }
+              })
+            ],
+            1
+          )
+        ]
+      ),
+      _vm._v(" "),
       _c("vue-dropzone", {
         ref: "myVueDropzone",
         staticClass: "max-content p-1",

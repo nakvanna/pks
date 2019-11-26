@@ -1,7 +1,7 @@
 <template>
     <div>
        <!--Create popup-->
-        <Create></Create>
+        <Create ref="createEmployee"></Create>
        <!--Create popup-->
         <vs-divider/>
         <vs-table multiple v-model="selected" pagination max-items="5" search :data="getEmployees">
@@ -62,23 +62,33 @@
             >
                 បង្ហាញ
             </vs-button>
+            <vs-button
+                    @click="showCreateEmployee"
+                    color="warning" class="mb-2" v-if="selected.length === 1"
+                    type="relief" icon-pack="feather" icon="icon-edit"
+            >
+                កែប្រែ
+            </vs-button>
         </div>
         <!--Pop show employee-->
         <div class="demo-alignment">
-            <vs-popup fullscreen title="fullscreen" :active.sync="showEmployeePopup">
-                <vs-row>
-                    <vs-col vs-w="3">
-                        <div class="con-example-images">
-                            <img style="height: 250px" class="p-10" src="https://picsum.photos/400/400?image=32"/>
-                        </div>
-                    </vs-col>
-                    <vs-col vs-w="9" class="mt-10 bg-primary">
+            <vs-popup fullscreen title="ពត៍មានលម្អិត" :active.sync="showEmployeePopup">
+                <div class="vx-row mt-10">
+                    <div class="vx-col md:w-full">
+                        <h4>អត្តលេខ: PKS-{{show_employees.id}}</h4>
+                    </div>
+                </div>
+                <div class="vx-row mt-4">
+                    <div class="vx-col lg:w-1/4">
+                        <img style="height: 250px" class="p-10" :src="show_employees.profile"/>
+                    </div>
+                    <div class="vx-col lg:w-3/4 mt-10">
                         <div class="flex mb-10">
                             <div class="w-1/3">
-                                <i>ឈ្មោះខ្មែរ:<b>សំគិស រុងរឿង</b></i>
+                                <i>ឈ្មោះខ្មែរ:<b> {{show_employees.kh_name}} </b></i>
                             </div>
                             <div class="w-1/3">
-                                <i>ឈ្មោះឡាតាំង:<b>ABC LEO</b></i>
+                                <i>ឈ្មោះឡាតាំង:<b> {{show_employees.en_name}} </b></i>
                             </div>
                             <div class="w-1/3">
                                 <i>ភេទ:<b>Male</b></i>
@@ -86,33 +96,40 @@
                         </div>
                         <div class="flex mb-10">
                             <div class="w-1/3">
-                                <i>ថ្ងៃខែឆ្នាំកំណើត:<b> 2020/20/10</b></i>
+                                <i>ថ្ងៃខែឆ្នាំកំណើត:<b> {{show_employees.dob}} </b></i>
                             </div>
                             <div class="w-1/3">
-                                <i>តួនាទី:<b> រើសអេតចាយ</b></i>
+                                <i>តួនាទី:<b> {{show_employees.position}} </b></i>
                             </div>
                             <div class="w-1/3">
-                                <i>គម្រិតសម្គាល់:<b> លំដាប់ ISO 2020</b></i>
+                                <i>គម្រិតសម្គាល់:<b> {{show_employees.degree_note}} </b></i>
                             </div>
                         </div>
                         <div class="flex mb-10">
                             <div class="w-1/3">
-                                <i>ថ្ងៃខែឆ្នាំចូលធ្វើការ:<b>  2020/20/10</b></i>
-                            </div>
-                            <div class="2/3">
-                                <i>ទំនាក់ទំនង់:</i><br>
-                                <b :key="index" v-for="(item, index) in employees.contact.split('\n')"> {{item}}<br></b>
+                                <i>ថ្ងៃខែឆ្នាំចូលធ្វើការ:<b>{{show_employees.start_work}}</b></i>
                             </div>
                         </div>
-                    </vs-col>
-                </vs-row>
-                <vs-row>
-                    <vs-col vs-w="12">
+                    </div>
+                </div>
+                <div class="vx-row mt-10">
+                    <div class="vx-col md:w-1/3">
                         <h3><i>ទំនាក់ទំនង់:</i></h3>
-                    </vs-col>
-                </vs-row>
+                        <br>
+                        <b :key="index" v-for="(item, index) in show_employees.contact.split('\n')"> {{item}}<br></b>
+                    </div>
+                    <div class="vx-col md:w-1/3">
+                        <h3><i>អាស័យដ្ឋានបច្ចុប្បន្ន:</i></h3><br>
+                        <b>{{show_employees.addr}}</b>
+                    </div>
+                    <div class="vx-col md:w-1/3">
+                        <h3><i>អាស័យដ្ឋានកំណើត:</i></h3><br>
+                        <b>{{show_employees.pob}}</b>
+                    </div>
+                </div>
             </vs-popup>
         </div>
+        <!--Pop show employee-->
     </div>
 </template>
 <script>
@@ -129,8 +146,19 @@
                 date: null,
                 users: [],
                 selected: [],
-                employees: {
-                    contact: '',
+                show_employees: {
+                    id         : '',
+                    profile    : '',
+                    kh_name    : '',
+                    en_name    : '',
+                    gender     : null,
+                    dob        : null,
+                    position   : null,
+                    degree_note: null,
+                    start_work : null,
+                    contact    : '',
+                    pob        : '',
+                    addr       : '',
                 },
                 is_update: false,
                 showEmployeePopup: false,
@@ -184,38 +212,35 @@
             acceptAlert(){
                 this.destroyEmployee();
             },
-            editEmployee(){
-                this.services.id      = this.selected[0].id;
-                this.services.type    = this.selected[0].type;
-                this.services.service = this.selected[0].service;
-                this.services.cost    = this.selected[0].cost;
-                this.is_update        = true;
-                this.selected         = [];
-            },
-            updateEmployee(){
-                let self = this;
-                this.$vs.loading({
-                    type:'material',
-                });
-                self.$store.dispatch('updateEmployee', self.services).then(function (data) {
-                    if (data){
-                        self.$vs.notify({
-                            title:'ប្រតិបត្តិការណ៍ជោគជ័យ',
-                            text:'ទិន្នន័យត្រូវបានកែប្រែ',
-                            color:'primary',
-                            iconPack: 'feather',
-                            icon:'icon-check',
-                            position:'top-center'
-                        });
-                        self.clearEmployeeForm();
-                        self.$vs.loading.close();
-                    }
-                })
-            },
             showEmployee(){
-              this.showEmployeePopup=true;
-              this.employees.contact = this.selected[0].contact;
+              // this.$modal.show('showEmployee');
+              this.showEmployeePopup = true;
+              var em = this.show_employees;
+              var sl = this.selected[0];
+              em.id          = this.preFixZero(sl.id, 5);
+              em.profile     = sl.profile;
+              em.kh_name     = sl.kh_name;
+              em.en_name     = sl.en_name;
+              em.gender      = sl.gender;
+              em.dob         = sl.dob;
+              em.position    = sl.position;
+              em.degree_note = sl.degree_note;
+              em.start_work  = sl.start_work;
+              em.contact     = sl.contact;
+              em.pob         = sl.pob;
+              em.addr        = sl.addr;
             },
+            preFixZero(number, length){
+                var str = '' + number;
+                while (str.length < length) {
+                    str = '0' + str;
+                }
+                return str;
+            },
+            showCreateEmployee(){
+                this.$refs.createEmployee.showCreatePopup(this.selected);
+                this.selected = [];
+            }
         }
     }
 </script>

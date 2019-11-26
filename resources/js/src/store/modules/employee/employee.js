@@ -55,7 +55,18 @@ const mutations = {
         const index = state.employees.findIndex(employee => employee.id === data.id);
         if(index !== -1){
             state.employees.splice(index, 1, {
-                id      : data.id,
+                id          : data.id,
+                profile     : data.profile,
+                kh_name     : data.kh_name,
+                en_name     : data.en_name,
+                gender      : data.gender,
+                dob         : data.dob,
+                position    : data.position,
+                degree_note : data.degree_note,
+                start_work  : data.start_work,
+                contact     : data.contact,
+                pob         : data.pob,
+                addr        : data.addr,
             });
         }
     },

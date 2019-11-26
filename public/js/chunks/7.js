@@ -183,6 +183,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -194,6 +204,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   data: function data() {
     return {
+      is_update: false,
       images: [],
       date: null,
       createPopup: false,
@@ -212,6 +223,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       position: '',
       degree_note: '',
       employees: {
+        id: '',
         profile: '',
         kh_name: '',
         en_name: '',
@@ -264,6 +276,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return created;
   }(),
   methods: {
+    showCreatePopup: function showCreatePopup(selected) {
+      this.is_update = true;
+      this.createPopup = true;
+      var em = this.employees;
+      var sl = selected[0];
+
+      if (selected !== 'inner') {
+        em.id = sl.id;
+        em.profile = sl.profile;
+        em.kh_name = sl.kh_name;
+        em.en_name = sl.en_name;
+        em.gender = sl.gender;
+        em.dob = sl.dob;
+        em.position = sl.position;
+        em.degree_note = sl.degree_note;
+        em.start_work = sl.start_work;
+        em.contact = sl.contact;
+        em.pob = sl.pob;
+        em.addr = sl.addr;
+      } else {
+        this.clearEmployeeForm();
+      }
+    },
     successUpload: function successUpload(file, res) {
       this.images.unshift(res);
     },
@@ -336,17 +371,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
     },
     storeEmployee: function storeEmployee() {
-      var _this = this;
-
       var self = this;
       this.$validator.validateAll().then(function (result) {
         if (result) {
           self.employees.profile = self.images[0].path;
-
-          _this.$vs.loading({
+          self.$vs.loading({
             type: 'material'
           });
-
           self.$store.dispatch('storeEmployee', self.employees).then(function (data) {
             if (data) {
               self.$vs.notify({
@@ -361,23 +392,71 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               self.$vs.loading.close();
             }
           });
-        } else {// form have errors
+        } else {
+          self.$vs.notify({
+            title: 'ប្រតិបត្តិការណ៍បរាជ័យ',
+            text: 'ទិន្នន័យមិនមានគ្រប់គ្រាន់!',
+            color: 'danger',
+            iconPack: 'feather',
+            icon: 'icon-alert-octagon',
+            position: 'top-center'
+          });
         }
       });
     },
     clearEmployeeForm: function clearEmployeeForm() {
+      this.is_update = false;
       var vm = this.employees;
       vm.profile = '';
       vm.kh_name = '';
       vm.en_name = '';
-      vm.gender = '';
-      vm.dob = '';
+      vm.gender = null;
+      vm.dob = null;
       vm.position = '';
       vm.degree_note = '';
-      vm.start_work = '';
+      vm.start_work = null;
       vm.contact = '';
       vm.pob = '';
       vm.addr = '';
+    },
+    updateEmployee: function updateEmployee() {
+      var self = this;
+
+      if (self.images.length) {
+        self.employees.profile = self.images[0].path;
+      }
+
+      this.$validator.validateAll().then(function (result) {
+        if (result) {
+          self.$vs.loading({
+            type: 'material'
+          });
+          self.$store.dispatch('updateEmployee', self.employees).then(function (data) {
+            if (data) {
+              self.$vs.notify({
+                title: 'ប្រតិបត្តិការណ៍ជោគជ័យ',
+                text: 'ទិន្នន័យត្រូវបានកែប្រែ',
+                color: 'primary',
+                iconPack: 'feather',
+                icon: 'icon-check',
+                position: 'top-center'
+              });
+              self.clearEmployeeForm();
+              self.$vs.loading.close();
+              self.createPopup = false;
+            }
+          });
+        } else {
+          self.$vs.notify({
+            title: 'ប្រតិបត្តិការណ៍បរាជ័យ',
+            text: 'ទិន្នន័យមិនមានគ្រប់គ្រាន់!',
+            color: 'danger',
+            iconPack: 'feather',
+            icon: 'icon-alert-octagon',
+            position: 'top-center'
+          });
+        }
+      });
     }
   }
 });
@@ -520,6 +599,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -533,8 +629,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       date: null,
       users: [],
       selected: [],
-      employees: {
-        contact: ''
+      show_employees: {
+        id: '',
+        profile: '',
+        kh_name: '',
+        en_name: '',
+        gender: null,
+        dob: null,
+        position: null,
+        degree_note: null,
+        start_work: null,
+        contact: '',
+        pob: '',
+        addr: ''
       },
       is_update: false,
       showEmployeePopup: false
@@ -655,37 +762,36 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     acceptAlert: function acceptAlert() {
       this.destroyEmployee();
     },
-    editEmployee: function editEmployee() {
-      this.services.id = this.selected[0].id;
-      this.services.type = this.selected[0].type;
-      this.services.service = this.selected[0].service;
-      this.services.cost = this.selected[0].cost;
-      this.is_update = true;
-      this.selected = [];
-    },
-    updateEmployee: function updateEmployee() {
-      var self = this;
-      this.$vs.loading({
-        type: 'material'
-      });
-      self.$store.dispatch('updateEmployee', self.services).then(function (data) {
-        if (data) {
-          self.$vs.notify({
-            title: 'ប្រតិបត្តិការណ៍ជោគជ័យ',
-            text: 'ទិន្នន័យត្រូវបានកែប្រែ',
-            color: 'primary',
-            iconPack: 'feather',
-            icon: 'icon-check',
-            position: 'top-center'
-          });
-          self.clearEmployeeForm();
-          self.$vs.loading.close();
-        }
-      });
-    },
     showEmployee: function showEmployee() {
+      // this.$modal.show('showEmployee');
       this.showEmployeePopup = true;
-      this.employees.contact = this.selected[0].contact;
+      var em = this.show_employees;
+      var sl = this.selected[0];
+      em.id = this.preFixZero(sl.id, 5);
+      em.profile = sl.profile;
+      em.kh_name = sl.kh_name;
+      em.en_name = sl.en_name;
+      em.gender = sl.gender;
+      em.dob = sl.dob;
+      em.position = sl.position;
+      em.degree_note = sl.degree_note;
+      em.start_work = sl.start_work;
+      em.contact = sl.contact;
+      em.pob = sl.pob;
+      em.addr = sl.addr;
+    },
+    preFixZero: function preFixZero(number, length) {
+      var str = '' + number;
+
+      while (str.length < length) {
+        str = '0' + str;
+      }
+
+      return str;
+    },
+    showCreateEmployee: function showCreateEmployee() {
+      this.$refs.createEmployee.showCreatePopup(this.selected);
+      this.selected = [];
     }
   }
 });
@@ -781,7 +887,7 @@ var render = function() {
                       },
                       on: {
                         click: function($event) {
-                          _vm.createPopup = true
+                          return _vm.showCreatePopup("inner")
                         }
                       }
                     },
@@ -1597,27 +1703,53 @@ var render = function() {
                             "div",
                             { staticClass: "flex btn-group" },
                             [
-                              _c(
-                                "vs-button",
-                                {
-                                  attrs: {
-                                    type: "relief",
-                                    "icon-pack": "feather",
-                                    icon: "icon-plus-square"
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      $event.preventDefault()
-                                      return _vm.storeEmployee($event)
-                                    }
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                                រក្សាទុក\n                            "
+                              _vm.is_update === false
+                                ? _c(
+                                    "vs-button",
+                                    {
+                                      attrs: {
+                                        type: "relief",
+                                        "icon-pack": "feather",
+                                        icon: "icon-plus-square"
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          $event.preventDefault()
+                                          return _vm.storeEmployee($event)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                                រក្សាទុក\n                            "
+                                      )
+                                    ]
                                   )
-                                ]
-                              )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _vm.is_update === true
+                                ? _c(
+                                    "vs-button",
+                                    {
+                                      attrs: {
+                                        type: "relief",
+                                        "icon-pack": "feather",
+                                        icon: "icon-plus-square"
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          $event.preventDefault()
+                                          return _vm.updateEmployee($event)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                                កែប្រែ\n                            "
+                                      )
+                                    ]
+                                  )
+                                : _vm._e()
                             ],
                             1
                           )
@@ -1663,7 +1795,7 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("Create"),
+      _c("Create", { ref: "createEmployee" }),
       _vm._v(" "),
       _c("vs-divider"),
       _vm._v(" "),
@@ -1853,6 +1985,23 @@ var render = function() {
                 },
                 [_vm._v("\n            បង្ហាញ\n        ")]
               )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.selected.length === 1
+            ? _c(
+                "vs-button",
+                {
+                  staticClass: "mb-2",
+                  attrs: {
+                    color: "warning",
+                    type: "relief",
+                    "icon-pack": "feather",
+                    icon: "icon-edit"
+                  },
+                  on: { click: _vm.showCreateEmployee }
+                },
+                [_vm._v("\n            កែប្រែ\n        ")]
+              )
             : _vm._e()
         ],
         1
@@ -1867,7 +2016,7 @@ var render = function() {
             {
               attrs: {
                 fullscreen: "",
-                title: "fullscreen",
+                title: "ពត៍មានលម្អិត",
                 active: _vm.showEmployeePopup
               },
               on: {
@@ -1877,111 +2026,129 @@ var render = function() {
               }
             },
             [
-              _c(
-                "vs-row",
-                [
-                  _c("vs-col", { attrs: { "vs-w": "3" } }, [
-                    _c("div", { staticClass: "con-example-images" }, [
-                      _c("img", {
-                        staticClass: "p-10",
-                        staticStyle: { height: "250px" },
-                        attrs: { src: "https://picsum.photos/400/400?image=32" }
-                      })
+              _c("div", { staticClass: "vx-row mt-10" }, [
+                _c("div", { staticClass: "vx-col md:w-full" }, [
+                  _c("h4", [
+                    _vm._v("អត្តលេខ: PKS-" + _vm._s(_vm.show_employees.id))
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "vx-row mt-4" }, [
+                _c("div", { staticClass: "vx-col lg:w-1/4" }, [
+                  _c("img", {
+                    staticClass: "p-10",
+                    staticStyle: { height: "250px" },
+                    attrs: { src: _vm.show_employees.profile }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "vx-col lg:w-3/4 mt-10" }, [
+                  _c("div", { staticClass: "flex mb-10" }, [
+                    _c("div", { staticClass: "w-1/3" }, [
+                      _c("i", [
+                        _vm._v("ឈ្មោះខ្មែរ:"),
+                        _c("b", [
+                          _vm._v(" " + _vm._s(_vm.show_employees.kh_name) + " ")
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "w-1/3" }, [
+                      _c("i", [
+                        _vm._v("ឈ្មោះឡាតាំង:"),
+                        _c("b", [
+                          _vm._v(" " + _vm._s(_vm.show_employees.en_name) + " ")
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "w-1/3" }, [
+                      _c("i", [_vm._v("ភេទ:"), _c("b", [_vm._v("Male")])])
                     ])
                   ]),
                   _vm._v(" "),
-                  _c(
-                    "vs-col",
-                    { staticClass: "mt-10 bg-primary", attrs: { "vs-w": "9" } },
-                    [
-                      _c("div", { staticClass: "flex mb-10" }, [
-                        _c("div", { staticClass: "w-1/3" }, [
-                          _c("i", [
-                            _vm._v("ឈ្មោះខ្មែរ:"),
-                            _c("b", [_vm._v("សំគិស រុងរឿង")])
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "w-1/3" }, [
-                          _c("i", [
-                            _vm._v("ឈ្មោះឡាតាំង:"),
-                            _c("b", [_vm._v("ABC LEO")])
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "w-1/3" }, [
-                          _c("i", [_vm._v("ភេទ:"), _c("b", [_vm._v("Male")])])
+                  _c("div", { staticClass: "flex mb-10" }, [
+                    _c("div", { staticClass: "w-1/3" }, [
+                      _c("i", [
+                        _vm._v("ថ្ងៃខែឆ្នាំកំណើត:"),
+                        _c("b", [
+                          _vm._v(" " + _vm._s(_vm.show_employees.dob) + " ")
                         ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "flex mb-10" }, [
-                        _c("div", { staticClass: "w-1/3" }, [
-                          _c("i", [
-                            _vm._v("ថ្ងៃខែឆ្នាំកំណើត:"),
-                            _c("b", [_vm._v(" 2020/20/10")])
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "w-1/3" }, [
-                          _c("i", [
-                            _vm._v("តួនាទី:"),
-                            _c("b", [_vm._v(" រើសអេតចាយ")])
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "w-1/3" }, [
-                          _c("i", [
-                            _vm._v("គម្រិតសម្គាល់:"),
-                            _c("b", [_vm._v(" លំដាប់ ISO 2020")])
-                          ])
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "flex mb-10" }, [
-                        _c("div", { staticClass: "w-1/3" }, [
-                          _c("i", [
-                            _vm._v("ថ្ងៃខែឆ្នាំចូលធ្វើការ:"),
-                            _c("b", [_vm._v("  2020/20/10")])
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          { staticClass: "2/3" },
-                          [
-                            _c("i", [_vm._v("ទំនាក់ទំនង់:")]),
-                            _c("br"),
-                            _vm._v(" "),
-                            _vm._l(_vm.employees.contact.split("\n"), function(
-                              item,
-                              index
-                            ) {
-                              return _c("b", { key: index }, [
-                                _vm._v(" " + _vm._s(item)),
-                                _c("br")
-                              ])
-                            })
-                          ],
-                          2
-                        )
                       ])
-                    ]
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "vs-row",
-                [
-                  _c("vs-col", { attrs: { "vs-w": "12" } }, [
-                    _c("h3", [_c("i", [_vm._v("ទំនាក់ទំនង់:")])])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "w-1/3" }, [
+                      _c("i", [
+                        _vm._v("តួនាទី:"),
+                        _c("b", [
+                          _vm._v(
+                            " " + _vm._s(_vm.show_employees.position) + " "
+                          )
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "w-1/3" }, [
+                      _c("i", [
+                        _vm._v("គម្រិតសម្គាល់:"),
+                        _c("b", [
+                          _vm._v(
+                            " " + _vm._s(_vm.show_employees.degree_note) + " "
+                          )
+                        ])
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "flex mb-10" }, [
+                    _c("div", { staticClass: "w-1/3" }, [
+                      _c("i", [
+                        _vm._v("ថ្ងៃខែឆ្នាំចូលធ្វើការ:"),
+                        _c("b", [_vm._v(_vm._s(_vm.show_employees.start_work))])
+                      ])
+                    ])
                   ])
-                ],
-                1
-              )
-            ],
-            1
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "vx-row mt-10" }, [
+                _c(
+                  "div",
+                  { staticClass: "vx-col md:w-1/3" },
+                  [
+                    _c("h3", [_c("i", [_vm._v("ទំនាក់ទំនង់:")])]),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _vm._l(_vm.show_employees.contact.split("\n"), function(
+                      item,
+                      index
+                    ) {
+                      return _c("b", { key: index }, [
+                        _vm._v(" " + _vm._s(item)),
+                        _c("br")
+                      ])
+                    })
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "vx-col md:w-1/3" }, [
+                  _c("h3", [_c("i", [_vm._v("អាស័យដ្ឋានបច្ចុប្បន្ន:")])]),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("b", [_vm._v(_vm._s(_vm.show_employees.addr))])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "vx-col md:w-1/3" }, [
+                  _c("h3", [_c("i", [_vm._v("អាស័យដ្ឋានកំណើត:")])]),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("b", [_vm._v(_vm._s(_vm.show_employees.pob))])
+                ])
+              ])
+            ]
           )
         ],
         1

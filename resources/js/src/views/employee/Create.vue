@@ -4,7 +4,7 @@
             <vs-col vs-type="flex" vs-justify="flex-end">
                 <div class="flex btn-group">
                     <vs-button
-                            @click="createPopup = true"
+                            @click="showCreatePopup('inner')"
                             type="relief"
                             icon-pack="feather"
                             icon="icon-plus-square"
@@ -146,8 +146,18 @@
                                         type="relief"
                                         icon-pack="feather"
                                         icon="icon-plus-square"
+                                        v-if="is_update === false"
                                 >
                                     រក្សាទុក
+                                </vs-button>
+                                <vs-button
+                                        @click.prevent="updateEmployee"
+                                        type="relief"
+                                        icon-pack="feather"
+                                        icon="icon-plus-square"
+                                        v-if="is_update === true"
+                                >
+                                    កែប្រែ
                                 </vs-button>
                             </div>
                         </vs-col>
@@ -171,6 +181,7 @@
         },
         data() {
             return {
+                is_update: false,
                 images:[],
                 date: null,
                 createPopup: false,
@@ -189,6 +200,7 @@
                 position: '',
                 degree_note: '',
                 employees: {
+                    id: '',
                     profile: '',
                     kh_name: '',
                     en_name: '',
@@ -216,6 +228,28 @@
             await this.$store.dispatch('fetchDegreeNote');
         },
         methods: {
+            showCreatePopup(selected){
+                this.is_update = true;
+                this.createPopup = true;
+                var em = this.employees;
+                var sl = selected[0];
+                if (selected !== 'inner'){
+                    em.id          = sl.id;
+                    em.profile     = sl.profile;
+                    em.kh_name     = sl.kh_name;
+                    em.en_name     = sl.en_name;
+                    em.gender      = sl.gender;
+                    em.dob         = sl.dob;
+                    em.position    = sl.position;
+                    em.degree_note = sl.degree_note;
+                    em.start_work  = sl.start_work;
+                    em.contact     = sl.contact;
+                    em.pob         = sl.pob;
+                    em.addr        = sl.addr;
+                } else {
+                    this.clearEmployeeForm();
+                }
+            },
             successUpload(file,res){
                 this.images.unshift(res)
             },
@@ -286,7 +320,7 @@
                 this.$validator.validateAll().then(result => {
                     if(result) {
                         self.employees.profile = self.images[0].path;
-                        this.$vs.loading({
+                        self.$vs.loading({
                             type:'material',
                         });
                         self.$store.dispatch('storeEmployee', self.employees).then(function (data) {
@@ -304,23 +338,68 @@
                             }
                         })
                     }else{
-                        // form have errors
+                        self.$vs.notify({
+                            title:'ប្រតិបត្តិការណ៍បរាជ័យ',
+                            text:'ទិន្នន័យមិនមានគ្រប់គ្រាន់!',
+                            color:'danger',
+                            iconPack: 'feather',
+                            icon:'icon-alert-octagon',
+                            position:'top-center'
+                        });
                     }
                 });
             },
             clearEmployeeForm(){
+                this.is_update = false;
                 var vm = this.employees;
                 vm.profile = '';
                 vm.kh_name = '';
                 vm.en_name = '';
-                vm.gender = '';
-                vm.dob = '';
+                vm.gender = null;
+                vm.dob = null;
                 vm.position = '';
                 vm.degree_note = '';
-                vm.start_work = '';
+                vm.start_work = null;
                 vm.contact = '';
                 vm.pob = '';
                 vm.addr = '';
+            },
+            updateEmployee(){
+                let self = this;
+                if(self.images.length){
+                    self.employees.profile = self.images[0].path;
+                }
+                this.$validator.validateAll().then(result => {
+                    if(result) {
+                        self.$vs.loading({
+                            type:'material',
+                        });
+                        self.$store.dispatch('updateEmployee', self.employees).then(function (data) {
+                            if (data){
+                                self.$vs.notify({
+                                    title:'ប្រតិបត្តិការណ៍ជោគជ័យ',
+                                    text:'ទិន្នន័យត្រូវបានកែប្រែ',
+                                    color:'primary',
+                                    iconPack: 'feather',
+                                    icon:'icon-check',
+                                    position:'top-center'
+                                });
+                                self.clearEmployeeForm();
+                                self.$vs.loading.close();
+                                self.createPopup = false;
+                            }
+                        })
+                    } else {
+                        self.$vs.notify({
+                            title:'ប្រតិបត្តិការណ៍បរាជ័យ',
+                            text:'ទិន្នន័យមិនមានគ្រប់គ្រាន់!',
+                            color:'danger',
+                            iconPack: 'feather',
+                            icon:'icon-alert-octagon',
+                            position:'top-center'
+                        });
+                    }
+                });
             },
         }
     }
