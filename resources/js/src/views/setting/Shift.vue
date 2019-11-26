@@ -55,7 +55,12 @@
                 </vs-tr>
             </template>
         </vs-table>
-        <vs-button @click="openAlert('danger')" class="mb-2" color="danger" type="relief" icon-pack="feather" icon="icon-trash-2" v-if="selected.length">លុប</vs-button>
+        <vs-button
+                @click="openAlert('danger')" class="mb-2" color="danger" type="relief"
+                icon-pack="feather" icon="icon-trash-2" v-if="selected.length"
+        >
+            លុប
+        </vs-button>
     </div>
 </template>
 <script>

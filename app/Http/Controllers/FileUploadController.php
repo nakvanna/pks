@@ -10,11 +10,9 @@ class FileUploadController extends Controller
 {
     public function upload(Request $request){
         $file = $request->file('file');
-        $img = Image::make($file)->encode('jpg',90);
+        $img = Image::make($file)->encode('jpg',100);
         $name = uniqid().'-'.time() . '.jpg';
-        $store = Storage::disk('public')->put($name, $img);
-        if ($store){
-            return Storage::url($name);
-        }
+        Storage::disk('public')->put($name, $img);
+        return response()->json(['path'=>Storage::url($name)]);
     }
 }

@@ -26,6 +26,9 @@ import level from './modules/setting/level';
 import shift from './modules/setting/shift';
 import collection from './modules/setting/collection';
 import service from './modules/service/service';
+import position from './modules/employee/position';
+import degree_note from './modules/employee/degree_note';
+import employee from './modules/employee/employee';
 export default new Vuex.Store({
     getters,
     mutations,
@@ -40,5 +43,8 @@ export default new Vuex.Store({
         shift,
         collection,
         service,
+        position,
+        degree_note,
+        employee,
     }
 })

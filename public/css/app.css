@@ -4161,6 +4161,12 @@ ul.bordered-items > li:not(:last-of-type):not([class*='shadow']) {
   border-bottom: 1px solid #dae1e7;
 }
 
+.max-content {
+  width: -webkit-max-content !important;
+  width: -moz-max-content !important;
+  width: max-content !important;
+}
+
 /*=========================================================================================
   File Name: _fixesVuesax.scss
   Description: Partial - Fixes/Add vuesax framework styles

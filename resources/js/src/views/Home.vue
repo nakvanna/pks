@@ -109,7 +109,7 @@
 				data: 'Working on the mix',
 				options: {},
 				dropzoneOptions: {
-					url: route('file.upload.original'),
+					url: route('file.upload'),
 					maxFiles:1,
 					addRemoveLinks: true,
 					// dictDefaultMessage: "ដាក់រូបភាព",

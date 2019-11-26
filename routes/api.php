@@ -25,3 +25,6 @@ Route::resource('/study-class','StudyClassController');
 Route::resource('/shift','ShiftController');
 Route::resource('/collection','CollectionController');
 Route::resource('/service','ServiceController');
+Route::resource('/position','PositionController');
+Route::resource('/degree-note','DegreeNoteController');
+Route::resource('/employee','EmployeeController');
