@@ -4,6 +4,8 @@
             <vs-button @click="$refs.addStudent.show()" type="relief" icon-pack="feather" icon="icon-plus-square">បន្ថែម</vs-button>
             <vs-button v-if="selected.length===1" @click="$refs.editStudent.show();$refs.editStudent.editStudent(selected[0])" color="warning" type="relief" icon-pack="feather" icon="icon-edit">កែប្រែ</vs-button>
             <vs-button v-if="selected.length" @click="toggleStudent" color="danger" type="relief" icon-pack="feather" icon="icon-circle">Toggle Status</vs-button>
+            <vs-button v-if="selected.length" @click="toggleStudent" type="relief" icon-pack="feather" icon="icon-upload">ការសិក្សា</vs-button>
+            <vs-button v-if="selected.length" @click="toggleStudent" color="dark" type="relief" icon-pack="feather" icon="icon-upload">សេវាកម្ម</vs-button>
         </div>
         <vs-table multiple v-model="selected" pagination max-items="10" search :data="all_students">
             <template slot="thead">

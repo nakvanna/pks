@@ -61,6 +61,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -739,6 +741,37 @@ var render = function() {
                   on: { click: _vm.toggleStudent }
                 },
                 [_vm._v("Toggle Status")]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.selected.length
+            ? _c(
+                "vs-button",
+                {
+                  attrs: {
+                    type: "relief",
+                    "icon-pack": "feather",
+                    icon: "icon-upload"
+                  },
+                  on: { click: _vm.toggleStudent }
+                },
+                [_vm._v("ការសិក្សា")]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.selected.length
+            ? _c(
+                "vs-button",
+                {
+                  attrs: {
+                    color: "dark",
+                    type: "relief",
+                    "icon-pack": "feather",
+                    icon: "icon-upload"
+                  },
+                  on: { click: _vm.toggleStudent }
+                },
+                [_vm._v("សេវាកម្ម")]
               )
             : _vm._e()
         ],
