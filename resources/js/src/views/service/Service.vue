@@ -50,39 +50,39 @@
                 <vs-th sort-key="cost_six">តម្លៃ ១ឆមាស</vs-th>
                 <vs-th sort-key="cost_twelve">តម្លៃ​ ១ឆ្នាំ</vs-th>
             </template>
-            <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in data">
 
-                <vs-td :data="data[indextr].id">
-                    {{ data[indextr].id }}
-                </vs-td>
+            <template slot-scope="{data}">
+                <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in data">
 
-                <vs-td :data="data[indextr].type">
-                    {{ data[indextr].type }}
-                </vs-td>
+                    <vs-td :data="data[indextr].id">
+                        {{ data[indextr].id }}
+                    </vs-td>
 
-                <vs-td :data="data[indextr].service">
-                    {{ data[indextr].service }}
-                </vs-td>
+                    <vs-td :data="data[indextr].type">
+                        {{ data[indextr].type }}
+                    </vs-td>
 
-                <vs-td :data="data[indextr].cost_one">
-                    $ {{ data[indextr].cost_one }}
-                </vs-td>
+                    <vs-td :data="data[indextr].service">
+                        {{ data[indextr].service }}
+                    </vs-td>
 
-                <vs-td :data="data[indextr].cost_three">
-                    $ {{ data[indextr].cost_three }}
-                </vs-td>
+                    <vs-td :data="data[indextr].cost_one">
+                        $ {{ data[indextr].cost_one }}
+                    </vs-td>
 
-                <vs-td :data="data[indextr].cost_six">
-                    $ {{ data[indextr].cost_six }}
-                </vs-td>
+                    <vs-td :data="data[indextr].cost_three">
+                        $ {{ data[indextr].cost_three }}
+                    </vs-td>
 
-                <vs-td :data="'$ '+ data[indextr].cost_twelve">
-                    $ {{ data[indextr].cost_twelve }}
-                </vs-td>
-            </vs-tr>
+                    <vs-td :data="data[indextr].cost_six">
+                        $ {{ data[indextr].cost_six }}
+                    </vs-td>
 
-
-            <template slot-scope="{data}"></template>
+                    <vs-td :data="data[indextr].cost_twelve">
+                        $ {{ data[indextr].cost_twelve }}
+                    </vs-td>
+                </vs-tr>
+            </template>
         </vs-table>
 
         <vs-row vs-type="flex" vs-justify="flex-end">
