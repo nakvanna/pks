@@ -61,7 +61,7 @@
                     </div>
                 </div>
                 <div class="vx-col lg:w-1/4 w-full">
-                    <vue-dropzone class="max-content p-1" duplicateCheck ref="myVueDropzone" @vdropzone-success="successUpload" id="dropzone" :options="dropzoneOptions"></vue-dropzone>
+                    <vue-dropzone class="max-content p-1" @vdropzone-mounted="loadPhoto" duplicateCheck ref="myVueDropzone" @vdropzone-success="successUpload" id="dropzone" :options="dropzoneOptions"></vue-dropzone>
                 </div>
             </div>
             <vs-divider position="left">ពត៌មានអាណាព្យាបាល</vs-divider>
@@ -110,7 +110,7 @@
             <vs-divider/>
             <!-- Save & Reset Button -->
             <div class="flex justify-end btn-group">
-                <vs-button @click="storeStudent" icon="icon-save" icon-pack="feather" type="relief">កែប្រែ</vs-button>
+                <vs-button @click="updateStudent" icon="icon-edit" icon-pack="feather" type="relief">កែប្រែ</vs-button>
             </div>
         </vx-card>
     </modal>
@@ -159,27 +159,26 @@
                 this.$modal.show('edit');
             },
             //store
-            storeStudent(){
+            updateStudent(){
                 let self = this;
                 this.$validator.validateAll().then(result => {
                     if (result && self.data.gender && self.data.photo) {
                         self.$vs.loading();
-                        self.$store.dispatch('storeStudent',self.data).then(function (data) {
+                        self.$store.dispatch('updateStudent',self.data).then(function (data) {
                             if (data) {
                                 self.$vs.notify({
                                     time: 4000,
                                     title: 'ប្រតិបត្តិការជោគជ័យ',
-                                    text: 'ទិន្នន័យបានបន្ថែម',
+                                    text: 'ទិន្នន័យបានកែប្រែ',
                                     color: 'success',
                                     iconPack: 'feather',
                                     icon: 'icon-check',
                                     position: 'top-center'
                                 });
-                                self.resetField();
                             } else {
                                 self.$vs.notify({
                                     title: 'ប្រតិបត្តិការបរាជ័យ',
-                                    text: 'ទិន្នន័យមិនបានបន្ថែម',
+                                    text: 'ទិន្នន័យមិនបានកែប្រែ',
                                     color: 'danger',
                                     iconPack: 'feather',
                                     icon: 'icon-message-square',
@@ -204,29 +203,13 @@
             //edit student
             editStudent(data){
                 this.data = data;
-                // this.$refs.myVueDropzone.manuallyAddFile({size:123,name:'រូបភាព',type:'image/png'},'phpot.png')
-            },
-            resetField(){
-                this.data = {
-                    name:'',
-                    latin:'',
-                    gender:'ប្រុស',
-                    photo:'placeholder/placeholder.png',
-                    dob:'',
-                    std_contact:'',
-                    pob:'',
-                    address:'',
-                    father_name:'',
-                    father_job:'',
-                    father_contact:'',
-                    mother_name:'',
-                    mother_job:'',
-                    mother_contact:'',
-                }
             },
             //image upload
             successUpload(file,res){
                 this.data.photo = res.path
+            },
+            loadPhoto() {
+                this.$refs.myVueDropzone.manuallyAddFile({ size: 123}, this.data.photo);
             }
         },
     }

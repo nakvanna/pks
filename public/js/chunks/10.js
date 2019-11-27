@@ -56,6 +56,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -105,8 +110,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return fetchStudent;
     }(),
     //destroy
-    destroyStudent: function () {
-      var _destroyStudent = _asyncToGenerator(
+    toggleStudent: function () {
+      var _toggleStudent = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
         var self, promises;
@@ -127,7 +132,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                         switch (_context2.prev = _context2.next) {
                           case 0:
                             _context2.next = 2;
-                            return self.$store.dispatch('destroyStudent', data.id);
+                            return self.$store.dispatch('toggleStudent', data.id);
 
                           case 2:
                           case "end":
@@ -146,7 +151,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   self.$vs.notify({
                     time: 4000,
                     title: 'ប្រតិបត្តិការជោគជ័យ',
-                    text: 'ទិន្នន័យបានបន្ថែម',
+                    text: 'ទិន្នន័យបានកែប្រែ',
                     color: 'success',
                     iconPack: 'feather',
                     icon: 'icon-check',
@@ -164,11 +169,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee3, this);
       }));
 
-      function destroyStudent() {
-        return _destroyStudent.apply(this, arguments);
+      function toggleStudent() {
+        return _toggleStudent.apply(this, arguments);
       }
 
-      return destroyStudent;
+      return toggleStudent;
     }()
   }
 });
@@ -600,27 +605,26 @@ __webpack_require__.r(__webpack_exports__);
       this.$modal.show('edit');
     },
     //store
-    storeStudent: function storeStudent() {
+    updateStudent: function updateStudent() {
       var self = this;
       this.$validator.validateAll().then(function (result) {
         if (result && self.data.gender && self.data.photo) {
           self.$vs.loading();
-          self.$store.dispatch('storeStudent', self.data).then(function (data) {
+          self.$store.dispatch('updateStudent', self.data).then(function (data) {
             if (data) {
               self.$vs.notify({
                 time: 4000,
                 title: 'ប្រតិបត្តិការជោគជ័យ',
-                text: 'ទិន្នន័យបានបន្ថែម',
+                text: 'ទិន្នន័យបានកែប្រែ',
                 color: 'success',
                 iconPack: 'feather',
                 icon: 'icon-check',
                 position: 'top-center'
               });
-              self.resetField();
             } else {
               self.$vs.notify({
                 title: 'ប្រតិបត្តិការបរាជ័យ',
-                text: 'ទិន្នន័យមិនបានបន្ថែម',
+                text: 'ទិន្នន័យមិនបានកែប្រែ',
                 color: 'danger',
                 iconPack: 'feather',
                 icon: 'icon-message-square',
@@ -645,29 +649,16 @@ __webpack_require__.r(__webpack_exports__);
     },
     //edit student
     editStudent: function editStudent(data) {
-      this.data = data; // this.$refs.myVueDropzone.manuallyAddFile({size:123,name:'រូបភាព',type:'image/png'},'phpot.png')
-    },
-    resetField: function resetField() {
-      this.data = {
-        name: '',
-        latin: '',
-        gender: 'ប្រុស',
-        photo: 'placeholder/placeholder.png',
-        dob: '',
-        std_contact: '',
-        pob: '',
-        address: '',
-        father_name: '',
-        father_job: '',
-        father_contact: '',
-        mother_name: '',
-        mother_job: '',
-        mother_contact: ''
-      };
+      this.data = data;
     },
     //image upload
     successUpload: function successUpload(file, res) {
       this.data.photo = res.path;
+    },
+    loadPhoto: function loadPhoto() {
+      this.$refs.myVueDropzone.manuallyAddFile({
+        size: 123
+      }, this.data.photo);
     }
   }
 });
@@ -743,11 +734,11 @@ var render = function() {
                     color: "danger",
                     type: "relief",
                     "icon-pack": "feather",
-                    icon: "icon-trash-2"
+                    icon: "icon-circle"
                   },
-                  on: { click: _vm.destroyStudent }
+                  on: { click: _vm.toggleStudent }
                 },
-                [_vm._v("លុប")]
+                [_vm._v("Toggle Status")]
               )
             : _vm._e()
         ],
@@ -800,6 +791,25 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "vs-td",
+                        { attrs: { data: data[indextr].status } },
+                        [
+                          data[indextr].status === true
+                            ? _c("vs-chip", { attrs: { color: "success" } }, [
+                                _vm._v("Active")
+                              ])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          data[indextr].status === false
+                            ? _c("vs-chip", { attrs: { color: "warning" } }, [
+                                _vm._v("Inactive")
+                              ])
+                            : _vm._e()
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "vs-td",
                         { attrs: { data: data[indextr].created_at } },
                         [
                           _vm._v(
@@ -834,7 +844,11 @@ var render = function() {
               _c("vs-th", { attrs: { "sort-key": "name" } }, [_vm._v("ឈ្មោះ")]),
               _vm._v(" "),
               _c("vs-th", { attrs: { "sort-key": "latin" } }, [
-                _vm._v("សង្ខេប")
+                _vm._v("ឈ្មោះឡាតាំង")
+              ]),
+              _vm._v(" "),
+              _c("vs-th", { attrs: { "sort-key": "status" } }, [
+                _vm._v("ស្ថានភាព")
               ]),
               _vm._v(" "),
               _c("vs-th", { attrs: { "sort-key": "created_at" } }, [
@@ -1956,7 +1970,10 @@ var render = function() {
                     id: "dropzone",
                     options: _vm.dropzoneOptions
                   },
-                  on: { "vdropzone-success": _vm.successUpload }
+                  on: {
+                    "vdropzone-mounted": _vm.loadPhoto,
+                    "vdropzone-success": _vm.successUpload
+                  }
                 })
               ],
               1
@@ -2257,11 +2274,11 @@ var render = function() {
                 "vs-button",
                 {
                   attrs: {
-                    icon: "icon-save",
+                    icon: "icon-edit",
                     "icon-pack": "feather",
                     type: "relief"
                   },
-                  on: { click: _vm.storeStudent }
+                  on: { click: _vm.updateStudent }
                 },
                 [_vm._v("កែប្រែ")]
               )

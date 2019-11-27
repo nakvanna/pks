@@ -46,7 +46,7 @@ class StudentController extends Controller
         $store->mother_job = $input['mother_job'];
         $store->mother_contact = $input['mother_contact'];
         $store->save();
-        return $store;
+        return Student::find($store->id);
     }
     //edit
     public function edit($id){
@@ -56,18 +56,44 @@ class StudentController extends Controller
     public function update(Request $request,$id){
         $input = $request->all();
         $request->validate([
-            'title'=>'required',
-            'excerpt'=>'required',
-            'content'=>'required'
+            'name'=>'required',
+            'latin'=>'required',
+            'gender'=>'required',
+            'photo'=>'required',
+            'dob'=>'required',
+            'std_contact'=>'required',
+            'pob'=>'required',
+            'address'=>'required',
+            'father_name'=>'required',
+            'father_job'=>'required',
+            'father_contact'=>'required',
+            'mother_name'=>'required',
+            'mother_job'=>'required',
+            'mother_contact'=>'required',
         ]);
         $update = Student::findOrFail($id);
-        $update->excerpt = $input['excerpt'];
-        $update->title = $input['title'];
-        $update->content = $input['content'];
+        $update->name = $input['name'];
+        $update->latin = $input['latin'];
+        $update->gender = $input['gender'];
+        $update->photo = $input['photo'];
+        $update->dob = $input['dob'];
+        $update->std_contact = $input['std_contact'];
+        $update->pob = $input['pob'];
+        $update->address = $input['address'];
+        $update->father_name = $input['father_name'];
+        $update->father_job = $input['father_job'];
+        $update->father_contact = $input['father_contact'];
+        $update->mother_name = $input['mother_name'];
+        $update->mother_job = $input['mother_job'];
+        $update->mother_contact = $input['mother_contact'];
         $update->save();
+        return $update;
     }
     //destroy
     public function destroy($id){
-        Student::findOrFail($id)->delete();
+        $toggle = Student::findOrFail($id);
+        $toggle->status = !$toggle->status;
+        $toggle->save();
+        return $toggle;
     }
 }
