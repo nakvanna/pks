@@ -80,6 +80,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "StudyYear",
   data: function data() {
@@ -129,6 +139,11 @@ var render = function() {
                         type: "relief",
                         "icon-pack": "feather",
                         icon: "icon-plus-square"
+                      },
+                      on: {
+                        click: function($event) {
+                          return _vm.$modal.show("add-study-year")
+                        }
                       }
                     },
                     [_vm._v("\n                    បន្ថែម\n                ")]
@@ -201,24 +216,20 @@ var render = function() {
             "template",
             { slot: "thead" },
             [
-              _c("vs-th", { attrs: { "sort-key": "id" } }, [_vm._v("អត្តលេខ")]),
-              _vm._v(" "),
-              _c("vs-th", { attrs: { "sort-key": "type" } }, [_vm._v("សិស្ស")]),
+              _c("vs-th", { attrs: { "sort-key": "id" } }, [_vm._v("ID")]),
               _vm._v(" "),
               _c("vs-th", { attrs: { "sort-key": "service" } }, [
                 _vm._v("ឆ្នាំសិក្សា")
               ]),
               _vm._v(" "),
+              _c("vs-th", { attrs: { "sort-key": "type" } }, [_vm._v("សិស្ស")]),
+              _vm._v(" "),
               _c("vs-th", { attrs: { "sort-key": "cost_one" } }, [
-                _vm._v("តម្លៃ​ សេវាកម្ម & មុខវិជ្ជា")
+                _vm._v("មុខវិជ្ជា")
               ]),
               _vm._v(" "),
               _c("vs-th", { attrs: { "sort-key": "cost_three" } }, [
                 _vm._v("គ្រូបង្រៀន")
-              ]),
-              _vm._v(" "),
-              _c("vs-th", { attrs: { "sort-key": "cost_six" } }, [
-                _vm._v("បញ្ចុះតម្លៃ")
               ])
             ],
             1
@@ -267,14 +278,6 @@ var render = function() {
                       _vm._s(_vm.data[indextr].cost_three) +
                       "\n            "
                   )
-                ]),
-                _vm._v(" "),
-                _c("vs-td", { attrs: { data: _vm.data[indextr].cost_six } }, [
-                  _vm._v(
-                    "\n                $ " +
-                      _vm._s(_vm.data[indextr].cost_six) +
-                      "\n            "
-                  )
                 ])
               ],
               1
@@ -282,6 +285,70 @@ var render = function() {
           })
         ],
         2
+      ),
+      _vm._v(" "),
+      _c(
+        "modal",
+        {
+          attrs: {
+            width: "70%",
+            height: "auto",
+            scrollable: true,
+            pivotY: 0.07,
+            adaptive: true,
+            clickToClose: false,
+            name: "add-study-year"
+          }
+        },
+        [
+          _c("div", { staticClass: "flex justify-end" }, [
+            _c(
+              "i",
+              {
+                staticClass:
+                  "vs-icon vs-popup--close material-icons text-warning",
+                staticStyle: { background: "rgb(255, 255, 255)" },
+                on: {
+                  click: function($event) {
+                    return _vm.$modal.hide("add-study-year")
+                  }
+                }
+              },
+              [_vm._v("close")]
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "vx-card",
+            { attrs: { "no-shadow": "" } },
+            [
+              _c("h2", [_vm._v("Hello")]),
+              _vm._v(" "),
+              _c("vs-divider"),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "flex justify-end btn-group" },
+                [
+                  _c(
+                    "vs-button",
+                    {
+                      attrs: {
+                        icon: "icon-save",
+                        "icon-pack": "feather",
+                        type: "relief"
+                      }
+                    },
+                    [_vm._v("រក្សាទុក")]
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
       )
     ],
     1

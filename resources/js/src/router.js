@@ -104,6 +104,19 @@ const router = new Router({
                         rule: 'editor'
                     }
                 },
+                {
+                    path: '/service-package',
+                    name: 'service-package',
+                    component: () => import('./views/service-packet/ServicePackage'),
+                    meta: {
+                        breadcrumb: [
+                            {title: 'កញ្ចប់សេវាកម្ម', url: '/'},
+                            {title: 'កញ្ចប់សេវាកម្ម', active: true},
+                        ],
+                        pageTitle: 'ការទិញកញ្ចប់សេវាកម្ម',
+                        rule: 'editor'
+                    }
+                },
             ],
         },
         // =============================================================================

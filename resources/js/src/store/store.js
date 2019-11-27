@@ -29,6 +29,7 @@ import service from './modules/service/service';
 import position from './modules/employee/position';
 import degree_note from './modules/employee/degree_note';
 import employee from './modules/employee/employee';
+import student from './modules/student/student';
 export default new Vuex.Store({
     getters,
     mutations,
@@ -46,5 +47,6 @@ export default new Vuex.Store({
         position,
         degree_note,
         employee,
+        student,
     }
 })

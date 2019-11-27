@@ -4,6 +4,7 @@
             <vs-col vs-type="flex" vs-justify="flex-end">
                 <div class="flex btn-group">
                     <vs-button
+                            @click="$modal.show('add-study-year');"
                             type="relief"
                             icon-pack="feather"
                             icon="icon-plus-square"
@@ -29,12 +30,11 @@
         <vs-table multiple v-model="selected" pagination max-items="5" search :data="users">
 
             <template slot="thead">
-                <vs-th sort-key="id">អត្តលេខ</vs-th>
-                <vs-th sort-key="type">សិស្ស</vs-th>
+                <vs-th sort-key="id">ID</vs-th>
                 <vs-th sort-key="service">ឆ្នាំសិក្សា</vs-th>
-                <vs-th sort-key="cost_one">តម្លៃ​ សេវាកម្ម & មុខវិជ្ជា</vs-th>
+                <vs-th sort-key="type">សិស្ស</vs-th>
+                <vs-th sort-key="cost_one">មុខវិជ្ជា</vs-th>
                 <vs-th sort-key="cost_three">គ្រូបង្រៀន</vs-th>
-                <vs-th sort-key="cost_six">បញ្ចុះតម្លៃ</vs-th>
             </template>
             <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in data">
 
@@ -58,14 +58,24 @@
                     $ {{ data[indextr].cost_three }}
                 </vs-td>
 
-                <vs-td :data="data[indextr].cost_six">
-                    $ {{ data[indextr].cost_six }}
-                </vs-td>
             </vs-tr>
-
 
             <template slot-scope="{data}"></template>
         </vs-table>
+
+        <modal width="70%" height="auto" :scrollable="true" :pivotY="0.07" :adaptive="true" :clickToClose="false" name="add-study-year">
+            <div class="flex justify-end">
+                <i @click="$modal.hide('add-study-year')" class="vs-icon vs-popup--close material-icons text-warning" style="background: rgb(255, 255, 255);">close</i>
+            </div>
+            <vx-card no-shadow>
+                <h2>Hello</h2>
+                <vs-divider/>
+                <!-- Save & Reset Button -->
+                <div class="flex justify-end btn-group">
+                    <vs-button icon="icon-save" icon-pack="feather" type="relief">រក្សាទុក</vs-button>
+                </div>
+            </vx-card>
+        </modal>
     </div>
 </template>
 

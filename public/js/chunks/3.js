@@ -6921,6 +6921,11 @@ __webpack_require__.r(__webpack_exports__);
   slug: "study-year",
   icon: "UserPlusIcon"
 }, {
+  url: "/service-package",
+  name: "កញ្ចប់សេវាកម្ម",
+  slug: "service-package",
+  icon: "PackageIcon"
+}, {
   url: "/page2",
   name: "Page 2",
   slug: "page2",
