@@ -20,7 +20,10 @@ class CreateCollectionsTable extends Migration
             $table->string('level');
             $table->string('class_name');
             $table->string('shift');
-            $table->double('cost');
+            $table->double('cost_one');
+            $table->double('cost_three');
+            $table->double('cost_six');
+            $table->double('cost_twelve');
             $table->timestamps();
         });
     }

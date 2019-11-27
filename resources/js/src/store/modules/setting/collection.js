@@ -61,7 +61,10 @@ const mutations = {
                 level         : data.level,
                 shift         : data.shift,
                 class_name    : data.class_name,
-                cost          : data.cost,
+                cost_one      : data.cost_one,
+                cost_three    : data.cost_three,
+                cost_six      : data.cost_six,
+                cost_twelve   : data.cost_twelve,
             });
         }
     },

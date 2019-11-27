@@ -55,10 +55,13 @@ const mutations = {
         const index = state.services.findIndex(service => service.id === data.id);
         if(index !== -1){
             state.services.splice(index, 1, {
-                id      : data.id,
-                type    : data.type,
-                service : data.service,
-                cost    : data.cost,
+                id          : data.id,
+                type        : data.type,
+                service     : data.service,
+                cost_one    : data.cost_one,
+                cost_three  : data.cost_three,
+                cost_six    : data.cost_six,
+                cost_twelve : data.cost_twelve,
             });
         }
     },

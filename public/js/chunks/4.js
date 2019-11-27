@@ -153,6 +153,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Section',
   data: function data() {
@@ -165,7 +182,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         level: '',
         shift: '',
         class_name: '',
-        cost: ''
+        cost_one: '',
+        cost_three: '',
+        cost_six: '',
+        cost_twelve: ''
       },
       selected: [],
       'tableList': ['vs-th: Component', 'vs-tr: Component', 'vs-td: Component', 'thread: Slot', 'tbody: Slot', 'header: Slot']
@@ -199,7 +219,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var self = this;
       var vm = this.collections;
 
-      if (vm.group_section === '' || vm.section === '' || vm.level === '' || vm.shift === '' || vm.class_name === '' || vm.cost === '') {
+      if (vm.group_section === '' || vm.section === '' || vm.level === '' || vm.shift === '' || vm.class_name === '' || vm.cost_one === '' || vm.cost_three === '' || vm.cost_six === '' || vm.cost_twelve === '') {
         self.$vs.notify({
           title: 'ប្រតិបត្តិការណ៍បរាជ័យ',
           text: 'ទិន្នន័យមិនមានគ្រប់គ្រាន់!',
@@ -222,12 +242,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               icon: 'icon-check',
               position: 'top-center'
             });
-            self.collections.group_section = '';
-            self.collections.section = '';
-            self.collections.level = '';
-            self.collections.shift = '';
-            self.collections.class_name = '';
-            self.collections.cost = '';
             self.$vs.loading.close();
           }
         });
@@ -338,7 +352,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.collections.level = this.selected[0].level;
       this.collections.class_name = this.selected[0].class_name;
       this.collections.shift = this.selected[0].shift;
-      this.collections.cost = this.selected[0].cost;
+      this.collections.cost_one = this.selected[0].cost_one;
+      this.collections.cost_three = this.selected[0].cost_three;
+      this.collections.cost_six = this.selected[0].cost_six;
+      this.collections.cost_twelve = this.selected[0].cost_twelve;
       this.is_update = true;
       this.selected = [];
     },
@@ -348,7 +365,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.collections.level = '';
       this.collections.shift = '';
       this.collections.class_name = '';
-      this.collections.cost = '';
+      this.collections.cost_one = '';
+      this.collections.cost_three = '';
+      this.collections.cost_six = '';
+      this.collections.cost_twelve = '';
       this.is_update = false;
     }
   }
@@ -1718,21 +1738,21 @@ var render = function() {
           _c(
             "vs-select",
             {
-              staticClass: "w-1/3",
+              staticClass: "w-1/3 mr-2",
               attrs: {
                 autocomplete: "",
-                label: "Level",
+                label: "វេណ",
                 placeholder: "ជ្រើសរើស"
               },
               model: {
-                value: _vm.collections.level,
+                value: _vm.collections.shift,
                 callback: function($$v) {
-                  _vm.$set(_vm.collections, "level", $$v)
+                  _vm.$set(_vm.collections, "shift", $$v)
                 },
-                expression: "collections.level"
+                expression: "collections.shift"
               }
             },
-            _vm._l(_vm.getLevel, function(item, index) {
+            _vm._l(_vm.getShift, function(item, index) {
               return _c("vs-select-item", {
                 key: index,
                 attrs: { value: item.name, text: item.name }
@@ -1751,21 +1771,21 @@ var render = function() {
           _c(
             "vs-select",
             {
-              staticClass: "w-1/3 mr-2",
+              staticClass: "w-1/3",
               attrs: {
                 autocomplete: "",
-                label: "Shift",
-                placeholder: "ជ្រើសរើស"
+                label: "Level",
+                placeholder: "កម្រិត"
               },
               model: {
-                value: _vm.collections.shift,
+                value: _vm.collections.level,
                 callback: function($$v) {
-                  _vm.$set(_vm.collections, "shift", $$v)
+                  _vm.$set(_vm.collections, "level", $$v)
                 },
-                expression: "collections.shift"
+                expression: "collections.level"
               }
             },
-            _vm._l(_vm.getShift, function(item, index) {
+            _vm._l(_vm.getLevel, function(item, index) {
               return _c("vs-select-item", {
                 key: index,
                 attrs: { value: item.name, text: item.name }
@@ -1780,7 +1800,7 @@ var render = function() {
               staticClass: "w-1/3 mr-2",
               attrs: {
                 autocomplete: "",
-                label: "Class",
+                label: "ថ្នាក់",
                 placeholder: "ជ្រើសរើស"
               },
               model: {
@@ -1802,13 +1822,49 @@ var render = function() {
           _vm._v(" "),
           _c("vs-input", {
             staticClass: "w-1/3",
-            attrs: { placeholder: "$500", label: "Cost" },
+            attrs: { placeholder: "$500", label: "តម្លៃ ១ខែ" },
             model: {
-              value: _vm.collections.cost,
+              value: _vm.collections.cost_one,
               callback: function($$v) {
-                _vm.$set(_vm.collections, "cost", $$v)
+                _vm.$set(_vm.collections, "cost_one", $$v)
               },
-              expression: "collections.cost"
+              expression: "collections.cost_one"
+            }
+          }),
+          _vm._v(" "),
+          _c("vs-input", {
+            staticClass: "w-1/3",
+            attrs: { placeholder: "$500", label: "តម្លៃ ១ត្រីមាស" },
+            model: {
+              value: _vm.collections.cost_three,
+              callback: function($$v) {
+                _vm.$set(_vm.collections, "cost_three", $$v)
+              },
+              expression: "collections.cost_three"
+            }
+          }),
+          _vm._v(" "),
+          _c("vs-input", {
+            staticClass: "w-1/3",
+            attrs: { placeholder: "$500", label: "តម្លៃ ១ឆមាស" },
+            model: {
+              value: _vm.collections.cost_six,
+              callback: function($$v) {
+                _vm.$set(_vm.collections, "cost_six", $$v)
+              },
+              expression: "collections.cost_six"
+            }
+          }),
+          _vm._v(" "),
+          _c("vs-input", {
+            staticClass: "w-1/3",
+            attrs: { placeholder: "$500", label: "តម្លៃ ១ឆ្នាំ" },
+            model: {
+              value: _vm.collections.cost_twelve,
+              callback: function($$v) {
+                _vm.$set(_vm.collections, "cost_twelve", $$v)
+              },
+              expression: "collections.cost_twelve"
             }
           })
         ],
@@ -1938,13 +1994,45 @@ var render = function() {
                         )
                       ]),
                       _vm._v(" "),
-                      _c("vs-td", { attrs: { data: data[indextr].cost } }, [
+                      _c("vs-td", { attrs: { data: data[indextr].cost_one } }, [
                         _vm._v(
-                          "\n                    " +
-                            _vm._s(data[indextr].cost) +
+                          "\n                   $ " +
+                            _vm._s(data[indextr].cost_one) +
                             "\n                "
                         )
-                      ])
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "vs-td",
+                        { attrs: { data: data[indextr].cost_three } },
+                        [
+                          _vm._v(
+                            "\n                   $ " +
+                              _vm._s(data[indextr].cost_three) +
+                              "\n                "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("vs-td", { attrs: { data: data[indextr].cost_six } }, [
+                        _vm._v(
+                          "\n                   $ " +
+                            _vm._s(data[indextr].cost_six) +
+                            "\n                "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "vs-td",
+                        { attrs: { data: data[indextr].cost_twelve } },
+                        [
+                          _vm._v(
+                            "\n                    $ " +
+                              _vm._s(data[indextr].cost_twelve) +
+                              "\n                "
+                          )
+                        ]
+                      )
                     ],
                     1
                   )
@@ -1974,18 +2062,30 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("vs-th", { attrs: { "sort-key": "level" } }, [
-                _vm._v("Level")
+                _vm._v("កម្រិត")
               ]),
               _vm._v(" "),
               _c("vs-th", { attrs: { "sort-key": "class_name" } }, [
-                _vm._v("Class")
+                _vm._v("ថ្នាក់")
               ]),
               _vm._v(" "),
-              _c("vs-th", { attrs: { "sort-key": "shift" } }, [
-                _vm._v("Shift")
+              _c("vs-th", { attrs: { "sort-key": "shift" } }, [_vm._v("វេណ")]),
+              _vm._v(" "),
+              _c("vs-th", { attrs: { "sort-key": "cost_one" } }, [
+                _vm._v("តម្លៃ ១ខែ")
               ]),
               _vm._v(" "),
-              _c("vs-th", { attrs: { "sort-key": "cost" } }, [_vm._v("Cost")])
+              _c("vs-th", { attrs: { "sort-key": "cost_three" } }, [
+                _vm._v("តម្លៃ ១ត្រីមាស")
+              ]),
+              _vm._v(" "),
+              _c("vs-th", { attrs: { "sort-key": "cost_six" } }, [
+                _vm._v("តម្លៃ ១ឆមាស")
+              ]),
+              _vm._v(" "),
+              _c("vs-th", { attrs: { "sort-key": "cost_twelve" } }, [
+                _vm._v("តម្លៃ ១ឆ្នាំ")
+              ])
             ],
             1
           )

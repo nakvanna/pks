@@ -40,6 +40,12 @@ export default [
     icon: "UsersIcon",
   },
   {
+    url: "/study-year",
+    name: "ឆ្នាំសិក្សា",
+    slug: "study-year",
+    icon: "UserPlusIcon",
+  },
+  {
     url: "/page2",
     name: "Page 2",
     slug: "page2",

@@ -1,9 +1,12 @@
 <template>
     <div>
         <div class="flex mb-4">
-            <vs-input class="w-1/3 mr-2" label-placeholder="ប្រភេទ" v-model="services.type"></vs-input>
-            <vs-input class="w-1/3 mr-2" label-placeholder="សេវាកម្ម" v-model="services.service"></vs-input>
-            <vs-input class="w-1/3" label-placeholder="តម្លៃ" v-model="services.cost"></vs-input>
+            <vs-input class="w-2/3 mr-2" label-placeholder="ប្រភេទ" v-model="services.type"></vs-input>
+            <vs-input class="w-2/3 mr-2" label-placeholder="សេវាកម្ម" v-model="services.service"></vs-input>
+            <vs-input class="w-1/3" label-placeholder="តម្លៃ​ ១ខែ" v-model="services.cost_one"></vs-input>
+            <vs-input class="w-1/3" label-placeholder="តម្លៃ​ ១ត្រីមាស" v-model="services.cost_three"></vs-input>
+            <vs-input class="w-1/3" label-placeholder="តម្លៃ ១ឆមាស" v-model="services.cost_six"></vs-input>
+            <vs-input class="w-1/3" label-placeholder="តម្លៃ​ ១ឆ្នាំ" v-model="services.cost_twelve"></vs-input>
         </div>
         <vs-row vs-type="flex" vs-justify="flex-end">
             <vs-col vs-type="flex" vs-justify="flex-end">
@@ -40,32 +43,46 @@
 
             <template slot="thead">
                 <vs-th sort-key="id">ID</vs-th>
-                <vs-th sort-key="type">Type</vs-th>
+                <vs-th sort-key="type">ប្រភេទ</vs-th>
                 <vs-th sort-key="service">Service</vs-th>
-                <vs-th sort-key="cost">Cost</vs-th>
+                <vs-th sort-key="cost_one">តម្លៃ​ ១ខែ</vs-th>
+                <vs-th sort-key="cost_three">តម្លៃ​ ១ត្រីមាស</vs-th>
+                <vs-th sort-key="cost_six">តម្លៃ ១ឆមាស</vs-th>
+                <vs-th sort-key="cost_twelve">តម្លៃ​ ១ឆ្នាំ</vs-th>
             </template>
+            <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in data">
 
-            <template slot-scope="{data}">
-                <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in data">
+                <vs-td :data="data[indextr].id">
+                    {{ data[indextr].id }}
+                </vs-td>
 
-                    <vs-td :data="data[indextr].id">
-                        {{ data[indextr].id }}
-                    </vs-td>
+                <vs-td :data="data[indextr].type">
+                    {{ data[indextr].type }}
+                </vs-td>
 
-                    <vs-td :data="data[indextr].type">
-                        {{ data[indextr].type }}
-                    </vs-td>
+                <vs-td :data="data[indextr].service">
+                    {{ data[indextr].service }}
+                </vs-td>
 
-                    <vs-td :data="data[indextr].service">
-                        {{ data[indextr].service }}
-                    </vs-td>
+                <vs-td :data="data[indextr].cost_one">
+                    $ {{ data[indextr].cost_one }}
+                </vs-td>
 
-                    <vs-td :data="data[indextr].cost">
-                        {{ data[indextr].cost }}
-                    </vs-td>
+                <vs-td :data="data[indextr].cost_three">
+                    $ {{ data[indextr].cost_three }}
+                </vs-td>
 
-                </vs-tr>
-            </template>
+                <vs-td :data="data[indextr].cost_six">
+                    $ {{ data[indextr].cost_six }}
+                </vs-td>
+
+                <vs-td :data="'$ '+ data[indextr].cost_twelve">
+                    $ {{ data[indextr].cost_twelve }}
+                </vs-td>
+            </vs-tr>
+
+
+            <template slot-scope="{data}"></template>
         </vs-table>
 
         <vs-row vs-type="flex" vs-justify="flex-end">
@@ -101,10 +118,13 @@
                 selected: [],
                 is_update: false,
                 services: {
-                    id: '',
-                    type: '',
-                    service: '',
-                    cost: '',
+                    id         : '',
+                    type       : '',
+                    service    : '',
+                    cost_one   : '',
+                    cost_three : '',
+                    cost_six   : '',
+                    cost_twelve: '',
                 }
             }
         },
@@ -123,7 +143,7 @@
             storeService(){
                 let self = this;
                 let vm = this.services;
-                if (vm.type === '' || vm.service === '' || vm.cost === ''){
+                if (vm.type === '' || vm.service === '' || vm.cost_one === '' || vm.cost_three === '' || vm.cost_six === '' || vm.cost_twelve === '' ){
                     self.$vs.notify({
                         title:'ប្រតិបត្តិការណ៍បរាជ័យ',
                         text:'ទិន្នន័យមិនមានគ្រប់គ្រាន់!',
@@ -154,9 +174,12 @@
             },
             clearServiceForm(){
                 var vm = this.services;
-                vm.type = '';
-                vm.service = '';
-                vm.cost = '';
+                vm.type        = '';
+                vm.service     = '';
+                vm.cost_one    = '';
+                vm.cost_three  = '';
+                vm.cost_six    = '';
+                vm.cost_twelve = '';
                 this.is_update = false;
             },
             async destroyService(){
@@ -193,12 +216,15 @@
                 this.destroyService();
             },
             editService(){
-                this.services.id      = this.selected[0].id;
-                this.services.type    = this.selected[0].type;
-                this.services.service = this.selected[0].service;
-                this.services.cost    = this.selected[0].cost;
-                this.is_update        = true;
-                this.selected         = [];
+                this.services.id          = this.selected[0].id;
+                this.services.type        = this.selected[0].type;
+                this.services.service     = this.selected[0].service;
+                this.services.cost_one    = this.selected[0].cost_one;
+                this.services.cost_three  = this.selected[0].cost_three;
+                this.services.cost_six    = this.selected[0].cost_six;
+                this.services.cost_twelve = this.selected[0].cost_twelve;
+                this.is_update            = true;
+                this.selected             = [];
             },
             updateService(){
                 let self = this;

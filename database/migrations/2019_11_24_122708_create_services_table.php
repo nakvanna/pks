@@ -17,7 +17,10 @@ class CreateServicesTable extends Migration
             $table->bigIncrements('id');
             $table->string('type');
             $table->string('service');
-            $table->double('cost');
+            $table->double('cost_one');
+            $table->double('cost_three');
+            $table->double('cost_six');
+            $table->double('cost_twelve');
             $table->timestamps();
         });
     }

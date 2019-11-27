@@ -6916,6 +6916,11 @@ __webpack_require__.r(__webpack_exports__);
   slug: "employee",
   icon: "UsersIcon"
 }, {
+  url: "/study-year",
+  name: "ឆ្នាំសិក្សា",
+  slug: "study-year",
+  icon: "UserPlusIcon"
+}, {
   url: "/page2",
   name: "Page 2",
   slug: "page2",

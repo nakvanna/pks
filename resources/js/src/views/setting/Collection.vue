@@ -21,34 +21,37 @@
             </vs-select>
             <vs-select
                     autocomplete
-                    class="w-1/3"
-                    label="Level"
-                    placeholder="ជ្រើសរើស"
-                    v-model="collections.level"
-            >
-                <vs-select-item :key="index" :value="item.name" :text="item.name" v-for="(item,index) in getLevel" />
-            </vs-select>
-        </div>
-        <div class="flex mb-4">
-            <vs-select
-                    autocomplete
                     class="w-1/3 mr-2"
-                    label="Shift"
+                    label="វេណ"
                     placeholder="ជ្រើសរើស"
                     v-model="collections.shift"
             >
                 <vs-select-item :key="index" :value="item.name" :text="item.name" v-for="(item,index) in getShift" />
             </vs-select>
+        </div>
+        <div class="flex mb-4">
+            <vs-select
+                    autocomplete
+                    class="w-1/3"
+                    label="Level"
+                    placeholder="កម្រិត"
+                    v-model="collections.level"
+            >
+                <vs-select-item :key="index" :value="item.name" :text="item.name" v-for="(item,index) in getLevel" />
+            </vs-select>
             <vs-select
                     autocomplete
                     class="w-1/3 mr-2"
-                    label="Class"
+                    label="ថ្នាក់"
                     placeholder="ជ្រើសរើស"
                     v-model="collections.class_name"
             >
                 <vs-select-item :key="index" :value="item.name" :text="item.name" v-for="(item,index) in getStudyClass" />
             </vs-select>
-            <vs-input class="w-1/3" placeholder="$500" label="Cost" v-model="collections.cost"></vs-input>
+            <vs-input class="w-1/3" placeholder="$500" label="តម្លៃ ១ខែ" v-model="collections.cost_one"></vs-input>
+            <vs-input class="w-1/3" placeholder="$500" label="តម្លៃ ១ត្រីមាស" v-model="collections.cost_three"></vs-input>
+            <vs-input class="w-1/3" placeholder="$500" label="តម្លៃ ១ឆមាស" v-model="collections.cost_six"></vs-input>
+            <vs-input class="w-1/3" placeholder="$500" label="តម្លៃ ១ឆ្នាំ" v-model="collections.cost_twelve"></vs-input>
         </div>
         <div class="flex btn-group">
             <vs-button
@@ -80,10 +83,13 @@
             <template slot="thead">
                 <vs-th sort-key="group_section">Group Section</vs-th>
                 <vs-th sort-key="section">Section</vs-th>
-                <vs-th sort-key="level">Level</vs-th>
-                <vs-th sort-key="class_name">Class</vs-th>
-                <vs-th sort-key="shift">Shift</vs-th>
-                <vs-th sort-key="cost">Cost</vs-th>
+                <vs-th sort-key="level">កម្រិត</vs-th>
+                <vs-th sort-key="class_name">ថ្នាក់</vs-th>
+                <vs-th sort-key="shift">វេណ</vs-th>
+                <vs-th sort-key="cost_one">តម្លៃ ១ខែ</vs-th>
+                <vs-th sort-key="cost_three">តម្លៃ ១ត្រីមាស</vs-th>
+                <vs-th sort-key="cost_six">តម្លៃ ១ឆមាស</vs-th>
+                <vs-th sort-key="cost_twelve">តម្លៃ ១ឆ្នាំ</vs-th>
             </template>
 
             <template slot-scope="{data}">
@@ -109,10 +115,21 @@
                         {{ data[indextr].shift }}
                     </vs-td>
 
-                    <vs-td :data="data[indextr].cost">
-                        {{ data[indextr].cost }}
+                    <vs-td :data="data[indextr].cost_one">
+                       $ {{ data[indextr].cost_one }}
                     </vs-td>
 
+                    <vs-td :data="data[indextr].cost_three">
+                       $ {{ data[indextr].cost_three }}
+                    </vs-td>
+
+                    <vs-td :data="data[indextr].cost_six">
+                       $ {{ data[indextr].cost_six }}
+                    </vs-td>
+
+                    <vs-td :data="data[indextr].cost_twelve">
+                        $ {{ data[indextr].cost_twelve }}
+                    </vs-td>
                 </vs-tr>
             </template>
         </vs-table>
@@ -147,7 +164,10 @@
                     level: '',
                     shift: '',
                     class_name: '',
-                    cost: '',
+                    cost_one: '',
+                    cost_three: '',
+                    cost_six: '',
+                    cost_twelve: '',
                 },
                 selected: [],
                 'tableList': [
@@ -188,7 +208,7 @@
             storeCollection(){
                 let self = this;
                 let vm = this.collections;
-                if(vm.group_section === '' || vm.section === '' || vm.level === '' || vm.shift === '' || vm.class_name === '' || vm.cost === ''){
+                if(vm.group_section === '' || vm.section === '' || vm.level === '' || vm.shift === '' || vm.class_name === '' || vm.cost_one === '' || vm.cost_three === '' || vm.cost_six === '' || vm.cost_twelve === ''){
                     self.$vs.notify({
                         title:'ប្រតិបត្តិការណ៍បរាជ័យ',
                         text:'ទិន្នន័យមិនមានគ្រប់គ្រាន់!',
@@ -211,12 +231,6 @@
                                 icon:'icon-check',
                                 position:'top-center'
                             });
-                            self.collections.group_section = '';
-                            self.collections.section       = '';
-                            self.collections.level         = '';
-                            self.collections.shift         = '';
-                            self.collections.class_name    = '';
-                            self.collections.cost          = '';
                             self.$vs.loading.close();
                         }
                     })
@@ -282,7 +296,10 @@
                 this.collections.level         = this.selected[0].level;
                 this.collections.class_name    = this.selected[0].class_name;
                 this.collections.shift         = this.selected[0].shift;
-                this.collections.cost          = this.selected[0].cost;
+                this.collections.cost_one      = this.selected[0].cost_one;
+                this.collections.cost_three    = this.selected[0].cost_three;
+                this.collections.cost_six      = this.selected[0].cost_six;
+                this.collections.cost_twelve   = this.selected[0].cost_twelve;
                 this.is_update                 = true;
                 this.selected                  = [];
             },
@@ -292,7 +309,10 @@
                 this.collections.level         = '';
                 this.collections.shift         = '';
                 this.collections.class_name    = '';
-                this.collections.cost          = '';
+                this.collections.cost_one      = '';
+                this.collections.cost_three    = '';
+                this.collections.cost_six      = '';
+                this.collections.cost_twelve   = '';
                 this.is_update                 = false;
             }
         }

@@ -91,6 +91,19 @@ const router = new Router({
                         rule: 'editor'
                     }
                 },
+                {
+                    path: '/study-year',
+                    name: 'study-year',
+                    component: () => import('./views/study-year/StudyYear'),
+                    meta: {
+                        breadcrumb: [
+                            {title: 'ឆ្នាំសិក្សា', url: '/'},
+                            {title: 'ឆ្នាំសិក្សា', active: true},
+                        ],
+                        pageTitle: 'ចុះឈ្មោះតាមឆ្នាំសិក្សា',
+                        rule: 'editor'
+                    }
+                },
             ],
         },
         // =============================================================================

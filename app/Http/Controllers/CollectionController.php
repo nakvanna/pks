@@ -18,7 +18,10 @@ class CollectionController extends Controller
             'level'        =>'required',
             'shift'        =>'required',
             'class_name'   =>'required',
-            'cost'         =>'required',
+            'cost_one'         =>'required',
+            'cost_three'         =>'required',
+            'cost_six'         =>'required',
+            'cost_twelve'         =>'required',
         ]);
         $store = new Collection();
         $store->group_section = $input['group_section'];
@@ -26,7 +29,10 @@ class CollectionController extends Controller
         $store->level         = $input['level'];
         $store->shift         = $input['shift'];
         $store->class_name    = $input['class_name'];
-        $store->cost          = $input['cost'];
+        $store->cost_one          = $input['cost_one'];
+        $store->cost_three          = $input['cost_three'];
+        $store->cost_six          = $input['cost_six'];
+        $store->cost_twelve          = $input['cost_twelve'];
         $store->save();
         return $store;
     }

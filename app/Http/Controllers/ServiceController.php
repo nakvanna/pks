@@ -13,28 +13,40 @@ class ServiceController extends Controller
     public function store(Request $request){
         $input = $request->all();
         $request->validate([
-            'type'=>'required',
-            'service'=>'required',
-            'cost'=>'required',
+            'type'        =>'required',
+            'service'     =>'required',
+            'cost_one'    =>'required',
+            'cost_three'  =>'required',
+            'cost_six'    =>'required',
+            'cost_twelve' =>'required',
         ]);
         $store = new Service();
-        $store->type = $input['type'];
-        $store->service = $input['service'];
-        $store->cost = $input['cost'];
+        $store->type        = $input['type'];
+        $store->service     = $input['service'];
+        $store->cost_one    = $input['cost_one'];
+        $store->cost_three  = $input['cost_three'];
+        $store->cost_six    = $input['cost_six'];
+        $store->cost_twelve = $input['cost_twelve'];
         $store->save();
         return $store;
     }
     public function update($id, Request $request){
         $input = $request->all();
         $request->validate([
-            'type'      =>'required',
-            'service'   =>'required',
-            'cost'      =>'required',
+            'type'        =>'required',
+            'service'     =>'required',
+            'cost_one'    =>'required',
+            'cost_three'  =>'required',
+            'cost_six'    =>'required',
+            'cost_twelve' =>'required',
         ]);
         $store = Service::findOrFail($id);
-        $store->type    = $input['type'];
-        $store->service = $input['service'];
-        $store->cost    = $input['cost'];
+        $store->type        = $input['type'];
+        $store->service     = $input['service'];
+        $store->cost_one    = $input['cost_one'];
+        $store->cost_three  = $input['cost_three'];
+        $store->cost_six    = $input['cost_six'];
+        $store->cost_twelve = $input['cost_twelve'];
         $store->save();
         return $store;
     }

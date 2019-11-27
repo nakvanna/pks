@@ -109,6 +109,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {},
   name: 'Service',
@@ -121,7 +138,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         id: '',
         type: '',
         service: '',
-        cost: ''
+        cost_one: '',
+        cost_three: '',
+        cost_six: '',
+        cost_twelve: ''
       }
     };
   },
@@ -163,7 +183,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var self = this;
       var vm = this.services;
 
-      if (vm.type === '' || vm.service === '' || vm.cost === '') {
+      if (vm.type === '' || vm.service === '' || vm.cost_one === '' || vm.cost_three === '' || vm.cost_six === '' || vm.cost_twelve === '') {
         self.$vs.notify({
           title: 'ប្រតិបត្តិការណ៍បរាជ័យ',
           text: 'ទិន្នន័យមិនមានគ្រប់គ្រាន់!',
@@ -196,7 +216,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var vm = this.services;
       vm.type = '';
       vm.service = '';
-      vm.cost = '';
+      vm.cost_one = '';
+      vm.cost_three = '';
+      vm.cost_six = '';
+      vm.cost_twelve = '';
       this.is_update = false;
     },
     destroyService: function () {
@@ -281,7 +304,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.services.id = this.selected[0].id;
       this.services.type = this.selected[0].type;
       this.services.service = this.selected[0].service;
-      this.services.cost = this.selected[0].cost;
+      this.services.cost_one = this.selected[0].cost_one;
+      this.services.cost_three = this.selected[0].cost_three;
+      this.services.cost_six = this.selected[0].cost_six;
+      this.services.cost_twelve = this.selected[0].cost_twelve;
       this.is_update = true;
       this.selected = [];
     },
@@ -382,7 +408,7 @@ var render = function() {
         { staticClass: "flex mb-4" },
         [
           _c("vs-input", {
-            staticClass: "w-1/3 mr-2",
+            staticClass: "w-2/3 mr-2",
             attrs: { "label-placeholder": "ប្រភេទ" },
             model: {
               value: _vm.services.type,
@@ -394,7 +420,7 @@ var render = function() {
           }),
           _vm._v(" "),
           _c("vs-input", {
-            staticClass: "w-1/3 mr-2",
+            staticClass: "w-2/3 mr-2",
             attrs: { "label-placeholder": "សេវាកម្ម" },
             model: {
               value: _vm.services.service,
@@ -407,13 +433,49 @@ var render = function() {
           _vm._v(" "),
           _c("vs-input", {
             staticClass: "w-1/3",
-            attrs: { "label-placeholder": "តម្លៃ" },
+            attrs: { "label-placeholder": "តម្លៃ​ ១ខែ" },
             model: {
-              value: _vm.services.cost,
+              value: _vm.services.cost_one,
               callback: function($$v) {
-                _vm.$set(_vm.services, "cost", $$v)
+                _vm.$set(_vm.services, "cost_one", $$v)
               },
-              expression: "services.cost"
+              expression: "services.cost_one"
+            }
+          }),
+          _vm._v(" "),
+          _c("vs-input", {
+            staticClass: "w-1/3",
+            attrs: { "label-placeholder": "តម្លៃ​ ១ត្រីមាស" },
+            model: {
+              value: _vm.services.cost_three,
+              callback: function($$v) {
+                _vm.$set(_vm.services, "cost_three", $$v)
+              },
+              expression: "services.cost_three"
+            }
+          }),
+          _vm._v(" "),
+          _c("vs-input", {
+            staticClass: "w-1/3",
+            attrs: { "label-placeholder": "តម្លៃ ១ឆមាស" },
+            model: {
+              value: _vm.services.cost_six,
+              callback: function($$v) {
+                _vm.$set(_vm.services, "cost_six", $$v)
+              },
+              expression: "services.cost_six"
+            }
+          }),
+          _vm._v(" "),
+          _c("vs-input", {
+            staticClass: "w-1/3",
+            attrs: { "label-placeholder": "តម្លៃ​ ១ឆ្នាំ" },
+            model: {
+              value: _vm.services.cost_twelve,
+              callback: function($$v) {
+                _vm.$set(_vm.services, "cost_twelve", $$v)
+              },
+              expression: "services.cost_twelve"
             }
           })
         ],
@@ -515,46 +577,7 @@ var render = function() {
               key: "default",
               fn: function(ref) {
                 var data = ref.data
-                return _vm._l(data, function(tr, indextr) {
-                  return _c(
-                    "vs-tr",
-                    { key: indextr, attrs: { data: tr } },
-                    [
-                      _c("vs-td", { attrs: { data: data[indextr].id } }, [
-                        _vm._v(
-                          "\n                    " +
-                            _vm._s(data[indextr].id) +
-                            "\n                "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("vs-td", { attrs: { data: data[indextr].type } }, [
-                        _vm._v(
-                          "\n                    " +
-                            _vm._s(data[indextr].type) +
-                            "\n                "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("vs-td", { attrs: { data: data[indextr].service } }, [
-                        _vm._v(
-                          "\n                    " +
-                            _vm._s(data[indextr].service) +
-                            "\n                "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("vs-td", { attrs: { data: data[indextr].cost } }, [
-                        _vm._v(
-                          "\n                    " +
-                            _vm._s(data[indextr].cost) +
-                            "\n                "
-                        )
-                      ])
-                    ],
-                    1
-                  )
-                })
+                return undefined
               }
             }
           ]),
@@ -573,16 +596,101 @@ var render = function() {
             [
               _c("vs-th", { attrs: { "sort-key": "id" } }, [_vm._v("ID")]),
               _vm._v(" "),
-              _c("vs-th", { attrs: { "sort-key": "type" } }, [_vm._v("Type")]),
+              _c("vs-th", { attrs: { "sort-key": "type" } }, [
+                _vm._v("ប្រភេទ")
+              ]),
               _vm._v(" "),
               _c("vs-th", { attrs: { "sort-key": "service" } }, [
                 _vm._v("Service")
               ]),
               _vm._v(" "),
-              _c("vs-th", { attrs: { "sort-key": "cost" } }, [_vm._v("Cost")])
+              _c("vs-th", { attrs: { "sort-key": "cost_one" } }, [
+                _vm._v("តម្លៃ​ ១ខែ")
+              ]),
+              _vm._v(" "),
+              _c("vs-th", { attrs: { "sort-key": "cost_three" } }, [
+                _vm._v("តម្លៃ​ ១ត្រីមាស")
+              ]),
+              _vm._v(" "),
+              _c("vs-th", { attrs: { "sort-key": "cost_six" } }, [
+                _vm._v("តម្លៃ ១ឆមាស")
+              ]),
+              _vm._v(" "),
+              _c("vs-th", { attrs: { "sort-key": "cost_twelve" } }, [
+                _vm._v("តម្លៃ​ ១ឆ្នាំ")
+              ])
             ],
             1
-          )
+          ),
+          _vm._v(" "),
+          _vm._l(_vm.data, function(tr, indextr) {
+            return _c(
+              "vs-tr",
+              { key: indextr, attrs: { data: tr } },
+              [
+                _c("vs-td", { attrs: { data: _vm.data[indextr].id } }, [
+                  _vm._v(
+                    "\n                " +
+                      _vm._s(_vm.data[indextr].id) +
+                      "\n            "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("vs-td", { attrs: { data: _vm.data[indextr].type } }, [
+                  _vm._v(
+                    "\n                " +
+                      _vm._s(_vm.data[indextr].type) +
+                      "\n            "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("vs-td", { attrs: { data: _vm.data[indextr].service } }, [
+                  _vm._v(
+                    "\n                " +
+                      _vm._s(_vm.data[indextr].service) +
+                      "\n            "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("vs-td", { attrs: { data: _vm.data[indextr].cost_one } }, [
+                  _vm._v(
+                    "\n                $ " +
+                      _vm._s(_vm.data[indextr].cost_one) +
+                      "\n            "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("vs-td", { attrs: { data: _vm.data[indextr].cost_three } }, [
+                  _vm._v(
+                    "\n                $ " +
+                      _vm._s(_vm.data[indextr].cost_three) +
+                      "\n            "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("vs-td", { attrs: { data: _vm.data[indextr].cost_six } }, [
+                  _vm._v(
+                    "\n                $ " +
+                      _vm._s(_vm.data[indextr].cost_six) +
+                      "\n            "
+                  )
+                ]),
+                _vm._v(" "),
+                _c(
+                  "vs-td",
+                  { attrs: { data: "$ " + _vm.data[indextr].cost_twelve } },
+                  [
+                    _vm._v(
+                      "\n                $ " +
+                        _vm._s(_vm.data[indextr].cost_twelve) +
+                        "\n            "
+                    )
+                  ]
+                )
+              ],
+              1
+            )
+          })
         ],
         2
       ),
