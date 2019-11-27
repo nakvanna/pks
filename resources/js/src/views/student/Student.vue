@@ -3,13 +3,16 @@
         <div class="flex btn-group">
             <vs-button @click="$refs.addStudent.show()" type="relief" icon-pack="feather" icon="icon-plus-square">បន្ថែម</vs-button>
             <vs-button v-if="selected.length===1" @click="$refs.editStudent.show();$refs.editStudent.editStudent(selected[0])" color="warning" type="relief" icon-pack="feather" icon="icon-edit">កែប្រែ</vs-button>
-            <vs-button v-if="selected.length" @click="destroyStudent" color="danger" type="relief" icon-pack="feather" icon="icon-trash-2">លុប</vs-button>
+            <vs-button v-if="selected.length" @click="toggleStudent" color="danger" type="relief" icon-pack="feather" icon="icon-circle">Toggle Status</vs-button>
+            <vs-button v-if="selected.length" @click="toggleStudent" type="relief" icon-pack="feather" icon="icon-upload">ការសិក្សា</vs-button>
+            <vs-button v-if="selected.length" @click="toggleStudent" color="dark" type="relief" icon-pack="feather" icon="icon-upload">សេវាកម្ម</vs-button>
         </div>
         <vs-table multiple v-model="selected" pagination max-items="10" search :data="all_students">
             <template slot="thead">
                 <vs-th sort-key="id">ល.រ</vs-th>
                 <vs-th sort-key="name">ឈ្មោះ</vs-th>
-                <vs-th sort-key="latin">សង្ខេប</vs-th>
+                <vs-th sort-key="latin">ឈ្មោះឡាតាំង</vs-th>
+                <vs-th sort-key="status">ស្ថានភាព</vs-th>
                 <vs-th sort-key="created_at">កាលបរិច្ឆេទ</vs-th>
             </template>
             <template slot-scope="{data}">
@@ -22,6 +25,10 @@
                     </vs-td>
                     <vs-td :data="data[indextr].latin">
                         {{ data[indextr].latin }}
+                    </vs-td>
+                    <vs-td :data="data[indextr].status">
+                        <vs-chip v-if="data[indextr].status===true" color="success">Active</vs-chip>
+                        <vs-chip v-if="data[indextr].status===false" color="warning">Inactive</vs-chip>
                     </vs-td>
                     <vs-td :data="data[indextr].created_at">
                         {{ data[indextr].created_at }}
@@ -60,17 +67,17 @@
               await this.$store.dispatch('fetchStudent')
             },
             //destroy
-            async destroyStudent(){
+            async toggleStudent(){
                 let self = this;
                 self.$vs.loading();
                 const promises = self.selected.map(async function (data) {
-                    await self.$store.dispatch('destroyStudent',data.id);
+                    await self.$store.dispatch('toggleStudent',data.id);
                 });
                 await Promise.all(promises).then(function () {
                     self.$vs.notify({
                         time: 4000,
                         title: 'ប្រតិបត្តិការជោគជ័យ',
-                        text: 'ទិន្នន័យបានបន្ថែម',
+                        text: 'ទិន្នន័យបានកែប្រែ',
                         color: 'success',
                         iconPack: 'feather',
                         icon: 'icon-check',

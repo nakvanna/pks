@@ -30,6 +30,7 @@ class CreateStudentsTable extends Migration
             $table->string('mother_job');
             $table->string('mother_contact');
             $table->string('temp_grade')->default('ns');
+            $table->float('discount')->default(0);
             $table->boolean('status')->default(true);
             $table->timestamps();
         });
