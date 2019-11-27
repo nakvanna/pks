@@ -577,7 +577,78 @@ var render = function() {
               key: "default",
               fn: function(ref) {
                 var data = ref.data
-                return undefined
+                return _vm._l(data, function(tr, indextr) {
+                  return _c(
+                    "vs-tr",
+                    { key: indextr, attrs: { data: tr } },
+                    [
+                      _c("vs-td", { attrs: { data: data[indextr].id } }, [
+                        _vm._v(
+                          "\n                    " +
+                            _vm._s(data[indextr].id) +
+                            "\n                "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("vs-td", { attrs: { data: data[indextr].type } }, [
+                        _vm._v(
+                          "\n                    " +
+                            _vm._s(data[indextr].type) +
+                            "\n                "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("vs-td", { attrs: { data: data[indextr].service } }, [
+                        _vm._v(
+                          "\n                    " +
+                            _vm._s(data[indextr].service) +
+                            "\n                "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("vs-td", { attrs: { data: data[indextr].cost_one } }, [
+                        _vm._v(
+                          "\n                    $ " +
+                            _vm._s(data[indextr].cost_one) +
+                            "\n                "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "vs-td",
+                        { attrs: { data: data[indextr].cost_three } },
+                        [
+                          _vm._v(
+                            "\n                    $ " +
+                              _vm._s(data[indextr].cost_three) +
+                              "\n                "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("vs-td", { attrs: { data: data[indextr].cost_six } }, [
+                        _vm._v(
+                          "\n                    $ " +
+                            _vm._s(data[indextr].cost_six) +
+                            "\n                "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "vs-td",
+                        { attrs: { data: data[indextr].cost_twelve } },
+                        [
+                          _vm._v(
+                            "\n                    $ " +
+                              _vm._s(data[indextr].cost_twelve) +
+                              "\n                "
+                          )
+                        ]
+                      )
+                    ],
+                    1
+                  )
+                })
               }
             }
           ]),
@@ -621,76 +692,7 @@ var render = function() {
               ])
             ],
             1
-          ),
-          _vm._v(" "),
-          _vm._l(_vm.data, function(tr, indextr) {
-            return _c(
-              "vs-tr",
-              { key: indextr, attrs: { data: tr } },
-              [
-                _c("vs-td", { attrs: { data: _vm.data[indextr].id } }, [
-                  _vm._v(
-                    "\n                " +
-                      _vm._s(_vm.data[indextr].id) +
-                      "\n            "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("vs-td", { attrs: { data: _vm.data[indextr].type } }, [
-                  _vm._v(
-                    "\n                " +
-                      _vm._s(_vm.data[indextr].type) +
-                      "\n            "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("vs-td", { attrs: { data: _vm.data[indextr].service } }, [
-                  _vm._v(
-                    "\n                " +
-                      _vm._s(_vm.data[indextr].service) +
-                      "\n            "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("vs-td", { attrs: { data: _vm.data[indextr].cost_one } }, [
-                  _vm._v(
-                    "\n                $ " +
-                      _vm._s(_vm.data[indextr].cost_one) +
-                      "\n            "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("vs-td", { attrs: { data: _vm.data[indextr].cost_three } }, [
-                  _vm._v(
-                    "\n                $ " +
-                      _vm._s(_vm.data[indextr].cost_three) +
-                      "\n            "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("vs-td", { attrs: { data: _vm.data[indextr].cost_six } }, [
-                  _vm._v(
-                    "\n                $ " +
-                      _vm._s(_vm.data[indextr].cost_six) +
-                      "\n            "
-                  )
-                ]),
-                _vm._v(" "),
-                _c(
-                  "vs-td",
-                  { attrs: { data: "$ " + _vm.data[indextr].cost_twelve } },
-                  [
-                    _vm._v(
-                      "\n                $ " +
-                        _vm._s(_vm.data[indextr].cost_twelve) +
-                        "\n            "
-                    )
-                  ]
-                )
-              ],
-              1
-            )
-          })
+          )
         ],
         2
       ),
