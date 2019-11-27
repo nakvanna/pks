@@ -1,60 +1,89 @@
 <template>
-    <vs-tabs :position="isSmallerScreen ? 'top' : 'left'" class="tabs-shadow-none" id="profile-tabs" :key="isSmallerScreen">
-        <!-- GENERAL -->
-        <vs-tab icon-pack="feather" icon="icon-list" :label="!isSmallerScreen ? 'សិស្ស' : ''">
-            <div class="tab-general md:ml-4 md:mt-0 mt-4 ml-0">
-                <vx-card no-shadow>
-                    <group-section></group-section>
-                </vx-card>
-            </div>
-        </vs-tab>
-        <vs-tab icon-pack="feather" icon="icon-plus-square" :label="!isSmallerScreen ? 'បន្ថែម' : ''">
-            <div class="tab-general md:ml-4 md:mt-0 mt-4 ml-0">
-                <add-student></add-student>
-            </div>
-        </vs-tab>
-        <vs-tab icon-pack="feather" icon="icon-edit" :label="!isSmallerScreen ? 'កែប្រែ' : ''">
-            <div class="tab-change-pwd md:ml-4 md:mt-0 mt-4 ml-0">
-                <sub-tab></sub-tab>
-            </div>
-        </vs-tab>
-        <vs-tab icon-pack="feather" icon="icon-package" :label="!isSmallerScreen ? 'អាប់គ្រេដ' : ''">
-            <div class="tab-change-pwd md:ml-4 md:mt-0 mt-4 ml-0">
-                <sub-tab></sub-tab>
-            </div>
-        </vs-tab>
-    </vs-tabs>
+    <vx-card no-shadow>
+        <div class="flex btn-group">
+            <vs-button @click="$refs.addStudent.show()" type="relief" icon-pack="feather" icon="icon-plus-square">បន្ថែម</vs-button>
+            <vs-button v-if="selected.length===1" @click="$refs.editStudent.show();$refs.editStudent.editStudent(selected[0])" color="warning" type="relief" icon-pack="feather" icon="icon-edit">កែប្រែ</vs-button>
+            <vs-button v-if="selected.length" @click="destroyStudent" color="danger" type="relief" icon-pack="feather" icon="icon-trash-2">លុប</vs-button>
+        </div>
+        <vs-table multiple v-model="selected" pagination max-items="10" search :data="all_students">
+            <template slot="thead">
+                <vs-th sort-key="id">ល.រ</vs-th>
+                <vs-th sort-key="name">ឈ្មោះ</vs-th>
+                <vs-th sort-key="latin">សង្ខេប</vs-th>
+                <vs-th sort-key="created_at">កាលបរិច្ឆេទ</vs-th>
+            </template>
+            <template slot-scope="{data}">
+                <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in data">
+                    <vs-td :data="data[indextr].id">
+                        {{ data[indextr].id }}
+                    </vs-td>
+                    <vs-td :data="data[indextr].name">
+                        {{ data[indextr].name }}
+                    </vs-td>
+                    <vs-td :data="data[indextr].latin">
+                        {{ data[indextr].latin }}
+                    </vs-td>
+                    <vs-td :data="data[indextr].created_at">
+                        {{ data[indextr].created_at }}
+                    </vs-td>
+
+                </vs-tr>
+            </template>
+        </vs-table>
+        <add-student ref="addStudent"></add-student>
+        <edit-student @finished="selected = []" ref="editStudent"></edit-student>
+    </vx-card>
 </template>
+
 <script>
-    import SubTab from "../SubTab";
-    import GroupSection from "../setting/GroupSection";
     import AddStudent from "./addStudent";
+    import EditStudent from "./editStudent";
     export default {
-        components: {
-            AddStudent,
-            GroupSection,
-            SubTab
-        },
-        name:'Student',
-        data() {
-            return {
-                old_password: "",
-                new_password: "",
-                confirm_new_password: "",
+        name: "Student",
+        components: {EditStudent, AddStudent},
+        data(){
+            return{
+                selected:[]
             }
         },
-        computed: {
-            isSmallerScreen() {
-                return this.$store.state.windowWidth < 768
+        computed:{
+            all_students(){
+                return this.$store.getters.all_students
+            }
+        },
+        created(){
+            this.fetchStudent();
+        },
+        methods:{
+            //fetch
+            async fetchStudent(){
+              await this.$store.dispatch('fetchStudent')
+            },
+            //destroy
+            async destroyStudent(){
+                let self = this;
+                self.$vs.loading();
+                const promises = self.selected.map(async function (data) {
+                    await self.$store.dispatch('destroyStudent',data.id);
+                });
+                await Promise.all(promises).then(function () {
+                    self.$vs.notify({
+                        time: 4000,
+                        title: 'ប្រតិបត្តិការជោគជ័យ',
+                        text: 'ទិន្នន័យបានបន្ថែម',
+                        color: 'success',
+                        iconPack: 'feather',
+                        icon: 'icon-check',
+                        position: 'top-center'
+                    });
+                    self.selected = [];
+                    self.$vs.loading.close();
+                })
             }
         }
     }
 </script>
 
-<style lang="scss">
-    #profile-tabs {
-        .vs-tabs--content {
-            padding: 0;
-        }
-    }
+<style scoped>
+
 </style>
