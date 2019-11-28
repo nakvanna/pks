@@ -199,78 +199,7 @@ var render = function() {
               key: "default",
               fn: function(ref) {
                 var data = ref.data
-                return _vm._l(data, function(tr, indextr) {
-                  return _c(
-                    "vs-tr",
-                    { key: indextr, attrs: { data: tr } },
-                    [
-                      _c("vs-td", { attrs: { data: data[indextr].id } }, [
-                        _vm._v(
-                          "\n                    " +
-                            _vm._s(data[indextr].id) +
-                            "\n                "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("vs-td", { attrs: { data: data[indextr].type } }, [
-                        _vm._v(
-                          "\n                    " +
-                            _vm._s(data[indextr].type) +
-                            "\n                "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("vs-td", { attrs: { data: data[indextr].service } }, [
-                        _vm._v(
-                          "\n                    " +
-                            _vm._s(data[indextr].service) +
-                            "\n                "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("vs-td", { attrs: { data: data[indextr].cost_one } }, [
-                        _vm._v(
-                          "\n                    $ " +
-                            _vm._s(data[indextr].cost_one) +
-                            "\n                "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "vs-td",
-                        { attrs: { data: data[indextr].cost_three } },
-                        [
-                          _vm._v(
-                            "\n                    $ " +
-                              _vm._s(data[indextr].cost_three) +
-                              "\n                "
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c("vs-td", { attrs: { data: data[indextr].cost_six } }, [
-                        _vm._v(
-                          "\n                    $ " +
-                            _vm._s(data[indextr].cost_six) +
-                            "\n                "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "vs-td",
-                        { attrs: { data: data[indextr].cost_twelve } },
-                        [
-                          _vm._v(
-                            "\n                    $ " +
-                              _vm._s(data[indextr].cost_twelve) +
-                              "\n                "
-                          )
-                        ]
-                      )
-                    ],
-                    1
-                  )
-                })
+                return undefined
               }
             }
           ]),
@@ -304,7 +233,6 @@ var render = function() {
               ])
             ],
             1
-<<<<<<< HEAD
           ),
           _vm._v(" "),
           _vm._l(_vm.data, function(tr, indextr) {
@@ -355,9 +283,6 @@ var render = function() {
               1
             )
           })
-=======
-          )
->>>>>>> 414531124a4957a2795622555eb7399ba4cfd0e5
         ],
         2
       ),
