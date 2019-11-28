@@ -193,6 +193,155 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -277,8 +426,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   }(),
   methods: {
     showCreatePopup: function showCreatePopup(selected) {
-      this.is_update = true;
-      this.createPopup = true;
+      this.is_update = true; // this.createPopup = true;
+
+      this.$modal.show('add-employee');
       var em = this.employees;
       var sl = selected[0];
 
@@ -441,9 +591,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 icon: 'icon-check',
                 position: 'top-center'
               });
+              self.$modal.hide('add-employee');
               self.clearEmployeeForm();
               self.$vs.loading.close();
-              self.createPopup = false;
             }
           });
         } else {
@@ -482,6 +632,67 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -764,7 +975,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     showEmployee: function showEmployee() {
       // this.$modal.show('showEmployee');
-      this.showEmployeePopup = true;
+      // this.showEmployeePopup = true;
+      this.$modal.show('show-employee');
       var em = this.show_employees;
       var sl = this.selected[0];
       em.id = this.preFixZero(sl.id, 5);
@@ -903,190 +1115,39 @@ var render = function() {
       ),
       _vm._v(" "),
       _c(
-        "div",
-        { staticClass: "demo-alignment" },
+        "modal",
+        {
+          attrs: {
+            width: "70%",
+            height: "auto",
+            scrollable: true,
+            pivotY: 0.07,
+            adaptive: true,
+            clickToClose: false,
+            name: "add-employee"
+          }
+        },
         [
-          _c(
-            "vs-popup",
-            {
-              staticClass: "holamundo",
-              attrs: { title: "បន្ថែមមុខដំណែង", active: _vm.positionPopup },
-              on: {
-                "update:active": function($event) {
-                  _vm.positionPopup = $event
+          _c("div", { staticClass: "flex justify-end" }, [
+            _c(
+              "i",
+              {
+                staticClass:
+                  "vs-icon vs-popup--close material-icons text-warning",
+                staticStyle: { background: "rgb(255, 255, 255)" },
+                on: {
+                  click: function($event) {
+                    return _vm.$modal.hide("add-employee")
+                  }
                 }
-              }
-            },
-            [
-              _c(
-                "vx-input-group",
-                { staticClass: "mb-base" },
-                [
-                  _c("vs-input", {
-                    staticClass: "inputx",
-                    attrs: { placeholder: "មុខដំណែង" },
-                    on: {
-                      keyup: function($event) {
-                        if (
-                          !$event.type.indexOf("key") &&
-                          _vm._k(
-                            $event.keyCode,
-                            "enter",
-                            13,
-                            $event.key,
-                            "Enter"
-                          )
-                        ) {
-                          return null
-                        }
-                        return _vm.storePosition($event)
-                      }
-                    },
-                    model: {
-                      value: _vm.position,
-                      callback: function($$v) {
-                        _vm.position = $$v
-                      },
-                      expression: "position"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("template", { slot: "append" }, [
-                    _c(
-                      "div",
-                      { staticClass: "append-text btn-addon" },
-                      [
-                        _vm.position !== ""
-                          ? _c(
-                              "vs-button",
-                              {
-                                attrs: {
-                                  type: "relief",
-                                  "icon-pack": "feather",
-                                  icon: "icon-plus-square"
-                                },
-                                on: { click: _vm.storePosition }
-                              },
-                              [_vm._v("បន្ថែម")]
-                            )
-                          : _vm._e()
-                      ],
-                      1
-                    )
-                  ])
-                ],
-                2
-              )
-            ],
-            1
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "demo-alignment" },
-        [
-          _c(
-            "vs-popup",
-            {
-              staticClass: "holamundo",
-              attrs: {
-                title: "បន្ថែមកម្រិតសម្គាល់",
-                active: _vm.degreeNotePopup
               },
-              on: {
-                "update:active": function($event) {
-                  _vm.degreeNotePopup = $event
-                }
-              }
-            },
-            [
-              _c(
-                "vx-input-group",
-                { staticClass: "mb-base" },
-                [
-                  _c("vs-input", {
-                    staticClass: "inputx",
-                    attrs: { placeholder: "កម្រិតសម្គាល់" },
-                    on: {
-                      keyup: function($event) {
-                        if (
-                          !$event.type.indexOf("key") &&
-                          _vm._k(
-                            $event.keyCode,
-                            "enter",
-                            13,
-                            $event.key,
-                            "Enter"
-                          )
-                        ) {
-                          return null
-                        }
-                        return _vm.storeDegreeNote($event)
-                      }
-                    },
-                    model: {
-                      value: _vm.degree_note,
-                      callback: function($$v) {
-                        _vm.degree_note = $$v
-                      },
-                      expression: "degree_note"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("template", { slot: "append" }, [
-                    _c(
-                      "div",
-                      { staticClass: "append-text btn-addon" },
-                      [
-                        _vm.degree_note !== ""
-                          ? _c(
-                              "vs-button",
-                              {
-                                attrs: {
-                                  type: "relief",
-                                  "icon-pack": "feather",
-                                  icon: "icon-plus-square"
-                                },
-                                on: { click: _vm.storeDegreeNote }
-                              },
-                              [_vm._v("បន្ថែម")]
-                            )
-                          : _vm._e()
-                      ],
-                      1
-                    )
-                  ])
-                ],
-                2
-              )
-            ],
-            1
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "demo-alignment" },
-        [
+              [_vm._v("close")]
+            )
+          ]),
+          _vm._v(" "),
           _c(
-            "vs-popup",
-            {
-              attrs: {
-                fullscreen: "",
-                title: "ចុះឈ្មោះបុគ្គលិក",
-                active: _vm.createPopup
-              },
-              on: {
-                "update:active": function($event) {
-                  _vm.createPopup = $event
-                }
-              }
-            },
+            "vx-card",
+            { attrs: { "no-shadow": "" } },
             [
               _c(
                 "form",
@@ -1409,13 +1470,13 @@ var render = function() {
                         staticClass: "mt-5 mr-1",
                         attrs: {
                           color: "primary",
-                          type: "border",
+                          type: "gradient",
                           "icon-pack": "feather",
                           icon: "icon-plus"
                         },
                         on: {
                           click: function($event) {
-                            _vm.positionPopup = true
+                            return _vm.$modal.show("add-position")
                           }
                         }
                       }),
@@ -1424,43 +1485,88 @@ var render = function() {
                         "div",
                         { staticClass: "w-1/3 ml-1 mt-5" },
                         [
-                          _c(
-                            "vs-select",
-                            {
-                              directives: [
+                          _vm.employees.position.toUpperCase() === "TEACHER"
+                            ? _c(
+                                "vs-select",
                                 {
-                                  name: "validate",
-                                  rawName: "v-validate",
-                                  value: "required",
-                                  expression: "'required'"
-                                }
-                              ],
-                              staticClass: "w-full",
-                              attrs: {
-                                autocomplete: "",
-                                placeholder: "កម្រិតសម្គាល់",
-                                type: "primary",
-                                name: "កម្រិតសម្គាល់"
-                              },
-                              model: {
-                                value: _vm.employees.degree_note,
-                                callback: function($$v) {
-                                  _vm.$set(_vm.employees, "degree_note", $$v)
+                                  directives: [
+                                    {
+                                      name: "validate",
+                                      rawName: "v-validate",
+                                      value: "required",
+                                      expression: "'required'"
+                                    }
+                                  ],
+                                  staticClass: "w-full",
+                                  attrs: {
+                                    autocomplete: "",
+                                    placeholder: "កម្រិតសម្គាល់",
+                                    type: "primary",
+                                    name: "កម្រិតសម្គាល់"
+                                  },
+                                  model: {
+                                    value: _vm.employees.degree_note,
+                                    callback: function($$v) {
+                                      _vm.$set(
+                                        _vm.employees,
+                                        "degree_note",
+                                        $$v
+                                      )
+                                    },
+                                    expression: "employees.degree_note"
+                                  }
                                 },
-                                expression: "employees.degree_note"
-                              }
-                            },
-                            _vm._l(_vm.getDegreeNotes, function(item, index) {
-                              return _c("vs-select-item", {
-                                key: index,
-                                attrs: {
-                                  value: item.degree_note,
-                                  text: item.degree_note
-                                }
-                              })
-                            }),
-                            1
-                          ),
+                                _vm._l(_vm.getDegreeNotes, function(
+                                  item,
+                                  index
+                                ) {
+                                  return _c("vs-select-item", {
+                                    key: index,
+                                    attrs: {
+                                      value: item.degree_note,
+                                      text: item.degree_note
+                                    }
+                                  })
+                                }),
+                                1
+                              )
+                            : _c(
+                                "vs-select",
+                                {
+                                  directives: [
+                                    {
+                                      name: "validate",
+                                      rawName: "v-validate",
+                                      value: "required",
+                                      expression: "'required'"
+                                    }
+                                  ],
+                                  staticClass: "w-full",
+                                  attrs: {
+                                    autocomplete: "",
+                                    placeholder: "កម្រិតសម្គាល់",
+                                    type: "primary",
+                                    name: "កម្រិតសម្គាល់"
+                                  },
+                                  model: {
+                                    value: _vm.employees.degree_note,
+                                    callback: function($$v) {
+                                      _vm.$set(
+                                        _vm.employees,
+                                        "degree_note",
+                                        $$v
+                                      )
+                                    },
+                                    expression: "employees.degree_note"
+                                  }
+                                },
+                                [
+                                  _c("vs-select-item", {
+                                    attrs: { value: "none", text: "None" }
+                                  })
+                                ],
+                                1
+                              ),
                           _vm._v(" "),
                           _c(
                             "span",
@@ -1485,13 +1591,13 @@ var render = function() {
                         staticClass: "mt-5 mr-1",
                         attrs: {
                           color: "primary",
-                          type: "border",
+                          type: "gradient",
                           "icon-pack": "feather",
                           icon: "icon-plus"
                         },
                         on: {
                           click: function($event) {
-                            _vm.degreeNotePopup = true
+                            return _vm.$modal.show("add-degree-note")
                           }
                         }
                       }),
@@ -1687,81 +1793,271 @@ var render = function() {
                       ],
                       1
                     )
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "vs-row",
-                    { attrs: { "vs-type": "flex", "vs-justify": "flex-end" } },
-                    [
-                      _c(
-                        "vs-col",
+                  ])
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("vs-divider"),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "flex justify-end btn-group" },
+                [
+                  _vm.is_update === false
+                    ? _c(
+                        "vs-button",
                         {
-                          attrs: { "vs-type": "flex", "vs-justify": "flex-end" }
+                          attrs: {
+                            type: "relief",
+                            "icon-pack": "feather",
+                            icon: "icon-plus-square"
+                          },
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              return _vm.storeEmployee($event)
+                            }
+                          }
                         },
                         [
-                          _c(
-                            "div",
-                            { staticClass: "flex btn-group" },
-                            [
-                              _vm.is_update === false
-                                ? _c(
-                                    "vs-button",
-                                    {
-                                      attrs: {
-                                        type: "relief",
-                                        "icon-pack": "feather",
-                                        icon: "icon-plus-square"
-                                      },
-                                      on: {
-                                        click: function($event) {
-                                          $event.preventDefault()
-                                          return _vm.storeEmployee($event)
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _vm._v(
-                                        "\n                                រក្សាទុក\n                            "
-                                      )
-                                    ]
-                                  )
-                                : _vm._e(),
-                              _vm._v(" "),
-                              _vm.is_update === true
-                                ? _c(
-                                    "vs-button",
-                                    {
-                                      attrs: {
-                                        type: "relief",
-                                        "icon-pack": "feather",
-                                        icon: "icon-plus-square"
-                                      },
-                                      on: {
-                                        click: function($event) {
-                                          $event.preventDefault()
-                                          return _vm.updateEmployee($event)
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _vm._v(
-                                        "\n                                កែប្រែ\n                            "
-                                      )
-                                    ]
-                                  )
-                                : _vm._e()
-                            ],
-                            1
+                          _vm._v(
+                            "\n                    រក្សាទុក\n                "
                           )
                         ]
                       )
-                    ],
-                    1
-                  )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.is_update === true
+                    ? _c(
+                        "vs-button",
+                        {
+                          attrs: {
+                            type: "relief",
+                            "icon-pack": "feather",
+                            icon: "icon-plus-square"
+                          },
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              return _vm.updateEmployee($event)
+                            }
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n                    កែប្រែ\n                "
+                          )
+                        ]
+                      )
+                    : _vm._e()
                 ],
                 1
               )
-            ]
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "modal",
+        {
+          attrs: {
+            width: "40%",
+            height: "auto",
+            scrollable: true,
+            pivotY: 0.07,
+            adaptive: true,
+            clickToClose: false,
+            name: "add-position"
+          }
+        },
+        [
+          _c("div", { staticClass: "flex justify-end" }, [
+            _c(
+              "i",
+              {
+                staticClass:
+                  "vs-icon vs-popup--close material-icons text-warning",
+                staticStyle: { background: "rgb(255, 255, 255)" },
+                on: {
+                  click: function($event) {
+                    return _vm.$modal.hide("add-position")
+                  }
+                }
+              },
+              [_vm._v("close")]
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "vx-card",
+            { attrs: { "no-shadow": "" } },
+            [
+              _c(
+                "vx-input-group",
+                { staticClass: "mb-base" },
+                [
+                  _c("vs-input", {
+                    staticClass: "inputx",
+                    attrs: { placeholder: "មុខដំណែង" },
+                    on: {
+                      keyup: function($event) {
+                        if (
+                          !$event.type.indexOf("key") &&
+                          _vm._k(
+                            $event.keyCode,
+                            "enter",
+                            13,
+                            $event.key,
+                            "Enter"
+                          )
+                        ) {
+                          return null
+                        }
+                        return _vm.storePosition($event)
+                      }
+                    },
+                    model: {
+                      value: _vm.position,
+                      callback: function($$v) {
+                        _vm.position = $$v
+                      },
+                      expression: "position"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("template", { slot: "append" }, [
+                    _c(
+                      "div",
+                      { staticClass: "append-text btn-addon" },
+                      [
+                        _vm.position !== ""
+                          ? _c(
+                              "vs-button",
+                              {
+                                attrs: {
+                                  type: "relief",
+                                  "icon-pack": "feather",
+                                  icon: "icon-plus-square"
+                                },
+                                on: { click: _vm.storePosition }
+                              },
+                              [_vm._v("បន្ថែម")]
+                            )
+                          : _vm._e()
+                      ],
+                      1
+                    )
+                  ])
+                ],
+                2
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "modal",
+        {
+          attrs: {
+            width: "40%",
+            height: "auto",
+            scrollable: true,
+            pivotY: 0.07,
+            adaptive: true,
+            clickToClose: false,
+            name: "add-degree-note"
+          }
+        },
+        [
+          _c("div", { staticClass: "flex justify-end" }, [
+            _c(
+              "i",
+              {
+                staticClass:
+                  "vs-icon vs-popup--close material-icons text-warning",
+                staticStyle: { background: "rgb(255, 255, 255)" },
+                on: {
+                  click: function($event) {
+                    return _vm.$modal.hide("add-degree-note")
+                  }
+                }
+              },
+              [_vm._v("close")]
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "vx-card",
+            { attrs: { "no-shadow": "" } },
+            [
+              _c(
+                "vx-input-group",
+                { staticClass: "mb-base" },
+                [
+                  _c("vs-input", {
+                    staticClass: "inputx",
+                    attrs: { placeholder: "កម្រិតសម្គាល់" },
+                    on: {
+                      keyup: function($event) {
+                        if (
+                          !$event.type.indexOf("key") &&
+                          _vm._k(
+                            $event.keyCode,
+                            "enter",
+                            13,
+                            $event.key,
+                            "Enter"
+                          )
+                        ) {
+                          return null
+                        }
+                        return _vm.storeDegreeNote($event)
+                      }
+                    },
+                    model: {
+                      value: _vm.degree_note,
+                      callback: function($$v) {
+                        _vm.degree_note = $$v
+                      },
+                      expression: "degree_note"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("template", { slot: "append" }, [
+                    _c(
+                      "div",
+                      { staticClass: "append-text btn-addon" },
+                      [
+                        _vm.degree_note !== ""
+                          ? _c(
+                              "vs-button",
+                              {
+                                attrs: {
+                                  type: "relief",
+                                  "icon-pack": "feather",
+                                  icon: "icon-plus-square"
+                                },
+                                on: { click: _vm.storeDegreeNote }
+                              },
+                              [_vm._v("បន្ថែម")]
+                            )
+                          : _vm._e()
+                      ],
+                      1
+                    )
+                  ])
+                ],
+                2
+              )
+            ],
+            1
           )
         ],
         1
@@ -2150,6 +2446,163 @@ var render = function() {
               ])
             ]
           )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "modal",
+        {
+          attrs: {
+            width: "90%",
+            height: "auto",
+            scrollable: true,
+            pivotY: 0.07,
+            adaptive: true,
+            clickToClose: false,
+            name: "show-employee"
+          }
+        },
+        [
+          _c("div", { staticClass: "flex justify-end" }, [
+            _c(
+              "i",
+              {
+                staticClass:
+                  "vs-icon vs-popup--close material-icons text-warning",
+                staticStyle: { background: "rgb(255, 255, 255)" },
+                on: {
+                  click: function($event) {
+                    return _vm.$modal.hide("show-employee")
+                  }
+                }
+              },
+              [_vm._v("close")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("vx-card", { attrs: { "no-shadow": "" } }, [
+            _c("div", { staticClass: "vx-row" }, [
+              _c("div", { staticClass: "vx-col md:w-full" }, [
+                _c("h4", [
+                  _vm._v("អត្តលេខ: PKS-" + _vm._s(_vm.show_employees.id))
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "vx-row mt-4" }, [
+              _c("div", { staticClass: "vx-col lg:w-1/4" }, [
+                _c("img", {
+                  staticClass: "p-10",
+                  staticStyle: { height: "250px" },
+                  attrs: { src: _vm.show_employees.profile }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "vx-col lg:w-3/4 mt-10" }, [
+                _c("div", { staticClass: "flex mb-10" }, [
+                  _c("div", { staticClass: "w-1/3" }, [
+                    _c("i", [
+                      _vm._v("ឈ្មោះខ្មែរ:"),
+                      _c("b", [
+                        _vm._v(" " + _vm._s(_vm.show_employees.kh_name) + " ")
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "w-1/3" }, [
+                    _c("i", [
+                      _vm._v("ឈ្មោះឡាតាំង:"),
+                      _c("b", [
+                        _vm._v(" " + _vm._s(_vm.show_employees.en_name) + " ")
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "w-1/3" }, [
+                    _c("i", [_vm._v("ភេទ:"), _c("b", [_vm._v("Male")])])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "flex mb-10" }, [
+                  _c("div", { staticClass: "w-1/3" }, [
+                    _c("i", [
+                      _vm._v("ថ្ងៃខែឆ្នាំកំណើត:"),
+                      _c("b", [
+                        _vm._v(" " + _vm._s(_vm.show_employees.dob) + " ")
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "w-1/3" }, [
+                    _c("i", [
+                      _vm._v("តួនាទី:"),
+                      _c("b", [
+                        _vm._v(" " + _vm._s(_vm.show_employees.position) + " ")
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "w-1/3" }, [
+                    _c("i", [
+                      _vm._v("គម្រិតសម្គាល់:"),
+                      _c("b", [
+                        _vm._v(
+                          " " + _vm._s(_vm.show_employees.degree_note) + " "
+                        )
+                      ])
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "flex mb-10" }, [
+                  _c("div", { staticClass: "w-1/3" }, [
+                    _c("i", [
+                      _vm._v("ថ្ងៃខែឆ្នាំចូលធ្វើការ:"),
+                      _c("b", [_vm._v(_vm._s(_vm.show_employees.start_work))])
+                    ])
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "vx-row mt-10" }, [
+              _c(
+                "div",
+                { staticClass: "vx-col md:w-1/3" },
+                [
+                  _c("h3", [_c("i", [_vm._v("ទំនាក់ទំនង់:")])]),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
+                  _vm._l(_vm.show_employees.contact.split("\n"), function(
+                    item,
+                    index
+                  ) {
+                    return _c("b", { key: index }, [
+                      _vm._v(" " + _vm._s(item)),
+                      _c("br")
+                    ])
+                  })
+                ],
+                2
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "vx-col md:w-1/3" }, [
+                _c("h3", [_c("i", [_vm._v("អាស័យដ្ឋានបច្ចុប្បន្ន:")])]),
+                _c("br"),
+                _vm._v(" "),
+                _c("b", [_vm._v(_vm._s(_vm.show_employees.addr))])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "vx-col md:w-1/3" }, [
+                _c("h3", [_c("i", [_vm._v("អាស័យដ្ឋានកំណើត:")])]),
+                _c("br"),
+                _vm._v(" "),
+                _c("b", [_vm._v(_vm._s(_vm.show_employees.pob))])
+              ])
+            ])
+          ])
         ],
         1
       )

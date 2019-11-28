@@ -129,6 +129,67 @@
                 </div>
             </vs-popup>
         </div>
+        <modal width="90%" height="auto" :scrollable="true" :pivotY="0.07" :adaptive="true" :clickToClose="false" name="show-employee">
+            <div class="flex justify-end">
+                <i @click="$modal.hide('show-employee')" class="vs-icon vs-popup--close material-icons text-warning" style="background: rgb(255, 255, 255);">close</i>
+            </div>
+            <vx-card no-shadow>
+                <div class="vx-row">
+                    <div class="vx-col md:w-full">
+                        <h4>អត្តលេខ: PKS-{{show_employees.id}}</h4>
+                    </div>
+                </div>
+                <div class="vx-row mt-4">
+                    <div class="vx-col lg:w-1/4">
+                        <img style="height: 250px" class="p-10" :src="show_employees.profile"/>
+                    </div>
+                    <div class="vx-col lg:w-3/4 mt-10">
+                        <div class="flex mb-10">
+                            <div class="w-1/3">
+                                <i>ឈ្មោះខ្មែរ:<b> {{show_employees.kh_name}} </b></i>
+                            </div>
+                            <div class="w-1/3">
+                                <i>ឈ្មោះឡាតាំង:<b> {{show_employees.en_name}} </b></i>
+                            </div>
+                            <div class="w-1/3">
+                                <i>ភេទ:<b>Male</b></i>
+                            </div>
+                        </div>
+                        <div class="flex mb-10">
+                            <div class="w-1/3">
+                                <i>ថ្ងៃខែឆ្នាំកំណើត:<b> {{show_employees.dob}} </b></i>
+                            </div>
+                            <div class="w-1/3">
+                                <i>តួនាទី:<b> {{show_employees.position}} </b></i>
+                            </div>
+                            <div class="w-1/3">
+                                <i>គម្រិតសម្គាល់:<b> {{show_employees.degree_note}} </b></i>
+                            </div>
+                        </div>
+                        <div class="flex mb-10">
+                            <div class="w-1/3">
+                                <i>ថ្ងៃខែឆ្នាំចូលធ្វើការ:<b>{{show_employees.start_work}}</b></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="vx-row mt-10">
+                    <div class="vx-col md:w-1/3">
+                        <h3><i>ទំនាក់ទំនង់:</i></h3>
+                        <br>
+                        <b :key="index" v-for="(item, index) in show_employees.contact.split('\n')"> {{item}}<br></b>
+                    </div>
+                    <div class="vx-col md:w-1/3">
+                        <h3><i>អាស័យដ្ឋានបច្ចុប្បន្ន:</i></h3><br>
+                        <b>{{show_employees.addr}}</b>
+                    </div>
+                    <div class="vx-col md:w-1/3">
+                        <h3><i>អាស័យដ្ឋានកំណើត:</i></h3><br>
+                        <b>{{show_employees.pob}}</b>
+                    </div>
+                </div>
+            </vx-card>
+        </modal>
         <!--Pop show employee-->
     </div>
 </template>
@@ -214,7 +275,8 @@
             },
             showEmployee(){
               // this.$modal.show('showEmployee');
-              this.showEmployeePopup = true;
+              // this.showEmployeePopup = true;
+              this.$modal.show('show-employee');
               var em = this.show_employees;
               var sl = this.selected[0];
               em.id          = this.preFixZero(sl.id, 5);

@@ -14,33 +14,9 @@
                 </div>
             </vs-col>
         </vs-row>
-        <div class="demo-alignment">
-            <vs-popup class="holamundo" title="បន្ថែមមុខដំណែង" :active.sync="positionPopup">
-                <vx-input-group class="mb-base">
-                    <vs-input @keyup.enter="storePosition" v-model="position" class="inputx" placeholder="មុខដំណែង" />
-                    <template slot="append">
-                        <div class="append-text btn-addon">
-                            <vs-button @click="storePosition" v-if="position !== ''" type="relief" icon-pack="feather" icon="icon-plus-square">បន្ថែម</vs-button>
-                        </div>
-                    </template>
-                </vx-input-group>
-            </vs-popup>
-        </div>
-        <div class="demo-alignment">
-            <vs-popup class="holamundo" title="បន្ថែមកម្រិតសម្គាល់" :active.sync="degreeNotePopup">
-                <vx-input-group class="mb-base">
-                    <vs-input @keyup.enter="storeDegreeNote" v-model="degree_note" class="inputx" placeholder="កម្រិតសម្គាល់" />
-                    <template slot="append">
-                        <div class="append-text btn-addon">
-                            <vs-button @click="storeDegreeNote" v-if="degree_note !== ''" type="relief" icon-pack="feather" icon="icon-plus-square">បន្ថែម</vs-button>
-                        </div>
-                    </template>
-                </vx-input-group>
-            </vs-popup>
-        </div>
-        <div class="demo-alignment">
+        <!--<div class="demo-alignment">
             <vs-popup fullscreen title="ចុះឈ្មោះបុគ្គលិក" :active.sync="createPopup">
-                <form>
+                &lt;!&ndash;<form>
                     <vs-row>
                         <vs-col vs-type="flex" vs-justify="start" vs-align="center" vs-w="3">
                             <vue-dropzone
@@ -162,10 +138,183 @@
                             </div>
                         </vs-col>
                     </vs-row>
-                </form>
+                </form>&ndash;&gt;
             </vs-popup>
-        </div>
+        </div>-->
+        <modal width="70%" height="auto" :scrollable="true" :pivotY="0.07" :adaptive="true" :clickToClose="false" name="add-employee">
+            <div class="flex justify-end">
+                <i @click="$modal.hide('add-employee')" class="vs-icon vs-popup--close material-icons text-warning" style="background: rgb(255, 255, 255);">close</i>
+            </div>
+            <vx-card no-shadow>
 
+                <form>
+                    <vs-row>
+                        <vs-col vs-type="flex" vs-justify="start" vs-align="center" vs-w="3">
+                            <vue-dropzone
+                                    class="max-content p-1"
+                                    duplicateCheck ref="myVueDropzone"
+                                    @vdropzone-success="successUpload"
+                                    id="dropzone" :options="dropzoneOptions"
+                            >
+
+                            </vue-dropzone>
+                        </vs-col>
+                        <vs-col vs-type="flex" vs-justify="start" vs-align="center" vs-w="9">
+                            <div class="w-1/3 mr-2">
+                                <vs-input class="w-full"  v-validate="'required'" name="ឈ្មោះខ្មែរ" label-placeholder="ឈ្មោះខ្មែរ" v-model="employees.kh_name" />
+                                <span class="text-danger text-sm" v-show="errors.has('ឈ្មោះខ្មែរ')">{{ errors.first('ឈ្មោះខ្មែរ') }}</span>
+                            </div>
+
+                            <div class="w-1/3 mr-1">
+                                <vs-input class="w-full" v-validate="'required'" label-placeholder="ឈ្មោះឡាតាំង" name="ឈ្មោះឡាតាំង" v-model="employees.en_name" />
+                                <span class="text-danger text-sm" v-show="errors.has('ឈ្មោះឡាតាំង')">{{ errors.first('ឈ្មោះឡាតាំង') }}</span>
+                            </div>
+                            <div class="w-1/3 ml-1 mt-5">
+                                <vs-select
+                                        autocomplete
+                                        class="w-full"
+                                        placeholder="ជ្រើសរើសភេទ"
+                                        v-model="employees.gender"
+                                        v-validate="'required'"
+                                        name="ភេទ"
+                                >
+                                    <vs-select-item  value="Female" text="Female" />
+                                    <vs-select-item  value="Male" text="Male" />
+                                </vs-select>
+                                <span class="text-danger text-sm" v-show="errors.has('ភេទ')">{{ errors.first('ភេទ') }}</span>
+                            </div>
+                        </vs-col>
+                    </vs-row>
+                    <div class="flex mb-5">
+                        <div class="w-1/4 mt-5 mr-2">
+                            <datepicker class="w-full" v-validate="'required'" name="ថ្ងៃខែឆ្នាំកំណើត" placeholder="ថ្ងៃខែឆ្នាំកំណើត" v-model="employees.dob"></datepicker>
+                            <span class="text-danger text-sm" v-show="errors.has('ថ្ងៃខែឆ្នាំកំណើត')">{{ errors.first('ថ្ងៃខែឆ្នាំកំណើត') }}</span>
+                        </div>
+                        <div class="w-1/3 ml-1 mt-5">
+                            <vs-select
+                                    autocomplete
+                                    class="w-full"
+                                    placeholder="តួនាទី"
+                                    v-model="employees.position"
+                                    v-validate="'required'"
+                                    name="តួនាទី"
+                            >
+                                <vs-select-item :key="index" v-for="(item, index) in getPositions"  :value="item.position" :text="item.position" />
+                            </vs-select>
+                            <span class="text-danger text-sm" v-show="errors.has('តួនាទី')">{{ errors.first('តួនាទី') }}</span>
+                        </div>
+
+                        <vs-button @click="$modal.show('add-position')" class="mt-5 mr-1" color="primary" type="gradient" icon-pack="feather" icon="icon-plus"></vs-button>
+
+                        <div class="w-1/3 ml-1 mt-5">
+                            <vs-select
+                                    v-if="employees.position.toUpperCase() === 'TEACHER'"
+                                    autocomplete
+                                    class="w-full"
+                                    placeholder="កម្រិតសម្គាល់"
+                                    type="primary"
+                                    v-model="employees.degree_note"
+                                    v-validate="'required'"
+                                    name="កម្រិតសម្គាល់"
+                            >
+                                <vs-select-item :key="index" v-for="(item, index) in getDegreeNotes"  :value="item.degree_note" :text="item.degree_note" />
+                            </vs-select>
+                            <vs-select
+                                    v-else
+                                    autocomplete
+                                    class="w-full"
+                                    placeholder="កម្រិតសម្គាល់"
+                                    type="primary"
+                                    v-model="employees.degree_note"
+                                    v-validate="'required'"
+                                    name="កម្រិតសម្គាល់"
+                            >
+                                <vs-select-item value="none" text="None" />
+                            </vs-select>
+                            <span class="text-danger text-sm" v-show="errors.has('កម្រិតសម្គាល់')">{{ errors.first('កម្រិតសម្គាល់') }}</span>
+                        </div>
+
+                        <vs-button @click="$modal.show('add-degree-note')" class="mt-5 mr-1" color="primary" type="gradient" icon-pack="feather" icon="icon-plus"></vs-button>
+                        <div class="w-1/4 ml-2 mt-5">
+                            <datepicker class="w-full" v-validate="'required'" name="ថ្ងៃចូលធ្វើការ" placeholder="ថ្ងៃចូលធ្វើការ" v-model="employees.start_work"></datepicker>
+                            <span class="text-danger text-sm" v-show="errors.has('ថ្ងៃចូលធ្វើការ')">{{ errors.first('ថ្ងៃចូលធ្វើការ') }}</span>
+                        </div>
+                    </div>
+                    <vs-divider></vs-divider>
+
+                    <div class="w-full mr-2 mb-5">
+                        <vs-textarea class="w-full" v-validate="'required'" name="ទំនាក់ទំនង" label="ទំនាក់ទំនង" v-model="employees.contact" />
+                        <span class="text-danger text-sm" v-show="errors.has('ទំនាក់ទំនង')">{{ errors.first('ទំនាក់ទំនង') }}</span>
+                    </div>
+
+                    <div class="flex mb-2">
+                        <div class="w-1/2 mr-2">
+                            <vs-textarea class="w-full" v-validate="'required'" name="ទីកន្លែងកំណើត" label="ទីកន្លែងកំណើត" v-model="employees.pob" />
+                            <span class="text-danger text-sm" v-show="errors.has('ទីកន្លែងកំណើត')">{{ errors.first('ទីកន្លែងកំណើត') }}</span>
+                        </div>
+                        <div class="w-1/2 ml-2">
+                            <vs-textarea class="w-full" v-validate="'required'" name="អាស័យដ្ឋានបច្ចុប្បន្ន" label="អាស័យដ្ឋានបច្ចុប្បន្ន" v-model="employees.addr" />
+                            <span class="text-danger text-sm" v-show="errors.has('អាស័យដ្ឋានបច្ចុប្បន្ន')">{{ errors.first('អាស័យដ្ឋានបច្ចុប្បន្ន') }}</span>
+                        </div>
+                    </div>
+                </form>
+
+                <vs-divider/>
+                <!-- Save & Reset Button -->
+                <div class="flex justify-end btn-group">
+                    <vs-button
+                            @click.prevent="storeEmployee"
+                            type="relief"
+                            icon-pack="feather"
+                            icon="icon-plus-square"
+                            v-if="is_update === false"
+                    >
+                        រក្សាទុក
+                    </vs-button>
+                    <vs-button
+                            @click.prevent="updateEmployee"
+                            type="relief"
+                            icon-pack="feather"
+                            icon="icon-plus-square"
+                            v-if="is_update === true"
+                    >
+                        កែប្រែ
+                    </vs-button>
+                </div>
+            </vx-card>
+        </modal>
+        <modal width="40%" height="auto" :scrollable="true" :pivotY="0.07" :adaptive="true" :clickToClose="false" name="add-position">
+            <div class="flex justify-end">
+                <i @click="$modal.hide('add-position')" class="vs-icon vs-popup--close material-icons text-warning" style="background: rgb(255, 255, 255);">close</i>
+            </div>
+            <vx-card no-shadow>
+
+                <vx-input-group class="mb-base">
+                    <vs-input @keyup.enter="storePosition" v-model="position" class="inputx" placeholder="មុខដំណែង" />
+                    <template slot="append">
+                        <div class="append-text btn-addon">
+                            <vs-button @click="storePosition" v-if="position !== ''" type="relief" icon-pack="feather" icon="icon-plus-square">បន្ថែម</vs-button>
+                        </div>
+                    </template>
+                </vx-input-group>
+            </vx-card>
+        </modal>
+        <modal width="40%" height="auto" :scrollable="true" :pivotY="0.07" :adaptive="true" :clickToClose="false" name="add-degree-note">
+            <div class="flex justify-end">
+                <i @click="$modal.hide('add-degree-note')" class="vs-icon vs-popup--close material-icons text-warning" style="background: rgb(255, 255, 255);">close</i>
+            </div>
+            <vx-card no-shadow>
+
+                <vx-input-group class="mb-base">
+                    <vs-input @keyup.enter="storeDegreeNote" v-model="degree_note" class="inputx" placeholder="កម្រិតសម្គាល់" />
+                    <template slot="append">
+                        <div class="append-text btn-addon">
+                            <vs-button @click="storeDegreeNote" v-if="degree_note !== ''" type="relief" icon-pack="feather" icon="icon-plus-square">បន្ថែម</vs-button>
+                        </div>
+                    </template>
+                </vx-input-group>
+            </vx-card>
+        </modal>
     </div>
 </template>
 
@@ -230,7 +379,8 @@
         methods: {
             showCreatePopup(selected){
                 this.is_update = true;
-                this.createPopup = true;
+                // this.createPopup = true;
+                this.$modal.show('add-employee');
                 var em = this.employees;
                 var sl = selected[0];
                 if (selected !== 'inner'){
@@ -384,9 +534,9 @@
                                     icon:'icon-check',
                                     position:'top-center'
                                 });
+                                self.$modal.hide('add-employee');
                                 self.clearEmployeeForm();
                                 self.$vs.loading.close();
-                                self.createPopup = false;
                             }
                         })
                     } else {
