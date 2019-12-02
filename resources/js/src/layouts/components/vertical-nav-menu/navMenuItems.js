@@ -52,6 +52,12 @@ export default [
     icon: "PackageIcon",
   },
   {
+    url: "/payment",
+    name: "ការបង់លុយ",
+    slug: "payment",
+    icon: "PackageIcon",
+  },
+  {
     url: "/page2",
     name: "Page 2",
     slug: "page2",

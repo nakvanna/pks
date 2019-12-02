@@ -23,6 +23,7 @@ import group_section from './modules/setting/group_section';
 import section from './modules/setting/section';
 import study_class from './modules/setting/study_class';
 import level from './modules/setting/level';
+import year from './modules/setting/year';
 import shift from './modules/setting/shift';
 import collection from './modules/setting/collection';
 import service from './modules/service/service';
@@ -30,6 +31,8 @@ import position from './modules/employee/position';
 import degree_note from './modules/employee/degree_note';
 import employee from './modules/employee/employee';
 import student from './modules/student/student';
+import study_info from './modules/study_info/study_info';
+import service_info from './modules/service_info/service_info';
 export default new Vuex.Store({
     getters,
     mutations,
@@ -41,6 +44,7 @@ export default new Vuex.Store({
         section,
         study_class,
         level,
+        year,
         shift,
         collection,
         service,
@@ -48,5 +52,7 @@ export default new Vuex.Store({
         degree_note,
         employee,
         student,
+        study_info,
+        service_info,
     }
 })

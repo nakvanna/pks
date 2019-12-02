@@ -3,46 +3,57 @@
         <div class="flex justify-end">
             <i @click="$modal.hide('addStudyInfo')" class="vs-icon vs-popup--close material-icons text-warning" style="background: rgb(255, 255, 255);">close</i>
         </div>
+        <h4 class="ml-2"><u> ការសិក្សា</u></h4>
         <vx-card no-shadow>
             <div class="vx-row">
                 <div class="vx-col lg:w-1/2 w-full">
                     <vs-select
+                            autocomplete
                             class="w-full"
-                            label="ឆ្នាំសិក្សា"
-                            v-model="data.gender"
+                            placeholder="ឆ្នាំសិក្សា"
+                            type="primary"
+                            v-validate="'required'"
+                            v-model="data.year"
+                            name="កម្រិតសម្គាល់"
                     >
-                        <vs-select-item value="ប្រុស" text="ប្រុស"/>
-                        <vs-select-item value="ស្រី" text="ស្រី"/>
+                        <vs-select-item :key="index" v-for="(item, index) in getYears"  :value="item.name" :text="item.name" />
                     </vs-select>
+
+                </div>
+                <div class="vx-col md:w-1/2 flex">
+                    <vs-checkbox color="#720ea8" v-model="checked"></vs-checkbox>
+                    <flat-pickr class="w-full" v-model="data.date_pay" placeholder="ថ្ងៃត្រូវបង់លុយដំបូង" name="date-pay" v-validate="'required'" :disabled="!checked"/>
                 </div>
             </div>
             <vs-divider />
             <div class="vx-row">
                 <div v-for="(study_info,index) in data.study_infos" :key="index" class="vx-col w-full">
-                    <vx-input-group class="mb-base">
-                        <vs-select
-                                class="w-full"
-                                v-model="study_info.study_info"
-                                autocomplete
-                        >
-                            <vs-select-item value="ប្រុស" text="ថ្នាក់ខ្មែរពេញម៉ោង-ម.ទុតិយភូមិ-7A-ព្រឹក"/>
-                            <vs-select-item value="ស្រី" text="ថ្នាក់ខ្មែរពេញម៉ោង-ម.ទុតិយភូមិ-7A-រសៀល"/>
-                            <vs-select-item value="ប្រុស" text="ថ្នាក់ខ្មែរពេញម៉ោង-ម.ទុតិយភូមិ-8A-ព្រឹក"/>
-                            <vs-select-item value="ស្រី" text="ថ្នាក់ខ្មែរពេញម៉ោង-ម.ទុតិយភូមិ-8A-រសៀល"/>
-                        </vs-select>
-                        <template slot="append">
-                            <div class="append-text btn-addon">
-                                <vs-button @click="minus(index)" icon-pack="feather" icon="icon-minus" type="flat"></vs-button>
-                                <vs-button v-if="data.study_infos.length === index+1" @click="plus" icon-pack="feather" icon="icon-plus" type="flat"></vs-button>
+                    <vx-input-group class="mb-base ">
+                        <div class="flex">
+                            <vs-select
+                                    class="w-5/6"
+                                    v-model="study_info.collection_id"
+                                    autocomplete
+                                    placeholder="ជ្រើសរើសពត៍មានការសិក្សា"
+                            >
+                                <vs-select-item
+                                        :key="index" v-for="(item, index) in getCollection" :value="item.id"
+                                        :text="item.group_section+' -> '+item.section+' -> '+item.level+item.class_name+' -> '+item.shift"/>
+                            </vs-select>
+                            <!--<template slot="append">-->
+                            <div class="append-text flex w-1/6 btn-addon">
+                                <vs-button @click="minus(index)" color="danger" type="relief" icon-pack="feather" icon="icon-minus"></vs-button>
+                                <vs-button type="relief" v-if="data.study_infos.length === index+1" @click="plus" icon-pack="feather" icon="icon-plus" ></vs-button>
                             </div>
-                        </template>
+                            <!--</template>-->
+                        </div>
                     </vx-input-group>
                 </div>
             </div>
             <vs-divider/>
             <!-- Save & Reset Button -->
             <div class="flex justify-end btn-group">
-                <vs-button @click="storeStudent" icon="icon-save" icon-pack="feather" type="relief">រក្សាទុក</vs-button>
+                <vs-button @click="storeStudyInfo" icon="icon-save" icon-pack="feather" type="relief">រក្សាទុក</vs-button>
             </div>
         </vx-card>
     </modal>
@@ -60,10 +71,14 @@
         },
         data(){
             return{
+                checked: false,
                 data:{
-                    study_year:'2019-2020',
-                    study_infos:[{study_info:null}],
+                    year: '',
+                    date_pay: null,
+                    study_infos:[{collection_id:null}],
                 },
+                student_ids: [],
+                study_infos: [],
                 dropzoneOptions: {
                     url: route('file.upload'),
                     maxFiles:1,
@@ -74,80 +89,81 @@
                 }
             }
         },
+        computed: {
+            getYears(){
+                return this.$store.getters.get_years;
+            },
+            getCollection(){
+                return this.$store.getters.get_collections
+            }
+        },
+        async created () {
+            await this.$store.dispatch('fetchYears'); /*Fetch year*/
+            await this.$store.dispatch('fetchCollections'); /*Fetch collection (study info)*/
+        },
         methods:{
-            show () {
+            show (selected, is_student) {
                 this.$modal.show('addStudyInfo');
+                if (is_student === true){
+                    for(var i = 0; i < selected.length; i ++){
+                        this.student_ids.push(
+                            selected[i]['id'],
+                        )
+                    }
+                } else {
+                    for(var i = 0; i < selected.length; i ++){
+                        this.student_ids.push(
+                            selected[i].student_id,
+                        )
+                    }
+                }
             },
             plus(){
-                this.data.study_infos.push({study_info:null})
+                this.data.study_infos.push({collection_id:null})
             },
             minus(index){
                 this.data.study_infos.splice(index,1)
             },
-            //store
-            storeStudent(){
-                let self = this;
-                this.$validator.validateAll().then(result => {
-                    if (result && self.data.gender && self.data.photo) {
-                        self.$vs.loading();
-                        self.$store.dispatch('storeStudent',self.data).then(function (data) {
-                            if (data) {
-                                self.$vs.notify({
-                                    time: 4000,
-                                    title: 'ប្រតិបត្តិការជោគជ័យ',
-                                    text: 'ទិន្នន័យបានបន្ថែម',
-                                    color: 'success',
-                                    iconPack: 'feather',
-                                    icon: 'icon-check',
-                                    position: 'top-center'
-                                });
-                                self.resetField();
-                            } else {
-                                self.$vs.notify({
-                                    title: 'ប្រតិបត្តិការបរាជ័យ',
-                                    text: 'ទិន្នន័យមិនបានបន្ថែម',
-                                    color: 'danger',
-                                    iconPack: 'feather',
-                                    icon: 'icon-message-square',
-                                    position: 'top-center'
-                                });
-                            }
-                            self.$vs.loading.close();
-                        });
-                    }else {
-                        self.$vs.notify({
-                            title: 'ប្រតិបត្តិការបរាជ័យ',
-                            text: 'សូមបំពេញទិន្នន័យអោយបានត្រឹមត្រូវ',
-                            color: 'danger',
-                            iconPack: 'feather',
-                            icon: 'icon-message-square',
-                            position: 'top-center'
-                        })
-                    }
-                });
-            },
-            resetField(){
-                this.data = {
-                    name:'',
-                    latin:'',
-                    gender:'ប្រុស',
-                    photo:'placeholder/placeholder.png',
-                    dob:'',
-                    std_contact:'',
-                    pob:'',
-                    address:'',
-                    father_name:'',
-                    father_job:'',
-                    father_contact:'',
-                    mother_name:'',
-                    mother_job:'',
-                    mother_contact:'',
-                }
-            },
             //image upload
             successUpload(file,res){
                 this.data.photo = res.path
-            }
+            },
+            async storeStudyInfo(){
+                let self = this;
+                let year = this.data.year;
+                let date_pay = this.data.date_pay;
+                let sinfo = this.data.study_infos;
+                let stuid = this.student_ids;
+                for(var i = 0; i < stuid.length; i ++){
+                    for(var j = 0; j < sinfo.length; j ++){
+                        self.study_infos.push({
+                            year          : year,
+                            date_pay      : date_pay,
+                            student_id    : stuid[i],
+                            collection_id : sinfo[j].collection_id,
+                        })
+                    }
+                }
+                this.$vs.loading({
+                    type:'material',
+                });
+                const promises = self.study_infos.map(async function (data) {
+                    await self.$store.dispatch('storeStudyInfo', data);
+                });
+
+                await Promise.all(promises).then(function () {
+                    self.$vs.notify({
+                        title:'ប្រតិបត្តិការណ៍ជោគជ័យ',
+                        text:'ទិន្នន័យសិស្សត្រូវបានបញ្ចូលក្នុងឆ្នាំសិក្សា!',
+                        color:'success',
+                        iconPack: 'feather',
+                        icon:'icon-check',
+                        position:'top-center'
+                    });
+                    self.study_infos = [];
+                    self.$vs.loading.close()
+                })
+            },
         },
     }
 </script>

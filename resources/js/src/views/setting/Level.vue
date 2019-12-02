@@ -38,7 +38,7 @@
         name:'Section',
         data() {
             return {
-                name: Math.floor(Math.random() * 100),
+                name: '',
                 selected: [],
                 'tableList': [
                     'vs-th: Component',
@@ -87,7 +87,7 @@
                                 icon:'icon-check',
                                 position:'top-center'
                             });
-                            self.name = Math.floor(Math.random() * 100);
+                            self.name = '';
                             self.$vs.loading.close();
                         }
                     })

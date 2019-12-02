@@ -1,102 +1,147 @@
 <template>
-    <div>
+    <vx-card no-shadow>
         <vs-row vs-type="flex" vs-justify="flex-end">
-            <vs-col vs-type="flex" vs-justify="flex-end">
-                <div class="flex btn-group">
+            <vs-col class="1/2" vs-type="flex" vs-justify="flex-start">
+                <h5>ចំនួនដែលបានជ្រើសរើស: {{selected.length}}</h5>
+            </vs-col>
+            <vs-col class="1/2" vs-type="flex" vs-justify="flex-end">
+                <div v-if="selected.length" class="flex btn-group">
                     <vs-button
-                            @click="$modal.show('add-study-year');"
+                            @click="$refs.addServiceInfo.show(selected, false)"
                             type="relief"
                             icon-pack="feather"
                             icon="icon-plus-square"
                     >
-                        បន្ថែម
+                        បន្ថែមសេវាកម្ម
                     </vs-button>
                     <vs-button
-                            color="warning" type="relief"
-                            icon-pack="feather" icon="icon-edit"
-                    >
-                        កែប្រែ
-                    </vs-button>
-                    <vs-button
-                            type="relief"
+                            @click="toggleService"
+                            color="danger" type="relief"
                             icon-pack="feather" icon="icon-refresh-ccw"
                     >
-                        សម្អាត
+                        ផ្ដាច់សេវាកម្ម
                     </vs-button>
                 </div>
             </vs-col>
         </vs-row>
         <vs-divider/>
-        <vs-table multiple v-model="selected" pagination max-items="5" search :data="users">
+        <vs-table multiple v-model="selected" pagination max-items="5" search :data="service_info_extract">
 
             <template slot="thead">
-                <vs-th sort-key="id">ID</vs-th>
-                <vs-th sort-key="service">ឆ្នាំសិក្សា</vs-th>
-                <vs-th sort-key="type">សិស្ស</vs-th>
-                <vs-th sort-key="cost_one">សេវាកម្ម</vs-th>
+                <vs-th sort-key="year">ឆ្នាំសិក្សា</vs-th>
+                <vs-th sort-key="name">ឈ្មោះសិស្ស</vs-th>
+                <vs-th sort-key="latin">ឈ្មោះឡាតាំ</vs-th>
+                <vs-th sort-key="gender">ភេទ</vs-th>
+                <vs-th sort-key="dob">ថ្ងៃខែឆ្នាំកំណើត</vs-th>
+                <vs-th sort-key="class_name">កំពុងប្រើប្រាស់សេវាកម្ម</vs-th>
+                <vs-th sort-key="date_pay">ថ្ងៃត្រូវបង់លុយ</vs-th>
+                <vs-th sort-key="is_used">ស្ថានភាព</vs-th>
             </template>
-            <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in data">
 
-                <vs-td :data="data[indextr].id">
-                    {{ data[indextr].id }}
-                </vs-td>
+            <template slot-scope="{data}">
+                <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in data">
 
-                <vs-td :data="data[indextr].type">
-                    {{ data[indextr].type }}
-                </vs-td>
+                    <vs-td :data="data[indextr].year">
+                        {{ data[indextr].year }}
+                    </vs-td>
 
-                <vs-td :data="data[indextr].service">
-                    {{ data[indextr].service }}
-                </vs-td>
+                    <vs-td :data="data[indextr].name">
+                        {{ data[indextr].name }}
+                    </vs-td>
 
-                <vs-td :data="data[indextr].cost_one">
-                    $ {{ data[indextr].cost_one }}
-                </vs-td>
+                    <vs-td :data="data[indextr].latin">
+                        {{ data[indextr].latin }}
+                    </vs-td>
 
-            </vs-tr>
+                    <vs-td :data="data[indextr].gender">
+                        {{ data[indextr].gender}}
+                    </vs-td>
 
+                    <vs-td :data="data[indextr].dob">
+                        {{ data[indextr].dob}}
+                    </vs-td>
 
-            <template slot-scope="{data}"></template>
+                    <vs-td :data="data[indextr].service">
+                        {{ data[indextr].service }}
+                    </vs-td>
+
+                    <vs-td v-if="data[indextr].date_pay !== null" :data="data[indextr].date_pay">
+                        {{ data[indextr].date_pay.substr(0, 10) }}
+                    </vs-td>
+                    <vs-td v-else :data="data[indextr].date_pay">
+                        មិនបានកំណត់
+                    </vs-td>
+
+                    <vs-td :data="data[indextr].is_used">
+                        <vs-chip v-if="data[indextr].is_used === 'នៅប្រើ'" color="primary">{{ data[indextr].is_used }}</vs-chip>
+                        <vs-chip v-else color="danger">{{ data[indextr].is_used }}</vs-chip>
+                    </vs-td>
+                </vs-tr>
+            </template>
         </vs-table>
-
-        <modal width="70%" height="auto" :scrollable="true" :pivotY="0.07" :adaptive="true" :clickToClose="false" name="add-study-year">
-            <div class="flex justify-end">
-                <i @click="$modal.hide('add-study-year')" class="vs-icon vs-popup--close material-icons text-warning" style="background: rgb(255, 255, 255);">close</i>
-            </div>
-            <vx-card no-shadow>
-                <div class="flex">
-                    <vs-select
-                            autocomplete
-                            class="w-1/3 mr-1"
-                            placeholder="ជ្រើសរើសសិស្ស"
-                    >
-                        <vs-select-item  value="A" text="A" />
-                    </vs-select>
-                    <vs-select
-                            autocomplete
-                            class="w-1/3 mr-1"
-                            placeholder="ជ្រើសរើសសិស្ស"
-                    >
-                        <vs-select-item  value="A" text="A" />
-                    </vs-select><vs-input class="w-1/3 ml-1 mr-1" placeholder="ភេទ" />
-                </div>
-                <vs-divider/>
-                <!-- Save & Reset Button -->
-                <div class="flex justify-end btn-group">
-                    <vs-button icon="icon-save" icon-pack="feather" type="relief">រក្សាទុក</vs-button>
-                </div>
-            </vx-card>
-        </modal>
-    </div>
+        <add-service-info ref="addServiceInfo"></add-service-info>
+    </vx-card>
 </template>
 
 <script>
+    import AddServiceInfo from "../student/addServiceInfo";
     export default {
-        name: "StudyYear",
+        name: "ServiceInfo",
+        components: {
+            AddServiceInfo
+        },
         data() {
             return {
                 users: [],
                 selected: [],
+                service_info_extract: [],
+            }
+        },
+        computed: {
+            getServiceInfos(){
+                return this.$store.getters.get_service_infos
+            }
+        },
+        async created() {
+            await this.$store.dispatch('fetchServiceInfos');
+            let sie = this.service_info_extract;
+            let raw = this.getServiceInfos;
+            raw.map(async function (data) {
+                sie.push({
+                    id         : data.id,
+                    year       : data.year,
+                    student_id : data.students.id,
+                    name       : data.students.name,
+                    latin      : data.students.latin,
+                    gender     : data.students.gender,
+                    dob        : data.students.dob,
+                    service    : data.services.type+'-'+ data.services.service,
+                    date_pay   : data.date_pay,
+                    last_term  : data.last_term,
+                    is_used    : data.is_used === true? 'នៅប្រើ' : 'បានផ្អាក' ,
+                })
+            });
+        },
+        methods: {
+            async toggleService(){
+                let self = this;
+                self.$vs.loading();
+                const promises = self.selected.map(async function (data) {
+                    await self.$store.dispatch('toggleService',data.id);
+                });
+                await Promise.all(promises).then(function () {
+                    self.$vs.notify({
+                        time: 4000,
+                        title: 'ប្រតិបត្តិការជោគជ័យ',
+                        text: 'ទិន្នន័យបានកែប្រែ',
+                        color: 'success',
+                        iconPack: 'feather',
+                        icon: 'icon-check',
+                        position: 'top-center'
+                    });
+                    self.selected = [];
+                    self.$vs.loading.close();
+                })
             }
         }
     }

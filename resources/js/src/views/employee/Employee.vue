@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <vx-card no-shadow>
        <!--Create popup-->
         <Create ref="createEmployee"></Create>
        <!--Create popup-->
@@ -191,7 +191,7 @@
             </vx-card>
         </modal>
         <!--Pop show employee-->
-    </div>
+    </vx-card>
 </template>
 <script>
     import Datepicker from 'vuejs-datepicker';

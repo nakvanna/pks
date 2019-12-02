@@ -1,5 +1,5 @@
 <template>
-    <modal width="1500" height="auto" :scrollable="true" :pivotY="0.2" :adaptive="true" :clickToClose="false" name="add">
+    <modal width="90%" height="auto" :scrollable="true" :pivotY="0.2" :adaptive="true" :clickToClose="false" name="add">
         <div class="flex justify-end">
             <i @click="$modal.hide('add')" class="vs-icon vs-popup--close material-icons text-warning" style="background: rgb(255, 255, 255);">close</i>
         </div>
@@ -9,7 +9,7 @@
                 <div class="vx-col lg:w-3/4 w-full">
                     <div class="vx-row">
                         <div class="vx-col lg:w-1/3 w-full">
-                            <vs-input class="w-full mt-6" label-placeholder="គោតនាម នាម" name="name" v-model="data.name"
+                            <vs-input @keyup.enter="storeStudent" class="w-full mt-6" label-placeholder="គោតនាម នាម" name="name" v-model="data.name"
                                       v-validate="'required'"/>
                             <span class="text-danger text-sm"
                                   v-show="errors.has('name')">{{ errors.first('name') }}</span>
@@ -175,7 +175,7 @@
                                     icon: 'icon-check',
                                     position: 'top-center'
                                 });
-                                self.resetField();
+                                // self.resetField();
                             } else {
                                 self.$vs.notify({
                                     title: 'ប្រតិបត្តិការបរាជ័យ',

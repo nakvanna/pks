@@ -117,6 +117,19 @@ const router = new Router({
                         rule: 'editor'
                     }
                 },
+                {
+                    path: '/payment',
+                    name: 'payment',
+                    component: () => import('./views/payment/Payment'),
+                    meta: {
+                        breadcrumb: [
+                            {title: 'បង់លុយ', url: '/'},
+                            {title: 'បង់លុយ', active: true},
+                        ],
+                        pageTitle: 'ការបង់លុយ',
+                        rule: 'editor'
+                    }
+                },
             ],
         },
         // =============================================================================

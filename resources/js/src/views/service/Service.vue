@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <vx-card no-shadow>
         <div class="flex mb-4">
             <vs-input class="w-2/3 mr-2" label-placeholder="ប្រភេទ" v-model="services.type"></vs-input>
             <vs-input class="w-2/3 mr-2" label-placeholder="សេវាកម្ម" v-model="services.service"></vs-input>
@@ -105,7 +105,7 @@
                 </div>
             </vs-col>
         </vs-row>
-    </div>
+    </vx-card>
 </template>
 <script>
     export default {
