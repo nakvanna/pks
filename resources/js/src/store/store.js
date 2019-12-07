@@ -33,6 +33,9 @@ import employee from './modules/employee/employee';
 import student from './modules/student/student';
 import study_info from './modules/study_info/study_info';
 import service_info from './modules/service_info/service_info';
+import payment from './modules/payment/payment';
+import invoice from './modules/invoice/invoice';
+import invoice_detail from './modules/invoice/invoice_detail';
 export default new Vuex.Store({
     getters,
     mutations,
@@ -54,5 +57,8 @@ export default new Vuex.Store({
         student,
         study_info,
         service_info,
+        payment,
+        invoice,
+        invoice_detail,
     }
 })

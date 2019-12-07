@@ -54,9 +54,7 @@ const mutations = {
     UPDATE_STUDY_INFO: function(state, data){
         const index = state.study_infos.findIndex(study_info => study_info.id === data.id);
         if(index !== -1){
-            state.study_infos.splice(index, 1, {
-                id          : data.id,
-            });
+            state.study_infos.splice(index, 1, data);
         }
     },
     REMOVE_STUDY_INFO: function (state, id) {

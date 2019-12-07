@@ -6,23 +6,24 @@
         <h4 class="ml-2"><u> ការសិក្សា</u></h4>
         <vx-card no-shadow>
             <div class="vx-row">
-                <div class="vx-col lg:w-1/2 w-full">
+                <div class="vx-col lg:w-1/3 w-full">
                     <vs-select
                             autocomplete
                             class="w-full"
                             placeholder="ឆ្នាំសិក្សា"
                             type="primary"
-                            v-validate="'required'"
                             v-model="data.year"
-                            name="កម្រិតសម្គាល់"
                     >
                         <vs-select-item :key="index" v-for="(item, index) in getYears"  :value="item.name" :text="item.name" />
                     </vs-select>
 
                 </div>
-                <div class="vx-col md:w-1/2 flex">
+                <div class="vx-col md:w-1/3 flex">
                     <vs-checkbox color="#720ea8" v-model="checked"></vs-checkbox>
                     <flat-pickr class="w-full" v-model="data.date_pay" placeholder="ថ្ងៃត្រូវបង់លុយដំបូង" name="date-pay" v-validate="'required'" :disabled="!checked"/>
+                </div>
+                <div class="vx-col md:w-1/3 flex">
+                    <flat-pickr class="w-full" v-model="data.last_date_pay" placeholder="ថ្ងៃត្រូវបង់ចុងក្រោយ" name="date-pay" v-validate="'required'"/>
                 </div>
             </div>
             <vs-divider />
@@ -75,6 +76,7 @@
                 data:{
                     year: '',
                     date_pay: null,
+                    last_date_pay: null,
                     study_infos:[{collection_id:null}],
                 },
                 student_ids: [],
@@ -128,10 +130,20 @@
             successUpload(file,res){
                 this.data.photo = res.path
             },
+            clearForm(){
+                this.checked = false;
+                this.data = {
+                        year: '',
+                        date_pay: null,
+                        last_date_pay: null,
+                        study_infos:[{collection_id:null}],
+                };
+            },
             async storeStudyInfo(){
                 let self = this;
                 let year = this.data.year;
                 let date_pay = this.data.date_pay;
+                let last_date_pay = this.data.last_date_pay;
                 let sinfo = this.data.study_infos;
                 let stuid = this.student_ids;
                 for(var i = 0; i < stuid.length; i ++){
@@ -139,6 +151,7 @@
                         self.study_infos.push({
                             year          : year,
                             date_pay      : date_pay,
+                            last_date_pay : last_date_pay,
                             student_id    : stuid[i],
                             collection_id : sinfo[j].collection_id,
                         })
@@ -150,7 +163,6 @@
                 const promises = self.study_infos.map(async function (data) {
                     await self.$store.dispatch('storeStudyInfo', data);
                 });
-
                 await Promise.all(promises).then(function () {
                     self.$vs.notify({
                         title:'ប្រតិបត្តិការណ៍ជោគជ័យ',
@@ -161,8 +173,9 @@
                         position:'top-center'
                     });
                     self.study_infos = [];
+                    self.clearForm();
                     self.$vs.loading.close()
-                })
+                });
             },
         },
     }
