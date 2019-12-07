@@ -22,7 +22,7 @@ mix.js('resources/js/app.js', 'public/js')
                 '@assets': path.resolve(__dirname, 'resources/assets'),
                 '@sass': path.resolve(__dirname, 'resources/sass')
             }
-        }
+        },
     })
     .sass('resources/sass/app.scss', 'public/css').options({
         postCss:[require('autoprefixer'), require('postcss-rtl')]
