@@ -1,5 +1,5 @@
 <template>
-    <modal width="90%" height="auto" :scrollable="true" :pivotY="0.5" :adaptive="true" :clickToClose="false" name="add">
+    <modal width="90%" height="auto" :scrollable="true" :pivotY="0.5" :clickToClose="false" name="add">
         <div class="flex justify-end">
             <i @click="$modal.hide('add')" class="vs-icon vs-popup--close material-icons text-warning" style="background: rgb(255, 255, 255);">close</i>
         </div>
@@ -19,7 +19,7 @@
                                       v-validate="'required'"/>
                             <span class="text-danger text-sm"
                                   v-show="errors.has('latin')">{{ errors.first('latin') }}</span>
-                        </div>
+                        </div>-
                         <div class="vx-col lg:w-1/3 w-full">
                             <vs-select
                                     class="w-full"

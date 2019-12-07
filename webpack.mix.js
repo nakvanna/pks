@@ -38,8 +38,6 @@ mix.js('resources/js/app.js', 'public/js')
     .copy('node_modules/prismjs/themes/prism-tomorrow.css', 'public/css/prism-tomorrow.css') // Prism Tomorrow theme css
     .copyDirectory('resources/assets/images', 'public/images') // Copy all images from resources to public folder
     .browserSync('127.0.0.1:8000');
-
-
 // Change below options according to your requirement
 if (mix.inProduction()) {
     mix.version();
