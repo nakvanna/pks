@@ -956,7 +956,7 @@ var render = function() {
         width: "90%",
         height: "auto",
         scrollable: true,
-        pivotY: 0.2,
+        pivotY: 0.5,
         adaptive: true,
         clickToClose: false,
         name: "add"
