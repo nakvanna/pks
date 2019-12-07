@@ -19,6 +19,7 @@ class CreateServiceInfosTable extends Migration
             $table->bigInteger('student_id');
             $table->bigInteger('service_id');
             $table->dateTime('date_pay')->nullable();
+            $table->dateTime('last_date_pay');
             $table->integer('last_term')->default(0);
             $table->boolean('is_used')->default(true);
             $table->timestamps();

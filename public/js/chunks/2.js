@@ -85,6 +85,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 
@@ -101,6 +102,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       data: {
         year: '',
         date_pay: null,
+        last_date_pay: null,
         service_infos: [{
           service_id: null
         }]
@@ -180,11 +182,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     successUpload: function successUpload(file, res) {
       this.data.photo = res.path;
     },
+    clearForm: function clearForm() {
+      this.checked = false;
+      this.data = {
+        year: '',
+        date_pay: null,
+        last_date_pay: null,
+        service_infos: [{
+          service_id: null
+        }]
+      };
+    },
     storeServiceInfo: function () {
       var _storeServiceInfo = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-        var self, year, date_pay, sinfo, stuid, i, j, promises;
+        var self, year, date_pay, last_date_pay, sinfo, stuid, i, j, promises;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
@@ -192,6 +205,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 self = this;
                 year = this.data.year;
                 date_pay = this.data.date_pay;
+                last_date_pay = this.data.last_date_pay;
                 sinfo = this.data.service_infos;
                 stuid = this.student_ids;
 
@@ -200,6 +214,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     self.service_infos.push({
                       year: year,
                       date_pay: date_pay,
+                      last_date_pay: last_date_pay,
                       student_id: stuid[i],
                       service_id: sinfo[j].service_id
                     });
@@ -234,7 +249,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     return _ref.apply(this, arguments);
                   };
                 }());
-                _context3.next = 10;
+                _context3.next = 11;
                 return Promise.all(promises).then(function () {
                   self.$vs.notify({
                     title: 'ប្រតិបត្តិការណ៍ជោគជ័យ',
@@ -245,10 +260,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     position: 'top-center'
                   });
                   self.service_infos = [];
+                  self.clearForm();
                   self.$vs.loading.close();
                 });
 
-              case 10:
+              case 11:
               case "end":
                 return _context3.stop();
             }
@@ -321,25 +337,16 @@ var render = function() {
           _c("div", { staticClass: "vx-row" }, [
             _c(
               "div",
-              { staticClass: "vx-col lg:w-1/2 w-full" },
+              { staticClass: "vx-col lg:w-1/3 w-full" },
               [
                 _c(
                   "vs-select",
                   {
-                    directives: [
-                      {
-                        name: "validate",
-                        rawName: "v-validate",
-                        value: "required",
-                        expression: "'required'"
-                      }
-                    ],
                     staticClass: "w-full",
                     attrs: {
                       autocomplete: "",
                       placeholder: "ឆ្នាំសិក្សា",
-                      type: "primary",
-                      name: "កម្រិតសម្គាល់"
+                      type: "primary"
                     },
                     model: {
                       value: _vm.data.year,
@@ -363,7 +370,7 @@ var render = function() {
             _vm._v(" "),
             _c(
               "div",
-              { staticClass: "vx-col md:w-1/2 flex" },
+              { staticClass: "vx-col md:w-1/3 flex" },
               [
                 _c("vs-checkbox", {
                   attrs: { color: "#720ea8" },
@@ -397,6 +404,36 @@ var render = function() {
                       _vm.$set(_vm.data, "date_pay", $$v)
                     },
                     expression: "data.date_pay"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "vx-col md:w-1/3 flex" },
+              [
+                _c("flat-pickr", {
+                  directives: [
+                    {
+                      name: "validate",
+                      rawName: "v-validate",
+                      value: "required",
+                      expression: "'required'"
+                    }
+                  ],
+                  staticClass: "w-full",
+                  attrs: {
+                    placeholder: "ថ្ងៃត្រូវបង់លុយដំបូង",
+                    name: "date-pay"
+                  },
+                  model: {
+                    value: _vm.data.last_date_pay,
+                    callback: function($$v) {
+                      _vm.$set(_vm.data, "last_date_pay", $$v)
+                    },
+                    expression: "data.last_date_pay"
                   }
                 })
               ],

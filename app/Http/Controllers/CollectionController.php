@@ -46,15 +46,15 @@ class CollectionController extends Controller
             'class_name'   =>'required',
             'cost'         =>'required',
         ]);
-        $store = Collection::findOrFail($id);
-        $store->group_section = $input['group_section'];
-        $store->section       = $input['section'];
-        $store->level         = $input['level'];
-        $store->shift         = $input['shift'];
-        $store->class_name    = $input['class_name'];
-        $store->cost          = $input['cost'];
-        $store->save();
-        return $store;
+        $update = Collection::findOrFail($id);
+        $update->group_section = $input['group_section'];
+        $update->section       = $input['section'];
+        $update->level         = $input['level'];
+        $update->shift         = $input['shift'];
+        $update->class_name    = $input['class_name'];
+        $update->cost          = $input['cost'];
+        $update->save();
+        return $update;
     }
     public function destroy($id){
         $delete = Collection::find($id);

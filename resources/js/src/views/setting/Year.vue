@@ -9,11 +9,13 @@
             </template>
         </vx-input-group>
         <vs-divider/>
-        <vs-table multiple v-model="selected" pagination max-items="5" search :data="getYears">
+        <vs-button @click="updateYear(selected[0].id, selected[0].name)" v-if="selected.length ===1" size="small" class="mb-2" icon="icon-save" icon-pack="feather" type="relief">ឆ្នាំបច្ចុប្បន្ន</vs-button>
+        <vs-table multiple v-model="selected" pagination max-items="5" :data="getYears">
 
             <template slot="thead">
                 <vs-th sort-key="id">ID</vs-th>
                 <vs-th sort-key="name">Name</vs-th>
+                <vs-th sort-key="current">Current</vs-th>
             </template>
 
             <template slot-scope="{data}">
@@ -27,6 +29,17 @@
                         {{ data[indextr].name }}
                     </vs-td>
 
+                    <vs-td v-if="data[indextr].current === true" :data="data[indextr].current">
+                        <vs-chip color="success">
+                            <span>ឆ្នាំសិក្សាបច្ចុប្បន្ន</span>
+                        </vs-chip>
+                    </vs-td>
+
+                    <vs-td v-else :data="data[indextr].current">
+                        <vs-chip color="danger">
+                            <span>ឆ្នាំសិក្សាផ្សេងៗ</span>
+                        </vs-chip>
+                    </vs-td>
                 </vs-tr>
             </template>
         </vs-table>
@@ -92,6 +105,28 @@
                         }
                     })
                 }
+            },
+            async updateYear(id, name){
+                let self = this;
+                this.$vs.loading({
+                    type:'material',
+                });
+                const promises = self.getYears.map(async function (data) {
+                    await self.$store.dispatch('updateYear', {current: false, id: data.id, name:data.name});
+                    await self.$store.dispatch('updateYear', {current: true, id: id, name:name})
+                });
+                await Promise.all(promises).then(function () {
+                    self.$vs.notify({
+                        title:'ប្រតិបត្តិការណ៍ជោគជ័យ',
+                        text:'ទិន្នន័យសិស្សត្រូវបានបញ្ចូលក្នុងឆ្នាំសិក្សា!',
+                        color:'success',
+                        iconPack: 'feather',
+                        icon:'icon-check',
+                        position:'top-center'
+                    });
+                    self.selected = [];
+                    self.$vs.loading.close()
+                });
             },
             async destroyYear(){
                 let vm = this;
