@@ -957,7 +957,6 @@ var render = function() {
         height: "auto",
         scrollable: true,
         pivotY: 0.5,
-        adaptive: true,
         clickToClose: false,
         name: "add"
       }
@@ -1098,7 +1097,7 @@ var render = function() {
                   ],
                   1
                 ),
-                _vm._v(" "),
+                _vm._v("-\n                    "),
                 _c(
                   "div",
                   { staticClass: "vx-col lg:w-1/3 w-full" },
