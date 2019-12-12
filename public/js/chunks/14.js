@@ -284,6 +284,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
 
       self.total_payment = payments;
+      payments = payments - payments * self.discount / 100;
       return payments;
     },
     getCurYear: function getCurYear() {
@@ -353,11 +354,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       if (temp_next_date > this.all_infos[i].last_date_pay) {
         this.all_infos[i].next_date_pay = this.all_infos[i].last_date_pay;
-        var a = moment__WEBPACK_IMPORTED_MODULE_3___default()(date_pay, 'YYYY-MM-DD');
+        var a = moment__WEBPACK_IMPORTED_MODULE_3___default()(date_pay);
         var b = moment__WEBPACK_IMPORTED_MODULE_3___default()(this.all_infos[i].last_date_pay);
         var over_days = b.diff(a, 'days');
-        console.log(over_days);
-        price = parseFloat(one) / 30 * over_days;
+        price = (parseFloat(one) / 30 * over_days).toFixed();
       } else {
         this.all_infos[i].next_date_pay = temp_next_date;
       }
@@ -365,17 +365,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.all_infos[i].term_selected = price;
       return price;
     },
-    getCostThree: function getCostThree(one, three, date_pay, i) {
+    getCostThree: function getCostThree(three, date_pay, i) {
       var price = three;
       var temp_next_date = moment__WEBPACK_IMPORTED_MODULE_3___default()(date_pay).add('month', 3).format('YYYY-MM-DD');
 
       if (temp_next_date > this.all_infos[i].last_date_pay) {
         this.all_infos[i].next_date_pay = this.all_infos[i].last_date_pay;
-        var a = moment__WEBPACK_IMPORTED_MODULE_3___default()(date_pay, 'YYYY-MM-DD');
+        var a = moment__WEBPACK_IMPORTED_MODULE_3___default()(date_pay);
         var b = moment__WEBPACK_IMPORTED_MODULE_3___default()(this.all_infos[i].last_date_pay);
         var over_days = b.diff(a, 'days');
-        console.log(over_days);
-        price = parseFloat(one) / 30 * over_days;
+        price = (parseFloat(three) / 91.25 * over_days).toFixed(2);
       } else {
         this.all_infos[i].next_date_pay = temp_next_date;
       }
@@ -383,17 +382,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.all_infos[i].term_selected = price;
       return price;
     },
-    getCostSix: function getCostSix(one, six, date_pay, i) {
+    getCostSix: function getCostSix(six, date_pay, i) {
       var price = six;
-      var temp_next_date = moment__WEBPACK_IMPORTED_MODULE_3___default()(date_pay).add('month', 6).format('YYYY-MM-DD');
+      var temp_next_date = moment__WEBPACK_IMPORTED_MODULE_3___default()(date_pay).add('months', 6).format('YYYY-MM-DD');
 
       if (temp_next_date > this.all_infos[i].last_date_pay) {
         this.all_infos[i].next_date_pay = this.all_infos[i].last_date_pay;
-        var a = moment__WEBPACK_IMPORTED_MODULE_3___default()(date_pay, 'YYYY-MM-DD');
+        var a = moment__WEBPACK_IMPORTED_MODULE_3___default()(date_pay);
         var b = moment__WEBPACK_IMPORTED_MODULE_3___default()(this.all_infos[i].last_date_pay);
         var over_days = b.diff(a, 'days');
-        console.log(over_days);
-        price = parseFloat(one) / 30 * over_days;
+        price = (parseFloat(six) / 182.5 * over_days).toFixed(2);
       } else {
         this.all_infos[i].next_date_pay = temp_next_date;
       }
@@ -401,17 +399,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.all_infos[i].term_selected = price;
       return price;
     },
-    getCostTwelve: function getCostTwelve(one, twelve, date_pay, i) {
+    getCostTwelve: function getCostTwelve(twelve, date_pay, i) {
       var price = twelve;
-      var temp_next_date = moment__WEBPACK_IMPORTED_MODULE_3___default()(date_pay).add('month', 12).format('YYYY-MM-DD');
+      var temp_next_date = moment__WEBPACK_IMPORTED_MODULE_3___default()(date_pay).add('months', 12).format('YYYY-MM-DD');
 
       if (temp_next_date > this.all_infos[i].last_date_pay) {
         this.all_infos[i].next_date_pay = this.all_infos[i].last_date_pay;
-        var a = moment__WEBPACK_IMPORTED_MODULE_3___default()(date_pay, 'YYYY-MM-DD');
+        var a = moment__WEBPACK_IMPORTED_MODULE_3___default()(date_pay);
         var b = moment__WEBPACK_IMPORTED_MODULE_3___default()(this.all_infos[i].last_date_pay);
         var over_days = b.diff(a, 'days');
-        console.log(over_days);
-        price = parseFloat(one) / 30 * over_days;
+        price = (parseFloat(twelve) / 365 * over_days).toFixed(2);
       } else {
         this.all_infos[i].next_date_pay = temp_next_date;
       }
@@ -716,7 +713,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   student_id: this.student_id,
                   invoice_date: this.today_date,
                   balance: this.total_payment,
-                  after_discount: this.total_payment,
+                  after_discount: parseFloat(this.total_payment) - parseFloat(this.total_payment) * this.discount / 100,
                   discount: this.discount,
                   payment_status: false
                 }).then(function (data_res) {
@@ -764,6 +761,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 });
 
               case 10:
+                _context10.next = 12;
+                return this.$store.dispatch('fetchInvoices');
+
+              case 12:
               case "end":
                 return _context10.stop();
             }
@@ -1730,7 +1731,6 @@ var render = function() {
                                       "\n                            " +
                                         _vm._s(
                                           _vm.getCostThree(
-                                            data[indextr].cost_one,
                                             data[indextr].cost_three,
                                             data[indextr].date_pay,
                                             indextr
@@ -1748,7 +1748,6 @@ var render = function() {
                                       "\n                            " +
                                         _vm._s(
                                           _vm.getCostSix(
-                                            data[indextr].cost_one,
                                             data[indextr].cost_six,
                                             data[indextr].date_pay,
                                             indextr
@@ -1766,7 +1765,6 @@ var render = function() {
                                       "\n                            " +
                                         _vm._s(
                                           _vm.getCostTwelve(
-                                            data[indextr].cost_one,
                                             data[indextr].cost_twelve,
                                             data[indextr].date_pay,
                                             indextr
@@ -1878,14 +1876,7 @@ var render = function() {
                         })
                       }
                     }
-                  ]),
-                  model: {
-                    value: _vm.selected,
-                    callback: function($$v) {
-                      _vm.selected = $$v
-                    },
-                    expression: "selected"
-                  }
+                  ])
                 },
                 [
                   _c(
@@ -1920,7 +1911,7 @@ var render = function() {
                 _c("h3", [
                   _c("span", [
                     _vm._v("សរុបតម្លៃត្រូវបង់: "),
-                    _c("b", [_vm._v(_vm._s(_vm.totalPayment) + "$")])
+                    _c("b", [_vm._v(_vm._s(_vm.totalPayment.toFixed(2)) + "$")])
                   ])
                 ]),
                 _vm._v(" "),

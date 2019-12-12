@@ -143,7 +143,7 @@
                         <img style="height: 150px" :src="photo"/>
                     </div>
                 </div>
-                <vs-table v-model="selected" pagination max-items="5" search :data="all_infos">
+                <vs-table pagination max-items="5" search :data="all_infos">
 
                     <template slot="thead">
                         <vs-th sort-key="year">ឆ្នាំសិក្សា</vs-th>
@@ -187,13 +187,13 @@
                                 {{getCostOne(data[indextr].cost_one, data[indextr].date_pay, indextr)}}
                             </vs-td>
                             <vs-td v-if="data[indextr].last_term === 3 || data[indextr].last_term === '3' ">
-                                {{getCostThree(data[indextr].cost_one, data[indextr].cost_three, data[indextr].date_pay, indextr)}}
+                                {{getCostThree(data[indextr].cost_three, data[indextr].date_pay, indextr)}}
                             </vs-td>
                             <vs-td v-if="data[indextr].last_term === 6 || data[indextr].last_term === '6' ">
-                                {{getCostSix(data[indextr].cost_one, data[indextr].cost_six, data[indextr].date_pay, indextr)}}
+                                {{getCostSix(data[indextr].cost_six, data[indextr].date_pay, indextr)}}
                             </vs-td>
                             <vs-td v-if="data[indextr].last_term === 12 || data[indextr].last_term === '12' ">
-                                {{getCostTwelve(data[indextr].cost_one, data[indextr].cost_twelve, data[indextr].date_pay, indextr)}}
+                                {{getCostTwelve(data[indextr].cost_twelve, data[indextr].date_pay, indextr)}}
                             </vs-td>
                             <vs-td v-if="data[indextr].last_term === 0">
                                 0
@@ -219,7 +219,7 @@
                     </template>
                 </vs-table>
                 <div class="centerx">
-                   <h3><span>សរុបតម្លៃត្រូវបង់: <b>{{totalPayment}}$</b></span></h3>
+                   <h3><span>សរុបតម្លៃត្រូវបង់: <b>{{totalPayment.toFixed(2)}}$</b></span></h3>
                     <div class="flex mt-5">
                         <vs-input-number v-model="discount" label="បញ្ចុះតម្លៃ %:" min="0" max="100" icon-inc="expand_less" icon-dec="expand_more"/>
                     </div>
@@ -258,6 +258,7 @@
                     payments += parseFloat(vm[i].term_selected);
                 }
                 self.total_payment = payments;
+                payments = payments - (payments * self.discount / 100);
                 return payments;
             },
             getCurYear(){
@@ -297,59 +298,55 @@
                 var temp_next_date = moment(date_pay).add('month', 1).format('YYYY-MM-DD');
                 if(temp_next_date > this.all_infos[i].last_date_pay){
                     this.all_infos[i].next_date_pay = this.all_infos[i].last_date_pay;
-                    var a = moment(date_pay, 'YYYY-MM-DD');
+                    var a = moment(date_pay);
                     var b = moment(this.all_infos[i].last_date_pay);
                     var over_days = b.diff(a, 'days');
-                    console.log(over_days);
-                    price = parseFloat(one) / 30 * over_days;
+                    price = (parseFloat(one) / 30 * over_days).toFixed();
                 } else {
                     this.all_infos[i].next_date_pay = temp_next_date;
                 }
                 this.all_infos[i].term_selected = price;
                 return price;
             },
-            getCostThree(one, three, date_pay, i){
+            getCostThree(three, date_pay, i){
                 var price = three;
                 var temp_next_date = moment(date_pay).add('month', 3).format('YYYY-MM-DD');
                 if(temp_next_date > this.all_infos[i].last_date_pay){
                     this.all_infos[i].next_date_pay = this.all_infos[i].last_date_pay;
-                    var a = moment(date_pay, 'YYYY-MM-DD');
+                    var a = moment(date_pay);
                     var b = moment(this.all_infos[i].last_date_pay);
                     var over_days = b.diff(a, 'days');
-                    console.log(over_days);
-                    price = parseFloat(one) / 30 * over_days;
+                    price = (parseFloat(three) / 91.25 * over_days).toFixed(2);
                 } else {
                     this.all_infos[i].next_date_pay = temp_next_date;
                 }
                 this.all_infos[i].term_selected = price;
                 return price;
             },
-            getCostSix(one, six, date_pay, i){
+            getCostSix(six, date_pay, i){
                 var price = six;
-                var temp_next_date = moment(date_pay).add('month', 6).format('YYYY-MM-DD');
+                var temp_next_date = moment(date_pay).add('months', 6).format('YYYY-MM-DD');
                 if(temp_next_date > this.all_infos[i].last_date_pay){
                     this.all_infos[i].next_date_pay = this.all_infos[i].last_date_pay;
-                    var a = moment(date_pay, 'YYYY-MM-DD');
+                    var a = moment(date_pay);
                     var b = moment(this.all_infos[i].last_date_pay);
                     var over_days = b.diff(a, 'days');
-                    console.log(over_days);
-                    price = parseFloat(one) / 30 * over_days;
+                    price = (parseFloat(six) / 182.5 * over_days).toFixed(2);
                 } else {
                     this.all_infos[i].next_date_pay = temp_next_date;
                 }
                 this.all_infos[i].term_selected = price;
                 return price;
             },
-            getCostTwelve(one, twelve, date_pay, i){
+            getCostTwelve(twelve, date_pay, i){
                 var price = twelve;
-                var temp_next_date = moment(date_pay).add('month', 12).format('YYYY-MM-DD');
+                var temp_next_date = moment(date_pay).add('months', 12).format('YYYY-MM-DD');
                 if(temp_next_date > this.all_infos[i].last_date_pay){
                     this.all_infos[i].next_date_pay = this.all_infos[i].last_date_pay;
-                    var a = moment(date_pay, 'YYYY-MM-DD');
+                    var a = moment(date_pay);
                     var b = moment(this.all_infos[i].last_date_pay);
                     var over_days = b.diff(a, 'days');
-                    console.log(over_days);
-                    price = parseFloat(one) / 30 * over_days;
+                    price = (parseFloat(twelve) / 365 * over_days).toFixed(2);
                 } else {
                     this.all_infos[i].next_date_pay = temp_next_date;
                 }
@@ -483,7 +480,7 @@
                 }
 
                 await self.$store.dispatch('storeInvoice', {
-                    student_id: this.student_id, invoice_date : this.today_date, balance : this.total_payment, after_discount : this.total_payment,
+                    student_id: this.student_id, invoice_date : this.today_date, balance : this.total_payment, after_discount : parseFloat(this.total_payment) - (parseFloat(this.total_payment) * this.discount / 100),
                     discount : this.discount, payment_status : false
                 }).then(function (data_res) {
                     if (data_res){
@@ -506,6 +503,7 @@
                         self.$vs.loading.close();
                     }
                 });
+                await this.$store.dispatch('fetchInvoices');
             },
             removeItem(i){
                 this.all_infos.splice(i, 1);

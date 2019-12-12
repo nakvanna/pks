@@ -20,7 +20,7 @@ const actions = {
     async storeInvoice({commit}, invoices){
         try {
             const res = await axios.post(route('invoice.store'),invoices);
-            commit('ADD_INVOICE',res.data);
+            commit('ADD_INVOICE', res.data);
             return res.data
         }catch (e) {
             return false
@@ -47,28 +47,34 @@ const actions = {
 };
 const mutations = {
     SET_INVOICE:function (state,data) {
-
         for (var i = 0; i < data.length; i ++){
-            console.log(data);
             state.invoice_extract.push({
-                name : data[i].students.name,
-                latin : data[i].students.latin,
-                balance : data[i].balance,
-                discount : data[i].discount,
+                name           : data[i].students.name,
+                latin          : data[i].students.latin,
+                balance        : data[i].balance,
+                discount       : data[i].discount,
                 after_discount : data[i].after_discount,
-                invoice_date : data[i].invoice_date,
+                invoice_date   : data[i].invoice_date,
                 payment_status : data[i].payment_status,
-                id : data[i].id,
+                id             : data[i].id,
             })
         }
     },
-    ADD_INVOICE:function (state,data) {
-        state.invoices.unshift(data);
+    ADD_INVOICE:function (state, data) {
+        //Not
     },
     UPDATE_INVOICE: function(state, data){
         const index = state.invoices.findIndex(invoice => invoice.id === data.id);
         if(index !== -1){
-            state.invoices.splice(index, 1, data);
+            state.invoices.splice(index, 1, {
+                id: data.id,
+                student_id: data.student_id,
+                balance : data.balance,
+                discount : data.discount,
+                after_discount : data.after_discount,
+                payment_status : data.payment_status,
+                invoice_date : data.invoice_date
+            });
         }
     },
     REMOVE_INVOICE: function (state, id) {

@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class InvoiceController extends Controller
 {
     public function index(){
-        return Invoice::with('students')->get();
+        return Invoice::with('students')->orderBy('id', 'desc')->get();
     }
     public function store(Request $request){
         $input = $request->all();

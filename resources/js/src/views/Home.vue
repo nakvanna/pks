@@ -25,7 +25,7 @@
 				images:[],
 				is_popup:false,
 				is_popup_edit:false,
-				data: 'Working on the mix',
+				data: 'Working on the mixxxx',
 				options: {},
 				dropzoneOptions: {
 					url: route('file.upload'),
