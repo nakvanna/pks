@@ -219,9 +219,14 @@
                     </template>
                 </vs-table>
                 <div class="centerx">
-                   <h3><span>សរុបតម្លៃត្រូវបង់: <b>{{totalPayment.toFixed(2)}}$</b></span></h3>
-                    <div class="flex mt-5">
-                        <vs-input-number v-model="discount" label="បញ្ចុះតម្លៃ %:" min="0" max="100" icon-inc="expand_less" icon-dec="expand_more"/>
+                   <h3><span>តម្លៃសរុប: <b>{{totalPayment.toFixed(2)}}$​ -> {{after_discount.toFixed(2)}}$</b></span></h3>
+                    <div class="flex">
+                        <div class="flex mt-5">
+                            <vs-input-number @input="percentDiscount" v-model="discount" label="បញ្ចុះភាគរយ %:" min="0" max="100" icon-inc="expand_less" icon-dec="expand_more"/>
+                        </div>
+                        <div class="flex mt-5">
+                            <vs-input-number @input="cashDiscount" v-model="cash_discount" label="បញ្ចុះជាសាច់ប្រាក់ $:" min="0" :max="total_payment" icon-inc="expand_less" icon-dec="expand_more"/>
+                        </div>
                     </div>
                 </div>
                 <vs-divider/>
@@ -258,7 +263,7 @@
                     payments += parseFloat(vm[i].term_selected);
                 }
                 self.total_payment = payments;
-                payments = payments - (payments * self.discount / 100);
+                self.after_discount = payments;
                 return payments;
             },
             getCurYear(){
@@ -279,6 +284,8 @@
         data() {
             return {
                 discount: 0,
+                after_discount: 0,
+                cash_discount: 0,
                 users: [],
                 selected: [],
                 students:'', //all info
@@ -292,6 +299,14 @@
             }
         },
         methods: {
+            cashDiscount(){
+                this.discount = parseFloat(this.cash_discount * 100 / this.total_payment).toFixed(2);
+                this.after_discount = this.total_payment - this.cash_discount;
+            },
+            percentDiscount(){
+                this.cash_discount = parseFloat(this.total_payment * this.discount / 100).toFixed(2);
+                this.after_discount = this.total_payment - this.cash_discount;
+            },
             moment,
             getCostOne(one, date_pay, i){
                 var price = one;
@@ -480,7 +495,7 @@
                 }
 
                 await self.$store.dispatch('storeInvoice', {
-                    student_id: this.student_id, invoice_date : this.today_date, balance : this.total_payment, after_discount : parseFloat(this.total_payment) - (parseFloat(this.total_payment) * this.discount / 100),
+                    student_id: this.student_id, invoice_date : this.today_date, balance : this.total_payment, after_discount : this.after_discount,
                     discount : this.discount, payment_status : false
                 }).then(function (data_res) {
                     if (data_res){
@@ -504,6 +519,9 @@
                     }
                 });
                 await this.$store.dispatch('fetchInvoices');
+                this.discount = 0;
+                this.cash_discount = 0;
+                this.all_infos = [];
             },
             removeItem(i){
                 this.all_infos.splice(i, 1);

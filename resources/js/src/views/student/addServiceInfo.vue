@@ -37,8 +37,8 @@
                                     placeholder="ជ្រើសរើសសេវាកម្ម"
                             >
                                 <vs-select-item
-                                        :key="index" v-for="(item, index) in getServices" :value="item.id"
-                                        :text="item.type+' -> '+item.service"/>
+                                        :key="index" v-for="(item, index) in getServices" v-if="item.year === data.year" :value="item.id"
+                                        :text="item.year+' '+item.type+' -> '+item.service"/>
                             </vs-select>
                             <!--<template slot="append">-->
                             <div class="append-text flex w-1/6 btn-addon">

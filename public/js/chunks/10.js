@@ -325,6 +325,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -991,7 +998,7 @@ var render = function() {
               _c("div", { staticClass: "vx-row" }, [
                 _c(
                   "div",
-                  { staticClass: "vx-col lg:w-1/3 w-full" },
+                  { staticClass: "vx-col lg:w-1/4 w-full" },
                   [
                     _c("vs-input", {
                       directives: [
@@ -1054,7 +1061,7 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "div",
-                  { staticClass: "vx-col lg:w-1/3 w-full" },
+                  { staticClass: "vx-col lg:w-1/4 w-full" },
                   [
                     _c("vs-input", {
                       directives: [
@@ -1097,10 +1104,10 @@ var render = function() {
                   ],
                   1
                 ),
-                _vm._v("-\n                    "),
+                _vm._v(" "),
                 _c(
                   "div",
-                  { staticClass: "vx-col lg:w-1/3 w-full" },
+                  { staticClass: "vx-col lg:w-1/4 w-full" },
                   [
                     _c(
                       "vs-select",
@@ -1128,13 +1135,11 @@ var render = function() {
                     )
                   ],
                   1
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "vx-row" }, [
+                ),
+                _vm._v(" "),
                 _c(
                   "div",
-                  { staticClass: "vx-col lg:w-1/3 w-full mt-6" },
+                  { staticClass: "vx-col lg:w-1/4" },
                   [
                     _c("label", [_vm._v("ថ្ងៃខែឆ្មាំកំណើត")]),
                     _vm._v(" "),
@@ -1175,11 +1180,13 @@ var render = function() {
                     )
                   ],
                   1
-                ),
-                _vm._v(" "),
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "vx-row" }, [
                 _c(
                   "div",
-                  { staticClass: "vx-col lg:w-2/3 w-full mt-6" },
+                  { staticClass: "vx-col lg:w-3/3 w-full mt-6" },
                   [
                     _c("label", [_vm._v("ទំនាក់ទំនង")]),
                     _vm._v(" "),
@@ -1221,101 +1228,6 @@ var render = function() {
                   ],
                   1
                 )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "vx-row" }, [
-                _c(
-                  "div",
-                  { staticClass: "vx-col lg:w-1/2 w-full" },
-                  [
-                    _c("label", [_vm._v("ទីកន្លែងកំណើត")]),
-                    _vm._v(" "),
-                    _c("vs-textarea", {
-                      directives: [
-                        {
-                          name: "validate",
-                          rawName: "v-validate",
-                          value: "required",
-                          expression: "'required'"
-                        }
-                      ],
-                      staticClass: "w-full",
-                      attrs: { label: "ទីកន្លែងកំណើត", name: "pob" },
-                      model: {
-                        value: _vm.data.pob,
-                        callback: function($$v) {
-                          _vm.$set(_vm.data, "pob", $$v)
-                        },
-                        expression: "data.pob"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "span",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.errors.has("pob"),
-                            expression: "errors.has('pob')"
-                          }
-                        ],
-                        staticClass: "text-danger text-sm"
-                      },
-                      [_vm._v(_vm._s(_vm.errors.first("pob")))]
-                    )
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "vx-col lg:w-1/2 w-full" },
-                  [
-                    _c("label", [_vm._v("អាស័យដ្ឋានបច្ចុប្បន្ន")]),
-                    _vm._v(" "),
-                    _c("vs-textarea", {
-                      directives: [
-                        {
-                          name: "validate",
-                          rawName: "v-validate",
-                          value: "required",
-                          expression: "'required'"
-                        }
-                      ],
-                      staticClass: "w-full",
-                      attrs: {
-                        label: "អាស័យដ្ឋានបច្ចុប្បន្ន",
-                        name: "address"
-                      },
-                      model: {
-                        value: _vm.data.address,
-                        callback: function($$v) {
-                          _vm.$set(_vm.data, "address", $$v)
-                        },
-                        expression: "data.address"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "span",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.errors.has("address"),
-                            expression: "errors.has('address')"
-                          }
-                        ],
-                        staticClass: "text-danger text-sm"
-                      },
-                      [_vm._v(_vm._s(_vm.errors.first("address")))]
-                    )
-                  ],
-                  1
-                )
               ])
             ]),
             _vm._v(" "),
@@ -1338,109 +1250,12 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _c("vs-divider", { attrs: { position: "left" } }, [
-            _vm._v("ពត៌មានអាណាព្យាបាល")
-          ]),
-          _vm._v(" "),
-          _c("vs-divider", { attrs: { position: "left-center" } }, [
-            _vm._v("ឪពុក")
-          ]),
-          _vm._v(" "),
           _c("div", { staticClass: "vx-row" }, [
             _c(
               "div",
-              { staticClass: "vx-col lg:w-1/4 w-full" },
+              { staticClass: "vx-col lg:w-1/2 w-full" },
               [
-                _c("vs-input", {
-                  directives: [
-                    {
-                      name: "validate",
-                      rawName: "v-validate",
-                      value: "required",
-                      expression: "'required'"
-                    }
-                  ],
-                  staticClass: "w-full mt-6",
-                  attrs: {
-                    "label-placeholder": "គោតនាម នាម",
-                    name: "father_name"
-                  },
-                  model: {
-                    value: _vm.data.father_name,
-                    callback: function($$v) {
-                      _vm.$set(_vm.data, "father_name", $$v)
-                    },
-                    expression: "data.father_name"
-                  }
-                }),
-                _vm._v(" "),
-                _c(
-                  "span",
-                  {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: _vm.errors.has("father_name"),
-                        expression: "errors.has('father_name')"
-                      }
-                    ],
-                    staticClass: "text-danger text-sm"
-                  },
-                  [_vm._v(_vm._s(_vm.errors.first("father_name")))]
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "vx-col lg:w-1/4 w-full" },
-              [
-                _c("vs-input", {
-                  directives: [
-                    {
-                      name: "validate",
-                      rawName: "v-validate",
-                      value: "required",
-                      expression: "'required'"
-                    }
-                  ],
-                  staticClass: "w-full mt-6",
-                  attrs: { "label-placeholder": "មុខរបរ", name: "father_job" },
-                  model: {
-                    value: _vm.data.father_job,
-                    callback: function($$v) {
-                      _vm.$set(_vm.data, "father_job", $$v)
-                    },
-                    expression: "data.father_job"
-                  }
-                }),
-                _vm._v(" "),
-                _c(
-                  "span",
-                  {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: _vm.errors.has("father_job"),
-                        expression: "errors.has('father_job')"
-                      }
-                    ],
-                    staticClass: "text-danger text-sm"
-                  },
-                  [_vm._v(_vm._s(_vm.errors.first("father_job")))]
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "vx-col lg:w-1/4 w-full" },
-              [
-                _c("label", [_vm._v("ទំនាក់ទំនង")]),
+                _c("label", [_vm._v("ទីកន្លែងកំណើត")]),
                 _vm._v(" "),
                 _c("vs-textarea", {
                   directives: [
@@ -1452,13 +1267,13 @@ var render = function() {
                     }
                   ],
                   staticClass: "w-full",
-                  attrs: { label: "ទំនាក់ទំនង", name: "father_contact" },
+                  attrs: { label: "ទីកន្លែងកំណើត", name: "pob" },
                   model: {
-                    value: _vm.data.father_contact,
+                    value: _vm.data.pob,
                     callback: function($$v) {
-                      _vm.$set(_vm.data, "father_contact", $$v)
+                      _vm.$set(_vm.data, "pob", $$v)
                     },
-                    expression: "data.father_contact"
+                    expression: "data.pob"
                   }
                 }),
                 _vm._v(" "),
@@ -1469,154 +1284,365 @@ var render = function() {
                       {
                         name: "show",
                         rawName: "v-show",
-                        value: _vm.errors.has("father_contact"),
-                        expression: "errors.has('father_contact')"
+                        value: _vm.errors.has("pob"),
+                        expression: "errors.has('pob')"
                       }
                     ],
                     staticClass: "text-danger text-sm"
                   },
-                  [_vm._v(_vm._s(_vm.errors.first("father_contact")))]
+                  [_vm._v(_vm._s(_vm.errors.first("pob")))]
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "vx-col lg:w-1/2 w-full" },
+              [
+                _c("label", [_vm._v("អាស័យដ្ឋានបច្ចុប្បន្ន")]),
+                _vm._v(" "),
+                _c("vs-textarea", {
+                  directives: [
+                    {
+                      name: "validate",
+                      rawName: "v-validate",
+                      value: "required",
+                      expression: "'required'"
+                    }
+                  ],
+                  staticClass: "w-full",
+                  attrs: { label: "អាស័យដ្ឋានបច្ចុប្បន្ន", name: "address" },
+                  model: {
+                    value: _vm.data.address,
+                    callback: function($$v) {
+                      _vm.$set(_vm.data, "address", $$v)
+                    },
+                    expression: "data.address"
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.errors.has("address"),
+                        expression: "errors.has('address')"
+                      }
+                    ],
+                    staticClass: "text-danger text-sm"
+                  },
+                  [_vm._v(_vm._s(_vm.errors.first("address")))]
                 )
               ],
               1
             )
           ]),
           _vm._v(" "),
-          _c("vs-divider", { attrs: { position: "left-center" } }, [
-            _vm._v("ម្តាយ")
+          _c("vs-divider", { attrs: { position: "left" } }, [
+            _vm._v("ពត៌មានអាណាព្យាបាល")
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "vx-row" }, [
             _c(
               "div",
-              { staticClass: "vx-col lg:w-1/4 w-full" },
+              { staticClass: "vx-col md:w-1/2" },
               [
-                _c("vs-input", {
-                  directives: [
-                    {
-                      name: "validate",
-                      rawName: "v-validate",
-                      value: "required",
-                      expression: "'required'"
-                    }
-                  ],
-                  staticClass: "w-full mt-6",
-                  attrs: {
-                    "label-placeholder": "គោតនាម នាម",
-                    name: "mother_name"
-                  },
-                  model: {
-                    value: _vm.data.mother_name,
-                    callback: function($$v) {
-                      _vm.$set(_vm.data, "mother_name", $$v)
-                    },
-                    expression: "data.mother_name"
-                  }
-                }),
+                _c("vs-divider", { attrs: { position: "left-center" } }, [
+                  _vm._v("ឪពុក")
+                ]),
                 _vm._v(" "),
-                _c(
-                  "span",
-                  {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: _vm.errors.has("mother_name"),
-                        expression: "errors.has('mother_name')"
-                      }
+                _c("div", { staticClass: "vx-row" }, [
+                  _c(
+                    "div",
+                    { staticClass: "vx-col md:w-1/2 w-full" },
+                    [
+                      _c("vs-input", {
+                        directives: [
+                          {
+                            name: "validate",
+                            rawName: "v-validate",
+                            value: "required",
+                            expression: "'required'"
+                          }
+                        ],
+                        staticClass: "w-full mt-6",
+                        attrs: {
+                          "label-placeholder": "គោតនាម នាម",
+                          name: "father_name"
+                        },
+                        model: {
+                          value: _vm.data.father_name,
+                          callback: function($$v) {
+                            _vm.$set(_vm.data, "father_name", $$v)
+                          },
+                          expression: "data.father_name"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.errors.has("father_name"),
+                              expression: "errors.has('father_name')"
+                            }
+                          ],
+                          staticClass: "text-danger text-sm"
+                        },
+                        [_vm._v(_vm._s(_vm.errors.first("father_name")))]
+                      )
                     ],
-                    staticClass: "text-danger text-sm"
-                  },
-                  [_vm._v(_vm._s(_vm.errors.first("mother_name")))]
-                )
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "vx-col md:w-1/2 w-full" },
+                    [
+                      _c("vs-input", {
+                        directives: [
+                          {
+                            name: "validate",
+                            rawName: "v-validate",
+                            value: "required",
+                            expression: "'required'"
+                          }
+                        ],
+                        staticClass: "w-full mt-6",
+                        attrs: {
+                          "label-placeholder": "មុខរបរ",
+                          name: "father_job"
+                        },
+                        model: {
+                          value: _vm.data.father_job,
+                          callback: function($$v) {
+                            _vm.$set(_vm.data, "father_job", $$v)
+                          },
+                          expression: "data.father_job"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.errors.has("father_job"),
+                              expression: "errors.has('father_job')"
+                            }
+                          ],
+                          staticClass: "text-danger text-sm"
+                        },
+                        [_vm._v(_vm._s(_vm.errors.first("father_job")))]
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "vx-col w-full mt-5" },
+                    [
+                      _c("label", [_vm._v("ទំនាក់ទំនង")]),
+                      _vm._v(" "),
+                      _c("vs-textarea", {
+                        directives: [
+                          {
+                            name: "validate",
+                            rawName: "v-validate",
+                            value: "required",
+                            expression: "'required'"
+                          }
+                        ],
+                        staticClass: "w-full",
+                        attrs: { label: "ទំនាក់ទំនង", name: "father_contact" },
+                        model: {
+                          value: _vm.data.father_contact,
+                          callback: function($$v) {
+                            _vm.$set(_vm.data, "father_contact", $$v)
+                          },
+                          expression: "data.father_contact"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.errors.has("father_contact"),
+                              expression: "errors.has('father_contact')"
+                            }
+                          ],
+                          staticClass: "text-danger text-sm"
+                        },
+                        [_vm._v(_vm._s(_vm.errors.first("father_contact")))]
+                      )
+                    ],
+                    1
+                  )
+                ])
               ],
               1
             ),
             _vm._v(" "),
             _c(
               "div",
-              { staticClass: "vx-col lg:w-1/4 w-full" },
+              { staticClass: "vx-col md:w-1/2" },
               [
-                _c("vs-input", {
-                  directives: [
-                    {
-                      name: "validate",
-                      rawName: "v-validate",
-                      value: "required",
-                      expression: "'required'"
-                    }
-                  ],
-                  staticClass: "w-full mt-6",
-                  attrs: { "label-placeholder": "មុខរបរ", name: "mother_job" },
-                  model: {
-                    value: _vm.data.mother_job,
-                    callback: function($$v) {
-                      _vm.$set(_vm.data, "mother_job", $$v)
-                    },
-                    expression: "data.mother_job"
-                  }
-                }),
+                _c("vs-divider", { attrs: { position: "left-center" } }, [
+                  _vm._v("ម្តាយ")
+                ]),
                 _vm._v(" "),
-                _c(
-                  "span",
-                  {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: _vm.errors.has("mother_job"),
-                        expression: "errors.has('mother_job')"
-                      }
+                _c("div", { staticClass: "vx-row" }, [
+                  _c(
+                    "div",
+                    { staticClass: "vx-col md:w-1/2 w-full" },
+                    [
+                      _c("vs-input", {
+                        directives: [
+                          {
+                            name: "validate",
+                            rawName: "v-validate",
+                            value: "required",
+                            expression: "'required'"
+                          }
+                        ],
+                        staticClass: "w-full mt-6",
+                        attrs: {
+                          "label-placeholder": "គោតនាម នាម",
+                          name: "mother_name"
+                        },
+                        model: {
+                          value: _vm.data.mother_name,
+                          callback: function($$v) {
+                            _vm.$set(_vm.data, "mother_name", $$v)
+                          },
+                          expression: "data.mother_name"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.errors.has("mother_name"),
+                              expression: "errors.has('mother_name')"
+                            }
+                          ],
+                          staticClass: "text-danger text-sm"
+                        },
+                        [_vm._v(_vm._s(_vm.errors.first("mother_name")))]
+                      )
                     ],
-                    staticClass: "text-danger text-sm"
-                  },
-                  [_vm._v(_vm._s(_vm.errors.first("mother_job")))]
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "vx-col lg:w-1/4 w-full" },
-              [
-                _c("label", [_vm._v("ទំនាក់ទំនង")]),
-                _vm._v(" "),
-                _c("vs-textarea", {
-                  directives: [
-                    {
-                      name: "validate",
-                      rawName: "v-validate",
-                      value: "required",
-                      expression: "'required'"
-                    }
-                  ],
-                  staticClass: "w-full",
-                  attrs: { label: "ទំនាក់ទំនង", name: "mother_contact" },
-                  model: {
-                    value: _vm.data.mother_contact,
-                    callback: function($$v) {
-                      _vm.$set(_vm.data, "mother_contact", $$v)
-                    },
-                    expression: "data.mother_contact"
-                  }
-                }),
-                _vm._v(" "),
-                _c(
-                  "span",
-                  {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: _vm.errors.has("mother_contact"),
-                        expression: "errors.has('mother_contact')"
-                      }
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "vx-col md:w-1/2 w-full" },
+                    [
+                      _c("vs-input", {
+                        directives: [
+                          {
+                            name: "validate",
+                            rawName: "v-validate",
+                            value: "required",
+                            expression: "'required'"
+                          }
+                        ],
+                        staticClass: "w-full mt-6",
+                        attrs: {
+                          "label-placeholder": "មុខរបរ",
+                          name: "mother_job"
+                        },
+                        model: {
+                          value: _vm.data.mother_job,
+                          callback: function($$v) {
+                            _vm.$set(_vm.data, "mother_job", $$v)
+                          },
+                          expression: "data.mother_job"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.errors.has("mother_job"),
+                              expression: "errors.has('mother_job')"
+                            }
+                          ],
+                          staticClass: "text-danger text-sm"
+                        },
+                        [_vm._v(_vm._s(_vm.errors.first("mother_job")))]
+                      )
                     ],
-                    staticClass: "text-danger text-sm"
-                  },
-                  [_vm._v(_vm._s(_vm.errors.first("mother_contact")))]
-                )
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "vx-col w-full mt-5" },
+                    [
+                      _c("label", [_vm._v("ទំនាក់ទំនង")]),
+                      _vm._v(" "),
+                      _c("vs-textarea", {
+                        directives: [
+                          {
+                            name: "validate",
+                            rawName: "v-validate",
+                            value: "required",
+                            expression: "'required'"
+                          }
+                        ],
+                        staticClass: "w-full",
+                        attrs: { label: "ទំនាក់ទំនង", name: "mother_contact" },
+                        model: {
+                          value: _vm.data.mother_contact,
+                          callback: function($$v) {
+                            _vm.$set(_vm.data, "mother_contact", $$v)
+                          },
+                          expression: "data.mother_contact"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.errors.has("mother_contact"),
+                              expression: "errors.has('mother_contact')"
+                            }
+                          ],
+                          staticClass: "text-danger text-sm"
+                        },
+                        [_vm._v(_vm._s(_vm.errors.first("mother_contact")))]
+                      )
+                    ],
+                    1
+                  )
+                ])
               ],
               1
             )

@@ -13,6 +13,7 @@ class ServiceController extends Controller
     public function store(Request $request){
         $input = $request->all();
         $request->validate([
+            'year'        =>'required',
             'type'        =>'required',
             'service'     =>'required',
             'cost_one'    =>'required',
@@ -21,6 +22,7 @@ class ServiceController extends Controller
             'cost_twelve' =>'required',
         ]);
         $store = new Service();
+        $store->year        = $input['year'];
         $store->type        = $input['type'];
         $store->service     = $input['service'];
         $store->cost_one    = $input['cost_one'];
@@ -33,6 +35,7 @@ class ServiceController extends Controller
     public function update($id, Request $request){
         $input = $request->all();
         $request->validate([
+            'year'        =>'required',
             'type'        =>'required',
             'service'     =>'required',
             'cost_one'    =>'required',
@@ -41,6 +44,7 @@ class ServiceController extends Controller
             'cost_twelve' =>'required',
         ]);
         $store = Service::findOrFail($id);
+        $store->year        = $input['year'];
         $store->type        = $input['type'];
         $store->service     = $input['service'];
         $store->cost_one    = $input['cost_one'];

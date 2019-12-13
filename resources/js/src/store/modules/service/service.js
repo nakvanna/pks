@@ -56,6 +56,7 @@ const mutations = {
         if(index !== -1){
             state.services.splice(index, 1, {
                 id          : data.id,
+                year        : data.year,
                 type        : data.type,
                 service     : data.service,
                 cost_one    : data.cost_one,

@@ -56,6 +56,7 @@ const mutations = {
         if(index !== -1){
             state.collections.splice(index, 1, {
                 id            : data.id,
+                year          : data.year,
                 group_section : data.group_section,
                 section       : data.section,
                 level         : data.level,

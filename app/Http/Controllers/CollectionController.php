@@ -13,46 +13,56 @@ class CollectionController extends Controller
     public function store(Request $request){
         $input = $request->all();
         $request->validate([
+            'year'         =>'required',
             'group_section'=>'required',
             'section'      =>'required',
             'level'        =>'required',
             'shift'        =>'required',
             'class_name'   =>'required',
-            'cost_one'         =>'required',
-            'cost_three'         =>'required',
-            'cost_six'         =>'required',
-            'cost_twelve'         =>'required',
+            'cost_one'     =>'required',
+            'cost_three'   =>'required',
+            'cost_six'     =>'required',
+            'cost_twelve'  =>'required',
         ]);
         $store = new Collection();
+        $store->year          = $input['year'];
         $store->group_section = $input['group_section'];
         $store->section       = $input['section'];
         $store->level         = $input['level'];
         $store->shift         = $input['shift'];
         $store->class_name    = $input['class_name'];
-        $store->cost_one          = $input['cost_one'];
-        $store->cost_three          = $input['cost_three'];
-        $store->cost_six          = $input['cost_six'];
-        $store->cost_twelve          = $input['cost_twelve'];
+        $store->cost_one      = $input['cost_one'];
+        $store->cost_three    = $input['cost_three'];
+        $store->cost_six      = $input['cost_six'];
+        $store->cost_twelve   = $input['cost_twelve'];
         $store->save();
         return $store;
     }
     public function update($id, Request $request){
         $input = $request->all();
         $request->validate([
+            'year'         =>'required',
             'group_section'=>'required',
             'section'      =>'required',
             'level'        =>'required',
             'shift'        =>'required',
             'class_name'   =>'required',
-            'cost'         =>'required',
+            'cost_one'     =>'required',
+            'cost_three'   =>'required',
+            'cost_six'     =>'required',
+            'cost_twelve'  =>'required',
         ]);
         $update = Collection::findOrFail($id);
+        $update->year          = $input['year'];
         $update->group_section = $input['group_section'];
         $update->section       = $input['section'];
         $update->level         = $input['level'];
         $update->shift         = $input['shift'];
         $update->class_name    = $input['class_name'];
-        $update->cost          = $input['cost'];
+        $update->cost_one      = $input['cost_one'];
+        $update->cost_three    = $input['cost_three'];
+        $update->cost_six      = $input['cost_six'];
+        $update->cost_twelve   = $input['cost_twelve'];
         $update->save();
         return $update;
     }

@@ -259,6 +259,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -284,7 +289,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
 
       self.total_payment = payments;
-      payments = payments - payments * self.discount / 100;
+      self.after_discount = payments;
       return payments;
     },
     getCurYear: function getCurYear() {
@@ -333,6 +338,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       discount: 0,
+      after_discount: 0,
+      cash_discount: 0,
       users: [],
       selected: [],
       students: '',
@@ -347,6 +354,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   methods: {
+    cashDiscount: function cashDiscount() {
+      this.discount = parseFloat(this.cash_discount * 100 / this.total_payment).toFixed(2);
+      this.after_discount = this.total_payment - this.cash_discount;
+    },
+    percentDiscount: function percentDiscount() {
+      this.cash_discount = parseFloat(this.total_payment * this.discount / 100).toFixed(2);
+      this.after_discount = this.total_payment - this.cash_discount;
+    },
     moment: moment__WEBPACK_IMPORTED_MODULE_3___default.a,
     getCostOne: function getCostOne(one, date_pay, i) {
       var price = one;
@@ -713,7 +728,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   student_id: this.student_id,
                   invoice_date: this.today_date,
                   balance: this.total_payment,
-                  after_discount: parseFloat(this.total_payment) - parseFloat(this.total_payment) * this.discount / 100,
+                  after_discount: this.after_discount,
                   discount: this.discount,
                   payment_status: false
                 }).then(function (data_res) {
@@ -765,6 +780,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return this.$store.dispatch('fetchInvoices');
 
               case 12:
+                this.discount = 0;
+                this.cash_discount = 0;
+                this.all_infos = [];
+
+              case 15:
               case "end":
                 return _context10.stop();
             }
@@ -1910,34 +1930,69 @@ var render = function() {
               _c("div", { staticClass: "centerx" }, [
                 _c("h3", [
                   _c("span", [
-                    _vm._v("សរុបតម្លៃត្រូវបង់: "),
-                    _c("b", [_vm._v(_vm._s(_vm.totalPayment.toFixed(2)) + "$")])
+                    _vm._v("តម្លៃសរុប: "),
+                    _c("b", [
+                      _vm._v(
+                        _vm._s(_vm.totalPayment.toFixed(2)) +
+                          "$​ -> " +
+                          _vm._s(_vm.after_discount.toFixed(2)) +
+                          "$"
+                      )
+                    ])
                   ])
                 ]),
                 _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "flex mt-5" },
-                  [
-                    _c("vs-input-number", {
-                      attrs: {
-                        label: "បញ្ចុះតម្លៃ %:",
-                        min: "0",
-                        max: "100",
-                        "icon-inc": "expand_less",
-                        "icon-dec": "expand_more"
-                      },
-                      model: {
-                        value: _vm.discount,
-                        callback: function($$v) {
-                          _vm.discount = $$v
+                _c("div", { staticClass: "flex" }, [
+                  _c(
+                    "div",
+                    { staticClass: "flex mt-5" },
+                    [
+                      _c("vs-input-number", {
+                        attrs: {
+                          label: "បញ្ចុះភាគរយ %:",
+                          min: "0",
+                          max: "100",
+                          "icon-inc": "expand_less",
+                          "icon-dec": "expand_more"
                         },
-                        expression: "discount"
-                      }
-                    })
-                  ],
-                  1
-                )
+                        on: { input: _vm.percentDiscount },
+                        model: {
+                          value: _vm.discount,
+                          callback: function($$v) {
+                            _vm.discount = $$v
+                          },
+                          expression: "discount"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "flex mt-5" },
+                    [
+                      _c("vs-input-number", {
+                        attrs: {
+                          label: "បញ្ចុះជាសាច់ប្រាក់ $:",
+                          min: "0",
+                          max: _vm.total_payment,
+                          "icon-inc": "expand_less",
+                          "icon-dec": "expand_more"
+                        },
+                        on: { input: _vm.cashDiscount },
+                        model: {
+                          value: _vm.cash_discount,
+                          callback: function($$v) {
+                            _vm.cash_discount = $$v
+                          },
+                          expression: "cash_discount"
+                        }
+                      })
+                    ],
+                    1
+                  )
+                ])
               ]),
               _vm._v(" "),
               _c("vs-divider"),

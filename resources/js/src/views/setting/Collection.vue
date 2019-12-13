@@ -3,8 +3,18 @@
         <div class="flex mb-4">
             <vs-select
                     autocomplete
-                    class="w-1/3 mr-2"
-                    label="Group section"
+                    class="w-1/4"
+                    label="ឆ្នាំសិក្សា"
+                    placeholder="ឆ្នាំសិក្សា"
+                    type="primary"
+                    v-model="collections.year"
+            >
+                <vs-select-item :key="index" v-for="(item, index) in getYears"  :value="item.name" :text="item.name" />
+            </vs-select>
+            <vs-select
+                    autocomplete
+                    class="w-1/4 mr-2"
+                    label="ផ្នែកសិក្សា"
                     placeholder="ជ្រើសរើស"
                     v-model="collections.group_section"
             >
@@ -12,8 +22,8 @@
             </vs-select>
             <vs-select
                     autocomplete
-                    class="w-1/3 mr-2"
-                    label="Section"
+                    class="w-1/4 mr-2"
+                    label="កម្រិតសិក្សា"
                     placeholder="ជ្រើសរើស"
                     v-model="collections.section"
             >
@@ -21,7 +31,7 @@
             </vs-select>
             <vs-select
                     autocomplete
-                    class="w-1/3 mr-2"
+                    class="w-1/4 mr-2"
                     label="វេណ"
                     placeholder="ជ្រើសរើស"
                     v-model="collections.shift"
@@ -33,7 +43,7 @@
             <vs-select
                     autocomplete
                     class="w-1/3"
-                    label="Level"
+                    label="ថ្នាក់ទី"
                     placeholder="កម្រិត"
                     v-model="collections.level"
             >
@@ -81,8 +91,9 @@
         <vs-table multiple v-model="selected" pagination max-items="5" search :data="getCollection">
 
             <template slot="thead">
-                <vs-th sort-key="group_section">Group Section</vs-th>
-                <vs-th sort-key="section">Section</vs-th>
+                <vs-th sort-key="year">ឆ្នាំសិក្សា</vs-th>
+                <vs-th sort-key="group_section">ផ្នែកសិក្សា</vs-th>
+                <vs-th sort-key="section">កម្រិតសិក្សា</vs-th>
                 <vs-th sort-key="level">កម្រិត</vs-th>
                 <vs-th sort-key="class_name">ថ្នាក់</vs-th>
                 <vs-th sort-key="shift">វេណ</vs-th>
@@ -94,6 +105,10 @@
 
             <template slot-scope="{data}">
                 <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in data">
+
+                    <vs-td :data="data[indextr].year">
+                        {{ data[indextr].year }}
+                    </vs-td>
 
                     <vs-td :data="data[indextr].group_section">
                         {{ data[indextr].group_section }}
@@ -148,17 +163,31 @@
             >
                 កែប្រែ
             </vs-button>
+            <vs-button
+                    @click="$refs.UpgradeCollection.show(selected)"
+                    color="primary" class="mb-2" v-if="selected.length"
+                    type="relief" icon-pack="feather" icon="icon-edit"
+            >
+                Upgrade
+            </vs-button>
         </div>
+        <!--Upgrade Collection-->
+        <UpgradeCollection ref="UpgradeCollection"></UpgradeCollection>
     </div>
 </template>
 <script>
+    import UpgradeCollection from './UpgradeCollection'
     export default {
-        name:'Section',
+        name:'Collection',
+        components: {
+            UpgradeCollection
+        },
         data() {
             return {
                 is_update: false,
                 collections: {
                     id: '',
+                    year: '',
                     group_section: '',
                     section: '',
                     level: '',
@@ -181,7 +210,13 @@
             }
         },
 
+        async created (){
+            await this.$store.dispatch('fetchYears'); /*Fetch year*/
+        },
         computed: {
+            getYears(){
+                return this.$store.getters.get_years;
+            },
             isSmallerScreen() {
                 return this.$store.state.windowWidth < 768
             },
@@ -208,7 +243,7 @@
             storeCollection(){
                 let self = this;
                 let vm = this.collections;
-                if(vm.group_section === '' || vm.section === '' || vm.level === '' || vm.shift === '' || vm.class_name === '' || vm.cost_one === '' || vm.cost_three === '' || vm.cost_six === '' || vm.cost_twelve === ''){
+                if(vm.year === '' || vm.group_section === '' || vm.section === '' || vm.level === '' || vm.shift === '' || vm.class_name === '' || vm.cost_one === '' || vm.cost_three === '' || vm.cost_six === '' || vm.cost_twelve === ''){
                     self.$vs.notify({
                         title:'ប្រតិបត្តិការណ៍បរាជ័យ',
                         text:'ទិន្នន័យមិនមានគ្រប់គ្រាន់!',

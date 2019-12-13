@@ -38,8 +38,8 @@
                                     placeholder="ជ្រើសរើសពត៍មានការសិក្សា"
                             >
                                 <vs-select-item
-                                        :key="index" v-for="(item, index) in getCollection" :value="item.id"
-                                        :text="item.group_section+' -> '+item.section+' -> '+item.level+item.class_name+' -> '+item.shift"/>
+                                        :key="index" v-for="(item, index) in getCollection" v-if="item.year === data.year" :value="item.id"
+                                        :text="item.year + ' ' +item.group_section+' -> '+item.section+' -> '+item.level+item.class_name+' -> '+item.shift"/>
                             </vs-select>
                             <!--<template slot="append">-->
                             <div class="append-text flex w-1/6 btn-addon">

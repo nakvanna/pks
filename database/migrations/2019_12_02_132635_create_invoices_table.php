@@ -17,7 +17,7 @@ class CreateInvoicesTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('student_id');
             $table->double('balance');
-            $table->integer('discount');
+            $table->double('discount');
             $table->double('after_discount');
             $table->boolean('payment_status');
             $table->string('invoice_date');

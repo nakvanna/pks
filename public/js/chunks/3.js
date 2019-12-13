@@ -474,21 +474,25 @@ var render = function() {
                             }
                           },
                           _vm._l(_vm.getCollection, function(item, index) {
-                            return _c("vs-select-item", {
-                              key: index,
-                              attrs: {
-                                value: item.id,
-                                text:
-                                  item.group_section +
-                                  " -> " +
-                                  item.section +
-                                  " -> " +
-                                  item.level +
-                                  item.class_name +
-                                  " -> " +
-                                  item.shift
-                              }
-                            })
+                            return item.year === _vm.data.year
+                              ? _c("vs-select-item", {
+                                  key: index,
+                                  attrs: {
+                                    value: item.id,
+                                    text:
+                                      item.year +
+                                      " " +
+                                      item.group_section +
+                                      " -> " +
+                                      item.section +
+                                      " -> " +
+                                      item.level +
+                                      item.class_name +
+                                      " -> " +
+                                      item.shift
+                                  }
+                                })
+                              : _vm._e()
                           }),
                           1
                         ),

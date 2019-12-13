@@ -15,6 +15,7 @@ class CreateCollectionsTable extends Migration
     {
         Schema::create('collections', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('year');
             $table->string('group_section');
             $table->string('section');
             $table->string('level');

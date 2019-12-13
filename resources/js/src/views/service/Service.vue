@@ -1,12 +1,24 @@
 <template>
     <vx-card no-shadow>
         <div class="flex mb-4">
-            <vs-input class="w-2/3 mr-2" label-placeholder="ប្រភេទ" v-model="services.type"></vs-input>
-            <vs-input class="w-2/3 mr-2" label-placeholder="សេវាកម្ម" v-model="services.service"></vs-input>
-            <vs-input class="w-1/3" label-placeholder="តម្លៃ​ ១ខែ" v-model="services.cost_one"></vs-input>
-            <vs-input class="w-1/3" label-placeholder="តម្លៃ​ ១ត្រីមាស" v-model="services.cost_three"></vs-input>
-            <vs-input class="w-1/3" label-placeholder="តម្លៃ ១ឆមាស" v-model="services.cost_six"></vs-input>
-            <vs-input class="w-1/3" label-placeholder="តម្លៃ​ ១ឆ្នាំ" v-model="services.cost_twelve"></vs-input>
+            <vs-select
+                    autocomplete
+                    class="w-1/3 mr-2"
+                    label="ឆ្នាំសិក្សា"
+                    placeholder="ឆ្នាំសិក្សា"
+                    type="primary"
+                    v-model="services.year"
+            >
+                <vs-select-item :key="index" v-for="(item, index) in getYears"  :value="item.name" :text="item.name" />
+            </vs-select>
+            <vs-input class="w-1/3 mr-2 mt-8" label-placeholder="ប្រភេទ" v-model="services.type"></vs-input>
+            <vs-input class="w-1/3 mr-1 mt-8" label-placeholder="សេវាកម្ម" v-model="services.service"></vs-input>
+        </div>
+        <div class="flex mb-4">
+            <vs-input class="w-1/4 mr-1" label-placeholder="តម្លៃ​ ១ខែ" v-model="services.cost_one"></vs-input>
+            <vs-input class="w-1/4 mr-1" label-placeholder="តម្លៃ​ ១ត្រីមាស" v-model="services.cost_three"></vs-input>
+            <vs-input class="w-1/4 mr-1" label-placeholder="តម្លៃ ១ឆមាស" v-model="services.cost_six"></vs-input>
+            <vs-input class="w-1/4 mr-1" label-placeholder="តម្លៃ​ ១ឆ្នាំ" v-model="services.cost_twelve"></vs-input>
         </div>
         <vs-row vs-type="flex" vs-justify="flex-end">
             <vs-col vs-type="flex" vs-justify="flex-end">
@@ -42,7 +54,7 @@
         <vs-table multiple v-model="selected" pagination max-items="5" search :data="getService">
 
             <template slot="thead">
-                <vs-th sort-key="id">ID</vs-th>
+                <vs-th sort-key="year">ឆ្នាំសិក្សា</vs-th>
                 <vs-th sort-key="type">ប្រភេទ</vs-th>
                 <vs-th sort-key="service">Service</vs-th>
                 <vs-th sort-key="cost_one">តម្លៃ​ ១ខែ</vs-th>
@@ -54,8 +66,8 @@
             <template slot-scope="{data}">
                 <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in data">
 
-                    <vs-td :data="data[indextr].id">
-                        {{ data[indextr].id }}
+                    <vs-td :data="data[indextr].year">
+                        {{ data[indextr].year }}
                     </vs-td>
 
                     <vs-td :data="data[indextr].type">
@@ -102,14 +114,24 @@
                     >
                         កែប្រែ
                     </vs-button>
+                    <vs-button
+                            @click="$refs.UpgradeService.show(selected)"
+                            color="primary" class="mb-2" v-if="selected.length"
+                            type="relief" icon-pack="feather" icon="icon-edit"
+                    >
+                        Upgrade
+                    </vs-button>
                 </div>
             </vs-col>
         </vs-row>
+        <upgrade-service ref="UpgradeService"></upgrade-service>
     </vx-card>
 </template>
 <script>
+    import UpgradeService from './UpgradeService'
     export default {
         components: {
+            UpgradeService
         },
         name:'Service',
         data() {
@@ -129,6 +151,9 @@
             }
         },
         computed: {
+            getYears(){
+                return this.$store.getters.get_years;
+            },
             isSmallerScreen() {
                 return this.$store.state.windowWidth < 768
             },
@@ -138,6 +163,7 @@
         },
         async created() {
             await this.$store.dispatch('fetchServices');
+            await this.$store.dispatch('fetchYears');
         },
         methods: {
             storeService(){
