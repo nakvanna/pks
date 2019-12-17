@@ -47,6 +47,7 @@ const actions = {
 };
 const mutations = {
     SET_INVOICE:function (state,data) {
+        state.invoice_extract = [];
         for (var i = 0; i < data.length; i ++){
             state.invoice_extract.push({
                 name           : data[i].students.name,

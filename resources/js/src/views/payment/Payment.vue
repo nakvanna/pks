@@ -476,7 +476,9 @@
                         update_service_items.push({
                             id: vm[i].service_id,
                             date_pay: vm[i].next_date_pay,
-                            last_term: vm[i].last_term
+                            last_term: vm[i].last_term,
+                            last_date_pay: vm[i].last_date_pay,
+                            is_used: vm[i].is_used
                         })
                     } else {
                         update_study_items.push({

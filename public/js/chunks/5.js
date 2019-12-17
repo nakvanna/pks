@@ -6931,6 +6931,11 @@ __webpack_require__.r(__webpack_exports__);
   slug: "ការបង់លុយ",
   icon: "PackageIcon"
 }, {
+  url: "/report",
+  name: "របាយការណ៌",
+  slug: "របាយការណ៌",
+  icon: "PieChartIcon"
+}, {
   url: "/page2",
   name: "Page 2",
   slug: "page2",

@@ -36,7 +36,7 @@ import store from './store/store'
 
 // Vuejs - Vue wrapper for hammerjs
 import { VueHammer } from 'vue2-hammer'
-Vue.use(VueHammer)
+Vue.use(VueHammer);
 
 
 // PrismJS
@@ -56,7 +56,7 @@ import tinymce from 'vue-tinymce-editor'
 Vue.component('tinymce', tinymce);
 //modal
 import VModal from 'vue-js-modal'
-Vue.use(VModal)
+Vue.use(VModal);
 Vue.config.productionTip = false;
 new Vue({
     router,

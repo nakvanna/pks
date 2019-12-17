@@ -425,7 +425,7 @@ var render = function() {
                   ],
                   staticClass: "w-full",
                   attrs: {
-                    placeholder: "ថ្ងៃត្រូវបង់លុយដំបូង",
+                    placeholder: "ថ្ងៃត្រូវបង់លុយចុងក្រោយ",
                     name: "date-pay"
                   },
                   model: {

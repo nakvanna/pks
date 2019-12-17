@@ -31,13 +31,11 @@ class ServiceInfoController extends Controller
     }
     public function update($id, Request $request){
         $input = $request->all();
-        $request->validate([
-            'date_pay'=>'required',
-            'last_term'=>'required',
-        ]);
         $update = ServiceInfo::findOrFail($id);
         $update->date_pay = $input['date_pay'];
         $update->last_term = $input['last_term'];
+        $update->last_date_pay = $input['last_date_pay'];
+        $update->is_used = $input['is_used'];
         $update->save();
         return $update;
     }

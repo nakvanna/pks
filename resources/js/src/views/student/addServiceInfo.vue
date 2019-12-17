@@ -22,7 +22,7 @@
                     <flat-pickr class="w-full" v-model="data.date_pay" placeholder="ថ្ងៃត្រូវបង់លុយដំបូង" name="date-pay" v-validate="'required'" :disabled="!checked"/>
                 </div>
                 <div class="vx-col md:w-1/3 flex">
-                    <flat-pickr class="w-full" v-model="data.last_date_pay" placeholder="ថ្ងៃត្រូវបង់លុយដំបូង" name="date-pay" v-validate="'required'"/>
+                    <flat-pickr class="w-full" v-model="data.last_date_pay" placeholder="ថ្ងៃត្រូវបង់លុយចុងក្រោយ" name="date-pay" v-validate="'required'"/>
                 </div>
             </div>
             <vs-divider />

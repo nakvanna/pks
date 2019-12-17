@@ -130,6 +130,19 @@ const router = new Router({
                         rule: 'editor'
                     }
                 },
+                {
+                    path: '/report',
+                    name: 'report',
+                    component: () => import('./views/report/Report'),
+                    meta: {
+                        breadcrumb: [
+                            {title: 'របាយការណ៌', url: '/'},
+                            {title: 'របាយការណ៌', active: true},
+                        ],
+                        pageTitle: 'របាយការណ៌',
+                        rule: 'editor'
+                    }
+                },
             ],
         },
         // =============================================================================

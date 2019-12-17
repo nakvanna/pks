@@ -58,6 +58,12 @@ export default [
     icon: "PackageIcon",
   },
   {
+    url: "/report",
+    name: "របាយការណ៌",
+    slug: "របាយការណ៌",
+    icon: "PieChartIcon",
+  },
+  {
     url: "/page2",
     name: "Page 2",
     slug: "page2",

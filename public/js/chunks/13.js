@@ -637,7 +637,7 @@ var render = function() {
           _c(
             "vs-select",
             {
-              staticClass: "w-1/3 mr-2",
+              staticClass: "w-1/3 mr-2 mt-1",
               attrs: {
                 autocomplete: "",
                 label: "ឆ្នាំសិក្សា",

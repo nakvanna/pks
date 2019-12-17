@@ -3,7 +3,7 @@
         <div class="flex mb-4">
             <vs-select
                     autocomplete
-                    class="w-1/3 mr-2"
+                    class="w-1/3 mr-2 mt-1"
                     label="ឆ្នាំសិក្សា"
                     placeholder="ឆ្នាំសិក្សា"
                     type="primary"
