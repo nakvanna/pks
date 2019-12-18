@@ -57,6 +57,9 @@ Vue.component('tinymce', tinymce);
 //modal
 import VModal from 'vue-js-modal'
 Vue.use(VModal);
+//moment
+import moment from 'moment';
+Vue.prototype.moment = moment;
 Vue.config.productionTip = false;
 new Vue({
     router,

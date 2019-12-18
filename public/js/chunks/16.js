@@ -263,7 +263,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 
 
 
@@ -350,7 +349,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       photo: 'https://data.whicdn.com/images/300580381/original.jpg',
       all_infos: [],
       total_payment: 0,
-      today_date: moment__WEBPACK_IMPORTED_MODULE_3___default()().format('YYYY-MM-DD')
+      today_date: this.moment().format('YYYY-MM-DD')
     };
   },
   methods: {
@@ -365,12 +364,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     moment: moment__WEBPACK_IMPORTED_MODULE_3___default.a,
     getCostOne: function getCostOne(one, date_pay, i) {
       var price = one;
-      var temp_next_date = moment__WEBPACK_IMPORTED_MODULE_3___default()(date_pay).add('month', 1).format('YYYY-MM-DD');
+      var temp_next_date = this.moment(date_pay).add('month', 1).format('YYYY-MM-DD');
 
       if (temp_next_date > this.all_infos[i].last_date_pay) {
         this.all_infos[i].next_date_pay = this.all_infos[i].last_date_pay;
-        var a = moment__WEBPACK_IMPORTED_MODULE_3___default()(date_pay);
-        var b = moment__WEBPACK_IMPORTED_MODULE_3___default()(this.all_infos[i].last_date_pay);
+        var a = this.moment(date_pay);
+        var b = this.moment(this.all_infos[i].last_date_pay);
         var over_days = b.diff(a, 'days');
         price = (parseFloat(one) / 30 * over_days).toFixed();
       } else {
@@ -382,12 +381,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     getCostThree: function getCostThree(three, date_pay, i) {
       var price = three;
-      var temp_next_date = moment__WEBPACK_IMPORTED_MODULE_3___default()(date_pay).add('month', 3).format('YYYY-MM-DD');
+      var temp_next_date = this.moment(date_pay).add('month', 3).format('YYYY-MM-DD');
 
       if (temp_next_date > this.all_infos[i].last_date_pay) {
         this.all_infos[i].next_date_pay = this.all_infos[i].last_date_pay;
-        var a = moment__WEBPACK_IMPORTED_MODULE_3___default()(date_pay);
-        var b = moment__WEBPACK_IMPORTED_MODULE_3___default()(this.all_infos[i].last_date_pay);
+        var a = this.moment(date_pay);
+        var b = this.moment(this.all_infos[i].last_date_pay);
         var over_days = b.diff(a, 'days');
         price = (parseFloat(three) / 91.25 * over_days).toFixed(2);
       } else {
@@ -399,12 +398,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     getCostSix: function getCostSix(six, date_pay, i) {
       var price = six;
-      var temp_next_date = moment__WEBPACK_IMPORTED_MODULE_3___default()(date_pay).add('months', 6).format('YYYY-MM-DD');
+      var temp_next_date = this.moment(date_pay).add('months', 6).format('YYYY-MM-DD');
 
       if (temp_next_date > this.all_infos[i].last_date_pay) {
         this.all_infos[i].next_date_pay = this.all_infos[i].last_date_pay;
-        var a = moment__WEBPACK_IMPORTED_MODULE_3___default()(date_pay);
-        var b = moment__WEBPACK_IMPORTED_MODULE_3___default()(this.all_infos[i].last_date_pay);
+        var a = this.moment(date_pay);
+        var b = this.moment(this.all_infos[i].last_date_pay);
         var over_days = b.diff(a, 'days');
         price = (parseFloat(six) / 182.5 * over_days).toFixed(2);
       } else {
@@ -416,12 +415,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     getCostTwelve: function getCostTwelve(twelve, date_pay, i) {
       var price = twelve;
-      var temp_next_date = moment__WEBPACK_IMPORTED_MODULE_3___default()(date_pay).add('months', 12).format('YYYY-MM-DD');
+      var temp_next_date = this.moment(date_pay).add('months', 12).format('YYYY-MM-DD');
 
       if (temp_next_date > this.all_infos[i].last_date_pay) {
         this.all_infos[i].next_date_pay = this.all_infos[i].last_date_pay;
-        var a = moment__WEBPACK_IMPORTED_MODULE_3___default()(date_pay);
-        var b = moment__WEBPACK_IMPORTED_MODULE_3___default()(this.all_infos[i].last_date_pay);
+        var a = this.moment(date_pay);
+        var b = this.moment(this.all_infos[i].last_date_pay);
         var over_days = b.diff(a, 'days');
         price = (parseFloat(twelve) / 365 * over_days).toFixed(2);
       } else {
