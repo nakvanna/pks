@@ -22,6 +22,7 @@ class CreateServicesTable extends Migration
             $table->double('cost_three');
             $table->double('cost_six');
             $table->double('cost_twelve');
+            $table->bigInteger('employee_id');
             $table->timestamps();
         });
     }

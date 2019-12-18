@@ -147,6 +147,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -165,7 +182,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         cost_one: '',
         cost_three: '',
         cost_six: '',
-        cost_twelve: ''
+        cost_twelve: '',
+        employee_id: ''
       }
     };
   },
@@ -178,6 +196,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     getService: function getService() {
       return this.$store.getters.get_services;
+    },
+    getEmployees: function getEmployees() {
+      return this.$store.getters.get_employees;
     }
   },
   created: function () {
@@ -196,6 +217,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               return this.$store.dispatch('fetchYears');
 
             case 4:
+              _context.next = 6;
+              return this.$store.dispatch('fetchEmployees');
+
+            case 6:
             case "end":
               return _context.stop();
           }
@@ -744,6 +769,46 @@ var render = function() {
       ),
       _vm._v(" "),
       _c(
+        "div",
+        { staticClass: "row flex" },
+        [
+          _c(
+            "vs-select",
+            {
+              staticClass: "w-1/3 mr-2",
+              attrs: {
+                autocomplete: "",
+                label: "អ្នកទទួលបន្ទុក",
+                placeholder: "ជ្រើសរើស"
+              },
+              model: {
+                value: _vm.services.employee_id,
+                callback: function($$v) {
+                  _vm.$set(_vm.services, "employee_id", $$v)
+                },
+                expression: "services.employee_id"
+              }
+            },
+            [
+              _c("vs-select-item", { attrs: { value: "0", text: "None" } }),
+              _vm._v(" "),
+              _vm._l(_vm.getEmployees, function(item, index) {
+                return _c("vs-select-item", {
+                  key: index,
+                  attrs: {
+                    value: item.id,
+                    text: item.kh_name + " " + item.en_name
+                  }
+                })
+              })
+            ],
+            2
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
         "vs-row",
         { attrs: { "vs-type": "flex", "vs-justify": "flex-end" } },
         [
@@ -905,6 +970,18 @@ var render = function() {
                               "\n                "
                           )
                         ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "vs-td",
+                        { attrs: { data: data[indextr].employee_name } },
+                        [
+                          _vm._v(
+                            "\n                    " +
+                              _vm._s(data[indextr].employee_name) +
+                              "\n                "
+                          )
+                        ]
                       )
                     ],
                     1
@@ -952,6 +1029,10 @@ var render = function() {
               _vm._v(" "),
               _c("vs-th", { attrs: { "sort-key": "cost_twelve" } }, [
                 _vm._v("តម្លៃ​ ១ឆ្នាំ")
+              ]),
+              _vm._v(" "),
+              _c("vs-th", { attrs: { "sort-key": "employee_name" } }, [
+                _vm._v("អ្នកទទួលបន្ទុក")
               ])
             ],
             1

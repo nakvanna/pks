@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class ServiceController extends Controller
 {
     public function index(){
-        return Service::orderBy('id','desc')->get();
+        return Service::with('employees')->orderBy('id','desc')->get();
     }
     public function store(Request $request){
         $input = $request->all();
@@ -20,6 +20,7 @@ class ServiceController extends Controller
             'cost_three'  =>'required',
             'cost_six'    =>'required',
             'cost_twelve' =>'required',
+            'employee_id' =>'required',
         ]);
         $store = new Service();
         $store->year        = $input['year'];
@@ -29,8 +30,9 @@ class ServiceController extends Controller
         $store->cost_three  = $input['cost_three'];
         $store->cost_six    = $input['cost_six'];
         $store->cost_twelve = $input['cost_twelve'];
+        $store->employee_id = $input['employee_id'];
         $store->save();
-        return $store;
+        return Service::with('employees')->where('id', $store->id)->first();
     }
     public function update($id, Request $request){
         $input = $request->all();
@@ -42,6 +44,7 @@ class ServiceController extends Controller
             'cost_three'  =>'required',
             'cost_six'    =>'required',
             'cost_twelve' =>'required',
+            'employee_id' =>'required',
         ]);
         $store = Service::findOrFail($id);
         $store->year        = $input['year'];
@@ -51,6 +54,7 @@ class ServiceController extends Controller
         $store->cost_three  = $input['cost_three'];
         $store->cost_six    = $input['cost_six'];
         $store->cost_twelve = $input['cost_twelve'];
+        $store->employee_id = $input['employee_id'];
         $store->save();
         return $store;
     }

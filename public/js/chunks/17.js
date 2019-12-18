@@ -15,6 +15,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_flatpickr_component__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_flatpickr_component__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var flatpickr_dist_flatpickr_min_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! flatpickr/dist/flatpickr.min.css */ "./node_modules/flatpickr/dist/flatpickr.min.css");
 /* harmony import */ var flatpickr_dist_flatpickr_min_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(flatpickr_dist_flatpickr_min_css__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _PrintInvoice__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./PrintInvoice */ "./resources/js/src/views/payment/PrintInvoice.vue");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -261,12 +262,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Payment",
   components: {
-    flatPickr: vue_flatpickr_component__WEBPACK_IMPORTED_MODULE_1___default.a
+    flatPickr: vue_flatpickr_component__WEBPACK_IMPORTED_MODULE_1___default.a,
+    PrintInvoice: _PrintInvoice__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   computed: {
     all_students: function all_students() {
@@ -730,6 +735,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   payment_status: false
                 }).then(function (data_res) {
                   if (data_res) {
+                    console.log(data_res);
                     self.all_infos.map(
                     /*#__PURE__*/
                     function () {
@@ -769,6 +775,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                       position: 'top-center'
                     });
                     self.$vs.loading.close();
+                    self.$refs.PrintInvoice.show({});
                   }
                 });
 
@@ -824,6 +831,42 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       return showInvoiceDetail;
     }()
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/payment/PrintInvoice.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/payment/PrintInvoice.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "PrintInvoice",
+  methods: {
+    show: function show() {
+      this.$modal.show('print-invoice');
+    }
   }
 });
 
@@ -1734,6 +1777,91 @@ var render = function() {
           )
         ],
         1
+      ),
+      _vm._v(" "),
+      _c("print-invoice", { ref: "PrintInvoice" })
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/payment/PrintInvoice.vue?vue&type=template&id=5f6d30d3&scoped=true&":
+/*!**********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/payment/PrintInvoice.vue?vue&type=template&id=5f6d30d3&scoped=true& ***!
+  \**********************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "modal",
+    {
+      attrs: {
+        width: "60%",
+        height: "auto",
+        scrollable: true,
+        pivotY: 0.07,
+        adaptive: true,
+        clickToClose: false,
+        name: "print-invoice"
+      }
+    },
+    [
+      _c("div", { staticClass: "flex justify-end" }, [
+        _c(
+          "i",
+          {
+            staticClass: "vs-icon vs-popup--close material-icons text-warning",
+            staticStyle: { background: "rgb(255, 255, 255)" },
+            on: {
+              click: function($event) {
+                return _vm.$modal.hide("print-invoice")
+              }
+            }
+          },
+          [_vm._v("close")]
+        )
+      ]),
+      _vm._v(" "),
+      _c(
+        "vx-card",
+        { attrs: { "no-shadow": "" } },
+        [
+          _c("vs-divider"),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "flex justify-end btn-group" },
+            [
+              _c(
+                "vs-button",
+                {
+                  attrs: {
+                    icon: "icon-printer",
+                    "icon-pack": "feather",
+                    type: "relief"
+                  }
+                },
+                [_vm._v("បោះពុម្ភ")]
+              )
+            ],
+            1
+          )
+        ],
+        1
       )
     ],
     1
@@ -1810,6 +1938,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Payment_vue_vue_type_template_id_27bf6e43_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Payment_vue_vue_type_template_id_27bf6e43_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/src/views/payment/PrintInvoice.vue":
+/*!*********************************************************!*\
+  !*** ./resources/js/src/views/payment/PrintInvoice.vue ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _PrintInvoice_vue_vue_type_template_id_5f6d30d3_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PrintInvoice.vue?vue&type=template&id=5f6d30d3&scoped=true& */ "./resources/js/src/views/payment/PrintInvoice.vue?vue&type=template&id=5f6d30d3&scoped=true&");
+/* harmony import */ var _PrintInvoice_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PrintInvoice.vue?vue&type=script&lang=js& */ "./resources/js/src/views/payment/PrintInvoice.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _PrintInvoice_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _PrintInvoice_vue_vue_type_template_id_5f6d30d3_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _PrintInvoice_vue_vue_type_template_id_5f6d30d3_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "5f6d30d3",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/src/views/payment/PrintInvoice.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/src/views/payment/PrintInvoice.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/src/views/payment/PrintInvoice.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PrintInvoice_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./PrintInvoice.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/payment/PrintInvoice.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PrintInvoice_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/src/views/payment/PrintInvoice.vue?vue&type=template&id=5f6d30d3&scoped=true&":
+/*!****************************************************************************************************!*\
+  !*** ./resources/js/src/views/payment/PrintInvoice.vue?vue&type=template&id=5f6d30d3&scoped=true& ***!
+  \****************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PrintInvoice_vue_vue_type_template_id_5f6d30d3_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./PrintInvoice.vue?vue&type=template&id=5f6d30d3&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/payment/PrintInvoice.vue?vue&type=template&id=5f6d30d3&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PrintInvoice_vue_vue_type_template_id_5f6d30d3_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PrintInvoice_vue_vue_type_template_id_5f6d30d3_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

@@ -151,6 +151,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> cf6bd723a84dd9fa9f719f8d1ffa685be6dfe68d
 //
 //
 //
@@ -168,6 +172,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+<<<<<<< HEAD
 //
 //
 //
@@ -217,6 +222,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 
 
+=======
+=======
+>>>>>>> 6b3229d3f46ac3b9ea1e291fa806637f7708c60c
+>>>>>>> cf6bd723a84dd9fa9f719f8d1ffa685be6dfe68d
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Create",
@@ -246,6 +255,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       degree_note: '',
       employees: {
         id: '',
+<<<<<<< HEAD
         profile: '',
         kh_name: '',
         en_name: '',
@@ -257,6 +267,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         contact: '',
         pob: '',
         addr: ''
+=======
+        type: '',
+        service: '',
+        cost_one: '',
+        cost_three: '',
+        cost_six: '',
+<<<<<<< HEAD
+        cost_twelve: '',
+        employee_id: ''
+=======
+        cost_twelve: ''
+>>>>>>> 6b3229d3f46ac3b9ea1e291fa806637f7708c60c
+>>>>>>> cf6bd723a84dd9fa9f719f8d1ffa685be6dfe68d
       }
     };
   },
@@ -264,8 +287,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getPositions: function getPositions() {
       return this.$store.getters.get_positions;
     },
+<<<<<<< HEAD
     getDegreeNotes: function getDegreeNotes() {
       return this.$store.getters.get_degree_notes;
+=======
+    isSmallerScreen: function isSmallerScreen() {
+      return this.$store.state.windowWidth < 768;
+<<<<<<< HEAD
+    },
+    getService: function getService() {
+      return this.$store.getters.get_services;
+    },
+    getEmployees: function getEmployees() {
+      return this.$store.getters.get_employees;
+=======
+    },
+    getService: function getService() {
+      return this.$store.getters.get_services;
+>>>>>>> 6b3229d3f46ac3b9ea1e291fa806637f7708c60c
+>>>>>>> cf6bd723a84dd9fa9f719f8d1ffa685be6dfe68d
     }
   },
   created: function () {
@@ -284,6 +324,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               return this.$store.dispatch('fetchDegreeNote');
 
             case 4:
+              _context.next = 6;
+              return this.$store.dispatch('fetchEmployees');
+
+            case 6:
             case "end":
               return _context.stop();
           }
@@ -1001,6 +1045,7 @@ var render = function() {
           }
         },
         [
+<<<<<<< HEAD
           _c("div", { staticClass: "flex justify-end" }, [
             _c(
               "i",
@@ -1013,23 +1058,154 @@ var render = function() {
                     return _vm.$modal.hide("add-employee")
                   }
                 }
+=======
+          _c("vs-input", {
+            staticClass: "w-1/4 mr-1",
+            attrs: { "label-placeholder": "តម្លៃ​ ១ខែ" },
+            model: {
+              value: _vm.services.cost_one,
+              callback: function($$v) {
+                _vm.$set(_vm.services, "cost_one", $$v)
+              },
+              expression: "services.cost_one"
+            }
+          }),
+<<<<<<< HEAD
+          _vm._v(" "),
+          _c("vs-input", {
+            staticClass: "w-1/4 mr-1",
+            attrs: { "label-placeholder": "តម្លៃ​ ១ត្រីមាស" },
+            model: {
+              value: _vm.services.cost_three,
+              callback: function($$v) {
+                _vm.$set(_vm.services, "cost_three", $$v)
+              },
+              expression: "services.cost_three"
+            }
+          }),
+          _vm._v(" "),
+          _c("vs-input", {
+            staticClass: "w-1/4 mr-1",
+=======
+          _vm._v(" "),
+          _c("vs-input", {
+            staticClass: "w-1/4 mr-1",
+            attrs: { "label-placeholder": "តម្លៃ​ ១ត្រីមាស" },
+            model: {
+              value: _vm.services.cost_three,
+              callback: function($$v) {
+                _vm.$set(_vm.services, "cost_three", $$v)
+              },
+              expression: "services.cost_three"
+            }
+          }),
+          _vm._v(" "),
+          _c("vs-input", {
+            staticClass: "w-1/4 mr-1",
+>>>>>>> 6b3229d3f46ac3b9ea1e291fa806637f7708c60c
+            attrs: { "label-placeholder": "តម្លៃ ១ឆមាស" },
+            model: {
+              value: _vm.services.cost_six,
+              callback: function($$v) {
+                _vm.$set(_vm.services, "cost_six", $$v)
+>>>>>>> cf6bd723a84dd9fa9f719f8d1ffa685be6dfe68d
               },
               [_vm._v("close")]
             )
           ]),
           _vm._v(" "),
+<<<<<<< HEAD
+=======
+          _c("vs-input", {
+            staticClass: "w-1/4 mr-1",
+            attrs: { "label-placeholder": "តម្លៃ​ ១ឆ្នាំ" },
+            model: {
+              value: _vm.services.cost_twelve,
+              callback: function($$v) {
+                _vm.$set(_vm.services, "cost_twelve", $$v)
+              },
+              expression: "services.cost_twelve"
+            }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+<<<<<<< HEAD
+        "div",
+        { staticClass: "row flex" },
+        [
+          _c(
+            "vs-select",
+            {
+              staticClass: "w-1/3 mr-2",
+              attrs: {
+                autocomplete: "",
+                label: "អ្នកទទួលបន្ទុក",
+                placeholder: "ជ្រើសរើស"
+              },
+              model: {
+                value: _vm.services.employee_id,
+                callback: function($$v) {
+                  _vm.$set(_vm.services, "employee_id", $$v)
+                },
+                expression: "services.employee_id"
+              }
+            },
+            [
+              _c("vs-select-item", { attrs: { value: "0", text: "None" } }),
+              _vm._v(" "),
+              _vm._l(_vm.getEmployees, function(item, index) {
+                return _c("vs-select-item", {
+                  key: index,
+                  attrs: {
+                    value: item.id,
+                    text: item.kh_name + " " + item.en_name
+                  }
+                })
+              })
+            ],
+            2
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "vs-row",
+        { attrs: { "vs-type": "flex", "vs-justify": "flex-end" } },
+        [
+          _c(
+            "vs-col",
+            { attrs: { "vs-type": "flex", "vs-justify": "flex-end" } },
+            [
+=======
+        "vs-row",
+        { attrs: { "vs-type": "flex", "vs-justify": "flex-end" } },
+        [
+>>>>>>> cf6bd723a84dd9fa9f719f8d1ffa685be6dfe68d
           _c(
             "vx-card",
             { attrs: { "no-shadow": "" } },
             [
+>>>>>>> 6b3229d3f46ac3b9ea1e291fa806637f7708c60c
               _c(
                 "form",
                 [
+<<<<<<< HEAD
                   _c(
                     "vs-row",
                     [
                       _c(
                         "vs-col",
+=======
+                  _vm.is_update === false
+<<<<<<< HEAD
+=======
+                    ? _c(
+                        "vs-button",
+>>>>>>> cf6bd723a84dd9fa9f719f8d1ffa685be6dfe68d
                         {
                           attrs: {
                             "vs-type": "flex",
@@ -1225,6 +1401,7 @@ var render = function() {
                     1
                   ),
                   _vm._v(" "),
+<<<<<<< HEAD
                   _c(
                     "div",
                     { staticClass: "flex mb-5" },
@@ -1678,6 +1855,10 @@ var render = function() {
                 { staticClass: "flex justify-end btn-group" },
                 [
                   _vm.is_update === false
+=======
+                  _vm.is_update === true
+>>>>>>> 6b3229d3f46ac3b9ea1e291fa806637f7708c60c
+>>>>>>> cf6bd723a84dd9fa9f719f8d1ffa685be6dfe68d
                     ? _c(
                         "vs-button",
                         {
@@ -1686,6 +1867,7 @@ var render = function() {
                             "icon-pack": "feather",
                             icon: "icon-plus-square"
                           },
+<<<<<<< HEAD
                           on: {
                             click: function($event) {
                               $event.preventDefault()
@@ -1696,6 +1878,21 @@ var render = function() {
                         [
                           _vm._v(
                             "\n                    រក្សាទុក\n                "
+=======
+<<<<<<< HEAD
+                          on: { click: _vm.storeService }
+                        },
+                        [
+                          _vm._v(
+                            "\n                    បន្ថែម\n                "
+=======
+                          on: { click: _vm.updateService }
+                        },
+                        [
+                          _vm._v(
+                            "\n                    កែប្រែ\n                "
+>>>>>>> 6b3229d3f46ac3b9ea1e291fa806637f7708c60c
+>>>>>>> cf6bd723a84dd9fa9f719f8d1ffa685be6dfe68d
                           )
                         ]
                       )
@@ -1706,8 +1903,10 @@ var render = function() {
                         "vs-button",
                         {
                           attrs: {
+                            color: "warning",
                             type: "relief",
                             "icon-pack": "feather",
+<<<<<<< HEAD
                             icon: "icon-plus-square"
                           },
                           on: {
@@ -1716,6 +1915,17 @@ var render = function() {
                               return _vm.updateEmployee($event)
                             }
                           }
+=======
+<<<<<<< HEAD
+                            icon: "icon-edit"
+                          },
+                          on: { click: _vm.updateService }
+=======
+                            icon: "icon-refresh-ccw"
+                          },
+                          on: { click: _vm.clearServiceForm }
+>>>>>>> 6b3229d3f46ac3b9ea1e291fa806637f7708c60c
+>>>>>>> cf6bd723a84dd9fa9f719f8d1ffa685be6dfe68d
                         },
                         [
                           _vm._v(
@@ -1723,6 +1933,28 @@ var render = function() {
                           )
                         ]
                       )
+<<<<<<< HEAD
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.is_update === true
+                    ? _c(
+                        "vs-button",
+                        {
+                          attrs: {
+                            type: "relief",
+                            "icon-pack": "feather",
+                            icon: "icon-refresh-ccw"
+                          },
+                          on: { click: _vm.clearServiceForm }
+                        },
+                        [
+                          _vm._v(
+                            "\n                    សម្អាត\n                "
+                          )
+                        ]
+                      )
+=======
+>>>>>>> 6b3229d3f46ac3b9ea1e291fa806637f7708c60c
                     : _vm._e()
                 ],
                 1
@@ -2033,6 +2265,7 @@ var render = function() {
                         ]
                       ),
                       _vm._v(" "),
+<<<<<<< HEAD
                       _c(
                         "vs-td",
                         {
@@ -2044,10 +2277,40 @@ var render = function() {
                           _vm._v(
                             "\n                    " +
                               _vm._s(data[indextr].start_work.substr(0, 10)) +
+=======
+                      _c("vs-td", { attrs: { data: data[indextr].cost_six } }, [
+                        _vm._v(
+                          "\n                    $ " +
+                            _vm._s(data[indextr].cost_six) +
+                            "\n                "
+                        )
+                      ]),
+<<<<<<< HEAD
+                      _vm._v(" "),
+                      _c(
+                        "vs-td",
+                        { attrs: { data: data[indextr].cost_twelve } },
+                        [
+                          _vm._v(
+                            "\n                    $ " +
+                              _vm._s(data[indextr].cost_twelve) +
+>>>>>>> cf6bd723a84dd9fa9f719f8d1ffa685be6dfe68d
                               "\n                "
                           )
                         ]
                       ),
+<<<<<<< HEAD
+=======
+                      _vm._v(" "),
+                      _c(
+                        "vs-td",
+                        { attrs: { data: data[indextr].employee_name } },
+                        [
+                          _vm._v(
+                            "\n                    " +
+                              _vm._s(data[indextr].employee_name) +
+=======
+>>>>>>> cf6bd723a84dd9fa9f719f8d1ffa685be6dfe68d
                       _vm._v(" "),
                       _c(
                         "vs-td",
@@ -2056,10 +2319,16 @@ var render = function() {
                         },
                         [
                           _vm._v(
+<<<<<<< HEAD
                             "\n                    " +
                               _vm._s(
                                 data[indextr].contact.substr(0, 30) + "..."
                               ) +
+=======
+                            "\n                    $ " +
+                              _vm._s(data[indextr].cost_twelve) +
+>>>>>>> 6b3229d3f46ac3b9ea1e291fa806637f7708c60c
+>>>>>>> cf6bd723a84dd9fa9f719f8d1ffa685be6dfe68d
                               "\n                "
                           )
                         ]
@@ -2092,7 +2361,34 @@ var render = function() {
                 _vm._v("ឡាតាំង")
               ]),
               _vm._v(" "),
+<<<<<<< HEAD
               _c("vs-th", { attrs: { "sort-key": "gender" } }, [_vm._v("ភេទ")]),
+=======
+              _c("vs-th", { attrs: { "sort-key": "service" } }, [
+                _vm._v("Service")
+              ]),
+<<<<<<< HEAD
+              _vm._v(" "),
+              _c("vs-th", { attrs: { "sort-key": "cost_one" } }, [
+                _vm._v("តម្លៃ​ ១ខែ")
+              ]),
+              _vm._v(" "),
+              _c("vs-th", { attrs: { "sort-key": "cost_three" } }, [
+                _vm._v("តម្លៃ​ ១ត្រីមាស")
+              ]),
+              _vm._v(" "),
+              _c("vs-th", { attrs: { "sort-key": "cost_six" } }, [
+                _vm._v("តម្លៃ ១ឆមាស")
+              ]),
+              _vm._v(" "),
+              _c("vs-th", { attrs: { "sort-key": "cost_twelve" } }, [
+                _vm._v("តម្លៃ​ ១ឆ្នាំ")
+              ]),
+              _vm._v(" "),
+              _c("vs-th", { attrs: { "sort-key": "employee_name" } }, [
+                _vm._v("អ្នកទទួលបន្ទុក")
+=======
+>>>>>>> cf6bd723a84dd9fa9f719f8d1ffa685be6dfe68d
               _vm._v(" "),
               _c("vs-th", { attrs: { "sort-key": "position" } }, [
                 _vm._v("មុខតំណែង")
@@ -2106,8 +2402,14 @@ var render = function() {
                 _vm._v("ថ្ងៃចូលធ្វើការ")
               ]),
               _vm._v(" "),
+<<<<<<< HEAD
               _c("vs-th", { attrs: { "sort-key": "contact" } }, [
                 _vm._v("ទំនាក់ទំនង")
+=======
+              _c("vs-th", { attrs: { "sort-key": "cost_twelve" } }, [
+                _vm._v("តម្លៃ​ ១ឆ្នាំ")
+>>>>>>> 6b3229d3f46ac3b9ea1e291fa806637f7708c60c
+>>>>>>> cf6bd723a84dd9fa9f719f8d1ffa685be6dfe68d
               ])
             ],
             1
