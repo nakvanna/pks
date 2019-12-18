@@ -7,31 +7,35 @@
             <vs-button v-if="selected.length" @click="$refs.addStudyInfo.show(selected, true)" type="relief" icon-pack="feather" icon="icon-upload">ការសិក្សា</vs-button>
             <vs-button v-if="selected.length" @click="$refs.addServiceInfo.show(selected, true)" color="dark" type="relief" icon-pack="feather" icon="icon-upload">សេវាកម្ម</vs-button>
         </div>
-        <vs-table multiple v-model="selected" pagination max-items="10" search :data="all_students">
+        <vs-table multiple v-model="selected" pagination max-items="100" search :data="all_students">
             <template slot="thead">
                 <vs-th sort-key="id">ល.រ</vs-th>
                 <vs-th sort-key="name">ឈ្មោះ</vs-th>
                 <vs-th sort-key="latin">ឈ្មោះឡាតាំង</vs-th>
                 <vs-th sort-key="status">ស្ថានភាព</vs-th>
+                <vs-th sort-key="temp_grade">ថ្នាក់បណ្តុះអាសន្ន</vs-th>
                 <vs-th sort-key="created_at">កាលបរិច្ឆេទ</vs-th>
             </template>
             <template slot-scope="{data}">
-                <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in data">
-                    <vs-td :data="data[indextr].id">
-                        {{ data[indextr].id }}
+                <vs-tr :data="item" :key="index" v-for="(item, index) in data">
+                    <vs-td :data="item.id">
+                        {{ item.id }}
                     </vs-td>
-                    <vs-td :data="data[indextr].name">
-                        {{ data[indextr].name }}
+                    <vs-td :data="item.name">
+                        {{ item.name }}
                     </vs-td>
-                    <vs-td :data="data[indextr].latin">
-                        {{ data[indextr].latin }}
+                    <vs-td :data="item.latin">
+                        {{ item.latin }}
                     </vs-td>
-                    <vs-td :data="data[indextr].status">
-                        <vs-chip v-if="data[indextr].status===true" color="success">Active</vs-chip>
-                        <vs-chip v-if="data[indextr].status===false" color="warning">Inactive</vs-chip>
+                    <vs-td :data="item.status">
+                        <vs-chip v-if="item.status===true" color="success">Active</vs-chip>
+                        <vs-chip v-if="item.status===false" color="warning">Inactive</vs-chip>
                     </vs-td>
-                    <vs-td :data="data[indextr].created_at">
-                        {{ data[indextr].created_at }}
+                    <vs-td :data="item.temp_grade">
+                        {{ item.temp_grade }}
+                    </vs-td>
+                    <vs-td :data="item.created_at">
+                        {{ item.created_at }}
                     </vs-td>
 
                 </vs-tr>

@@ -2562,39 +2562,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -5461,129 +5428,8 @@ var render = function() {
                                   _vm._v(_vm._s(_vm.routeTitle))
                                 ])
                               ]
-                            ),
-                            _vm._v(" "),
-                            _vm.$route.meta.breadcrumb
-                              ? _c("vx-breadcrumb", {
-                                  staticClass: "ml-4 md:block hidden",
-                                  attrs: {
-                                    route: _vm.$route,
-                                    isRTL: _vm.$vs.rtl
-                                  }
-                                })
-                              : _vm._e(),
-                            _vm._v(" "),
-                            _c(
-                              "vs-dropdown",
-                              {
-                                staticClass:
-                                  "ml-auto md:block hidden cursor-pointer",
-                                attrs: { "vs-trigger-click": "" }
-                              },
-                              [
-                                _c("vs-button", {
-                                  attrs: {
-                                    radius: "",
-                                    icon: "icon-settings",
-                                    "icon-pack": "feather"
-                                  }
-                                }),
-                                _vm._v(" "),
-                                _c(
-                                  "vs-dropdown-menu",
-                                  { staticClass: "w-32" },
-                                  [
-                                    _c("vs-dropdown-item", [
-                                      _c(
-                                        "div",
-                                        {
-                                          staticClass: "flex items-center",
-                                          on: {
-                                            click: function($event) {
-                                              _vm.$router
-                                                .push("/pages/profile")
-                                                .catch(function() {})
-                                            }
-                                          }
-                                        },
-                                        [
-                                          _c("feather-icon", {
-                                            staticClass: "inline-block mr-2",
-                                            attrs: {
-                                              icon: "UserIcon",
-                                              svgClasses: "w-4 h-4"
-                                            }
-                                          }),
-                                          _vm._v(" "),
-                                          _c("span", [_vm._v("Profile")])
-                                        ],
-                                        1
-                                      )
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("vs-dropdown-item", [
-                                      _c(
-                                        "div",
-                                        {
-                                          staticClass: "flex items-center",
-                                          on: {
-                                            click: function($event) {
-                                              _vm.$router
-                                                .push("/apps/todo")
-                                                .catch(function() {})
-                                            }
-                                          }
-                                        },
-                                        [
-                                          _c("feather-icon", {
-                                            staticClass: "inline-block mr-2",
-                                            attrs: {
-                                              icon: "CheckSquareIcon",
-                                              svgClasses: "w-4 h-4"
-                                            }
-                                          }),
-                                          _vm._v(" "),
-                                          _c("span", [_vm._v("Tasks")])
-                                        ],
-                                        1
-                                      )
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("vs-dropdown-item", [
-                                      _c(
-                                        "div",
-                                        {
-                                          staticClass: "flex items-center",
-                                          on: {
-                                            click: function($event) {
-                                              _vm.$router
-                                                .push("/apps/email")
-                                                .catch(function() {})
-                                            }
-                                          }
-                                        },
-                                        [
-                                          _c("feather-icon", {
-                                            staticClass: "inline-block mr-2",
-                                            attrs: {
-                                              icon: "MailIcon",
-                                              svgClasses: "w-4 h-4"
-                                            }
-                                          }),
-                                          _vm._v(" "),
-                                          _c("span", [_vm._v("Inbox")])
-                                        ],
-                                        1
-                                      )
-                                    ])
-                                  ],
-                                  1
-                                )
-                              ],
-                              1
                             )
-                          ],
-                          1
+                          ]
                         )
                       : _vm._e()
                   ]),
@@ -6935,6 +6781,11 @@ __webpack_require__.r(__webpack_exports__);
   name: "របាយការណ៌",
   slug: "របាយការណ៌",
   icon: "PieChartIcon"
+}, {
+  url: "/import",
+  name: "Import Data",
+  slug: "import",
+  icon: "FilePlusIcon"
 }, {
   url: "/page2",
   name: "Page 2",

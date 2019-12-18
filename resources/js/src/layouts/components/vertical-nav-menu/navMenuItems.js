@@ -64,6 +64,12 @@ export default [
     icon: "PieChartIcon",
   },
   {
+    url: "/import",
+    name: "Import Data",
+    slug: "import",
+    icon: "FilePlusIcon",
+  },
+  {
     url: "/page2",
     name: "Page 2",
     slug: "page2",

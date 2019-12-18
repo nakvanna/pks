@@ -36,3 +36,5 @@ Route::resource('/service-info','ServiceInfoController');
 Route::post('/payment','PaymentController@getInfo')->name('payment.get-info');
 Route::resource('/invoice','InvoiceController');
 Route::resource('/invoice-detail','InvoiceDetailController');
+Route::resource('/import','ExcelImportController');
+Route::post('/import-student','ExcelImportController@import_student')->name('import.student');

@@ -67,6 +67,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -806,7 +810,7 @@ var render = function() {
           attrs: {
             multiple: "",
             pagination: "",
-            "max-items": "10",
+            "max-items": "100",
             search: "",
             data: _vm.all_students
           },
@@ -815,46 +819,46 @@ var render = function() {
               key: "default",
               fn: function(ref) {
                 var data = ref.data
-                return _vm._l(data, function(tr, indextr) {
+                return _vm._l(data, function(item, index) {
                   return _c(
                     "vs-tr",
-                    { key: indextr, attrs: { data: tr } },
+                    { key: index, attrs: { data: item } },
                     [
-                      _c("vs-td", { attrs: { data: data[indextr].id } }, [
+                      _c("vs-td", { attrs: { data: item.id } }, [
                         _vm._v(
                           "\n                    " +
-                            _vm._s(data[indextr].id) +
+                            _vm._s(item.id) +
                             "\n                "
                         )
                       ]),
                       _vm._v(" "),
-                      _c("vs-td", { attrs: { data: data[indextr].name } }, [
+                      _c("vs-td", { attrs: { data: item.name } }, [
                         _vm._v(
                           "\n                    " +
-                            _vm._s(data[indextr].name) +
+                            _vm._s(item.name) +
                             "\n                "
                         )
                       ]),
                       _vm._v(" "),
-                      _c("vs-td", { attrs: { data: data[indextr].latin } }, [
+                      _c("vs-td", { attrs: { data: item.latin } }, [
                         _vm._v(
                           "\n                    " +
-                            _vm._s(data[indextr].latin) +
+                            _vm._s(item.latin) +
                             "\n                "
                         )
                       ]),
                       _vm._v(" "),
                       _c(
                         "vs-td",
-                        { attrs: { data: data[indextr].status } },
+                        { attrs: { data: item.status } },
                         [
-                          data[indextr].status === true
+                          item.status === true
                             ? _c("vs-chip", { attrs: { color: "success" } }, [
                                 _vm._v("Active")
                               ])
                             : _vm._e(),
                           _vm._v(" "),
-                          data[indextr].status === false
+                          item.status === false
                             ? _c("vs-chip", { attrs: { color: "warning" } }, [
                                 _vm._v("Inactive")
                               ])
@@ -863,17 +867,21 @@ var render = function() {
                         1
                       ),
                       _vm._v(" "),
-                      _c(
-                        "vs-td",
-                        { attrs: { data: data[indextr].created_at } },
-                        [
-                          _vm._v(
-                            "\n                    " +
-                              _vm._s(data[indextr].created_at) +
-                              "\n                "
-                          )
-                        ]
-                      )
+                      _c("vs-td", { attrs: { data: item.temp_grade } }, [
+                        _vm._v(
+                          "\n                    " +
+                            _vm._s(item.temp_grade) +
+                            "\n                "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("vs-td", { attrs: { data: item.created_at } }, [
+                        _vm._v(
+                          "\n                    " +
+                            _vm._s(item.created_at) +
+                            "\n                "
+                        )
+                      ])
                     ],
                     1
                   )
@@ -904,6 +912,10 @@ var render = function() {
               _vm._v(" "),
               _c("vs-th", { attrs: { "sort-key": "status" } }, [
                 _vm._v("ស្ថានភាព")
+              ]),
+              _vm._v(" "),
+              _c("vs-th", { attrs: { "sort-key": "temp_grade" } }, [
+                _vm._v("ថ្នាក់បណ្តុះអាសន្ន")
               ]),
               _vm._v(" "),
               _c("vs-th", { attrs: { "sort-key": "created_at" } }, [

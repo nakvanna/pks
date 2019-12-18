@@ -9,14 +9,12 @@
 
 // MAIN COLORS - VUESAX THEME COLORS
 let colors = {
-	primary : '#28C76F',
-	// primary : '#7367F0',
+	primary : '#0087d2',
 	success : '#28C76F',
 	danger  : '#EA5455',
 	warning : '#FF9F43',
 	dark    : '#1E1E1E',
-}
-
+};
 // CONFIGS
 const themeConfig = {
   disableCustomizer : false,       // options[Boolean] : true, false(default)
@@ -35,7 +33,7 @@ const themeConfig = {
   userInfoLocalStorageKey: "userInfo",
 
   // NOTE: themeTour will be disabled in screens < 1200. Please refer docs for more info.
-}
+};
 
 import Vue from 'vue'
 import Vuesax from 'vuesax'
