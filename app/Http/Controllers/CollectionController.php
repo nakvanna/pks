@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class CollectionController extends Controller
 {
     public function index(){
-        return Collection::orderBy('id','desc')->get();
+        return Collection::with('employees')->orderBy('id','desc')->get();
     }
     public function store(Request $request){
         $input = $request->all();
@@ -23,6 +23,7 @@ class CollectionController extends Controller
             'cost_three'   =>'required',
             'cost_six'     =>'required',
             'cost_twelve'  =>'required',
+            'employee_id'  =>'required',
         ]);
         $store = new Collection();
         $store->year          = $input['year'];
@@ -35,8 +36,9 @@ class CollectionController extends Controller
         $store->cost_three    = $input['cost_three'];
         $store->cost_six      = $input['cost_six'];
         $store->cost_twelve   = $input['cost_twelve'];
+        $store->employee_id   = $input['employee_id'];
         $store->save();
-        return $store;
+        return Collection::with('employees')->where('id', $store->id)->first();
     }
     public function update($id, Request $request){
         $input = $request->all();
@@ -51,6 +53,7 @@ class CollectionController extends Controller
             'cost_three'   =>'required',
             'cost_six'     =>'required',
             'cost_twelve'  =>'required',
+            'employee_id'  =>'required',
         ]);
         $update = Collection::findOrFail($id);
         $update->year          = $input['year'];
@@ -63,6 +66,7 @@ class CollectionController extends Controller
         $update->cost_three    = $input['cost_three'];
         $update->cost_six      = $input['cost_six'];
         $update->cost_twelve   = $input['cost_twelve'];
+        $update->employee_id   = $input['employee_id'];
         $update->save();
         return $update;
     }

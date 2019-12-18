@@ -235,16 +235,19 @@
                 </div>
             </vx-card>
         </modal>
+
+        <print-invoice ref="PrintInvoice"></print-invoice>
     </vx-card>
 </template>
 
 <script>
-    import flatPickr from 'vue-flatpickr-component'
+    import flatPickr from 'vue-flatpickr-component';
     import 'flatpickr/dist/flatpickr.min.css';
+    import PrintInvoice from './PrintInvoice';
     export default {
         name: "Payment",
         components: {
-            flatPickr
+            flatPickr, PrintInvoice
         },
         computed: {
             all_students(){
@@ -498,6 +501,7 @@
                     discount : this.discount, payment_status : false
                 }).then(function (data_res) {
                     if (data_res){
+                        console.log(data_res);
                         self.all_infos.map(async function (data) {
                             await self.$store.dispatch('storeInvoiceDetail', {
                                 invoice_id : data_res.id,
@@ -515,6 +519,7 @@
                             position:'top-center'
                         });
                         self.$vs.loading.close();
+                        self.$refs.PrintInvoice.show({});
                     }
                 });
                 await this.$store.dispatch('fetchInvoices');

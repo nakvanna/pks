@@ -63,7 +63,19 @@
             <vs-input class="w-1/3" placeholder="$500" label="តម្លៃ ១ឆមាស" v-model="collections.cost_six"></vs-input>
             <vs-input class="w-1/3" placeholder="$500" label="តម្លៃ ១ឆ្នាំ" v-model="collections.cost_twelve"></vs-input>
         </div>
-        <div class="flex btn-group">
+        <div class="row flex">
+            <vs-select
+                    autocomplete
+                    class="w-1/3 mr-2"
+                    label="គ្រូបន្ទុកថ្នាក់"
+                    placeholder="ជ្រើសរើស"
+                    v-model="collections.employee_id"
+            >
+                <vs-select-item  value="0" text="None"  />
+                <vs-select-item v-if="item.position.toString().toUpperCase() === 'TEACHER'" :key="index" :value="item.id" :text="item.kh_name + ' ' + item.en_name" v-for="(item,index) in getEmployees" />
+            </vs-select>
+        </div>
+        <div class="flex btn-group mt-4">
             <vs-button
                     @click="storeCollection" type="relief"
                     icon-pack="feather" icon="icon-plus-square"
@@ -101,6 +113,7 @@
                 <vs-th sort-key="cost_three">តម្លៃ ១ត្រីមាស</vs-th>
                 <vs-th sort-key="cost_six">តម្លៃ ១ឆមាស</vs-th>
                 <vs-th sort-key="cost_twelve">តម្លៃ ១ឆ្នាំ</vs-th>
+                <vs-th sort-key="employee_name">គ្រូបន្ទុកថ្នាក់</vs-th>
             </template>
 
             <template slot-scope="{data}">
@@ -144,6 +157,10 @@
 
                     <vs-td :data="data[indextr].cost_twelve">
                         $ {{ data[indextr].cost_twelve }}
+                    </vs-td>
+
+                    <vs-td :data="data[indextr].employee_name">
+                        {{ data[indextr].employee_name }}
                     </vs-td>
                 </vs-tr>
             </template>
@@ -197,6 +214,7 @@
                     cost_three: '',
                     cost_six: '',
                     cost_twelve: '',
+                    employee_id: '',
                 },
                 selected: [],
                 'tableList': [
@@ -212,6 +230,7 @@
 
         async created (){
             await this.$store.dispatch('fetchYears'); /*Fetch year*/
+            await this.$store.dispatch('fetchEmployees');
         },
         computed: {
             getYears(){
@@ -237,7 +256,10 @@
             },
             getCollection(){
                 return this.$store.getters.get_collections
-            }
+            },
+            getEmployees(){
+                return this.$store.getters.get_employees
+            },
         },
         methods: {
             storeCollection(){

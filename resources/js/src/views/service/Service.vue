@@ -20,6 +20,18 @@
             <vs-input class="w-1/4 mr-1" label-placeholder="តម្លៃ ១ឆមាស" v-model="services.cost_six"></vs-input>
             <vs-input class="w-1/4 mr-1" label-placeholder="តម្លៃ​ ១ឆ្នាំ" v-model="services.cost_twelve"></vs-input>
         </div>
+        <div class="row flex">
+            <vs-select
+                    autocomplete
+                    class="w-1/3 mr-2"
+                    label="អ្នកទទួលបន្ទុក"
+                    placeholder="ជ្រើសរើស"
+                    v-model="services.employee_id"
+            >
+                <vs-select-item  value="0" text="None"  />
+                <vs-select-item :key="index" :value="item.id" :text="item.kh_name + ' ' + item.en_name" v-for="(item,index) in getEmployees" />
+            </vs-select>
+        </div>
         <vs-row vs-type="flex" vs-justify="flex-end">
             <vs-col vs-type="flex" vs-justify="flex-end">
                 <div class="flex btn-group">
@@ -61,6 +73,7 @@
                 <vs-th sort-key="cost_three">តម្លៃ​ ១ត្រីមាស</vs-th>
                 <vs-th sort-key="cost_six">តម្លៃ ១ឆមាស</vs-th>
                 <vs-th sort-key="cost_twelve">តម្លៃ​ ១ឆ្នាំ</vs-th>
+                <vs-th sort-key="employee_name">អ្នកទទួលបន្ទុក</vs-th>
             </template>
 
             <template slot-scope="{data}">
@@ -92,6 +105,10 @@
 
                     <vs-td :data="data[indextr].cost_twelve">
                         $ {{ data[indextr].cost_twelve }}
+                    </vs-td>
+
+                    <vs-td :data="data[indextr].employee_name">
+                        {{ data[indextr].employee_name }}
                     </vs-td>
                 </vs-tr>
             </template>
@@ -147,6 +164,7 @@
                     cost_three : '',
                     cost_six   : '',
                     cost_twelve: '',
+                    employee_id: '',
                 }
             }
         },
@@ -159,11 +177,15 @@
             },
             getService(){
                 return this.$store.getters.get_services
-            }
+            },
+            getEmployees(){
+                return this.$store.getters.get_employees
+            },
         },
         async created() {
             await this.$store.dispatch('fetchServices');
             await this.$store.dispatch('fetchYears');
+            await this.$store.dispatch('fetchEmployees');
         },
         methods: {
             storeService(){

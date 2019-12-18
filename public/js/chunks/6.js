@@ -195,6 +195,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Collection',
@@ -215,7 +232,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         cost_one: '',
         cost_three: '',
         cost_six: '',
-        cost_twelve: ''
+        cost_twelve: '',
+        employee_id: ''
       },
       selected: [],
       'tableList': ['vs-th: Component', 'vs-tr: Component', 'vs-td: Component', 'thread: Slot', 'tbody: Slot', 'header: Slot']
@@ -233,6 +251,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               return this.$store.dispatch('fetchYears');
 
             case 2:
+              _context.next = 4;
+              return this.$store.dispatch('fetchEmployees');
+
+            case 4:
             case "end":
               return _context.stop();
           }
@@ -270,6 +292,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     getCollection: function getCollection() {
       return this.$store.getters.get_collections;
+    },
+    getEmployees: function getEmployees() {
+      return this.$store.getters.get_employees;
     }
   },
   methods: {
@@ -2773,7 +2798,49 @@ var render = function() {
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "flex btn-group" },
+        { staticClass: "row flex" },
+        [
+          _c(
+            "vs-select",
+            {
+              staticClass: "w-1/3 mr-2",
+              attrs: {
+                autocomplete: "",
+                label: "គ្រូបន្ទុកថ្នាក់",
+                placeholder: "ជ្រើសរើស"
+              },
+              model: {
+                value: _vm.collections.employee_id,
+                callback: function($$v) {
+                  _vm.$set(_vm.collections, "employee_id", $$v)
+                },
+                expression: "collections.employee_id"
+              }
+            },
+            [
+              _c("vs-select-item", { attrs: { value: "0", text: "None" } }),
+              _vm._v(" "),
+              _vm._l(_vm.getEmployees, function(item, index) {
+                return item.position.toString().toUpperCase() === "TEACHER"
+                  ? _c("vs-select-item", {
+                      key: index,
+                      attrs: {
+                        value: item.id,
+                        text: item.kh_name + " " + item.en_name
+                      }
+                    })
+                  : _vm._e()
+              })
+            ],
+            2
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "flex btn-group mt-4" },
         [
           _vm.is_update === false
             ? _c(
@@ -2940,6 +3007,18 @@ var render = function() {
                               "\n                "
                           )
                         ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "vs-td",
+                        { attrs: { data: data[indextr].employee_name } },
+                        [
+                          _vm._v(
+                            "\n                    " +
+                              _vm._s(data[indextr].employee_name) +
+                              "\n                "
+                          )
+                        ]
                       )
                     ],
                     1
@@ -2997,6 +3076,10 @@ var render = function() {
               _vm._v(" "),
               _c("vs-th", { attrs: { "sort-key": "cost_twelve" } }, [
                 _vm._v("តម្លៃ ១ឆ្នាំ")
+              ]),
+              _vm._v(" "),
+              _c("vs-th", { attrs: { "sort-key": "employee_name" } }, [
+                _vm._v("គ្រូបន្ទុកថ្នាក់")
               ])
             ],
             1
