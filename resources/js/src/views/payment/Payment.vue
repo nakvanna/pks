@@ -143,7 +143,7 @@
                         <img style="height: 150px" :src="photo"/>
                     </div>
                 </div>
-                <vs-table v-model="selected" pagination max-items="5" search :data="all_infos">
+                <vs-table pagination max-items="5" search :data="all_infos">
 
                     <template slot="thead">
                         <vs-th sort-key="year">ឆ្នាំសិក្សា</vs-th>
@@ -187,13 +187,13 @@
                                 {{getCostOne(data[indextr].cost_one, data[indextr].date_pay, indextr)}}
                             </vs-td>
                             <vs-td v-if="data[indextr].last_term === 3 || data[indextr].last_term === '3' ">
-                                {{getCostThree(data[indextr].cost_one, data[indextr].cost_three, data[indextr].date_pay, indextr)}}
+                                {{getCostThree(data[indextr].cost_three, data[indextr].date_pay, indextr)}}
                             </vs-td>
                             <vs-td v-if="data[indextr].last_term === 6 || data[indextr].last_term === '6' ">
-                                {{getCostSix(data[indextr].cost_one, data[indextr].cost_six, data[indextr].date_pay, indextr)}}
+                                {{getCostSix(data[indextr].cost_six, data[indextr].date_pay, indextr)}}
                             </vs-td>
                             <vs-td v-if="data[indextr].last_term === 12 || data[indextr].last_term === '12' ">
-                                {{getCostTwelve(data[indextr].cost_one, data[indextr].cost_twelve, data[indextr].date_pay, indextr)}}
+                                {{getCostTwelve(data[indextr].cost_twelve, data[indextr].date_pay, indextr)}}
                             </vs-td>
                             <vs-td v-if="data[indextr].last_term === 0">
                                 0
@@ -211,7 +211,6 @@
                                 <flat-pickr class="w-full" v-model="data[indextr].next_date_pay" placeholder="ថ្ងៃត្រូវបង់លុយដំបូង" disabled/>
                             </vs-td>
 
-
                             <vs-td>
                                 <vs-button @click="removeItem(indextr)" radius color="danger" type="relief" icon-pack="feather" icon="icon-trash"></vs-button>
                             </vs-td>
@@ -219,9 +218,14 @@
                     </template>
                 </vs-table>
                 <div class="centerx">
-                   <h3><span>សរុបតម្លៃត្រូវបង់: <b>{{totalPayment}}$</b></span></h3>
-                    <div class="flex mt-5">
-                        <vs-input-number v-model="discount" label="បញ្ចុះតម្លៃ %:" min="0" max="100" icon-inc="expand_less" icon-dec="expand_more"/>
+                   <h3><span>តម្លៃសរុប: <b>{{totalPayment.toFixed(2)}}$​ -> {{after_discount.toFixed(2)}}$</b></span></h3>
+                    <div class="flex">
+                        <div class="flex mt-5">
+                            <vs-input-number @input="percentDiscount" v-model="discount" label="បញ្ចុះភាគរយ %:" min="0" max="100" icon-inc="expand_less" icon-dec="expand_more"/>
+                        </div>
+                        <div class="flex mt-5">
+                            <vs-input-number @input="cashDiscount" v-model="cash_discount" label="បញ្ចុះជាសាច់ប្រាក់ $:" min="0" :max="total_payment" icon-inc="expand_less" icon-dec="expand_more"/>
+                        </div>
                     </div>
                 </div>
                 <vs-divider/>
@@ -257,6 +261,7 @@
                     payments += parseFloat(vm[i].term_selected);
                 }
                 self.total_payment = payments;
+                self.after_discount = payments;
                 return payments;
             },
             getCurYear(){
@@ -277,6 +282,8 @@
         data() {
             return {
                 discount: 0,
+                after_discount: 0,
+                cash_discount: 0,
                 users: [],
                 selected: [],
                 students:'', //all info
@@ -290,64 +297,68 @@
             }
         },
         methods: {
+            cashDiscount(){
+                this.discount = parseFloat(this.cash_discount * 100 / this.total_payment).toFixed(2);
+                this.after_discount = this.total_payment - this.cash_discount;
+            },
+            percentDiscount(){
+                this.cash_discount = parseFloat(this.total_payment * this.discount / 100).toFixed(2);
+                this.after_discount = this.total_payment - this.cash_discount;
+            },
             getCostOne(one, date_pay, i){
                 var price = one;
                 var temp_next_date = this.moment(date_pay).add('month', 1).format('YYYY-MM-DD');
                 if(temp_next_date > this.all_infos[i].last_date_pay){
                     this.all_infos[i].next_date_pay = this.all_infos[i].last_date_pay;
-                    var a = this.moment(date_pay, 'YYYY-MM-DD');
+                    var a = this.moment(date_pay);
                     var b = this.moment(this.all_infos[i].last_date_pay);
                     var over_days = b.diff(a, 'days');
-                    console.log(over_days);
-                    price = parseFloat(one) / 30 * over_days;
+                    price = (parseFloat(one) / 30 * over_days).toFixed();
                 } else {
                     this.all_infos[i].next_date_pay = temp_next_date;
                 }
                 this.all_infos[i].term_selected = price;
                 return price;
             },
-            getCostThree(one, three, date_pay, i){
+            getCostThree(three, date_pay, i){
                 var price = three;
                 var temp_next_date = this.moment(date_pay).add('month', 3).format('YYYY-MM-DD');
                 if(temp_next_date > this.all_infos[i].last_date_pay){
                     this.all_infos[i].next_date_pay = this.all_infos[i].last_date_pay;
-                    var a = this.moment(date_pay, 'YYYY-MM-DD');
+                    var a = this.moment(date_pay);
                     var b = this.moment(this.all_infos[i].last_date_pay);
                     var over_days = b.diff(a, 'days');
-                    console.log(over_days);
-                    price = parseFloat(one) / 30 * over_days;
+                    price = (parseFloat(three) / 91.25 * over_days).toFixed(2);
                 } else {
                     this.all_infos[i].next_date_pay = temp_next_date;
                 }
                 this.all_infos[i].term_selected = price;
                 return price;
             },
-            getCostSix(one, six, date_pay, i){
+            getCostSix(six, date_pay, i){
                 var price = six;
-                var temp_next_date = this.moment(date_pay).add('month', 6).format('YYYY-MM-DD');
+                var temp_next_date = this.moment(date_pay).add('months', 6).format('YYYY-MM-DD');
                 if(temp_next_date > this.all_infos[i].last_date_pay){
                     this.all_infos[i].next_date_pay = this.all_infos[i].last_date_pay;
-                    var a = this.moment(date_pay, 'YYYY-MM-DD');
+                    var a = this.moment(date_pay);
                     var b = this.moment(this.all_infos[i].last_date_pay);
                     var over_days = b.diff(a, 'days');
-                    console.log(over_days);
-                    price = parseFloat(one) / 30 * over_days;
+                    price = (parseFloat(six) / 182.5 * over_days).toFixed(2);
                 } else {
                     this.all_infos[i].next_date_pay = temp_next_date;
                 }
                 this.all_infos[i].term_selected = price;
                 return price;
             },
-            getCostTwelve(one, twelve, date_pay, i){
+            getCostTwelve(twelve, date_pay, i){
                 var price = twelve;
-                var temp_next_date = this.moment(date_pay).add('month', 12).format('YYYY-MM-DD');
+                var temp_next_date = this.moment(date_pay).add('months', 12).format('YYYY-MM-DD');
                 if(temp_next_date > this.all_infos[i].last_date_pay){
                     this.all_infos[i].next_date_pay = this.all_infos[i].last_date_pay;
-                    var a = this.moment(date_pay, 'YYYY-MM-DD');
+                    var a = this.moment(date_pay);
                     var b = this.moment(this.all_infos[i].last_date_pay);
                     var over_days = b.diff(a, 'days');
-                    console.log(over_days);
-                    price = parseFloat(one) / 30 * over_days;
+                    price = (parseFloat(twelve) / 365 * over_days).toFixed(2);
                 } else {
                     this.all_infos[i].next_date_pay = temp_next_date;
                 }
@@ -462,7 +473,9 @@
                         update_service_items.push({
                             id: vm[i].service_id,
                             date_pay: vm[i].next_date_pay,
-                            last_term: vm[i].last_term
+                            last_term: vm[i].last_term,
+                            last_date_pay: vm[i].last_date_pay,
+                            is_used: vm[i].is_used
                         })
                     } else {
                         update_study_items.push({
@@ -481,7 +494,7 @@
                 }
 
                 await self.$store.dispatch('storeInvoice', {
-                    student_id: this.student_id, invoice_date : this.today_date, balance : this.total_payment, after_discount : this.total_payment,
+                    student_id: this.student_id, invoice_date : this.today_date, balance : this.total_payment, after_discount : this.after_discount,
                     discount : this.discount, payment_status : false
                 }).then(function (data_res) {
                     if (data_res){
@@ -504,6 +517,10 @@
                         self.$vs.loading.close();
                     }
                 });
+                await this.$store.dispatch('fetchInvoices');
+                this.discount = 0;
+                this.cash_discount = 0;
+                this.all_infos = [];
             },
             removeItem(i){
                 this.all_infos.splice(i, 1);

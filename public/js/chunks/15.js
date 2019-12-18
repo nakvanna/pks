@@ -257,6 +257,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -281,6 +285,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
 
       self.total_payment = payments;
+      self.after_discount = payments;
       return payments;
     },
     getCurYear: function getCurYear() {
@@ -329,6 +334,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       discount: 0,
+      after_discount: 0,
+      cash_discount: 0,
       users: [],
       selected: [],
       students: '',
@@ -343,17 +350,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   methods: {
+    cashDiscount: function cashDiscount() {
+      this.discount = parseFloat(this.cash_discount * 100 / this.total_payment).toFixed(2);
+      this.after_discount = this.total_payment - this.cash_discount;
+    },
+    percentDiscount: function percentDiscount() {
+      this.cash_discount = parseFloat(this.total_payment * this.discount / 100).toFixed(2);
+      this.after_discount = this.total_payment - this.cash_discount;
+    },
     getCostOne: function getCostOne(one, date_pay, i) {
       var price = one;
       var temp_next_date = this.moment(date_pay).add('month', 1).format('YYYY-MM-DD');
 
       if (temp_next_date > this.all_infos[i].last_date_pay) {
         this.all_infos[i].next_date_pay = this.all_infos[i].last_date_pay;
-        var a = this.moment(date_pay, 'YYYY-MM-DD');
+        var a = this.moment(date_pay);
         var b = this.moment(this.all_infos[i].last_date_pay);
         var over_days = b.diff(a, 'days');
-        console.log(over_days);
-        price = parseFloat(one) / 30 * over_days;
+        price = (parseFloat(one) / 30 * over_days).toFixed();
       } else {
         this.all_infos[i].next_date_pay = temp_next_date;
       }
@@ -361,17 +375,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.all_infos[i].term_selected = price;
       return price;
     },
-    getCostThree: function getCostThree(one, three, date_pay, i) {
+    getCostThree: function getCostThree(three, date_pay, i) {
       var price = three;
       var temp_next_date = this.moment(date_pay).add('month', 3).format('YYYY-MM-DD');
 
       if (temp_next_date > this.all_infos[i].last_date_pay) {
         this.all_infos[i].next_date_pay = this.all_infos[i].last_date_pay;
-        var a = this.moment(date_pay, 'YYYY-MM-DD');
+        var a = this.moment(date_pay);
         var b = this.moment(this.all_infos[i].last_date_pay);
         var over_days = b.diff(a, 'days');
-        console.log(over_days);
-        price = parseFloat(one) / 30 * over_days;
+        price = (parseFloat(three) / 91.25 * over_days).toFixed(2);
       } else {
         this.all_infos[i].next_date_pay = temp_next_date;
       }
@@ -379,17 +392,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.all_infos[i].term_selected = price;
       return price;
     },
-    getCostSix: function getCostSix(one, six, date_pay, i) {
+    getCostSix: function getCostSix(six, date_pay, i) {
       var price = six;
-      var temp_next_date = this.moment(date_pay).add('month', 6).format('YYYY-MM-DD');
+      var temp_next_date = this.moment(date_pay).add('months', 6).format('YYYY-MM-DD');
 
       if (temp_next_date > this.all_infos[i].last_date_pay) {
         this.all_infos[i].next_date_pay = this.all_infos[i].last_date_pay;
-        var a = this.moment(date_pay, 'YYYY-MM-DD');
+        var a = this.moment(date_pay);
         var b = this.moment(this.all_infos[i].last_date_pay);
         var over_days = b.diff(a, 'days');
-        console.log(over_days);
-        price = parseFloat(one) / 30 * over_days;
+        price = (parseFloat(six) / 182.5 * over_days).toFixed(2);
       } else {
         this.all_infos[i].next_date_pay = temp_next_date;
       }
@@ -397,17 +409,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.all_infos[i].term_selected = price;
       return price;
     },
-    getCostTwelve: function getCostTwelve(one, twelve, date_pay, i) {
+    getCostTwelve: function getCostTwelve(twelve, date_pay, i) {
       var price = twelve;
-      var temp_next_date = this.moment(date_pay).add('month', 12).format('YYYY-MM-DD');
+      var temp_next_date = this.moment(date_pay).add('months', 12).format('YYYY-MM-DD');
 
       if (temp_next_date > this.all_infos[i].last_date_pay) {
         this.all_infos[i].next_date_pay = this.all_infos[i].last_date_pay;
-        var a = this.moment(date_pay, 'YYYY-MM-DD');
+        var a = this.moment(date_pay);
         var b = this.moment(this.all_infos[i].last_date_pay);
         var over_days = b.diff(a, 'days');
-        console.log(over_days);
-        price = parseFloat(one) / 30 * over_days;
+        price = (parseFloat(twelve) / 365 * over_days).toFixed(2);
       } else {
         this.all_infos[i].next_date_pay = temp_next_date;
       }
@@ -688,7 +699,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     update_service_items.push({
                       id: vm[i].service_id,
                       date_pay: vm[i].next_date_pay,
-                      last_term: vm[i].last_term
+                      last_term: vm[i].last_term,
+                      last_date_pay: vm[i].last_date_pay,
+                      is_used: vm[i].is_used
                     });
                   } else {
                     update_study_items.push({
@@ -712,7 +725,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   student_id: this.student_id,
                   invoice_date: this.today_date,
                   balance: this.total_payment,
-                  after_discount: this.total_payment,
+                  after_discount: this.after_discount,
                   discount: this.discount,
                   payment_status: false
                 }).then(function (data_res) {
@@ -760,6 +773,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 });
 
               case 10:
+                _context10.next = 12;
+                return this.$store.dispatch('fetchInvoices');
+
+              case 12:
+                this.discount = 0;
+                this.cash_discount = 0;
+                this.all_infos = [];
+
+              case 15:
               case "end":
                 return _context10.stop();
             }
@@ -1440,7 +1462,6 @@ var render = function() {
                                       "\n                            " +
                                         _vm._s(
                                           _vm.getCostThree(
-                                            data[indextr].cost_one,
                                             data[indextr].cost_three,
                                             data[indextr].date_pay,
                                             indextr
@@ -1458,7 +1479,6 @@ var render = function() {
                                       "\n                            " +
                                         _vm._s(
                                           _vm.getCostSix(
-                                            data[indextr].cost_one,
                                             data[indextr].cost_six,
                                             data[indextr].date_pay,
                                             indextr
@@ -1476,7 +1496,6 @@ var render = function() {
                                       "\n                            " +
                                         _vm._s(
                                           _vm.getCostTwelve(
-                                            data[indextr].cost_one,
                                             data[indextr].cost_twelve,
                                             data[indextr].date_pay,
                                             indextr
@@ -1588,14 +1607,7 @@ var render = function() {
                         })
                       }
                     }
-                  ]),
-                  model: {
-                    value: _vm.selected,
-                    callback: function($$v) {
-                      _vm.selected = $$v
-                    },
-                    expression: "selected"
-                  }
+                  ])
                 },
                 [
                   _c(
@@ -1629,34 +1641,69 @@ var render = function() {
               _c("div", { staticClass: "centerx" }, [
                 _c("h3", [
                   _c("span", [
-                    _vm._v("សរុបតម្លៃត្រូវបង់: "),
-                    _c("b", [_vm._v(_vm._s(_vm.totalPayment) + "$")])
+                    _vm._v("តម្លៃសរុប: "),
+                    _c("b", [
+                      _vm._v(
+                        _vm._s(_vm.totalPayment.toFixed(2)) +
+                          "$​ -> " +
+                          _vm._s(_vm.after_discount.toFixed(2)) +
+                          "$"
+                      )
+                    ])
                   ])
                 ]),
                 _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "flex mt-5" },
-                  [
-                    _c("vs-input-number", {
-                      attrs: {
-                        label: "បញ្ចុះតម្លៃ %:",
-                        min: "0",
-                        max: "100",
-                        "icon-inc": "expand_less",
-                        "icon-dec": "expand_more"
-                      },
-                      model: {
-                        value: _vm.discount,
-                        callback: function($$v) {
-                          _vm.discount = $$v
+                _c("div", { staticClass: "flex" }, [
+                  _c(
+                    "div",
+                    { staticClass: "flex mt-5" },
+                    [
+                      _c("vs-input-number", {
+                        attrs: {
+                          label: "បញ្ចុះភាគរយ %:",
+                          min: "0",
+                          max: "100",
+                          "icon-inc": "expand_less",
+                          "icon-dec": "expand_more"
                         },
-                        expression: "discount"
-                      }
-                    })
-                  ],
-                  1
-                )
+                        on: { input: _vm.percentDiscount },
+                        model: {
+                          value: _vm.discount,
+                          callback: function($$v) {
+                            _vm.discount = $$v
+                          },
+                          expression: "discount"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "flex mt-5" },
+                    [
+                      _c("vs-input-number", {
+                        attrs: {
+                          label: "បញ្ចុះជាសាច់ប្រាក់ $:",
+                          min: "0",
+                          max: _vm.total_payment,
+                          "icon-inc": "expand_less",
+                          "icon-dec": "expand_more"
+                        },
+                        on: { input: _vm.cashDiscount },
+                        model: {
+                          value: _vm.cash_discount,
+                          callback: function($$v) {
+                            _vm.cash_discount = $$v
+                          },
+                          expression: "cash_discount"
+                        }
+                      })
+                    ],
+                    1
+                  )
+                ])
               ]),
               _vm._v(" "),
               _c("vs-divider"),
