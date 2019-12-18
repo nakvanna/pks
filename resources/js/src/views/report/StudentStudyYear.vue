@@ -180,7 +180,7 @@ export default {
         dob        : data.students.dob,
         class_name : data.study_infos.level + data.study_infos.class_name,
         shift      : data.study_infos.shift,
-        date_pay   : data.date_pay.substr(0, 10),
+        date_pay   : data.date_pay,
         last_term  : data.last_term,
       })
     });

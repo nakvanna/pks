@@ -173,7 +173,7 @@ export default {
         gender     : data.students.gender,
         dob        : data.students.dob,
         service    : data.services.type+'-'+ data.services.service,
-        date_pay   : data.date_pay.substr(0, 10),
+        date_pay   : data.date_pay,
         last_term  : data.last_term,
         is_used    : data.is_used === true? 'នៅប្រើ' : 'បានផ្អាក' ,
       })
