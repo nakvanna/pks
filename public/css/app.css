@@ -4187,6 +4187,10 @@ ul.bordered-items > li:not(:last-of-type):not([class*='shadow']) {
   z-index: 999999 !important;
 }
 
+.vs__dropdown-toggle {
+  border-radius: 0 !important;
+}
+
 /*=========================================================================================
   File Name: _fixesVuesax.scss
   Description: Partial - Fixes/Add vuesax framework styles

@@ -11,14 +11,10 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vue2_dropzone__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue2-dropzone */ "./node_modules/vue2-dropzone/dist/vue2Dropzone.js");
-/* harmony import */ var vue2_dropzone__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue2_dropzone__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var vue2_dropzone_dist_vue2Dropzone_min_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue2-dropzone/dist/vue2Dropzone.min.css */ "./node_modules/vue2-dropzone/dist/vue2Dropzone.min.css");
-/* harmony import */ var vue2_dropzone_dist_vue2Dropzone_min_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue2_dropzone_dist_vue2Dropzone_min_css__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var vue_flatpickr_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-flatpickr-component */ "./node_modules/vue-flatpickr-component/dist/vue-flatpickr.min.js");
-/* harmony import */ var vue_flatpickr_component__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vue_flatpickr_component__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var flatpickr_dist_flatpickr_min_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! flatpickr/dist/flatpickr.min.css */ "./node_modules/flatpickr/dist/flatpickr.min.css");
-/* harmony import */ var flatpickr_dist_flatpickr_min_css__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(flatpickr_dist_flatpickr_min_css__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var vue_flatpickr_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-flatpickr-component */ "./node_modules/vue-flatpickr-component/dist/vue-flatpickr.min.js");
+/* harmony import */ var vue_flatpickr_component__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_flatpickr_component__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var flatpickr_dist_flatpickr_min_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! flatpickr/dist/flatpickr.min.css */ "./node_modules/flatpickr/dist/flatpickr.min.css");
+/* harmony import */ var flatpickr_dist_flatpickr_min_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(flatpickr_dist_flatpickr_min_css__WEBPACK_IMPORTED_MODULE_2__);
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -85,38 +81,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-
-
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "addStudyInfo",
   components: {
-    flatPickr: vue_flatpickr_component__WEBPACK_IMPORTED_MODULE_3___default.a,
-    vueDropzone: vue2_dropzone__WEBPACK_IMPORTED_MODULE_1___default.a
+    flatPickr: vue_flatpickr_component__WEBPACK_IMPORTED_MODULE_1___default.a
   },
   data: function data() {
     return {
       checked: false,
       data: {
-        year: '',
+        year: {
+          name: '2020-2021',
+          id: null
+        },
         date_pay: null,
         last_date_pay: null,
         study_infos: [{
           collection_id: null
-        }]
-      },
-      student_ids: [],
-      study_infos: [],
-      dropzoneOptions: {
-        url: route('file.upload'),
-        maxFiles: 1,
-        addRemoveLinks: true,
-        dictDefaultMessage: "ដាក់រូបភាពសិស្ស",
-        thumbnailWidth: 150,
-        thumbnailHeight: 150
+        }],
+        students: []
       }
     };
   },
@@ -126,6 +111,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     getCollection: function getCollection() {
       return this.$store.getters.get_collections;
+    },
+    filteredCollection: function filteredCollection() {
+      var self = this;
+      var data = self.getCollection.filter(function (x) {
+        return x.year === self.data.year.name;
+      });
+      return data.map(function (x) {
+        return {
+          id: x.id,
+          item_data: "(".concat(x.year, ")-").concat(x.group_section, "-").concat(x.section, "-").concat(x.level).concat(x.class_name)
+        };
+      });
     }
   },
   created: function () {
@@ -158,18 +155,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return created;
   }(),
   methods: {
-    show: function show(selected, is_student) {
-      this.$modal.show('addStudyInfo');
-
-      if (is_student === true) {
-        for (var i = 0; i < selected.length; i++) {
-          this.student_ids.push(selected[i]['id']);
-        }
-      } else {
-        for (var i = 0; i < selected.length; i++) {
-          this.student_ids.push(selected[i].student_id);
-        }
-      }
+    show: function show(data) {
+      var self = this;
+      self.$modal.show('add-study-info');
+      self.data.students = data;
     },
     plus: function plus() {
       this.data.study_infos.push({
@@ -178,10 +167,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     minus: function minus(index) {
       this.data.study_infos.splice(index, 1);
-    },
-    //image upload
-    successUpload: function successUpload(file, res) {
-      this.data.photo = res.path;
     },
     clearForm: function clearForm() {
       this.checked = false;
@@ -197,80 +182,58 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     storeStudyInfo: function () {
       var _storeStudyInfo = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-        var self, year, date_pay, last_date_pay, sinfo, stuid, i, j, promises;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var self;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context3.prev = _context3.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
                 self = this;
-                year = this.data.year;
-                date_pay = this.data.date_pay;
-                last_date_pay = this.data.last_date_pay;
-                sinfo = this.data.study_infos;
-                stuid = this.student_ids;
+                this.$validator.validateAll().then(function (result) {
+                  if (result) {
+                    self.$vs.loading();
+                    self.$store.dispatch('storeStudyInfo', self.data).then(function (data) {
+                      if (data) {
+                        self.$vs.notify({
+                          time: 4000,
+                          title: 'ប្រតិបត្តិការជោគជ័យ',
+                          text: 'ទិន្នន័យបានបន្ថែម',
+                          color: 'success',
+                          iconPack: 'feather',
+                          icon: 'icon-check',
+                          position: 'top-center'
+                        }); // self.resetField();
+                      } else {
+                        self.$vs.notify({
+                          title: 'ប្រតិបត្តិការបរាជ័យ',
+                          text: 'ទិន្នន័យមិនបានបន្ថែម',
+                          color: 'danger',
+                          iconPack: 'feather',
+                          icon: 'icon-message-square',
+                          position: 'top-center'
+                        });
+                      }
 
-                for (i = 0; i < stuid.length; i++) {
-                  for (j = 0; j < sinfo.length; j++) {
-                    self.study_infos.push({
-                      year: year,
-                      date_pay: date_pay,
-                      last_date_pay: last_date_pay,
-                      student_id: stuid[i],
-                      collection_id: sinfo[j].collection_id
+                      self.$vs.loading.close();
+                    });
+                  } else {
+                    self.$vs.notify({
+                      title: 'ប្រតិបត្តិការបរាជ័យ',
+                      text: 'សូមបំពេញទិន្នន័យអោយបានត្រឹមត្រូវ',
+                      color: 'danger',
+                      iconPack: 'feather',
+                      icon: 'icon-message-square',
+                      position: 'top-center'
                     });
                   }
-                }
-
-                this.$vs.loading({
-                  type: 'material'
-                });
-                promises = self.study_infos.map(
-                /*#__PURE__*/
-                function () {
-                  var _ref = _asyncToGenerator(
-                  /*#__PURE__*/
-                  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(data) {
-                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-                      while (1) {
-                        switch (_context2.prev = _context2.next) {
-                          case 0:
-                            _context2.next = 2;
-                            return self.$store.dispatch('storeStudyInfo', data);
-
-                          case 2:
-                          case "end":
-                            return _context2.stop();
-                        }
-                      }
-                    }, _callee2);
-                  }));
-
-                  return function (_x) {
-                    return _ref.apply(this, arguments);
-                  };
-                }());
-                _context3.next = 11;
-                return Promise.all(promises).then(function () {
-                  self.$vs.notify({
-                    title: 'ប្រតិបត្តិការណ៍ជោគជ័យ',
-                    text: 'ទិន្នន័យសិស្សត្រូវបានបញ្ចូលក្នុងឆ្នាំសិក្សា!',
-                    color: 'success',
-                    iconPack: 'feather',
-                    icon: 'icon-check',
-                    position: 'top-center'
-                  });
-                  self.study_infos = [];
-                  self.clearForm();
-                  self.$vs.loading.close();
                 });
 
-              case 11:
+              case 2:
               case "end":
-                return _context3.stop();
+                return _context2.stop();
             }
           }
-        }, _callee3, this);
+        }, _callee2, this);
       }));
 
       function storeStudyInfo() {
@@ -309,7 +272,7 @@ var render = function() {
         pivotY: 0.2,
         adaptive: true,
         clickToClose: false,
-        name: "addStudyInfo"
+        name: "add-study-info"
       }
     },
     [
@@ -321,7 +284,7 @@ var render = function() {
             staticStyle: { background: "rgb(255, 255, 255)" },
             on: {
               click: function($event) {
-                return _vm.$modal.hide("addStudyInfo")
+                return _vm.$modal.hide("add-study-info")
               }
             }
           },
@@ -340,51 +303,7 @@ var render = function() {
               "div",
               { staticClass: "vx-col lg:w-1/3 w-full" },
               [
-                _c(
-                  "vs-select",
-                  {
-                    staticClass: "w-full",
-                    attrs: {
-                      autocomplete: "",
-                      placeholder: "ឆ្នាំសិក្សា",
-                      type: "primary"
-                    },
-                    model: {
-                      value: _vm.data.year,
-                      callback: function($$v) {
-                        _vm.$set(_vm.data, "year", $$v)
-                      },
-                      expression: "data.year"
-                    }
-                  },
-                  _vm._l(_vm.getYears, function(item, index) {
-                    return _c("vs-select-item", {
-                      key: index,
-                      attrs: { value: item.name, text: item.name }
-                    })
-                  }),
-                  1
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "vx-col md:w-1/3 flex" },
-              [
-                _c("vs-checkbox", {
-                  attrs: { color: "#720ea8" },
-                  model: {
-                    value: _vm.checked,
-                    callback: function($$v) {
-                      _vm.checked = $$v
-                    },
-                    expression: "checked"
-                  }
-                }),
-                _vm._v(" "),
-                _c("flat-pickr", {
+                _c("v-select", {
                   directives: [
                     {
                       name: "validate",
@@ -395,25 +314,102 @@ var render = function() {
                   ],
                   staticClass: "w-full",
                   attrs: {
-                    placeholder: "ថ្ងៃត្រូវបង់លុយដំបូង",
-                    name: "date-pay",
-                    disabled: !_vm.checked
+                    clearable: false,
+                    name: "year",
+                    placeholder: "ជ្រើសរើសឆ្នាំ",
+                    label: "name",
+                    options: _vm.getYears
                   },
                   model: {
-                    value: _vm.data.date_pay,
+                    value: _vm.data.year,
                     callback: function($$v) {
-                      _vm.$set(_vm.data, "date_pay", $$v)
+                      _vm.$set(_vm.data, "year", $$v)
                     },
-                    expression: "data.date_pay"
+                    expression: "data.year"
                   }
-                })
+                }),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.errors.has("year"),
+                        expression: "errors.has('year')"
+                      }
+                    ],
+                    staticClass: "text-danger text-sm"
+                  },
+                  [_vm._v(_vm._s(_vm.errors.first("year")))]
+                )
               ],
               1
             ),
             _vm._v(" "),
+            _c("div", { staticClass: "vx-col md:w-1/3 w-full" }, [
+              _c(
+                "div",
+                { staticClass: "flex" },
+                [
+                  _c("vs-checkbox", {
+                    model: {
+                      value: _vm.checked,
+                      callback: function($$v) {
+                        _vm.checked = $$v
+                      },
+                      expression: "checked"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("flat-pickr", {
+                    directives: [
+                      {
+                        name: "validate",
+                        rawName: "v-validate",
+                        value: _vm.checked ? "required" : "",
+                        expression: "checked?'required':''"
+                      }
+                    ],
+                    staticClass: "w-full",
+                    attrs: {
+                      placeholder: "ថ្ងៃត្រូវបង់លុយដំបូង",
+                      name: "date_pay",
+                      disabled: !_vm.checked
+                    },
+                    model: {
+                      value: _vm.data.date_pay,
+                      callback: function($$v) {
+                        _vm.$set(_vm.data, "date_pay", $$v)
+                      },
+                      expression: "data.date_pay"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.errors.has("date_pay"),
+                      expression: "errors.has('date_pay')"
+                    }
+                  ],
+                  staticClass: "text-danger text-sm"
+                },
+                [_vm._v(_vm._s(_vm.errors.first("date_pay")))]
+              )
+            ]),
+            _vm._v(" "),
             _c(
               "div",
-              { staticClass: "vx-col md:w-1/3 flex" },
+              { staticClass: "vx-col md:w-1/3 w-full" },
               [
                 _c("flat-pickr", {
                   directives: [
@@ -427,7 +423,7 @@ var render = function() {
                   staticClass: "w-full",
                   attrs: {
                     placeholder: "ថ្ងៃត្រូវបង់ចុងក្រោយ",
-                    name: "date-pay"
+                    name: "last_date_pay"
                   },
                   model: {
                     value: _vm.data.last_date_pay,
@@ -436,7 +432,23 @@ var render = function() {
                     },
                     expression: "data.last_date_pay"
                   }
-                })
+                }),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.errors.has("last_date_pay"),
+                        expression: "errors.has('last_date_pay')"
+                      }
+                    ],
+                    staticClass: "text-danger text-sm"
+                  },
+                  [_vm._v(_vm._s(_vm.errors.first("last_date_pay")))]
+                )
               ],
               1
             )
@@ -447,96 +459,104 @@ var render = function() {
           _c(
             "div",
             { staticClass: "vx-row" },
-            _vm._l(_vm.data.study_infos, function(study_info, index) {
-              return _c(
-                "div",
-                { key: index, staticClass: "vx-col w-full" },
-                [
-                  _c("vx-input-group", { staticClass: "mb-base " }, [
+            [
+              _vm._l(_vm.data.study_infos, function(item, index) {
+                return _c(
+                  "div",
+                  { key: index, staticClass: "vx-col w-full mb-2" },
+                  [
                     _c(
-                      "div",
-                      { staticClass: "flex" },
+                      "vx-input-group",
                       [
-                        _c(
-                          "vs-select",
-                          {
-                            staticClass: "w-5/6",
-                            attrs: {
-                              autocomplete: "",
-                              placeholder: "ជ្រើសរើសពត៍មានការសិក្សា"
-                            },
-                            model: {
-                              value: study_info.collection_id,
-                              callback: function($$v) {
-                                _vm.$set(study_info, "collection_id", $$v)
-                              },
-                              expression: "study_info.collection_id"
+                        _c("v-select", {
+                          directives: [
+                            {
+                              name: "validate",
+                              rawName: "v-validate",
+                              value: "required",
+                              expression: "'required'"
                             }
-                          },
-                          _vm._l(_vm.getCollection, function(item, index) {
-                            return item.year === _vm.data.year
-                              ? _c("vs-select-item", {
-                                  key: index,
-                                  attrs: {
-                                    value: item.id,
-                                    text:
-                                      item.year +
-                                      " " +
-                                      item.group_section +
-                                      " -> " +
-                                      item.section +
-                                      " -> " +
-                                      item.level +
-                                      item.class_name +
-                                      " -> " +
-                                      item.shift
-                                  }
-                                })
-                              : _vm._e()
-                          }),
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          { staticClass: "append-text flex w-1/6 btn-addon" },
-                          [
-                            _c("vs-button", {
-                              attrs: {
-                                color: "danger",
-                                type: "relief",
-                                "icon-pack": "feather",
-                                icon: "icon-minus"
-                              },
-                              on: {
-                                click: function($event) {
-                                  return _vm.minus(index)
-                                }
-                              }
-                            }),
-                            _vm._v(" "),
-                            _vm.data.study_infos.length === index + 1
-                              ? _c("vs-button", {
-                                  attrs: {
-                                    type: "relief",
-                                    "icon-pack": "feather",
-                                    icon: "icon-plus"
-                                  },
-                                  on: { click: _vm.plus }
-                                })
-                              : _vm._e()
                           ],
-                          1
-                        )
+                          attrs: {
+                            name: "study_info-" + index,
+                            placeholder: "ជ្រើសរើសពត៍មានការសិក្សា",
+                            label: "item_data",
+                            options: _vm.filteredCollection
+                          },
+                          model: {
+                            value: item.collection_id,
+                            callback: function($$v) {
+                              _vm.$set(item, "collection_id", $$v)
+                            },
+                            expression: "item.collection_id"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _vm.data.study_infos.length !== 1
+                          ? _c("template", { slot: "append" }, [
+                              _c(
+                                "div",
+                                { staticClass: "append-text btn-addon" },
+                                [
+                                  _c("vs-button", {
+                                    attrs: {
+                                      "icon-pack": "feather",
+                                      icon: "icon-minus-square",
+                                      color: "warning",
+                                      type: "flat"
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.minus(index)
+                                      }
+                                    }
+                                  })
+                                ],
+                                1
+                              )
+                            ])
+                          : _vm._e()
                       ],
-                      1
+                      2
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.errors.has("study_info-" + index),
+                            expression: "errors.has(`study_info-${index}`)"
+                          }
+                        ],
+                        staticClass: "text-danger text-sm"
+                      },
+                      [_vm._v(_vm._s(_vm.errors.first("study_info-" + index)))]
                     )
-                  ])
+                  ],
+                  1
+                )
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "vx-col w-full" },
+                [
+                  _c(
+                    "vs-button",
+                    {
+                      attrs: { "icon-pack": "feather", type: "line" },
+                      on: { click: _vm.plus }
+                    },
+                    [_vm._v("បន្ថែមជួរ")]
+                  )
                 ],
                 1
               )
-            }),
-            0
+            ],
+            2
           ),
           _vm._v(" "),
           _c("vs-divider"),
@@ -555,7 +575,7 @@ var render = function() {
                   },
                   on: { click: _vm.storeStudyInfo }
                 },
-                [_vm._v("រក្សាទុក")]
+                [_vm._v("រក្សាទុក\n            ")]
               )
             ],
             1

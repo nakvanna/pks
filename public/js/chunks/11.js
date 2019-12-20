@@ -773,7 +773,7 @@ var render = function() {
                   },
                   on: {
                     click: function($event) {
-                      return _vm.$refs.addStudyInfo.show(_vm.selected, true)
+                      return _vm.$refs.addStudyInfo.show(_vm.selected)
                     }
                   }
                 },

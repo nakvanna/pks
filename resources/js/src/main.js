@@ -45,8 +45,8 @@ import 'prismjs/themes/prism-tomorrow.css'
 
 
 // Vue select css
-// Note: In latest version you have to add it separately
-// import 'vue-select/dist/vue-select.css';
+import vSelect from 'vue-select'
+Vue.component('v-select', vSelect);
 
 // VeeValidate
 import VeeValidate from 'vee-validate'
