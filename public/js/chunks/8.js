@@ -304,21 +304,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     while (1) {
                       switch (_context.prev = _context.next) {
                         case 0:
-                          sie.push({
-                            id: data.id,
-                            year: data.year,
-                            student_id: data.students.id,
-                            name: data.students.name,
-                            latin: data.students.latin,
-                            gender: data.students.gender,
-                            dob: data.students.dob,
-                            class_name: data.study_infos.level + data.study_infos.class_name,
-                            shift: data.study_infos.shift,
-                            date_pay: data.date_pay,
-                            last_term: data.last_term
-                          });
-
-                        case 1:
                         case "end":
                           return _context.stop();
                       }
@@ -348,6 +333,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   computed: {
     getStudyInfos: function getStudyInfos() {
       return this.$store.getters.get_study_infos;
+    },
+    _study_info_extract: function _study_info_extract() {
+      return this.getStudyInfos.map(function (data) {
+        return {
+          id: data.id,
+          year: data.year,
+          student_id: data.students.id,
+          name: data.students.name,
+          latin: data.students.latin,
+          gender: data.students.gender,
+          dob: data.students.dob,
+          class_name: data.study_infos.level + data.study_infos.class_name,
+          shift: data.study_infos.shift,
+          date_pay: data.date_pay,
+          last_term: data.last_term
+        };
+      });
     },
     paginationPageSize: function paginationPageSize() {
       if (this.gridApi) return this.gridApi.paginationGetPageSize();else return 50;
@@ -1158,7 +1160,7 @@ var render = function() {
               gridOptions: _vm.gridOptions,
               columnDefs: _vm.columnDefs,
               defaultColDef: _vm.defaultColDef,
-              rowData: _vm.study_info_extract,
+              rowData: _vm._study_info_extract,
               rowSelection: "multiple",
               colResizeDefault: "shift",
               animateRows: true,

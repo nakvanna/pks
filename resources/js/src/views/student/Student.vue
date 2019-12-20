@@ -43,7 +43,7 @@
         </vs-table>
         <add-student ref="addStudent"></add-student>
         <edit-student @finished="selected = []" ref="editStudent"></edit-student>
-        <add-study-info ref="addStudyInfo"></add-study-info>
+        <add-study-info @finished="selected = []" ref="addStudyInfo"></add-study-info>
         <add-service-info ref="addServiceInfo"></add-service-info>
     </vx-card>
 </template>

@@ -19,7 +19,7 @@ const actions = {
     async storeStudyInfo({commit},data){
         try {
             const res = await axios.post(route('study-info.store'),data);
-            commit('SET_STUDY_INFO',res.data);
+            commit('ADD_STUDY_INFO',res.data);
             return true
         }catch (e) {
             return false
@@ -48,8 +48,10 @@ const mutations = {
     SET_STUDY_INFO:function (state,data) {
         state.study_infos = data
     },
-    SET_STUDY_INFO:function (state,data) {
-        state.study_infos.unshift(data);
+    ADD_STUDY_INFO:function (state,data) {
+        data.forEach(function (item,index) {
+            state.study_infos.unshift(item);
+        })
     },
     UPDATE_STUDY_INFO: function(state, data){
         const index = state.study_infos.findIndex(study_info => study_info.id === data.id);

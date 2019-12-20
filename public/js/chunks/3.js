@@ -202,7 +202,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                           iconPack: 'feather',
                           icon: 'icon-check',
                           position: 'top-center'
-                        }); // self.resetField();
+                        });
+                        self.$emit('finished');
                       } else {
                         self.$vs.notify({
                           title: 'ប្រតិបត្តិការបរាជ័យ',

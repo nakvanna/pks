@@ -939,7 +939,14 @@ var render = function() {
         }
       }),
       _vm._v(" "),
-      _c("add-study-info", { ref: "addStudyInfo" }),
+      _c("add-study-info", {
+        ref: "addStudyInfo",
+        on: {
+          finished: function($event) {
+            _vm.selected = []
+          }
+        }
+      }),
       _vm._v(" "),
       _c("add-service-info", { ref: "addServiceInfo" })
     ],

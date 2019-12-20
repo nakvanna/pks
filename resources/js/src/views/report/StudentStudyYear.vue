@@ -53,7 +53,7 @@
         class="ag-theme-material w-100 my-4 ag-grid-table"
         :columnDefs="columnDefs"
         :defaultColDef="defaultColDef"
-        :rowData="study_info_extract"
+        :rowData="_study_info_extract"
         rowSelection="multiple"
         colResizeDefault="shift"
         :animateRows="true"
@@ -170,7 +170,7 @@ export default {
     let sie = this.study_info_extract;
     let raw = this.getStudyInfos;
     raw.map(async function (data) {
-      sie.push({
+      /*sie.push({
         id         : data.id,
         year       : data.year,
         student_id : data.students.id,
@@ -182,12 +182,29 @@ export default {
         shift      : data.study_infos.shift,
         date_pay   : data.date_pay,
         last_term  : data.last_term,
-      })
+      })*/
     });
   },
   computed: {
     getStudyInfos(){
       return this.$store.getters.get_study_infos
+    },
+    _study_info_extract(){
+      return this.getStudyInfos.map(function (data) {
+        return {
+          id         : data.id,
+          year       : data.year,
+          student_id : data.students.id,
+          name       : data.students.name,
+          latin      : data.students.latin,
+          gender     : data.students.gender,
+          dob        : data.students.dob,
+          class_name : data.study_infos.level + data.study_infos.class_name,
+          shift      : data.study_infos.shift,
+          date_pay   : data.date_pay,
+          last_term  : data.last_term,
+        }
+      });
     },
     paginationPageSize() {
       if(this.gridApi) return this.gridApi.paginationGetPageSize();

@@ -20,9 +20,10 @@ class StudyInfoController extends Controller
             'study_infos.*'=>'required',
             'last_date_pay'=>'required',
         ]);
+        $data = [];
         foreach ($input['students'] as $student){
             foreach ($input['study_infos'] as $study_info){
-                DB::table('study_infos')->insert([
+                $id = DB::table('study_infos')->insertGetId([
                     'year' => $input['year']['name'],
                     'student_id' => $student['id'],
                     'collection_id' => $study_info['collection_id']['id'],
@@ -33,8 +34,11 @@ class StudyInfoController extends Controller
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now()
                 ]);
+                $data[]=StudyInfo::with('students')->with('study_infos')->where('id',$id)->first();
+                ;
             }
         }
+        return $data;
     }
     public function update($id, Request $request){
         $input = $request->all();
