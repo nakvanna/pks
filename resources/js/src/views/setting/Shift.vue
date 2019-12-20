@@ -24,6 +24,7 @@
 
             <template slot="thead">
                 <vs-th sort-key="id">ID</vs-th>
+                <vs-th sort-key="shift">Shift</vs-th>
                 <vs-th sort-key="start_time">Start</vs-th>
                 <vs-th sort-key="end_time">End</vs-th>
                 <vs-th sort-key="duration">Duration</vs-th>

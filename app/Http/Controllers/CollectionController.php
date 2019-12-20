@@ -68,7 +68,7 @@ class CollectionController extends Controller
         $update->cost_twelve   = $input['cost_twelve'];
         $update->employee_id   = $input['employee_id'];
         $update->save();
-        return $update;
+        return Collection::with('employees')->where('id', $id)->first();
     }
     public function destroy($id){
         $delete = Collection::find($id);

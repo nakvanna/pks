@@ -12,6 +12,7 @@ class ServiceInfo extends Model
     }
     public function services(){
         return $this->belongsTo( Service::class, 'service_id', 'id')
-            ->select('id', 'type', 'service', 'cost_one', 'cost_three', 'cost_six', 'cost_twelve');
+            ->select('id', 'type', 'service', 'cost_one', 'cost_three', 'cost_six', 'cost_twelve', 'employee_id')
+            ->with('employees');
     }
 }

@@ -3,7 +3,7 @@
         <div class="flex mb-4">
             <vs-select
                     autocomplete
-                    class="w-1/3 mr-2 mt-1"
+                    class="w-1/3 mr-2 mt-2"
                     label="ឆ្នាំសិក្សា"
                     placeholder="ឆ្នាំសិក្សា"
                     type="primary"
@@ -222,12 +222,14 @@
             },
             clearServiceForm(){
                 var vm = this.services;
+                vm.year        = '';
                 vm.type        = '';
                 vm.service     = '';
                 vm.cost_one    = '';
                 vm.cost_three  = '';
                 vm.cost_six    = '';
                 vm.cost_twelve = '';
+                vm.employee_id = '';
                 this.is_update = false;
             },
             async destroyService(){
@@ -265,12 +267,14 @@
             },
             editService(){
                 this.services.id          = this.selected[0].id;
+                this.services.year        = this.selected[0].year;
                 this.services.type        = this.selected[0].type;
                 this.services.service     = this.selected[0].service;
                 this.services.cost_one    = this.selected[0].cost_one;
                 this.services.cost_three  = this.selected[0].cost_three;
                 this.services.cost_six    = this.selected[0].cost_six;
                 this.services.cost_twelve = this.selected[0].cost_twelve;
+                this.services.employee_id = this.selected[0].employee_id;
                 this.is_update            = true;
                 this.selected             = [];
             },
