@@ -4,6 +4,7 @@
         <div class="flex btn-group my-4">
             <vs-button @click="importStudent" type="relief" icon-pack="feather" icon="icon-download">Import Student</vs-button>
             <vs-button @click="importCollection" color="warning" type="relief" icon-pack="feather" icon="icon-download">Import Collection</vs-button>
+            <vs-button @click="importEmployee" color="dark" type="relief" icon-pack="feather" icon="icon-download">Import Employee</vs-button>
             <vs-button type="relief" icon-pack="feather" icon="icon-package">អាប់គ្រេដ</vs-button>
             <vs-button color="danger" type="relief" icon-pack="feather" icon="icon-trash-2">លុប</vs-button>
         </div>
@@ -79,7 +80,24 @@
                         self.$vs.loading.close();
                     }
                 })
-            }
+            },
+            importEmployee(){
+                let self = this;
+                self.$vs.loading();
+                self.$store.dispatch('importEmployee',{data:self.tableData}).then(function (data) {
+                    if (data){
+                        self.$vs.notify({
+                            title:'ប្រតិបត្តិការណ៍ជោគជ័យ',
+                            text:'ទិន្នន័យត្រូវបានរក្សាទុក',
+                            color:'primary',
+                            iconPack: 'feather',
+                            icon:'icon-check',
+                            position:'top-center'
+                        });
+                        self.$vs.loading.close();
+                    }
+                })
+            },
         }
     }
 </script>

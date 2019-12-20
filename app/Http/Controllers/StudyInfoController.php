@@ -63,7 +63,7 @@ class StudyInfoController extends Controller
                     'collection_id' => $study_info['collection_id']['id'],
                     'date_pay' => $student['date_pay'],
                     'last_date_pay' => $student['last_date_pay'],
-                    'last_term' => 0,
+                    'last_term' => $student['last_term'],
                     'is_used' => true,
                     'from_class'=>$student['class_name'].'->'.$study_info['collection_id']['class_name'],
                     'date_change'=>$input['date_change'],
