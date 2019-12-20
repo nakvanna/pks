@@ -52,6 +52,7 @@ const mutations = {
             state.invoice_extract.push({
                 name           : data[i].students.name,
                 latin          : data[i].students.latin,
+                gender          : data[i].students.gender,
                 balance        : data[i].balance,
                 discount       : data[i].discount,
                 after_discount : data[i].after_discount,

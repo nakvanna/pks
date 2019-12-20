@@ -11,11 +11,11 @@ import App from './App.vue'
 // Vuesax Component Framework
 import Vuesax from 'vuesax'
 
-Vue.use(Vuesax)
+Vue.use(Vuesax);
 
 // axios
 import axios from "./axios.js"
-Vue.prototype.$http = axios
+Vue.prototype.$http = axios;
 
 
 // Theme Configurations
@@ -60,6 +60,16 @@ Vue.use(VModal);
 //moment
 import moment from 'moment';
 Vue.prototype.moment = moment;
+
+Vue.prototype.$formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+});
+
+//print
+import VueHtml2Canvas from 'vue-html2canvas';
+Vue.use(VueHtml2Canvas);
+
 Vue.config.productionTip = false;
 new Vue({
     router,

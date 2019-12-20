@@ -628,7 +628,6 @@
             async printInvoice(id, name, latin, gender, total, after, discount,){
                 await this.$store.dispatch('showInvoiceDetail', id);
                 this.$refs.PrintInvoice.show({name: name, latin: latin, gender: gender, total: total, after: after, discount: discount}, this.getInvoicesDetail);
-                console.log(this.getInvoicesDetail)
             }
         }
     }
