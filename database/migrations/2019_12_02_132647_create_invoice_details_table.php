@@ -19,6 +19,9 @@ class CreateInvoiceDetailsTable extends Migration
             $table->string('item');
             $table->integer('term');
             $table->double('balance');
+            $table->date('date_pay');
+            $table->date('next_date_pay');
+            $table->string('emp_name');
             $table->timestamps();
         });
     }
