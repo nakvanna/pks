@@ -21,7 +21,7 @@ class ExcelImportController extends Controller
                 'latin' => 'មិនបានដាក់ជូន',
                 'gender' => $item['gender'],
                 'photo' => 'image/placeholder/placeholder.png',
-                'dob' => $item['dob'],
+                'dob' => Carbon::parse($item['dob']),
                 'std_contact' => $item['student_tel'],
                 'pob' => $item['pob'],
                 'address' => $item['cur'],
@@ -58,6 +58,8 @@ class ExcelImportController extends Controller
                 'cost_six' => $item['cost_six'],
                 'cost_twelve' => $item['cost_twelve'],
                 'employee_id' => $item['employee_id'],
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
             ]);
         }
     }
@@ -74,10 +76,10 @@ class ExcelImportController extends Controller
                 'kh_name' => $item['kh_name'],
                 'en_name' => $item['en_name'],
                 'gender' => $item['gender'],
-                'dob' => $item['dob'],
+                'dob' => Carbon::parse($item['dob']),
                 'position' => $item['position'],
                 'degree_note' => $item['degree_note'],
-                'start_work' => $item['start_work'],
+                'start_work' => Carbon::parse($item['start_work']),
                 'contact' => $item['contact'],
                 'pob' => $item['pob'],
                 'addr' => $item['addr'],

@@ -40,3 +40,4 @@ class CreateEmployeesTable extends Migration
         Schema::dropIfExists('employees');
     }
 }
+

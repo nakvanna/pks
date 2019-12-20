@@ -19,7 +19,7 @@ class CreateStudentsTable extends Migration
             $table->string('latin');
             $table->string('gender');
             $table->string('photo');
-            $table->string('dob');
+            $table->date('dob');
             $table->string('std_contact');
             $table->string('pob');
             $table->string('address');
