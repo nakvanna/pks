@@ -15,6 +15,14 @@ const actions = {
         }catch (e) {
             return false
         }
+    },
+    async importCollection({commit},data){
+        try {
+            await axios.post(route('import.collection'),data);
+            return true
+        }catch (e) {
+            return false
+        }
     }
 };
 const mutations = {

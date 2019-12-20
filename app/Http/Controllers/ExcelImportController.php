@@ -8,12 +8,14 @@ use Illuminate\Support\Facades\DB;
 
 class ExcelImportController extends Controller
 {
-    public function import_student(Request $request){
+    //student
+    public function import_student(Request $request)
+    {
         $input = $request->all();
         $request->validate([
-            'data.*'=>'required'
+            'data.*' => 'required'
         ]);
-        foreach ($input['data'] as $item){
+        foreach ($input['data'] as $item) {
             DB::table('students')->insert([
                 'name' => $item['name'],
                 'latin' => 'មិនបានដាក់ជូន',
@@ -32,6 +34,30 @@ class ExcelImportController extends Controller
                 'temp_grade' => $item['grade'],
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
+            ]);
+        }
+    }
+
+    //collection
+    public function import_collection(Request $request)
+    {
+        $input = $request->all();
+        $request->validate([
+            'data.*' => 'required'
+        ]);
+        foreach ($input['data'] as $item) {
+            DB::table('collections')->insertGetId([
+                'year' => $item['year'],
+                'group_section' => $item['group_section'],
+                'section' => $item['section'],
+                'level' => $item['level'],
+                'shift' => $item['shift'],
+                'class_name' => $item['class_name'],
+                'cost_one' => $item['cost_one'],
+                'cost_three' => $item['cost_three'],
+                'cost_six' => $item['cost_six'],
+                'cost_twelve' => $item['cost_twelve'],
+                'employee_id' => $item['employee_id'],
             ]);
         }
     }

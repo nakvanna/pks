@@ -246,6 +246,25 @@ __webpack_require__.r(__webpack_exports__);
           self.$vs.loading.close();
         }
       });
+    },
+    importCollection: function importCollection() {
+      var self = this;
+      self.$vs.loading();
+      self.$store.dispatch('importCollection', {
+        data: self.tableData
+      }).then(function (data) {
+        if (data) {
+          self.$vs.notify({
+            title: 'ប្រតិបត្តិការណ៍ជោគជ័យ',
+            text: 'ទិន្នន័យត្រូវបានរក្សាទុក',
+            color: 'primary',
+            iconPack: 'feather',
+            icon: 'icon-check',
+            position: 'top-center'
+          });
+          self.$vs.loading.close();
+        }
+      });
     }
   }
 });
@@ -369,11 +388,11 @@ var render = function() {
                 color: "warning",
                 type: "relief",
                 "icon-pack": "feather",
-                icon: "icon-edit"
+                icon: "icon-download"
               },
-              on: { click: function($event) {} }
+              on: { click: _vm.importCollection }
             },
-            [_vm._v("កែប្រែ")]
+            [_vm._v("Import Collection")]
           ),
           _vm._v(" "),
           _c(

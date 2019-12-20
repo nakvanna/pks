@@ -39,3 +39,4 @@ Route::resource('/invoice','InvoiceController');
 Route::resource('/invoice-detail','InvoiceDetailController');
 Route::resource('/import','ExcelImportController');
 Route::post('/import-student','ExcelImportController@import_student')->name('import.student');
+Route::post('/import-collection','ExcelImportController@import_collection')->name('import.collection');
