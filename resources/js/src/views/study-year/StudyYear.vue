@@ -46,7 +46,7 @@
             </template>
 
             <template slot-scope="{data}">
-                <vs-tr :data="item" :key="index" v-for="(item, index) in data">
+                <vs-tr :data="item" :key="index" v-for="(item, index) in data" v-if="item.to_class === null">
 
                     <vs-td :data="item.year">
                         {{ item.year }}
@@ -124,6 +124,7 @@
                         date_pay   : data.date_pay,
                         last_date_pay   : data.last_date_pay,
                         last_term  : data.last_term,
+                        to_class   : data.to_class,
                     }
                 });
             }

@@ -154,7 +154,7 @@
                         <img style="height: 150px" :src="photo"/>
                     </div>
                 </div>
-                <vs-table v-model="selected" multiple pagination max-items="5" search :data="all_infos">
+                <vs-table pagination max-items="5" search :data="all_infos">
 
                     <template slot="thead">
                         <vs-th sort-key="year">ឆ្នាំសិក្សា</vs-th>
@@ -228,7 +228,6 @@
                         </vs-tr>
                     </template>
                 </vs-table>
-                <pre>{{selected}}</pre>
                 <div class="centerx">
                     <h3><span>តម្លៃសរុប: <b>{{totalPayment.toFixed(2)}}$​ -> {{after_discount.toFixed(2)}}$</b></span></h3>
                     <div class="flex">

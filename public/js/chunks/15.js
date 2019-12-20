@@ -275,7 +275,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 
 
 
@@ -1618,7 +1617,6 @@ var render = function() {
                 "vs-table",
                 {
                   attrs: {
-                    multiple: "",
                     pagination: "",
                     "max-items": "5",
                     search: "",
@@ -1870,14 +1868,7 @@ var render = function() {
                         })
                       }
                     }
-                  ]),
-                  model: {
-                    value: _vm.selected,
-                    callback: function($$v) {
-                      _vm.selected = $$v
-                    },
-                    expression: "selected"
-                  }
+                  ])
                 },
                 [
                   _c(
@@ -1907,8 +1898,6 @@ var render = function() {
                 ],
                 2
               ),
-              _vm._v(" "),
-              _c("pre", [_vm._v(_vm._s(_vm.selected))]),
               _vm._v(" "),
               _c("div", { staticClass: "centerx" }, [
                 _c("h3", [
