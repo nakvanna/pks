@@ -383,7 +383,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           shift: data.study_infos.shift,
           date_pay: data.date_pay,
           last_date_pay: data.last_date_pay,
-          last_term: data.last_term
+          last_term: data.last_term,
+          to_class: data.to_class
         };
       });
     }
@@ -842,82 +843,84 @@ var render = function() {
               fn: function(ref) {
                 var data = ref.data
                 return _vm._l(data, function(item, index) {
-                  return _c(
-                    "vs-tr",
-                    { key: index, attrs: { data: item } },
-                    [
-                      _c("vs-td", { attrs: { data: item.year } }, [
-                        _vm._v(
-                          "\n                    " +
-                            _vm._s(item.year) +
-                            "\n                "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("vs-td", { attrs: { data: item.name } }, [
-                        _vm._v(
-                          "\n                    " +
-                            _vm._s(item.name) +
-                            "\n                "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("vs-td", { attrs: { data: item.latin } }, [
-                        _vm._v(
-                          "\n                    " +
-                            _vm._s(item.latin) +
-                            "\n                "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("vs-td", { attrs: { data: item.gender } }, [
-                        _vm._v(
-                          "\n                    " +
-                            _vm._s(item.gender) +
-                            "\n                "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("vs-td", { attrs: { data: item.dob } }, [
-                        _vm._v(
-                          "\n                    " +
-                            _vm._s(item.dob) +
-                            "\n                "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("vs-td", { attrs: { data: item.class_name } }, [
-                        _vm._v(
-                          "\n                    " +
-                            _vm._s(item.class_name) +
-                            "\n                "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("vs-td", { attrs: { data: item.shift } }, [
-                        _vm._v(
-                          "\n                    " +
-                            _vm._s(item.shift) +
-                            "\n                "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      item.date_pay !== null
-                        ? _c("vs-td", { attrs: { data: item.date_pay } }, [
+                  return item.to_class === null
+                    ? _c(
+                        "vs-tr",
+                        { key: index, attrs: { data: item } },
+                        [
+                          _c("vs-td", { attrs: { data: item.year } }, [
                             _vm._v(
                               "\n                    " +
-                                _vm._s(item.date_pay.substr(0, 10)) +
+                                _vm._s(item.year) +
                                 "\n                "
                             )
-                          ])
-                        : _c("vs-td", { attrs: { data: item.date_pay } }, [
+                          ]),
+                          _vm._v(" "),
+                          _c("vs-td", { attrs: { data: item.name } }, [
                             _vm._v(
-                              "\n                    មិនបានកំណត់\n                "
+                              "\n                    " +
+                                _vm._s(item.name) +
+                                "\n                "
                             )
-                          ])
-                    ],
-                    1
-                  )
+                          ]),
+                          _vm._v(" "),
+                          _c("vs-td", { attrs: { data: item.latin } }, [
+                            _vm._v(
+                              "\n                    " +
+                                _vm._s(item.latin) +
+                                "\n                "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("vs-td", { attrs: { data: item.gender } }, [
+                            _vm._v(
+                              "\n                    " +
+                                _vm._s(item.gender) +
+                                "\n                "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("vs-td", { attrs: { data: item.dob } }, [
+                            _vm._v(
+                              "\n                    " +
+                                _vm._s(item.dob) +
+                                "\n                "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("vs-td", { attrs: { data: item.class_name } }, [
+                            _vm._v(
+                              "\n                    " +
+                                _vm._s(item.class_name) +
+                                "\n                "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("vs-td", { attrs: { data: item.shift } }, [
+                            _vm._v(
+                              "\n                    " +
+                                _vm._s(item.shift) +
+                                "\n                "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          item.date_pay !== null
+                            ? _c("vs-td", { attrs: { data: item.date_pay } }, [
+                                _vm._v(
+                                  "\n                    " +
+                                    _vm._s(item.date_pay.substr(0, 10)) +
+                                    "\n                "
+                                )
+                              ])
+                            : _c("vs-td", { attrs: { data: item.date_pay } }, [
+                                _vm._v(
+                                  "\n                    មិនបានកំណត់\n                "
+                                )
+                              ])
+                        ],
+                        1
+                      )
+                    : _vm._e()
                 })
               }
             }

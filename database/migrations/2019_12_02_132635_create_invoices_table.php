@@ -16,6 +16,7 @@ class CreateInvoicesTable extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('student_id');
+            $table->bigInteger('user_id')->default(0);
             $table->double('balance');
             $table->double('discount');
             $table->double('after_discount');

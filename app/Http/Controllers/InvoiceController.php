@@ -28,7 +28,7 @@ class InvoiceController extends Controller
         $store->payment_status = $input['payment_status'];
         $store->invoice_date = $input['invoice_date'];
         $store->save();
-        return $store;
+        return Invoice::with('students')->where('id', $store->id)->first();
     }
     public function update($id, Request $request){
         $input = $request->all();

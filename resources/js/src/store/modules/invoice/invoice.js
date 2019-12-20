@@ -19,7 +19,7 @@ const actions = {
     },
     async storeInvoice({commit}, invoices){
         try {
-            const res = await axios.post(route('invoice.store'),invoices);
+            const res = await axios.post(route('invoice.store'), invoices);
             commit('ADD_INVOICE', res.data);
             return res.data
         }catch (e) {
@@ -62,7 +62,18 @@ const mutations = {
         }
     },
     ADD_INVOICE:function (state, data) {
-        //Not
+        console.log(data);
+        // state.invoice_extract.unshift(data);
+        state.invoice_extract.unshift({
+            name: data.students.name,
+            latin: data.students.latin,
+            balance: data.balance,
+            discount: data.discount,
+            after_discount: data.after_discount,
+            invoice_date: data.invoice_date,
+            payment_status: data.payment_status,
+            id: data.id,
+        })
     },
     UPDATE_INVOICE: function(state, data){
         const index = state.invoices.findIndex(invoice => invoice.id === data.id);
