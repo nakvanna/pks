@@ -49,7 +49,7 @@
                             </vs-td>
 
                             <vs-td >
-                                {{ data[indextr].date_pay.substr(0, 10) }}
+                                {{ data[indextr].date_pay }}
                             </vs-td>
 
                             <vs-td >

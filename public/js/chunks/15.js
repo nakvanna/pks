@@ -1787,10 +1787,7 @@ var render = function() {
                                       _c("flat-pickr", {
                                         staticClass: "w-full",
                                         attrs: {
-                                          value: data[indextr].date_pay.substr(
-                                            0,
-                                            10
-                                          ),
+                                          value: data[indextr].date_pay,
                                           placeholder: "ថ្ងៃត្រូវបង់លុយដំបូង",
                                           disabled: ""
                                         }
@@ -2146,7 +2143,7 @@ var render = function() {
                           _c("vs-td", [
                             _vm._v(
                               "\n                            " +
-                                _vm._s(data[indextr].date_pay.substr(0, 10)) +
+                                _vm._s(data[indextr].date_pay) +
                                 "\n                        "
                             )
                           ]),

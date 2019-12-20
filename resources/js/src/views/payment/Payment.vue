@@ -212,7 +212,7 @@
                             <!--Cost term-->
 
                             <vs-td v-if="data[indextr].date_pay !== null">
-                                <flat-pickr class="w-full" :value="data[indextr].date_pay.substr(0, 10)" placeholder="ថ្ងៃត្រូវបង់លុយដំបូង" disabled/>
+                                <flat-pickr class="w-full" :value="data[indextr].date_pay" placeholder="ថ្ងៃត្រូវបង់លុយដំបូង" disabled/>
                             </vs-td>
                             <vs-td v-else >
                                 <flat-pickr class="w-full" v-model="data[indextr].date_pay"  placeholder="ថ្ងៃត្រូវបង់លុយដំបូង"/>
