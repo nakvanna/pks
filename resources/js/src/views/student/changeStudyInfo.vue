@@ -1,8 +1,8 @@
 <template>
     <modal width="700" height="auto" :scrollable="true" :pivotY="0.2" :adaptive="true" :clickToClose="false"
-           name="add-study-info">
+           name="change-study-info">
         <div class="flex justify-end">
-            <i @click="$modal.hide('add-study-info')" class="vs-icon vs-popup--close material-icons text-warning"
+            <i @click="$modal.hide('change-study-info')" class="vs-icon vs-popup--close material-icons text-warning"
                style="background: rgb(255, 255, 255);">close</i>
         </div>
         <h4 class="ml-2"><u> ការសិក្សា</u></h4>
@@ -14,18 +14,9 @@
                     <span class="text-danger text-sm" v-show="errors.has('year')">{{ errors.first('year') }}</span>
                 </div>
                 <div class="vx-col md:w-1/3 w-full">
-                    <div class="flex">
-                        <vs-checkbox v-model="checked"></vs-checkbox>
-                        <flat-pickr class="w-full" v-model="data.date_pay" placeholder="ថ្ងៃត្រូវបង់លុយដំបូង"
-                                    name="date_pay" v-validate="checked?'required':''" :disabled="!checked"/>
-                    </div>
-                    <span class="text-danger text-sm"
-                          v-show="errors.has('date_pay')">{{ errors.first('date_pay') }}</span>
-                </div>
-                <div class="vx-col md:w-1/3 w-full">
-                    <flat-pickr class="w-full" v-model="data.last_date_pay" placeholder="ថ្ងៃត្រូវបង់ចុងក្រោយ"
-                                name="last_date_pay" v-validate="'required'"/>
-                    <span class="text-danger text-sm" v-show="errors.has('last_date_pay')">{{ errors.first('last_date_pay') }}</span>
+                    <flat-pickr class="w-full" v-model="data.date_change" placeholder="ថ្ងៃខែឆ្នាំប្តូរ"
+                                name="date_change" v-validate="'required'"/>
+                    <span class="text-danger text-sm" v-show="errors.has('date_change')">{{ errors.first('date_change') }}</span>
                 </div>
             </div>
             <vs-divider/>
@@ -51,7 +42,7 @@
             <vs-divider/>
             <!-- Save & Reset Button -->
             <div class="flex justify-end btn-group">
-                <vs-button @click="storeStudyInfo" icon="icon-save" icon-pack="feather" type="relief">រក្សាទុក
+                <vs-button @click="storeChangeStudyInfo" icon="icon-save" icon-pack="feather" type="relief">រក្សាទុក
                 </vs-button>
             </div>
         </vx-card>
@@ -63,7 +54,7 @@
     import 'flatpickr/dist/flatpickr.min.css';
 
     export default {
-        name: "addStudyInfo",
+        name: "changeStudyInfo",
         components: {
             flatPickr
         },
@@ -72,8 +63,7 @@
                 checked: false,
                 data: {
                     year: {name: '2020-2021', id: null},
-                    date_pay: null,
-                    last_date_pay: null,
+                    date_change: null,
                     study_infos: [{collection_id: null}],
                     students: []
                 }
@@ -107,8 +97,9 @@
         methods: {
             show(data) {
                 let self = this;
-                self.$modal.show('add-study-info');
+                self.$modal.show('change-study-info');
                 self.data.students = data;
+                console.log(self.data)
             },
             plus() {
                 this.data.study_infos.push({collection_id: null})
@@ -125,12 +116,12 @@
                     study_infos: [{collection_id: null}],
                 };
             },
-            async storeStudyInfo() {
+            async storeChangeStudyInfo() {
                 let self = this;
                 this.$validator.validateAll().then(result => {
                     if (result) {
                         self.$vs.loading();
-                        self.$store.dispatch('storeStudyInfo', self.data).then(function (data) {
+                        self.$store.dispatch('storeChangeStudyInfo', self.data).then(function (data) {
                             if (data) {
                                 self.$vs.notify({
                                     time: 4000,

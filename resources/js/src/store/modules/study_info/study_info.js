@@ -25,6 +25,15 @@ const actions = {
             return false
         }
     },
+    async storeChangeStudyInfo({commit},data){
+        try {
+            const res = await axios.post(route('study_info.change'),data);
+            commit('ADD_STUDY_INFO',res.data);
+            return true
+        }catch (e) {
+            return false
+        }
+    },
     async updateStudyInfo({commit}, study_infos){
         try {
             const res = await axios.put(route('study-info.update', study_infos.id), study_infos);
