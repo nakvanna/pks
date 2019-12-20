@@ -61,4 +61,29 @@ class ExcelImportController extends Controller
             ]);
         }
     }
+
+    //employee
+    public function import_employee(Request $request){
+        $input = $request->all();
+        $request->validate([
+            'data.*'     =>'required'
+        ]);
+        foreach ($input['data'] as $item){
+            DB::table('employees')->insert([
+                'profile' => $item['profile'],
+                'kh_name' => $item['kh_name'],
+                'en_name' => $item['en_name'],
+                'gender' => $item['gender'],
+                'dob' => $item['dob'],
+                'position' => $item['position'],
+                'degree_note' => $item['degree_note'],
+                'start_work' => $item['start_work'],
+                'contact' => $item['contact'],
+                'pob' => $item['pob'],
+                'addr' => $item['addr'],
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ]);
+        }
+    }
 }

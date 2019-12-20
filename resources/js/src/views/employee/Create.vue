@@ -223,7 +223,7 @@
                 degree_note: '',
                 employees: {
                     id: '',
-                    profile: '',
+                    profile: 'images/placeholder/placeholder.png',
                     kh_name: '',
                     en_name: '',
                     gender: null,

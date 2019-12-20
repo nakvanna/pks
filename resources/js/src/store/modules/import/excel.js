@@ -23,7 +23,15 @@ const actions = {
         }catch (e) {
             return false
         }
-    }
+    },
+    async importEmployee({commit},data){
+        try {
+            await axios.post(route('import.employee'),data);
+            return true
+        }catch (e) {
+            return false
+        }
+    },
 };
 const mutations = {
     SET_EXCEL:function (state,data) {

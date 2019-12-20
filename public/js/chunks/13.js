@@ -246,7 +246,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       degree_note: '',
       employees: {
         id: '',
-        profile: '',
+        profile: 'images/placeholder/placeholder.png',
         kh_name: '',
         en_name: '',
         gender: null,

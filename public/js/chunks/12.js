@@ -206,6 +206,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Excel",
@@ -251,6 +252,25 @@ __webpack_require__.r(__webpack_exports__);
       var self = this;
       self.$vs.loading();
       self.$store.dispatch('importCollection', {
+        data: self.tableData
+      }).then(function (data) {
+        if (data) {
+          self.$vs.notify({
+            title: 'ប្រតិបត្តិការណ៍ជោគជ័យ',
+            text: 'ទិន្នន័យត្រូវបានរក្សាទុក',
+            color: 'primary',
+            iconPack: 'feather',
+            icon: 'icon-check',
+            position: 'top-center'
+          });
+          self.$vs.loading.close();
+        }
+      });
+    },
+    importEmployee: function importEmployee() {
+      var self = this;
+      self.$vs.loading();
+      self.$store.dispatch('importEmployee', {
         data: self.tableData
       }).then(function (data) {
         if (data) {
@@ -393,6 +413,20 @@ var render = function() {
               on: { click: _vm.importCollection }
             },
             [_vm._v("Import Collection")]
+          ),
+          _vm._v(" "),
+          _c(
+            "vs-button",
+            {
+              attrs: {
+                color: "dark",
+                type: "relief",
+                "icon-pack": "feather",
+                icon: "icon-download"
+              },
+              on: { click: _vm.importEmployee }
+            },
+            [_vm._v("Import Employee")]
           ),
           _vm._v(" "),
           _c(
