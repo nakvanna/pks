@@ -32,6 +32,7 @@ Route::resource('/degree-note','DegreeNoteController');
 Route::resource('/employee','EmployeeController');
 Route::resource('/student','StudentController');
 Route::resource('/study-info','StudyInfoController');
+Route::post('/study-info-change','StudyInfoController@storeChange')->name('study_info.change');
 Route::resource('/service-info','ServiceInfoController');
 Route::post('/payment','PaymentController@getInfo')->name('payment.get-info');
 Route::resource('/invoice','InvoiceController');

@@ -22,6 +22,9 @@ class CreateStudyInfosTable extends Migration
             $table->dateTime('last_date_pay');
             $table->integer('last_term')->default(0);
             $table->boolean('is_used')->default(true);
+            $table->string('from_class')->default(null)->nullable();
+            $table->string('to_class')->default(null)->nullable();
+            $table->date('date_change')->default(null)->nullable();
             $table->timestamps();
         });
     }

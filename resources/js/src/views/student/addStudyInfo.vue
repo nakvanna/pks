@@ -95,6 +95,7 @@
                     return {
                         id: x.id,
                         item_data: `(${x.year})-${x.group_section}-${x.section}-${x.level}${x.class_name}`,
+                        class_name:`${x.level}${x.class_name}`
                     };
                 });
             }
@@ -107,7 +108,7 @@
             show(data) {
                 let self = this;
                 self.$modal.show('add-study-info');
-                self.data.students = data
+                self.data.students = data;
             },
             plus() {
                 this.data.study_infos.push({collection_id: null})

@@ -40,6 +40,42 @@ class StudyInfoController extends Controller
         }
         return $data;
     }
+    public function storeChange(Request $request){
+        $input = $request->all();
+        $request->validate([
+            'students.*'=>'required',
+            'study_infos.*'=>'required'
+        ]);
+        $data = [];
+        foreach ($input['students'] as $student){
+            foreach ($input['study_infos'] as $study_info){
+                //change
+                DB::table('study_infos')
+                    ->where('id',$student['study_info_id'])
+                    ->update([
+                        'to_class'=>$student['class_name'].'->'.$study_info['collection_id']['class_name'],
+                        'date_change'=>$input['date_change']
+                    ]);
+                //new insert
+                $id = DB::table('study_infos')->insertGetId([
+                    'year' => $input['year']['name'],
+                    'student_id' => $student['id'],
+                    'collection_id' => $study_info['collection_id']['id'],
+                    'date_pay' => $student['date_pay'],
+                    'last_date_pay' => $student['last_date_pay'],
+                    'last_term' => 0,
+                    'is_used' => true,
+                    'from_class'=>$student['class_name'].'->'.$study_info['collection_id']['class_name'],
+                    'date_change'=>$input['date_change'],
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now()
+                ]);
+                $data[]=StudyInfo::with('students')->with('study_infos')->where('id',$id)->first();
+                ;
+            }
+        }
+        return $data;
+    }
     public function update($id, Request $request){
         $input = $request->all();
         $request->validate([
