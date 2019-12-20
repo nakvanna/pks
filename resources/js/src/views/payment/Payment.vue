@@ -20,7 +20,7 @@
                 <vs-th sort-key="is_used">តម្លៃក្រោយបញ្ចុះតម្លៃ</vs-th>
                 <vs-th sort-key="is_used">ថ្ងៃបង់លុយ</vs-th>
                 <vs-th sort-key="is_used">បានទទូល</vs-th>
-                <vs-th sort-key="is_used">បង្ហាញ</vs-th>
+                <vs-th >ប្រតិបត្តិការណ៌</vs-th>
             </template>
 
             <template slot-scope="{data}">
@@ -62,7 +62,18 @@
                     </vs-td>
 
                     <vs-td>
-                        <vs-button @click="showInvoiceDetail(data[indextr].id)" size="small" radius color="primary" type="relief" icon-pack="feather" > លម្អិត</vs-button>
+                        <div class="btn-group">
+                            <vs-button
+                                    @click="showInvoiceDetail(data[indextr].id)"
+                                    size="small" color="success" type="line" icon-pack="feather" icon="icon-eye"
+                            > លម្អិត
+                            </vs-button>
+                            <vs-button
+                                    @click="printInvoice(data[indextr].id, data[indextr].name, data[indextr].latin, data[indextr].gender, data[indextr].balance, data[indextr].after_discount, data[indextr].discount)"
+                                    size="small" color="primary" type="line" icon-pack="feather" icon="icon-printer"
+                            >បោះពុម្ភ
+                            </vs-button>
+                        </div>
                     </vs-td>
                 </vs-tr>
             </template>
@@ -127,7 +138,7 @@
                                 @change="passStudentInfo(students)"
                         >
                             <vs-select-item :key="i"
-                                            v-for="(item, i) in all_students" :value="item.id+','+item.gender+','+item.dob+','+item.photo"
+                                            v-for="(item, i) in all_students" :value="item.id+','+item.gender+','+item.dob+','+item.photo+','+item.name+','+item.latin"
                                             :text="item.name +' '+ item.latin"
                             />
                         </vs-select>
@@ -143,7 +154,7 @@
                         <img style="height: 150px" :src="photo"/>
                     </div>
                 </div>
-                <vs-table pagination max-items="5" search :data="all_infos">
+                <vs-table v-model="selected" multiple pagination max-items="5" search :data="all_infos">
 
                     <template slot="thead">
                         <vs-th sort-key="year">ឆ្នាំសិក្សា</vs-th>
@@ -201,7 +212,7 @@
                             <!--Cost term-->
 
                             <vs-td v-if="data[indextr].date_pay !== null">
-                                <flat-pickr class="w-full" :value="data[indextr].date_pay.substr(0, 10)" placeholder="ថ្ងៃត្រូវបង់លុយដំបូង" disabled/>
+                                <flat-pickr class="w-full" :value="data[indextr].date_pay" placeholder="ថ្ងៃត្រូវបង់លុយដំបូង" disabled/>
                             </vs-td>
                             <vs-td v-else >
                                 <flat-pickr class="w-full" v-model="data[indextr].date_pay"  placeholder="ថ្ងៃត្រូវបង់លុយដំបូង"/>
@@ -217,8 +228,9 @@
                         </vs-tr>
                     </template>
                 </vs-table>
+                <pre>{{selected}}</pre>
                 <div class="centerx">
-                   <h3><span>តម្លៃសរុប: <b>{{totalPayment.toFixed(2)}}$​ -> {{after_discount.toFixed(2)}}$</b></span></h3>
+                    <h3><span>តម្លៃសរុប: <b>{{totalPayment.toFixed(2)}}$​ -> {{after_discount.toFixed(2)}}$</b></span></h3>
                     <div class="flex">
                         <div class="flex mt-5">
                             <vs-input-number @input="percentDiscount" v-model="discount" label="បញ្ចុះភាគរយ %:" min="0" max="100" icon-inc="expand_less" icon-dec="expand_more"/>
@@ -294,6 +306,8 @@
                 gender: '',
                 dob: null,
                 photo: 'https://data.whicdn.com/images/300580381/original.jpg',
+                name: '',
+                latin: '',
                 all_infos: [],
                 total_payment: 0,
                 today_date: this.moment().format('YYYY-MM-DD'),
@@ -368,51 +382,100 @@
                 this.all_infos[i].term_selected = price;
                 return price;
             },
+
+            //convert Service and Study to one object
             async getServiceStudy(payment){
                 let vm = this;
                 vm.all_infos = [];
                 await this.$store.dispatch('fetchPayments', payment);
                 this.getPayments.services.map(async function (data) {
-                    vm.all_infos.push(
-                        {
-                            year       : data.year,
-                            // service_id : data.service_id,
-                            service_id : data.id,
-                            name       : data.services.service,
-                            date_pay   : data.date_pay,
-                            next_date_pay: null,
-                            last_date_pay: data.last_date_pay,
-                            last_term  : data.last_term,
-                            cost_one   : data.services.cost_one,
-                            cost_three : data.services.cost_three,
-                            cost_six   : data.services.cost_six,
-                            cost_twelve: data.services.cost_twelve,
-                            is_used    : data.is_used,
-                            term_selected: 0,
-                        }
-                    )
+                    if(data.services.employee_id === 0) {
+                        vm.all_infos.push(
+                            {
+                                year       : data.year,
+                                // service_id : data.service_id,
+                                service_id : data.id,
+                                name       : data.services.service,
+                                date_pay   : data.date_pay,
+                                next_date_pay: null,
+                                last_date_pay: data.last_date_pay,
+                                last_term  : data.last_term,
+                                cost_one   : data.services.cost_one,
+                                cost_three : data.services.cost_three,
+                                cost_six   : data.services.cost_six,
+                                cost_twelve: data.services.cost_twelve,
+                                is_used    : data.is_used,
+                                term_selected: 0,
+                                employee_name: "គ្មានអ្នកទទួលបន្ទុក"
+                            }
+                        )
+                    } else {
+                        vm.all_infos.push(
+                            {
+                                year       : data.year,
+                                // service_id : data.service_id,
+                                service_id : data.id,
+                                name       : data.services.service,
+                                date_pay   : data.date_pay,
+                                next_date_pay: null,
+                                last_date_pay: data.last_date_pay,
+                                last_term  : data.last_term,
+                                cost_one   : data.services.cost_one,
+                                cost_three : data.services.cost_three,
+                                cost_six   : data.services.cost_six,
+                                cost_twelve: data.services.cost_twelve,
+                                is_used    : data.is_used,
+                                term_selected: 0,
+                                employee_name: data.services.employees.kh_name
+                            }
+                        )
+                    }
                 });
                 this.getPayments.studies.map(async function (data) {
-                    vm.all_infos.push(
-                        {
-                            year       : data.year,
-                            // study_id   : data.collection_id,
-                            study_id   : data.id,
-                            name       : data.study_infos.level +''+data.study_infos.class_name,
-                            date_pay   : data.date_pay,
-                            next_date_pay: null,
-                            last_date_pay: data.last_date_pay,
-                            last_term  : data.last_term,
-                            cost_one   : data.study_infos.cost_one,
-                            cost_three : data.study_infos.cost_three,
-                            cost_six   : data.study_infos.cost_six,
-                            cost_twelve: data.study_infos.cost_twelve,
-                            is_used    : data.is_used,
-                            term_selected: 0,
-                        }
-                    )
+                    if (data.study_infos.employee_id === 0) {
+                        vm.all_infos.push(
+                            {
+                                year       : data.year,
+                                // study_id   : data.collection_id,
+                                study_id   : data.id,
+                                name       : data.study_infos.level +''+data.study_infos.class_name,
+                                date_pay   : data.date_pay,
+                                next_date_pay: null,
+                                last_date_pay: data.last_date_pay,
+                                last_term  : data.last_term,
+                                cost_one   : data.study_infos.cost_one,
+                                cost_three : data.study_infos.cost_three,
+                                cost_six   : data.study_infos.cost_six,
+                                cost_twelve: data.study_infos.cost_twelve,
+                                is_used    : data.is_used,
+                                term_selected: 0,
+                                employee_name: "គ្មានអ្នកទទួលបន្ទុក"
+                            }
+                        )
+                    } else {
+                        vm.all_infos.push(
+                            {
+                                year       : data.year,
+                                // study_id   : data.collection_id,
+                                study_id   : data.id,
+                                name       : data.study_infos.level +''+data.study_infos.class_name,
+                                date_pay   : data.date_pay,
+                                next_date_pay: null,
+                                last_date_pay: data.last_date_pay,
+                                last_term  : data.last_term,
+                                cost_one   : data.study_infos.cost_one,
+                                cost_three : data.study_infos.cost_three,
+                                cost_six   : data.study_infos.cost_six,
+                                cost_twelve: data.study_infos.cost_twelve,
+                                is_used    : data.is_used,
+                                term_selected: 0,
+                                employee_name: data.study_infos.employees.kh_name
+                            }
+                        )
+                    }
                 });
             },
+            //Pass student info when student select change
             passStudentInfo(students){
                 this.selected = [];
                 this.all_infos = [];
@@ -421,6 +484,8 @@
                 this.gender = student_arr[1];
                 this.dob = student_arr[2];
                 this.photo = student_arr[3];
+                this.name = student_arr[4];
+                this.latin = student_arr[5];
                 this.getServiceStudy({'id':student_arr[0], 'cur_year': this.getCurYear})
             },
             async updateStudyInfo(update_study_items){
@@ -450,6 +515,7 @@
                 });
                 const promises = update_service_items.map(async function (data) {
                     await self.$store.dispatch('updateServiceInfo', data);
+                    console.log(data)
                 });
                 await Promise.all(promises).then(function () {
                     self.$vs.notify({
@@ -468,7 +534,7 @@
                     type:'material',
                 });
                 let self = this;
-                let vm = this.all_infos;
+                let vm = this.all_infos; //ឈ្មោះ ខុសគ្នារវាង Service and Study with Invoice detail
                 var update_study_items = [];
                 var update_service_items = [];
                 for(var i = 0; i < vm.length; i ++){
@@ -484,7 +550,13 @@
                         update_study_items.push({
                             id: vm[i].study_id,
                             date_pay: vm[i].next_date_pay,
-                            last_term: vm[i].last_term
+                            last_term: vm[i].last_term,
+                            year : vm[i].year,
+                            last_date_pay : vm[i].last_date_pay,
+                            from_class : null,
+                            to_class : null,
+                            date_change : null,
+                            is_used : true,
                         })
                     }
                 }
@@ -501,13 +573,25 @@
                     discount : this.discount, payment_status : false
                 }).then(function (data_res) {
                     if (data_res){
-                        console.log(data_res);
+                        var new_all_infos = []; //បង្កើតសម្រាប់បោះតម្លៃទៅ Print
                         self.all_infos.map(async function (data) {
+                            new_all_infos.push({
+                                invoice_id : data_res.id,
+                                item : data.name,
+                                term : data.last_term,
+                                balance : data.term_selected,
+                                date_pay : data.date_pay,
+                                next_date_pay : data.next_date_pay,
+                                emp_name: data.employee_name,
+                            });
                             await self.$store.dispatch('storeInvoiceDetail', {
                                 invoice_id : data_res.id,
                                 item : data.name,
                                 term : data.last_term,
                                 balance : data.term_selected,
+                                date_pay : data.date_pay,
+                                next_date_pay : data.next_date_pay,
+                                emp_name: data.employee_name,
                             })
                         });
                         self.$vs.notify({
@@ -519,10 +603,18 @@
                             position:'top-center'
                         });
                         self.$vs.loading.close();
-                        self.$refs.PrintInvoice.show({});
+                        self.$refs.PrintInvoice.show({
+                                name: self.name,
+                                latin: self.latin,
+                                gender: self.gender,
+                                total: self.total_payment,
+                                after: self.after_discount,
+                                discount: self.discount
+                            },
+                            new_all_infos
+                        );
                     }
                 });
-                await this.$store.dispatch('fetchInvoices');
                 this.discount = 0;
                 this.cash_discount = 0;
                 this.all_infos = [];
@@ -533,6 +625,11 @@
             async showInvoiceDetail(id){
                 this.$modal.show('show-invoice-detail');
                 await this.$store.dispatch('showInvoiceDetail', id);
+            },
+            async printInvoice(id, name, latin, gender, total, after, discount,){
+                await this.$store.dispatch('showInvoiceDetail', id);
+                this.$refs.PrintInvoice.show({name: name, latin: latin, gender: gender, total: total, after: after, discount: discount}, this.getInvoicesDetail);
+                console.log(this.getInvoicesDetail)
             }
         }
     }

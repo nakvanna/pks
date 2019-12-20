@@ -264,6 +264,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -349,6 +361,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       gender: '',
       dob: null,
       photo: 'https://data.whicdn.com/images/300580381/original.jpg',
+      name: '',
+      latin: '',
       all_infos: [],
       total_payment: 0,
       today_date: this.moment().format('YYYY-MM-DD')
@@ -431,6 +445,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.all_infos[i].term_selected = price;
       return price;
     },
+    //convert Service and Study to one object
     getServiceStudy: function () {
       var _getServiceStudy = _asyncToGenerator(
       /*#__PURE__*/
@@ -456,22 +471,43 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                       while (1) {
                         switch (_context2.prev = _context2.next) {
                           case 0:
-                            vm.all_infos.push({
-                              year: data.year,
-                              // service_id : data.service_id,
-                              service_id: data.id,
-                              name: data.services.service,
-                              date_pay: data.date_pay,
-                              next_date_pay: null,
-                              last_date_pay: data.last_date_pay,
-                              last_term: data.last_term,
-                              cost_one: data.services.cost_one,
-                              cost_three: data.services.cost_three,
-                              cost_six: data.services.cost_six,
-                              cost_twelve: data.services.cost_twelve,
-                              is_used: data.is_used,
-                              term_selected: 0
-                            });
+                            if (data.services.employee_id === 0) {
+                              vm.all_infos.push({
+                                year: data.year,
+                                // service_id : data.service_id,
+                                service_id: data.id,
+                                name: data.services.service,
+                                date_pay: data.date_pay,
+                                next_date_pay: null,
+                                last_date_pay: data.last_date_pay,
+                                last_term: data.last_term,
+                                cost_one: data.services.cost_one,
+                                cost_three: data.services.cost_three,
+                                cost_six: data.services.cost_six,
+                                cost_twelve: data.services.cost_twelve,
+                                is_used: data.is_used,
+                                term_selected: 0,
+                                employee_name: "គ្មានអ្នកទទួលបន្ទុក"
+                              });
+                            } else {
+                              vm.all_infos.push({
+                                year: data.year,
+                                // service_id : data.service_id,
+                                service_id: data.id,
+                                name: data.services.service,
+                                date_pay: data.date_pay,
+                                next_date_pay: null,
+                                last_date_pay: data.last_date_pay,
+                                last_term: data.last_term,
+                                cost_one: data.services.cost_one,
+                                cost_three: data.services.cost_three,
+                                cost_six: data.services.cost_six,
+                                cost_twelve: data.services.cost_twelve,
+                                is_used: data.is_used,
+                                term_selected: 0,
+                                employee_name: data.services.employees.kh_name
+                              });
+                            }
 
                           case 1:
                           case "end":
@@ -495,22 +531,43 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                       while (1) {
                         switch (_context3.prev = _context3.next) {
                           case 0:
-                            vm.all_infos.push({
-                              year: data.year,
-                              // study_id   : data.collection_id,
-                              study_id: data.id,
-                              name: data.study_infos.level + '' + data.study_infos.class_name,
-                              date_pay: data.date_pay,
-                              next_date_pay: null,
-                              last_date_pay: data.last_date_pay,
-                              last_term: data.last_term,
-                              cost_one: data.study_infos.cost_one,
-                              cost_three: data.study_infos.cost_three,
-                              cost_six: data.study_infos.cost_six,
-                              cost_twelve: data.study_infos.cost_twelve,
-                              is_used: data.is_used,
-                              term_selected: 0
-                            });
+                            if (data.study_infos.employee_id === 0) {
+                              vm.all_infos.push({
+                                year: data.year,
+                                // study_id   : data.collection_id,
+                                study_id: data.id,
+                                name: data.study_infos.level + '' + data.study_infos.class_name,
+                                date_pay: data.date_pay,
+                                next_date_pay: null,
+                                last_date_pay: data.last_date_pay,
+                                last_term: data.last_term,
+                                cost_one: data.study_infos.cost_one,
+                                cost_three: data.study_infos.cost_three,
+                                cost_six: data.study_infos.cost_six,
+                                cost_twelve: data.study_infos.cost_twelve,
+                                is_used: data.is_used,
+                                term_selected: 0,
+                                employee_name: "គ្មានអ្នកទទួលបន្ទុក"
+                              });
+                            } else {
+                              vm.all_infos.push({
+                                year: data.year,
+                                // study_id   : data.collection_id,
+                                study_id: data.id,
+                                name: data.study_infos.level + '' + data.study_infos.class_name,
+                                date_pay: data.date_pay,
+                                next_date_pay: null,
+                                last_date_pay: data.last_date_pay,
+                                last_term: data.last_term,
+                                cost_one: data.study_infos.cost_one,
+                                cost_three: data.study_infos.cost_three,
+                                cost_six: data.study_infos.cost_six,
+                                cost_twelve: data.study_infos.cost_twelve,
+                                is_used: data.is_used,
+                                term_selected: 0,
+                                employee_name: data.study_infos.employees.kh_name
+                              });
+                            }
 
                           case 1:
                           case "end":
@@ -539,6 +596,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       return getServiceStudy;
     }(),
+    //Pass student info when student select change
     passStudentInfo: function passStudentInfo(students) {
       this.selected = [];
       this.all_infos = [];
@@ -547,6 +605,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.gender = student_arr[1];
       this.dob = student_arr[2];
       this.photo = student_arr[3];
+      this.name = student_arr[4];
+      this.latin = student_arr[5];
       this.getServiceStudy({
         'id': student_arr[0],
         'cur_year': this.getCurYear
@@ -644,6 +704,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                             return self.$store.dispatch('updateServiceInfo', data);
 
                           case 2:
+                            console.log(data);
+
+                          case 3:
                           case "end":
                             return _context7.stop();
                         }
@@ -695,7 +758,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   type: 'material'
                 });
                 self = this;
-                vm = this.all_infos;
+                vm = this.all_infos; //ឈ្មោះ ខុសគ្នារវាង Service and Study with Invoice detail
+
                 update_study_items = [];
                 update_service_items = [];
 
@@ -712,7 +776,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     update_study_items.push({
                       id: vm[i].study_id,
                       date_pay: vm[i].next_date_pay,
-                      last_term: vm[i].last_term
+                      last_term: vm[i].last_term,
+                      year: vm[i].year,
+                      last_date_pay: vm[i].last_date_pay,
+                      from_class: null,
+                      to_class: null,
+                      date_change: null,
+                      is_used: true
                     });
                   }
                 }
@@ -735,7 +805,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   payment_status: false
                 }).then(function (data_res) {
                   if (data_res) {
-                    console.log(data_res);
+                    var new_all_infos = []; //បង្កើតសម្រាប់បោះតម្លៃទៅ Print
+
                     self.all_infos.map(
                     /*#__PURE__*/
                     function () {
@@ -746,15 +817,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                           while (1) {
                             switch (_context9.prev = _context9.next) {
                               case 0:
-                                _context9.next = 2;
+                                new_all_infos.push({
+                                  invoice_id: data_res.id,
+                                  item: data.name,
+                                  term: data.last_term,
+                                  balance: data.term_selected,
+                                  date_pay: data.date_pay,
+                                  next_date_pay: data.next_date_pay,
+                                  emp_name: data.employee_name
+                                });
+                                _context9.next = 3;
                                 return self.$store.dispatch('storeInvoiceDetail', {
                                   invoice_id: data_res.id,
                                   item: data.name,
                                   term: data.last_term,
-                                  balance: data.term_selected
+                                  balance: data.term_selected,
+                                  date_pay: data.date_pay,
+                                  next_date_pay: data.next_date_pay,
+                                  emp_name: data.employee_name
                                 });
 
-                              case 2:
+                              case 3:
                               case "end":
                                 return _context9.stop();
                             }
@@ -775,20 +858,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                       position: 'top-center'
                     });
                     self.$vs.loading.close();
-                    self.$refs.PrintInvoice.show({});
+                    self.$refs.PrintInvoice.show({
+                      name: self.name,
+                      latin: self.latin,
+                      gender: self.gender,
+                      total: self.total_payment,
+                      after: self.after_discount,
+                      discount: self.discount
+                    }, new_all_infos);
                   }
                 });
 
               case 10:
-                _context10.next = 12;
-                return this.$store.dispatch('fetchInvoices');
-
-              case 12:
                 this.discount = 0;
                 this.cash_discount = 0;
                 this.all_infos = [];
 
-              case 15:
+              case 13:
               case "end":
                 return _context10.stop();
             }
@@ -830,6 +916,42 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
 
       return showInvoiceDetail;
+    }(),
+    printInvoice: function () {
+      var _printInvoice = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee12(id, name, latin, gender, total, after, discount) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee12$(_context12) {
+          while (1) {
+            switch (_context12.prev = _context12.next) {
+              case 0:
+                _context12.next = 2;
+                return this.$store.dispatch('showInvoiceDetail', id);
+
+              case 2:
+                this.$refs.PrintInvoice.show({
+                  name: name,
+                  latin: latin,
+                  gender: gender,
+                  total: total,
+                  after: after,
+                  discount: discount
+                }, this.getInvoicesDetail);
+                console.log(this.getInvoicesDetail);
+
+              case 4:
+              case "end":
+                return _context12.stop();
+            }
+          }
+        }, _callee12, this);
+      }));
+
+      function printInvoice(_x10, _x11, _x12, _x13, _x14, _x15, _x16) {
+        return _printInvoice.apply(this, arguments);
+      }
+
+      return printInvoice;
     }()
   }
 });
@@ -861,12 +983,78 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "PrintInvoice",
+  data: function data() {
+    return {
+      master_item: [],
+      list_item: []
+    };
+  },
   methods: {
-    show: function show() {
+    show: function show(master_item, items) {
       this.$modal.show('print-invoice');
-    }
+      this.master_item = master_item;
+      this.list_item = items;
+    },
+    handlePrintInvoice: function handlePrintInvoice() {}
   }
 });
 
@@ -1011,30 +1199,62 @@ var render = function() {
                             1
                           ),
                       _vm._v(" "),
-                      _c(
-                        "vs-td",
-                        [
-                          _c(
-                            "vs-button",
-                            {
-                              attrs: {
-                                size: "small",
-                                radius: "",
-                                color: "primary",
-                                type: "relief",
-                                "icon-pack": "feather"
-                              },
-                              on: {
-                                click: function($event) {
-                                  return _vm.showInvoiceDetail(data[indextr].id)
+                      _c("vs-td", [
+                        _c(
+                          "div",
+                          { staticClass: "btn-group" },
+                          [
+                            _c(
+                              "vs-button",
+                              {
+                                attrs: {
+                                  size: "small",
+                                  color: "success",
+                                  type: "line",
+                                  "icon-pack": "feather",
+                                  icon: "icon-eye"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.showInvoiceDetail(
+                                      data[indextr].id
+                                    )
+                                  }
                                 }
-                              }
-                            },
-                            [_vm._v(" លម្អិត")]
-                          )
-                        ],
-                        1
-                      )
+                              },
+                              [_vm._v(" លម្អិត\n                        ")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "vs-button",
+                              {
+                                attrs: {
+                                  size: "small",
+                                  color: "primary",
+                                  type: "line",
+                                  "icon-pack": "feather",
+                                  icon: "icon-printer"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.printInvoice(
+                                      data[indextr].id,
+                                      data[indextr].name,
+                                      data[indextr].latin,
+                                      data[indextr].gender,
+                                      data[indextr].balance,
+                                      data[indextr].after_discount,
+                                      data[indextr].discount
+                                    )
+                                  }
+                                }
+                              },
+                              [_vm._v("បោះពុម្ភ\n                        ")]
+                            )
+                          ],
+                          1
+                        )
+                      ])
                     ],
                     1
                   )
@@ -1083,9 +1303,7 @@ var render = function() {
                 _vm._v("បានទទូល")
               ]),
               _vm._v(" "),
-              _c("vs-th", { attrs: { "sort-key": "is_used" } }, [
-                _vm._v("បង្ហាញ")
-              ])
+              _c("vs-th", [_vm._v("ប្រតិបត្តិការណ៌")])
             ],
             1
           )
@@ -1320,7 +1538,11 @@ var render = function() {
                               "," +
                               item.dob +
                               "," +
-                              item.photo,
+                              item.photo +
+                              "," +
+                              item.name +
+                              "," +
+                              item.latin,
                             text: item.name + " " + item.latin
                           }
                         })
@@ -1396,6 +1618,7 @@ var render = function() {
                 "vs-table",
                 {
                   attrs: {
+                    multiple: "",
                     pagination: "",
                     "max-items": "5",
                     search: "",
@@ -1564,10 +1787,7 @@ var render = function() {
                                       _c("flat-pickr", {
                                         staticClass: "w-full",
                                         attrs: {
-                                          value: data[indextr].date_pay.substr(
-                                            0,
-                                            10
-                                          ),
+                                          value: data[indextr].date_pay,
                                           placeholder: "ថ្ងៃត្រូវបង់លុយដំបូង",
                                           disabled: ""
                                         }
@@ -1650,7 +1870,14 @@ var render = function() {
                         })
                       }
                     }
-                  ])
+                  ]),
+                  model: {
+                    value: _vm.selected,
+                    callback: function($$v) {
+                      _vm.selected = $$v
+                    },
+                    expression: "selected"
+                  }
                 },
                 [
                   _c(
@@ -1680,6 +1907,8 @@ var render = function() {
                 ],
                 2
               ),
+              _vm._v(" "),
+              _c("pre", [_vm._v(_vm._s(_vm.selected))]),
               _vm._v(" "),
               _c("div", { staticClass: "centerx" }, [
                 _c("h3", [
@@ -1840,6 +2069,140 @@ var render = function() {
         "vx-card",
         { attrs: { "no-shadow": "" } },
         [
+          _c("div", { staticClass: "vx-row" }, [
+            _c("div", { staticClass: "vx-col md:w-3/4 flex mt-10 mb-10" }, [
+              _c("h4", [
+                _vm._v(
+                  "ឈ្មោះអ្នកបង់ប្រាក់: " +
+                    _vm._s(_vm.master_item.name) +
+                    " " +
+                    _vm._s(_vm.master_item.latin)
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "vx-col md:w-1/4 flex mt-10" }, [
+              _c("h4", [_vm._v("ភេទ: " + _vm._s(_vm.master_item.gender))])
+            ])
+          ]),
+          _vm._v(" "),
+          _c(
+            "vs-table",
+            {
+              attrs: { "max-items": "5", data: _vm.list_item },
+              scopedSlots: _vm._u([
+                {
+                  key: "default",
+                  fn: function(ref) {
+                    var data = ref.data
+                    return _vm._l(data, function(tr, indextr) {
+                      return _c(
+                        "vs-tr",
+                        { key: indextr, attrs: { data: tr } },
+                        [
+                          _c("vs-td", [
+                            _vm._v(
+                              "\n                            " +
+                                _vm._s(indextr + 1) +
+                                "\n                        "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("vs-td", [
+                            _vm._v(
+                              "\n                            " +
+                                _vm._s(data[indextr].item) +
+                                "\n                        "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("vs-td", [
+                            _vm._v(
+                              "\n                            " +
+                                _vm._s(data[indextr].term) +
+                                " ខែ\n                        "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("vs-td", [
+                            _vm._v(
+                              "\n                            $ " +
+                                _vm._s(data[indextr].balance) +
+                                "\n                        "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("vs-td", [
+                            _vm._v(
+                              "\n                            " +
+                                _vm._s(data[indextr].emp_name) +
+                                "\n                        "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("vs-td", [
+                            _vm._v(
+                              "\n                            " +
+                                _vm._s(data[indextr].date_pay) +
+                                "\n                        "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("vs-td", [
+                            _vm._v(
+                              "\n                            " +
+                                _vm._s(data[indextr].next_date_pay) +
+                                "\n                        "
+                            )
+                          ])
+                        ],
+                        1
+                      )
+                    })
+                  }
+                }
+              ])
+            },
+            [
+              _c(
+                "template",
+                { slot: "thead" },
+                [
+                  _c("vs-th", [_vm._v("ល.រ")]),
+                  _vm._v(" "),
+                  _c("vs-th", [_vm._v("រាយមុខសេវាកម្ម")]),
+                  _vm._v(" "),
+                  _c("vs-th", [_vm._v("រយៈពេលបង់")]),
+                  _vm._v(" "),
+                  _c("vs-th", [_vm._v("ចំនួនទឹកប្រាក់")]),
+                  _vm._v(" "),
+                  _c("vs-th", [_vm._v("អ្នកទទូលបន្ទុក")]),
+                  _vm._v(" "),
+                  _c("vs-th", [_vm._v("ថ្ងៃទីបង់ប្រាក់")]),
+                  _vm._v(" "),
+                  _c("vs-th", [_vm._v("ថ្ងៃទីបង់បន្ទាប់")])
+                ],
+                1
+              )
+            ],
+            2
+          ),
+          _vm._v(" "),
+          _c("h6", { staticClass: "mt-4 mb-2" }, [
+            _vm._v("ទឹកប្រាក់សរុប: "),
+            _c("b", [_vm._v("$" + _vm._s(_vm.master_item.total))])
+          ]),
+          _vm._v(" "),
+          _c("h6", { staticClass: "mb-2" }, [
+            _vm._v("បញ្ចុះតម្លៃ: "),
+            _c("b", [_vm._v(_vm._s(_vm.master_item.discount) + " %")])
+          ]),
+          _vm._v(" "),
+          _c("h6", [
+            _vm._v("ទឹកប្រាក់ត្រូវបង់: "),
+            _c("b", [_vm._v("$" + _vm._s(_vm.master_item.after))])
+          ]),
+          _vm._v(" "),
           _c("vs-divider"),
           _vm._v(" "),
           _c(
@@ -1853,7 +2216,8 @@ var render = function() {
                     icon: "icon-printer",
                     "icon-pack": "feather",
                     type: "relief"
-                  }
+                  },
+                  on: { click: _vm.handlePrintInvoice }
                 },
                 [_vm._v("បោះពុម្ភ")]
               )

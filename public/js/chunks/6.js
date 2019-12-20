@@ -429,29 +429,36 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.destroyCollection();
     },
     editCollection: function editCollection() {
-      this.collections.id = this.selected[0].id;
-      this.collections.group_section = this.selected[0].group_section;
-      this.collections.section = this.selected[0].section;
-      this.collections.level = this.selected[0].level;
-      this.collections.class_name = this.selected[0].class_name;
-      this.collections.shift = this.selected[0].shift;
-      this.collections.cost_one = this.selected[0].cost_one;
-      this.collections.cost_three = this.selected[0].cost_three;
-      this.collections.cost_six = this.selected[0].cost_six;
-      this.collections.cost_twelve = this.selected[0].cost_twelve;
+      var vm = this.collections;
+      var sl = this.selected[0];
+      vm.id = sl.id;
+      vm.year = sl.year;
+      vm.group_section = sl.group_section;
+      vm.section = sl.section;
+      vm.level = sl.level;
+      vm.class_name = sl.class_name;
+      vm.shift = sl.shift;
+      vm.cost_one = sl.cost_one;
+      vm.cost_three = sl.cost_three;
+      vm.cost_six = sl.cost_six;
+      vm.cost_twelve = sl.cost_twelve;
+      vm.employee_id = sl.employee_id;
       this.is_update = true;
       this.selected = [];
     },
     clearCollectionForm: function clearCollectionForm() {
-      this.collections.group_section = '';
-      this.collections.section = '';
-      this.collections.level = '';
-      this.collections.shift = '';
-      this.collections.class_name = '';
-      this.collections.cost_one = '';
-      this.collections.cost_three = '';
-      this.collections.cost_six = '';
-      this.collections.cost_twelve = '';
+      var vm = this.collections;
+      vm.year = '';
+      vm.group_section = '';
+      vm.section = '';
+      vm.level = '';
+      vm.shift = '';
+      vm.class_name = '';
+      vm.cost_one = '';
+      vm.cost_three = '';
+      vm.cost_six = '';
+      vm.cost_twelve = '';
+      vm.employee_id = '';
       this.is_update = false;
     }
   }
@@ -1254,6 +1261,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
 //
 //
 //
@@ -2584,7 +2592,7 @@ var render = function() {
           _c(
             "vs-select",
             {
-              staticClass: "w-1/4",
+              staticClass: "w-1/4 mr-2",
               attrs: {
                 autocomplete: "",
                 label: "ឆ្នាំសិក្សា",
@@ -4087,6 +4095,10 @@ var render = function() {
             { slot: "thead" },
             [
               _c("vs-th", { attrs: { "sort-key": "id" } }, [_vm._v("ID")]),
+              _vm._v(" "),
+              _c("vs-th", { attrs: { "sort-key": "shift" } }, [
+                _vm._v("Shift")
+              ]),
               _vm._v(" "),
               _c("vs-th", { attrs: { "sort-key": "start_time" } }, [
                 _vm._v("Start")

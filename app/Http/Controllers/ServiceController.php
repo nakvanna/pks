@@ -46,17 +46,17 @@ class ServiceController extends Controller
             'cost_twelve' =>'required',
             'employee_id' =>'required',
         ]);
-        $store = Service::findOrFail($id);
-        $store->year        = $input['year'];
-        $store->type        = $input['type'];
-        $store->service     = $input['service'];
-        $store->cost_one    = $input['cost_one'];
-        $store->cost_three  = $input['cost_three'];
-        $store->cost_six    = $input['cost_six'];
-        $store->cost_twelve = $input['cost_twelve'];
-        $store->employee_id = $input['employee_id'];
-        $store->save();
-        return $store;
+        $update = Service::findOrFail($id);
+        $update->year        = $input['year'];
+        $update->type        = $input['type'];
+        $update->service     = $input['service'];
+        $update->cost_one    = $input['cost_one'];
+        $update->cost_three  = $input['cost_three'];
+        $update->cost_six    = $input['cost_six'];
+        $update->cost_twelve = $input['cost_twelve'];
+        $update->employee_id = $input['employee_id'];
+        $update->save();
+        return Service::with('employees')->where('id', $id)->first();
     }
     public function destroy($id){
         $delete = Service::find($id);
