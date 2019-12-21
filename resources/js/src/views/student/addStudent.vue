@@ -182,7 +182,7 @@
                                     icon: 'icon-check',
                                     position: 'top-center'
                                 });
-                                // self.resetField();
+                                self.resetField();
                             } else {
                                 self.$vs.notify({
                                     title: 'ប្រតិបត្តិការបរាជ័យ',
