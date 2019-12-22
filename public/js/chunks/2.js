@@ -260,6 +260,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     position: 'top-center'
                   });
                   self.service_infos = [];
+                  self.student_ids = [];
                   self.clearForm();
                   self.$vs.loading.close();
                 });

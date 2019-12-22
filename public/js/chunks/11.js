@@ -394,7 +394,8 @@ __webpack_require__.r(__webpack_exports__);
                 iconPack: 'feather',
                 icon: 'icon-check',
                 position: 'top-center'
-              }); // self.resetField();
+              });
+              self.resetField();
             } else {
               self.$vs.notify({
                 title: 'ប្រតិបត្តិការបរាជ័យ',

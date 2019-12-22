@@ -173,6 +173,7 @@
                         position:'top-center'
                     });
                     self.service_infos = [];
+                    self.student_ids = [];
                     self.clearForm();
                     self.$vs.loading.close()
                 })
