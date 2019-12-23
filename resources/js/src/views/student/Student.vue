@@ -1,12 +1,25 @@
 <template>
     <vx-card no-shadow>
         <div class="flex btn-group">
-            <vs-button @click="$refs.addStudent.show()" type="relief" icon-pack="feather" icon="icon-plus-square">បន្ថែម</vs-button>
-            <vs-button color="success" :disabled="selected.length<=0" @click="gridApi.deselectAll()" type="relief" icon-pack="feather" icon="icon-check-square">Clear</vs-button>
-            <vs-button v-if="selected.length===1" @click="$refs.editStudent.show(); $refs.editStudent.editStudent(selected[0])" color="warning" type="relief" icon-pack="feather" icon="icon-edit">កែប្រែ</vs-button>
-            <vs-button v-if="selected.length" @click="toggleStudent" color="danger" type="relief" icon-pack="feather" icon="icon-circle">Toggle Status</vs-button>
-            <vs-button v-if="selected.length" @click="$refs.addStudyInfo.show(selected)" type="relief" icon-pack="feather" icon="icon-upload">ការសិក្សា</vs-button>
-            <vs-button v-if="selected.length" @click="$refs.addServiceInfo.show(selected, true)" color="dark" type="relief" icon-pack="feather" icon="icon-upload">សេវាកម្ម</vs-button>
+            <vs-button @click="$refs.addStudent.show()" type="relief" icon-pack="feather" icon="icon-plus-square">
+                បន្ថែម
+            </vs-button>
+            <vs-button color="success" :disabled="selected.length<=0" @click="gridApi.deselectAll()" type="relief"
+                       icon-pack="feather" icon="icon-check-square">Clear
+            </vs-button>
+            <vs-button v-if="selected.length===1"
+                       @click="$refs.editStudent.show(); $refs.editStudent.editStudent(selected[0])" color="warning"
+                       type="relief" icon-pack="feather" icon="icon-edit">កែប្រែ
+            </vs-button>
+            <vs-button v-if="selected.length" @click="toggleStudent" color="danger" type="relief" icon-pack="feather"
+                       icon="icon-circle">Toggle Status
+            </vs-button>
+            <vs-button v-if="selected.length" @click="$refs.addStudyInfo.show(selected)" type="relief"
+                       icon-pack="feather" icon="icon-upload">ការសិក្សា
+            </vs-button>
+            <vs-button v-if="selected.length" @click="$refs.addServiceInfo.show(selected, true)" color="dark"
+                       type="relief" icon-pack="feather" icon="icon-upload">សេវាកម្ម
+            </vs-button>
         </div>
         <ag-grid-vue style="height: 900px;" class="ag-theme-material w-100 my-4 ag-grid-table"
                      :columnDefs="columnDefs"
@@ -34,6 +47,7 @@
     import EditStudent from "./editStudent";
     import AddStudyInfo from "./addStudyInfo";
     import AddServiceInfo from "./addServiceInfo";
+
     export default {
         name: "Student",
         components: {AddServiceInfo, AddStudyInfo, EditStudent, AddStudent, AgGridVue},
@@ -59,17 +73,17 @@
                 }
             }
         },
-        computed:{
-            all_students(){
+        computed: {
+            all_students() {
                 return this.$store.getters.all_students
             }
         },
-        async created(){
-            if (!this.all_students.length){
-                await this.fetchStudent();
+        created() {
+            if (!this.all_students.length) {
+                this.fetchStudent();
             }
         },
-        methods:{
+        methods: {
             onGridReady(params) {
                 this.gridApi = params.api;
             },
@@ -77,15 +91,19 @@
                 this.selected = this.gridApi.getSelectedRows();
             },
             //fetch
-            async fetchStudent(){
-              await this.$store.dispatch('fetchStudent')
+            fetchStudent() {
+                let self = this;
+                self.$vs.loading();
+                this.$store.dispatch('fetchStudent').then(function () {
+                    self.$vs.loading.close();
+                })
             },
             //destroy
-            async toggleStudent(){
+            async toggleStudent() {
                 let self = this;
                 self.$vs.loading();
                 const promises = self.selected.map(async function (data) {
-                    await self.$store.dispatch('toggleStudent',data.id);
+                    await self.$store.dispatch('toggleStudent', data.id);
                 });
                 await Promise.all(promises).then(function () {
                     self.$vs.notify({

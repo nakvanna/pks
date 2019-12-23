@@ -53,6 +53,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //ag-grid
 
 
@@ -114,36 +127,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return this.$store.getters.all_students;
     }
   },
-  created: function () {
-    var _created = _asyncToGenerator(
-    /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              if (this.all_students.length) {
-                _context.next = 3;
-                break;
-              }
-
-              _context.next = 3;
-              return this.fetchStudent();
-
-            case 3:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee, this);
-    }));
-
-    function created() {
-      return _created.apply(this, arguments);
+  created: function created() {
+    if (!this.all_students.length) {
+      this.fetchStudent();
     }
-
-    return created;
-  }(),
+  },
   methods: {
     onGridReady: function onGridReady(params) {
       this.gridApi = params.api;
@@ -152,40 +140,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.selected = this.gridApi.getSelectedRows();
     },
     //fetch
-    fetchStudent: function () {
-      var _fetchStudent = _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                _context2.next = 2;
-                return this.$store.dispatch('fetchStudent');
-
-              case 2:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2, this);
-      }));
-
-      function fetchStudent() {
-        return _fetchStudent.apply(this, arguments);
-      }
-
-      return fetchStudent;
-    }(),
+    fetchStudent: function fetchStudent() {
+      var self = this;
+      self.$vs.loading();
+      this.$store.dispatch('fetchStudent').then(function () {
+        self.$vs.loading.close();
+      });
+    },
     //destroy
     toggleStudent: function () {
       var _toggleStudent = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
         var self, promises;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context4.prev = _context4.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
                 self = this;
                 self.$vs.loading();
@@ -194,27 +164,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 function () {
                   var _ref = _asyncToGenerator(
                   /*#__PURE__*/
-                  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(data) {
-                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+                  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(data) {
+                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
                       while (1) {
-                        switch (_context3.prev = _context3.next) {
+                        switch (_context.prev = _context.next) {
                           case 0:
-                            _context3.next = 2;
+                            _context.next = 2;
                             return self.$store.dispatch('toggleStudent', data.id);
 
                           case 2:
                           case "end":
-                            return _context3.stop();
+                            return _context.stop();
                         }
                       }
-                    }, _callee3);
+                    }, _callee);
                   }));
 
                   return function (_x) {
                     return _ref.apply(this, arguments);
                   };
                 }());
-                _context4.next = 5;
+                _context2.next = 5;
                 return Promise.all(promises).then(function () {
                   self.$vs.notify({
                     time: 4000,
@@ -231,10 +201,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 5:
               case "end":
-                return _context4.stop();
+                return _context2.stop();
             }
           }
-        }, _callee4, this);
+        }, _callee2, this);
       }));
 
       function toggleStudent() {
@@ -777,7 +747,7 @@ var render = function() {
                 }
               }
             },
-            [_vm._v("បន្ថែម")]
+            [_vm._v("\n            បន្ថែម\n        ")]
           ),
           _vm._v(" "),
           _c(
@@ -796,7 +766,7 @@ var render = function() {
                 }
               }
             },
-            [_vm._v("Clear")]
+            [_vm._v("Clear\n        ")]
           ),
           _vm._v(" "),
           _vm.selected.length === 1
@@ -816,7 +786,7 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v("កែប្រែ")]
+                [_vm._v("កែប្រែ\n        ")]
               )
             : _vm._e(),
           _vm._v(" "),
@@ -832,7 +802,7 @@ var render = function() {
                   },
                   on: { click: _vm.toggleStudent }
                 },
-                [_vm._v("Toggle Status")]
+                [_vm._v("Toggle Status\n        ")]
               )
             : _vm._e(),
           _vm._v(" "),
@@ -851,7 +821,7 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v("ការសិក្សា")]
+                [_vm._v("ការសិក្សា\n        ")]
               )
             : _vm._e(),
           _vm._v(" "),
@@ -871,7 +841,7 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v("សេវាកម្ម")]
+                [_vm._v("សេវាកម្ម\n        ")]
               )
             : _vm._e()
         ],
