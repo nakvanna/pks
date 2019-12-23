@@ -63,6 +63,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+<<<<<<< HEAD
 //
 //
 //
@@ -162,6 +163,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+=======
+>>>>>>> b20bbe6ed60a7abfdef93932e9d48f8052b8ac44
 //ag-grid
 
 
@@ -249,6 +252,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
     };
   },
+<<<<<<< HEAD
   created: function () {
     var _created = _asyncToGenerator(
     /*#__PURE__*/
@@ -306,6 +310,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getEmployees: function getEmployees() {
       return this.$store.getters.get_employees;
     }
+=======
+  computed: {
+    all_students: function all_students() {
+      return this.$store.getters.all_students;
+    }
+  },
+  created: function created() {
+    if (!this.all_students.length) {
+      this.fetchStudent();
+    }
+>>>>>>> b20bbe6ed60a7abfdef93932e9d48f8052b8ac44
   },
   methods: {
     onGridReady: function onGridReady(params) {
@@ -314,6 +329,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     onSelectionChanged: function onSelectionChanged() {
       this.selected = this.gridApi.getSelectedRows();
     },
+<<<<<<< HEAD
     storeCollection: function storeCollection() {
       var self = this;
       var vm = this.collections;
@@ -375,6 +391,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
+=======
+    //fetch
+    fetchStudent: function fetchStudent() {
+      var self = this;
+      self.$vs.loading();
+      this.$store.dispatch('fetchStudent').then(function () {
+        self.$vs.loading.close();
+      });
+    },
+    //destroy
+    toggleStudent: function () {
+      var _toggleStudent = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var self, promises;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+>>>>>>> b20bbe6ed60a7abfdef93932e9d48f8052b8ac44
               case 0:
                 vm = this;
                 this.$vs.loading({
@@ -385,6 +420,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 function () {
                   var _ref = _asyncToGenerator(
                   /*#__PURE__*/
+<<<<<<< HEAD
                   _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(data) {
                     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
                       while (1) {
@@ -399,13 +435,33 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                         }
                       }
                     }, _callee2);
+=======
+                  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(data) {
+                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+                      while (1) {
+                        switch (_context.prev = _context.next) {
+                          case 0:
+                            _context.next = 2;
+                            return self.$store.dispatch('toggleStudent', data.id);
+
+                          case 2:
+                          case "end":
+                            return _context.stop();
+                        }
+                      }
+                    }, _callee);
+>>>>>>> b20bbe6ed60a7abfdef93932e9d48f8052b8ac44
                   }));
 
                   return function (_x) {
                     return _ref.apply(this, arguments);
                   };
                 }());
+<<<<<<< HEAD
                 _context3.next = 5;
+=======
+                _context2.next = 5;
+>>>>>>> b20bbe6ed60a7abfdef93932e9d48f8052b8ac44
                 return Promise.all(promises).then(function () {
                   vm.$vs.notify({
                     title: 'ប្រតិបត្តិការណ៍ជោគជ័យ',
@@ -422,10 +478,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 5:
               case "end":
+<<<<<<< HEAD
                 return _context3.stop();
             }
           }
         }, _callee3, this);
+=======
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+>>>>>>> b20bbe6ed60a7abfdef93932e9d48f8052b8ac44
       }));
 
       function destroyCollection() {
@@ -3493,6 +3556,7 @@ var render = function() {
                 }
               }
             },
+<<<<<<< HEAD
             [_vm._v("លុប")]
           )
         : _vm._e()
@@ -3561,6 +3625,9 @@ var render = function() {
                 1
               )
             ]
+=======
+            [_vm._v("\n            បន្ថែម\n        ")]
+>>>>>>> b20bbe6ed60a7abfdef93932e9d48f8052b8ac44
           ),
           _vm._v(" "),
           _c(
@@ -3776,6 +3843,7 @@ var render = function() {
               callback: function($$v) {
                 _vm.$set(_vm.shifts, "start_time", $$v)
               },
+<<<<<<< HEAD
               expression: "shifts.start_time"
             }
           }),
@@ -3791,6 +3859,72 @@ var render = function() {
               expression: "shifts.end_time"
             }
           }),
+=======
+              on: {
+                click: function($event) {
+                  return _vm.gridApi.deselectAll()
+                }
+              }
+            },
+            [_vm._v("Clear\n        ")]
+          ),
+          _vm._v(" "),
+          _vm.selected.length === 1
+            ? _c(
+                "vs-button",
+                {
+                  attrs: {
+                    color: "warning",
+                    type: "relief",
+                    "icon-pack": "feather",
+                    icon: "icon-edit"
+                  },
+                  on: {
+                    click: function($event) {
+                      _vm.$refs.editStudent.show()
+                      _vm.$refs.editStudent.editStudent(_vm.selected[0])
+                    }
+                  }
+                },
+                [_vm._v("កែប្រែ\n        ")]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.selected.length
+            ? _c(
+                "vs-button",
+                {
+                  attrs: {
+                    color: "danger",
+                    type: "relief",
+                    "icon-pack": "feather",
+                    icon: "icon-circle"
+                  },
+                  on: { click: _vm.toggleStudent }
+                },
+                [_vm._v("Toggle Status\n        ")]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.selected.length
+            ? _c(
+                "vs-button",
+                {
+                  attrs: {
+                    type: "relief",
+                    "icon-pack": "feather",
+                    icon: "icon-upload"
+                  },
+                  on: {
+                    click: function($event) {
+                      return _vm.$refs.addStudyInfo.show(_vm.selected)
+                    }
+                  }
+                },
+                [_vm._v("ការសិក្សា\n        ")]
+              )
+            : _vm._e(),
+>>>>>>> b20bbe6ed60a7abfdef93932e9d48f8052b8ac44
           _vm._v(" "),
           _c("vs-input", {
             staticClass: "w-1/3",
@@ -3825,7 +3959,11 @@ var render = function() {
                   },
                   on: { click: _vm.storeShift }
                 },
+<<<<<<< HEAD
                 [_vm._v("\n            បន្ថែម\n        ")]
+=======
+                [_vm._v("សេវាកម្ម\n        ")]
+>>>>>>> b20bbe6ed60a7abfdef93932e9d48f8052b8ac44
               )
             : _vm._e()
         ],

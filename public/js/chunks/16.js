@@ -246,6 +246,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   \******************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
+<<<<<<< HEAD
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -401,6 +402,180 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         headerName: 'ថ្ងៃត្រូវបង់លុយ',
         field: 'date_pay'
+=======
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _student_addStudyInfo__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../student/addStudyInfo */ "./resources/js/src/views/student/addStudyInfo.vue");
+/* harmony import */ var _student_changeStudyInfo__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../student/changeStudyInfo */ "./resources/js/src/views/student/changeStudyInfo.vue");
+/* harmony import */ var ag_grid_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ag-grid-vue */ "./node_modules/ag-grid-vue/main.js");
+/* harmony import */ var ag_grid_vue__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(ag_grid_vue__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _sass_vuexy_extraComponents_agGridStyleOverride_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @sass/vuexy/extraComponents/agGridStyleOverride.scss */ "./resources/sass/vuexy/extraComponents/agGridStyleOverride.scss");
+/* harmony import */ var _sass_vuexy_extraComponents_agGridStyleOverride_scss__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_sass_vuexy_extraComponents_agGridStyleOverride_scss__WEBPACK_IMPORTED_MODULE_3__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "StudyYear",
+  components: {
+    ChangeStudyInfo: _student_changeStudyInfo__WEBPACK_IMPORTED_MODULE_1__["default"],
+    AddStudyInfo: _student_addStudyInfo__WEBPACK_IMPORTED_MODULE_0__["default"],
+    AgGridVue: ag_grid_vue__WEBPACK_IMPORTED_MODULE_2__["AgGridVue"]
+  },
+  data: function data() {
+    return {
+      selected: [],
+      gridApi: null,
+      columnDefs: [{
+        headerName: 'ឆ្នាំសិក្សា',
+        field: 'year',
+        checkboxSelection: true,
+        pinned: true
+      }, {
+        headerName: 'ឈ្មោះសិស្ស',
+        field: 'name'
+      }, {
+        headerName: 'ឈ្មោះឡាតាំ',
+        field: 'latin'
+      }, {
+        headerName: 'ភេទ',
+        field: 'gender'
+      }, {
+        headerName: 'ថ្ងៃខែឆ្នាំកំណើត',
+        field: 'dob'
+      }, {
+        headerName: 'កំពុងរៀនថ្នាក់ទី',
+        field: 'class_name'
+      }, {
+        headerName: 'ពេលសិក្សា',
+        field: 'shift'
+      }, {
+        headerName: 'ថ្ងៃត្រូវបង់លុយ',
+        field: 'date_pay'
+      }, {
+        headerName: 'ថ្ងៃត្រូវបង់លុយ',
+        field: 'day_left',
+        cellRenderer: function cellRenderer(params) {
+          var day_left;
+
+          if (params.data.day_left < 0) {
+            day_left = "<span class=\"text-danger\"><b>".concat(params.data.day_left, "</b></span>");
+          } else if (params.data.day_left < 5) {
+            day_left = "<span class=\"text-warning\"><b>".concat(params.data.day_left, "</b></span>");
+          } else {
+            day_left = "<span class=\"text-success\"><b>".concat(params.data.day_left, "</b></span>");
+          }
+
+          return day_left;
+        }
+>>>>>>> b20bbe6ed60a7abfdef93932e9d48f8052b8ac44
       }],
       defaultColDef: {
         sortable: true,
@@ -422,7 +597,14 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.getters.get_study_infos;
     },
     study_info_extract: function study_info_extract() {
+<<<<<<< HEAD
       return this.getStudyInfos.map(function (data) {
+=======
+      var self = this;
+      return this.getStudyInfos.map(function (data) {
+        var to_day = self.moment();
+        var day_pay = self.moment(data.date_pay);
+>>>>>>> b20bbe6ed60a7abfdef93932e9d48f8052b8ac44
         return {
           study_info_id: data.id,
           id: data.students.id,
@@ -437,7 +619,12 @@ __webpack_require__.r(__webpack_exports__);
           date_pay: data.date_pay,
           last_date_pay: data.last_date_pay,
           last_term: data.last_term,
+<<<<<<< HEAD
           to_class: data.to_class
+=======
+          to_class: data.to_class,
+          day_left: day_pay.diff(to_day, 'days')
+>>>>>>> b20bbe6ed60a7abfdef93932e9d48f8052b8ac44
         };
       });
     }
@@ -881,6 +1068,11 @@ var render = function() {
         }
       }),
       _vm._v(" "),
+<<<<<<< HEAD
+=======
+      _c("pre", [_vm._v(_vm._s(_vm.selected))]),
+      _vm._v(" "),
+>>>>>>> b20bbe6ed60a7abfdef93932e9d48f8052b8ac44
       _c("add-study-info", {
         ref: "addStudyInfo",
         on: {
@@ -984,6 +1176,7 @@ __webpack_require__.r(__webpack_exports__);
   \*********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
+<<<<<<< HEAD
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -995,6 +1188,60 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _StudyYear_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _StudyYear_vue_vue_type_template_id_9e20e27c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _StudyYear_vue_vue_type_template_id_9e20e27c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "9e20e27c",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/src/views/study-year/StudyYear.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/src/views/study-year/StudyYear.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/src/views/study-year/StudyYear.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+=======
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _StudyYear_vue_vue_type_template_id_9e20e27c_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./StudyYear.vue?vue&type=template&id=9e20e27c&scoped=true& */ "./resources/js/src/views/study-year/StudyYear.vue?vue&type=template&id=9e20e27c&scoped=true&");
+/* harmony import */ var _StudyYear_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./StudyYear.vue?vue&type=script&lang=js& */ "./resources/js/src/views/study-year/StudyYear.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+>>>>>>> b20bbe6ed60a7abfdef93932e9d48f8052b8ac44
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_StudyYear_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./StudyYear.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/study-year/StudyYear.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_StudyYear_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+<<<<<<< HEAD
+/***/ }),
+
+/***/ "./resources/js/src/views/study-year/StudyYear.vue?vue&type=template&id=9e20e27c&scoped=true&":
+/*!****************************************************************************************************!*\
+  !*** ./resources/js/src/views/study-year/StudyYear.vue?vue&type=template&id=9e20e27c&scoped=true& ***!
+  \****************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+=======
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
@@ -1036,6 +1283,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+>>>>>>> b20bbe6ed60a7abfdef93932e9d48f8052b8ac44
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_StudyYear_vue_vue_type_template_id_9e20e27c_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./StudyYear.vue?vue&type=template&id=9e20e27c&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/study-year/StudyYear.vue?vue&type=template&id=9e20e27c&scoped=true&");

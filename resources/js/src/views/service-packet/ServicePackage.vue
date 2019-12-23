@@ -25,7 +25,7 @@
             </vs-col>
         </vs-row>
         <vs-divider/>
-        <vs-table multiple v-model="selected" pagination max-items="5" search :data="service_info_extract">
+        <!--<vs-table multiple v-model="selected" pagination max-items="5" search :data="service_info_extract">
 
             <template slot="thead">
                 <vs-th sort-key="year">ឆ្នាំសិក្សា</vs-th>
@@ -78,7 +78,20 @@
                     </vs-td>
                 </vs-tr>
             </template>
-        </vs-table>
+        </vs-table>-->
+
+        <ag-grid-vue class="ag-theme-material w-100 my-4 ag-grid-table"
+                     :columnDefs="columnDefs"
+                     :defaultColDef="defaultColDef"
+                     rowSelection="multiple"
+                     @grid-ready="onGridReady"
+                     @selection-changed="onSelectionChanged"
+                     :pagination="true"
+                     :paginationPageSize="100"
+                     :animateRows="true"
+                     :rowData="service_info_extract">
+        </ag-grid-vue>
+
         <add-service-info ref="addServiceInfo"></add-service-info>
 
         <modal width="500" height="auto" :scrollable="true" :pivotY="0.2" :adaptive="true" :clickToClose="false" name="stopService">
@@ -104,15 +117,45 @@
     import AddServiceInfo from "../student/addServiceInfo";
     import flatPickr from 'vue-flatpickr-component'
     import 'flatpickr/dist/flatpickr.min.css';
+    import {AgGridVue} from "ag-grid-vue";
+    import '@sass/vuexy/extraComponents/agGridStyleOverride.scss'
     export default {
         name: "ServiceInfo",
         components: {
-            AddServiceInfo, flatPickr
+            AddServiceInfo, flatPickr, AgGridVue
         },
         data() {
             return {
                 users: [],
                 selected: [],
+                gridApi: null,
+                columnDefs: [
+                    { headerName: 'ឆ្នាំសិក្សា', field: 'year', checkboxSelection: true, pinned: true },
+                    { headerName: 'ឈ្មោះសិស្ស', field: 'name', },
+                    { headerName: 'ឈ្មោះឡាតាំ', field: 'latin', },
+                    { headerName: 'ភេទ', field: 'gender', },
+                    { headerName: 'ថ្ងៃខែឆ្នាំកំណើត', field: 'dob', },
+                    { headerName: 'កំពុងប្រើប្រាស់សេវាកម្ម', field: 'service', },
+                    { headerName: 'ថ្ងៃត្រូវបង់លុយ', field: 'date_pay', },
+                    {
+                        headerName: 'ស្ថានភាព',
+                        field: 'is_used',
+                        cellRenderer:function (params) {
+                            var is_used;
+                            if(params.data.is_used === 'នៅប្រើ'){
+                                is_used = `<span class="text-success">${params.data.is_used }</span>`
+                            } else {
+                                is_used = `<span class="text-danger">${params.data.is_used }</span>`
+                            }
+                            return is_used;
+                        }
+                    }
+                ],
+                defaultColDef: {
+                    sortable: true,
+                    resizable: true,
+                    filter: true,
+                },
                 service_info_extract: [],
                 new_last_date_pay: null,
             }
@@ -144,6 +187,12 @@
             });
         },
         methods: {
+            onGridReady(params) {
+                this.gridApi = params.api;
+            },
+            onSelectionChanged() {
+                this.selected = this.gridApi.getSelectedRows();
+            },
             async updateServiceInfo(){
                 if(this.new_last_date_pay !== null){
                     let self = this;

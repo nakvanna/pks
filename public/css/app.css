@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 @import url(https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700);/*=========================================================================================
+=======
+@import url(https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700);/* (ignored) *//* (ignored) *//* (ignored) *//*=========================================================================================
+>>>>>>> b20bbe6ed60a7abfdef93932e9d48f8052b8ac44
   File Name: app.scss
   Description: Write your custom scss
   ----------------------------------------------------------------------------------------
@@ -4191,6 +4195,7 @@ ul.bordered-items > li:not(:last-of-type):not([class*='shadow']) {
   border-radius: 0 !important;
 }
 
+<<<<<<< HEAD
 @media print {
   .mb-3 {
     margin-bottom: 3px;
@@ -4233,6 +4238,8 @@ td.custom {
   padding: 10px;
 }
 
+=======
+>>>>>>> b20bbe6ed60a7abfdef93932e9d48f8052b8ac44
 /*=========================================================================================
   File Name: _fixesVuesax.scss
   Description: Partial - Fixes/Add vuesax framework styles
@@ -4872,4 +4879,7 @@ button:focus {
   padding-top: 41.66666666666667% !important;
 }
 
+<<<<<<< HEAD
 /* (ignored) *//* (ignored) *//* (ignored) */
+=======
+>>>>>>> b20bbe6ed60a7abfdef93932e9d48f8052b8ac44
