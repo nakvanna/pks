@@ -32,59 +32,6 @@
             </vs-col>
         </vs-row>
         <vs-divider/>
-        <!--<vs-table multiple v-model="selected" pagination max-items="5" search :data="study_info_extract">
-
-            <template slot="thead">
-                <vs-th sort-key="year">ឆ្នាំសិក្សា</vs-th>
-                <vs-th sort-key="name">ឈ្មោះសិស្ស</vs-th>
-                <vs-th sort-key="latin">ឈ្មោះឡាតាំ</vs-th>
-                <vs-th sort-key="gender">ភេទ</vs-th>
-                <vs-th sort-key="dob">ថ្ងៃខែឆ្នាំកំណើត</vs-th>
-                <vs-th sort-key="class_name">កំពុងរៀនថ្នាក់ទី</vs-th>
-                <vs-th sort-key="shift">ពេលសិក្សា</vs-th>
-                <vs-th sort-key="date_pay">ថ្ងៃត្រូវបង់លុយ</vs-th>
-            </template>
-
-            <template slot-scope="{data}">
-                <vs-tr :data="item" :key="index" v-for="(item, index) in data" v-if="item.to_class === null">
-
-                    <vs-td :data="item.year">
-                        {{ item.year }}
-                    </vs-td>
-
-                    <vs-td :data="item.name">
-                        {{ item.name }}
-                    </vs-td>
-
-                    <vs-td :data="item.latin">
-                        {{ item.latin }}
-                    </vs-td>
-
-                    <vs-td :data="item.gender">
-                        {{ item.gender}}
-                    </vs-td>
-
-                    <vs-td :data="item.dob">
-                        {{ item.dob}}
-                    </vs-td>
-
-                    <vs-td :data="item.class_name">
-                        {{ item.class_name }}
-                    </vs-td>
-
-                    <vs-td :data="item.shift">
-                        {{ item.shift }}
-                    </vs-td>
-
-                    <vs-td v-if="item.date_pay !== null" :data="item.date_pay">
-                        {{ item.date_pay.substr(0, 10) }}
-                    </vs-td>
-                    <vs-td v-else :data="item.date_pay">
-                        មិនបានកំណត់
-                    </vs-td>
-                </vs-tr>
-            </template>
-        </vs-table>-->
 
         <ag-grid-vue class="ag-theme-material w-100 my-4 ag-grid-table"
                      :columnDefs="columnDefs"
@@ -97,6 +44,7 @@
                      :animateRows="true"
                      :rowData="study_info_extract">
         </ag-grid-vue>
+        <pre>{{selected}}</pre>
 
         <add-study-info @finished="selected=[]" ref="addStudyInfo"></add-study-info>
         <change-study-info @finished="selected=[]" ref="changeStudyInfo"></change-study-info>
@@ -127,6 +75,21 @@
                     { headerName: 'កំពុងរៀនថ្នាក់ទី', field: 'class_name', },
                     { headerName: 'ពេលសិក្សា', field: 'shift', },
                     { headerName: 'ថ្ងៃត្រូវបង់លុយ', field: 'date_pay', },
+                    {
+                        headerName: 'ថ្ងៃត្រូវបង់លុយ',
+                        field: 'day_left',
+                        cellRenderer:function (params) {
+                            var day_left;
+                            if(params.data.day_left < 0){
+                                day_left = `<span class="text-danger"><b>${params.data.day_left}</b></span>`
+                            } else if (params.data.day_left < 5) {
+                                day_left = `<span class="text-warning"><b>${params.data.day_left}</b></span>`
+                            } else {
+                                day_left = `<span class="text-success"><b>${params.data.day_left}</b></span>`
+                            }
+                            return day_left;
+                        }
+                    }
                 ],
                 defaultColDef: {
                     sortable: true,
@@ -148,7 +111,10 @@
                 return this.$store.getters.get_study_infos
             },
             study_info_extract(){
+                let self = this;
                 return this.getStudyInfos.map(function (data) {
+                    var to_day = self.moment();
+                    var day_pay = self.moment(data.date_pay);
                     return{
                         study_info_id   : data.id,
                         id         : data.students.id,
@@ -164,18 +130,13 @@
                         last_date_pay   : data.last_date_pay,
                         last_term  : data.last_term,
                         to_class   : data.to_class,
+                        day_left   : day_pay.diff(to_day, 'days'),
                     }
                 });
             }
         },
-        created() {
-            if(!this.getStudyInfos.length){
-                let self = this;
-                self.$vs.loading();
-                this.$store.dispatch('fetchStudyInfos').then(() => {
-                    self.$vs.loading.close();
-                });
-            }
+        async created() {
+            await this.$store.dispatch('fetchStudyInfos');
         }
     }
 </script>

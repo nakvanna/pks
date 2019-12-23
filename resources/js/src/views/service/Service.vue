@@ -63,56 +63,18 @@
             </vs-col>
         </vs-row>
         <vs-divider/>
-        <vs-table multiple v-model="selected" pagination max-items="5" search :data="getService">
 
-            <template slot="thead">
-                <vs-th sort-key="year">ឆ្នាំសិក្សា</vs-th>
-                <vs-th sort-key="type">ប្រភេទ</vs-th>
-                <vs-th sort-key="service">Service</vs-th>
-                <vs-th sort-key="cost_one">តម្លៃ​ ១ខែ</vs-th>
-                <vs-th sort-key="cost_three">តម្លៃ​ ១ត្រីមាស</vs-th>
-                <vs-th sort-key="cost_six">តម្លៃ ១ឆមាស</vs-th>
-                <vs-th sort-key="cost_twelve">តម្លៃ​ ១ឆ្នាំ</vs-th>
-                <vs-th sort-key="employee_name">អ្នកទទួលបន្ទុក</vs-th>
-            </template>
-
-            <template slot-scope="{data}">
-                <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in data">
-
-                    <vs-td :data="data[indextr].year">
-                        {{ data[indextr].year }}
-                    </vs-td>
-
-                    <vs-td :data="data[indextr].type">
-                        {{ data[indextr].type }}
-                    </vs-td>
-
-                    <vs-td :data="data[indextr].service">
-                        {{ data[indextr].service }}
-                    </vs-td>
-
-                    <vs-td :data="data[indextr].cost_one">
-                        $ {{ data[indextr].cost_one }}
-                    </vs-td>
-
-                    <vs-td :data="data[indextr].cost_three">
-                        $ {{ data[indextr].cost_three }}
-                    </vs-td>
-
-                    <vs-td :data="data[indextr].cost_six">
-                        $ {{ data[indextr].cost_six }}
-                    </vs-td>
-
-                    <vs-td :data="data[indextr].cost_twelve">
-                        $ {{ data[indextr].cost_twelve }}
-                    </vs-td>
-
-                    <vs-td :data="data[indextr].employee_name">
-                        {{ data[indextr].employee_name }}
-                    </vs-td>
-                </vs-tr>
-            </template>
-        </vs-table>
+        <ag-grid-vue class="ag-theme-material w-100 my-4 ag-grid-table"
+                     :columnDefs="columnDefs"
+                     :defaultColDef="defaultColDef"
+                     rowSelection="multiple"
+                     @grid-ready="onGridReady"
+                     @selection-changed="onSelectionChanged"
+                     :pagination="true"
+                     :paginationPageSize="100"
+                     :animateRows="true"
+                     :rowData="getService">
+        </ag-grid-vue>
 
         <vs-row vs-type="flex" vs-justify="flex-end">
             <vs-col vs-type="flex" vs-justify="flex-end">
@@ -146,15 +108,33 @@
 </template>
 <script>
     import UpgradeService from './UpgradeService'
+    import {AgGridVue} from "ag-grid-vue";
+    import '@sass/vuexy/extraComponents/agGridStyleOverride.scss'
     export default {
         components: {
-            UpgradeService
+            UpgradeService, AgGridVue
         },
         name:'Service',
         data() {
             return {
                 users: [],
                 selected: [],
+                gridApi: null,
+                columnDefs: [
+                    { headerName: 'ឆ្នាំសិក្សា', field: 'year', checkboxSelection: true, pinned: true },
+                    { headerName: 'ប្រភេទ', field: 'type', },
+                    { headerName: 'Service', field: 'service', },
+                    { headerName: 'តម្លៃ​ ១ខែ', field: 'cost_one', },
+                    { headerName: 'តម្លៃ​ ១ត្រីមាស', field: 'cost_three', },
+                    { headerName: 'តម្លៃ ១ឆមាស', field: 'cost_six', },
+                    { headerName: 'តម្លៃ​ ១ឆ្នាំ', field: 'cost_twelve', },
+                    { headerName: 'អ្នកទទួលបន្ទុក', field: 'employee_name', },
+                ],
+                defaultColDef: {
+                    sortable: true,
+                    resizable: true,
+                    filter: true,
+                },
                 is_update: false,
                 services: {
                     id         : '',
@@ -188,6 +168,12 @@
             await this.$store.dispatch('fetchEmployees');
         },
         methods: {
+            onGridReady(params) {
+                this.gridApi = params.api;
+            },
+            onSelectionChanged() {
+                this.selected = this.gridApi.getSelectedRows();
+            },
             storeService(){
                 let self = this;
                 let vm = this.services;
