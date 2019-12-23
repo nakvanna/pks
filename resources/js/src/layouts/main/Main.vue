@@ -222,19 +222,12 @@
                 self.$store.dispatch('fetchStudent'),
                 self.$store.dispatch('fetchEmployees'),
                 self.$store.dispatch('fetchServices'),
-                self.$store.dispatch('fetchYears'),
-                self.$store.dispatch('fetchEmployees'),
                 self.$store.dispatch('fetchPosition'),
                 self.$store.dispatch('fetchDegreeNote'),
                 self.$store.dispatch('fetchStudyInfos'),
                 self.$store.dispatch('fetchServiceInfos'),
-                self.$store.dispatch('fetchStudyInfos'),
-                self.$store.dispatch('fetchYears'),
-                self.$store.dispatch('fetchCollections'),
-                self.$store.dispatch('fetchYears'),
-                self.$store.dispatch('fetchCollections'),
-                self.$store.dispatch('fetchServiceInfos'),
-                self.$store.dispatch('fetchStudyInfos'),
+                self.$store.dispatch('fetchInvoices'),
+                self.$store.dispatch('fetchCurYear'),
             ]).then(function () {
                 self.$vs.loading.close();
             })
