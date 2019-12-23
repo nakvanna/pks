@@ -32,7 +32,7 @@
             </vs-col>
         </vs-row>
         <vs-divider/>
-        <vs-table multiple v-model="selected" pagination max-items="5" search :data="study_info_extract">
+        <!--<vs-table multiple v-model="selected" pagination max-items="5" search :data="study_info_extract">
 
             <template slot="thead">
                 <vs-th sort-key="year">ឆ្នាំសិក្សា</vs-th>
@@ -84,7 +84,20 @@
                     </vs-td>
                 </vs-tr>
             </template>
-        </vs-table>
+        </vs-table>-->
+
+        <ag-grid-vue class="ag-theme-material w-100 my-4 ag-grid-table"
+                     :columnDefs="columnDefs"
+                     :defaultColDef="defaultColDef"
+                     rowSelection="multiple"
+                     @grid-ready="onGridReady"
+                     @selection-changed="onSelectionChanged"
+                     :pagination="true"
+                     :paginationPageSize="100"
+                     :animateRows="true"
+                     :rowData="study_info_extract">
+        </ag-grid-vue>
+
         <add-study-info @finished="selected=[]" ref="addStudyInfo"></add-study-info>
         <change-study-info @finished="selected=[]" ref="changeStudyInfo"></change-study-info>
     </vx-card>
@@ -93,15 +106,41 @@
 <script>
     import AddStudyInfo from "../student/addStudyInfo";
     import ChangeStudyInfo from "../student/changeStudyInfo";
+    import {AgGridVue} from "ag-grid-vue";
+    import '@sass/vuexy/extraComponents/agGridStyleOverride.scss'
     export default {
         name: "StudyYear",
         components: {
             ChangeStudyInfo,
-            AddStudyInfo
+            AddStudyInfo, AgGridVue
         },
         data() {
             return {
                 selected: [],
+                gridApi: null,
+                columnDefs: [
+                    { headerName: 'ឆ្នាំសិក្សា', field: 'year', checkboxSelection: true, pinned: true },
+                    { headerName: 'ឈ្មោះសិស្ស', field: 'name', },
+                    { headerName: 'ឈ្មោះឡាតាំ', field: 'latin', },
+                    { headerName: 'ភេទ', field: 'gender', },
+                    { headerName: 'ថ្ងៃខែឆ្នាំកំណើត', field: 'dob', },
+                    { headerName: 'កំពុងរៀនថ្នាក់ទី', field: 'class_name', },
+                    { headerName: 'ពេលសិក្សា', field: 'shift', },
+                    { headerName: 'ថ្ងៃត្រូវបង់លុយ', field: 'date_pay', },
+                ],
+                defaultColDef: {
+                    sortable: true,
+                    resizable: true,
+                    filter: true,
+                },
+            }
+        },
+        methods: {
+            onGridReady(params) {
+                this.gridApi = params.api;
+            },
+            onSelectionChanged() {
+                this.selected = this.gridApi.getSelectedRows();
             }
         },
         computed: {

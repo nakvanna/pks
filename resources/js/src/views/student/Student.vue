@@ -2,45 +2,23 @@
     <vx-card no-shadow>
         <div class="flex btn-group">
             <vs-button @click="$refs.addStudent.show()" type="relief" icon-pack="feather" icon="icon-plus-square">បន្ថែម</vs-button>
+            <vs-button color="success" :disabled="selected.length<=0" @click="gridApi.deselectAll()" type="relief" icon-pack="feather" icon="icon-check-square">Clear</vs-button>
             <vs-button v-if="selected.length===1" @click="$refs.editStudent.show(); $refs.editStudent.editStudent(selected[0])" color="warning" type="relief" icon-pack="feather" icon="icon-edit">កែប្រែ</vs-button>
             <vs-button v-if="selected.length" @click="toggleStudent" color="danger" type="relief" icon-pack="feather" icon="icon-circle">Toggle Status</vs-button>
             <vs-button v-if="selected.length" @click="$refs.addStudyInfo.show(selected)" type="relief" icon-pack="feather" icon="icon-upload">ការសិក្សា</vs-button>
             <vs-button v-if="selected.length" @click="$refs.addServiceInfo.show(selected, true)" color="dark" type="relief" icon-pack="feather" icon="icon-upload">សេវាកម្ម</vs-button>
         </div>
-        <vs-table multiple v-model="selected" pagination max-items="100" search :data="all_students">
-            <template slot="thead">
-                <vs-th sort-key="id">ល.រ</vs-th>
-                <vs-th sort-key="name">ឈ្មោះ</vs-th>
-                <vs-th sort-key="latin">ឈ្មោះឡាតាំង</vs-th>
-                <vs-th sort-key="status">ស្ថានភាព</vs-th>
-                <vs-th sort-key="temp_grade">ថ្នាក់បណ្តុះអាសន្ន</vs-th>
-                <vs-th sort-key="created_at">កាលបរិច្ឆេទ</vs-th>
-            </template>
-            <template slot-scope="{data}">
-                <vs-tr :data="item" :key="index" v-for="(item, index) in data">
-                    <vs-td :data="item.id">
-                        {{ item.id }}
-                    </vs-td>
-                    <vs-td :data="item.name">
-                        {{ item.name }}
-                    </vs-td>
-                    <vs-td :data="item.latin">
-                        {{ item.latin }}
-                    </vs-td>
-                    <vs-td :data="item.status">
-                        <vs-chip v-if="item.status===true" color="success">Active</vs-chip>
-                        <vs-chip v-if="item.status===false" color="warning">Inactive</vs-chip>
-                    </vs-td>
-                    <vs-td :data="item.temp_grade">
-                        {{ item.temp_grade }}
-                    </vs-td>
-                    <vs-td :data="item.created_at">
-                        {{ item.created_at }}
-                    </vs-td>
-
-                </vs-tr>
-            </template>
-        </vs-table>
+        <ag-grid-vue style="height: 900px;" class="ag-theme-material w-100 my-4 ag-grid-table"
+                     :columnDefs="columnDefs"
+                     :defaultColDef="defaultColDef"
+                     rowSelection="multiple"
+                     @grid-ready="onGridReady"
+                     @selection-changed="onSelectionChanged"
+                     :pagination="true"
+                     :paginationPageSize="150"
+                     :animateRows="true"
+                     :rowData="all_students">
+        </ag-grid-vue>
         <add-student ref="addStudent"></add-student>
         <edit-student @finished="selected = []" ref="editStudent"></edit-student>
         <add-study-info @finished="selected = []" ref="addStudyInfo"></add-study-info>
@@ -49,16 +27,36 @@
 </template>
 
 <script>
+    //ag-grid
+    import {AgGridVue} from "ag-grid-vue";
+    import '@sass/vuexy/extraComponents/agGridStyleOverride.scss'
     import AddStudent from "./addStudent";
     import EditStudent from "./editStudent";
     import AddStudyInfo from "./addStudyInfo";
     import AddServiceInfo from "./addServiceInfo";
     export default {
         name: "Student",
-        components: {AddServiceInfo, AddStudyInfo, EditStudent, AddStudent},
+        components: {AddServiceInfo, AddStudyInfo, EditStudent, AddStudent, AgGridVue},
         data(){
             return{
-                selected:[]
+                selected:[],
+                gridApi: null,
+                columnDefs: [
+                    {headerName: 'ល.រ', field: 'id', checkboxSelection: true},
+                    {headerName: 'ឈ្មោះ', field: 'name',},
+                    {headerName: 'ឈ្មោះឡាតាំង', field: 'latin'},
+                    {headerName: 'ថ្ងៃខែឆ្នាំកំណើត', field: 'dob'},
+                    {headerName: 'ទំនាក់ទំនង', field: 'std_contact'},
+                    {headerName: 'អាស័យដ្ឋានបច្ចុប្បន្ន', field: 'address'},
+                    {headerName: 'ស្ថានភាព', field: 'status'},
+                    {headerName: 'ថ្នាក់បណ្តុះអាសន្ន', field: 'temp_grade'},
+                    {headerName: 'កាលបរិច្ឆេទ', field: 'created_at'},
+                ],
+                defaultColDef: {
+                    sortable: true,
+                    resizable: true,
+                    filter: true,
+                }
             }
         },
         computed:{
@@ -70,6 +68,12 @@
             this.fetchStudent();
         },
         methods:{
+            onGridReady(params) {
+                this.gridApi = params.api;
+            },
+            onSelectionChanged() {
+                this.selected = this.gridApi.getSelectedRows();
+            },
             //fetch
             async fetchStudent(){
               await this.$store.dispatch('fetchStudent')
