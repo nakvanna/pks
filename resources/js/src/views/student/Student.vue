@@ -51,15 +51,9 @@
     export default {
         name: "Student",
         components: {AddServiceInfo, AddStudyInfo, EditStudent, AddStudent, AgGridVue},
-<<<<<<< HEAD
-        data() {
-            return {
-                selected: [],
-=======
         data(){
             return{
                 selected:[],
->>>>>>> 66caef52ba6a4049ead7aa5ec5d2c21ede67acb8
                 gridApi: null,
                 columnDefs: [
                     {headerName: 'ល.រ', field: 'id', checkboxSelection: true},
