@@ -21,7 +21,7 @@
         </ag-grid-vue>
         <add-student ref="addStudent"></add-student>
         <edit-student @finished="selected = []" ref="editStudent"></edit-student>
-        <add-study-info @finished="selected = []" ref="addStudyInfo"></add-study-info>
+        <add-study-info @finished="selected = [];gridApi.deselectAll()" ref="addStudyInfo"></add-study-info>
         <add-service-info ref="addServiceInfo"></add-service-info>
     </vx-card>
 </template>
@@ -64,8 +64,10 @@
                 return this.$store.getters.all_students
             }
         },
-        created(){
-            this.fetchStudent();
+        async created(){
+            if (!this.all_students.length){
+                await this.fetchStudent();
+            }
         },
         methods:{
             onGridReady(params) {

@@ -93,7 +93,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       checked: false,
       data: {
         year: {
-          name: '2020-2021',
+          name: '2019-2020',
           id: null
         },
         date_pay: null,
@@ -205,6 +205,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                           position: 'top-center'
                         });
                         self.$emit('finished');
+                        self.$modal.hide('add-study-info');
                       } else {
                         self.$vs.notify({
                           title: 'ប្រតិបត្តិការបរាជ័យ',

@@ -71,7 +71,7 @@
             return {
                 checked: false,
                 data: {
-                    year: {name: '2020-2021', id: null},
+                    year: {name: '2019-2020', id: null},
                     date_pay: null,
                     last_date_pay: null,
                     study_infos: [{collection_id: null}],
@@ -142,6 +142,7 @@
                                     position: 'top-center'
                                 });
                                 self.$emit('finished');
+                                self.$modal.hide('add-study-info');
                             } else {
                                 self.$vs.notify({
                                     title: 'ប្រតិបត្តិការបរាជ័យ',
