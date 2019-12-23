@@ -10,7 +10,7 @@ const getters = {
 const actions = {
     async fetchStudent({commit}){
         try {
-            const res = await axios.get(route('student.index'));
+            const res = await axios.post(route('student.json'));
             commit('SET_STUDENT',res.data)
         }catch (e) {
             return false

@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 class StudentController extends Controller
 {
     //index
+    public function json(){
+        return Student::latest('created_at')->get();
+    }
+    //index
     public function index(){
         return Student::orderBy('id','desc')->get();
     }
