@@ -131,9 +131,9 @@
                 printJS(image, 'image')*/
                 printJS({printable: 'section-to-print', type: 'html',css:[
                     'https://fonts.googleapis.com/css?family=Battambang&display=swap',
-                        'http://localhost:3000/css/main.css',
-                        'http://localhost:3000/css/vuesax.css',
-                        'http://localhost:3000/css/app.css'
+                        'https://pks.dev.siqware.app/css/main.css',
+                        'https://pks.dev.siqware.app/css/vuesax.css',
+                        'https://pks.dev.siqware.app/css/app.css'
                     ]})
             },
         },
