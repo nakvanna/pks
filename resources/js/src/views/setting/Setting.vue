@@ -73,23 +73,6 @@
             Year,
         },
         name:'Setting',
-        async created() {
-            let self = this;
-            self.$vs.loading({
-                type:'material',
-            });
-            await Promise.all([
-                self.$store.dispatch('fetchGroupSections'),
-                self.$store.dispatch('fetchSections'),
-                self.$store.dispatch('fetchLevels'),
-                self.$store.dispatch('fetchShifts'),
-                self.$store.dispatch('fetchStudyClasses'),
-                self.$store.dispatch('fetchCollections'),
-                self.$store.dispatch('fetchYears'),
-            ]).then(function () {
-                self.$vs.loading.close();
-            })
-        },
         computed: {
             isSmallerScreen() {
                 return this.$store.state.windowWidth < 768

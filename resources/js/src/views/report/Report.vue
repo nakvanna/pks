@@ -55,9 +55,6 @@
             StudentStudyYear, StudentUseService
         },
         name:'Setting',
-        async created() {
-
-        },
         computed: {
             isSmallerScreen() {
                 return this.$store.state.windowWidth < 768

@@ -78,23 +78,12 @@
                 return this.$store.getters.all_students
             }
         },
-        created() {
-            this.fetchStudent();
-        },
         methods: {
             onGridReady(params) {
                 this.gridApi = params.api;
             },
             onSelectionChanged() {
                 this.selected = this.gridApi.getSelectedRows();
-            },
-            //fetch
-            fetchStudent() {
-                let self = this;
-                self.$vs.loading();
-                self.$store.dispatch('fetchStudent').then(function () {
-                    self.$vs.loading.close();
-                })
             },
             //destroy
             async toggleStudent() {

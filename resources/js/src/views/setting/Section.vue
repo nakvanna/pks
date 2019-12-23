@@ -57,9 +57,6 @@
                 return this.$store.getters.get_sections
             }
         },
-        async created() {
-            // await this.$store.dispatch('fetchSections');
-        },
          methods: {
              storeSection(){
                  let self = this;

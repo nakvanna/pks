@@ -100,10 +100,6 @@
                 });
             }
         },
-        async created() {
-            await this.$store.dispatch('fetchYears'); /*Fetch year*/
-            await this.$store.dispatch('fetchCollections'); /*Fetch collection (study info)*/
-        },
         methods: {
             show(data) {
                 let self = this;

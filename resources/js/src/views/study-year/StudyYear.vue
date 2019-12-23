@@ -135,18 +135,6 @@
                 });
             }
         },
-<<<<<<< HEAD
-        created() {
-            let self = this;
-            self.$vs.loading();
-            this.$store.dispatch('fetchStudyInfos').then(() => {
-                self.$vs.loading.close();
-            });
-=======
-        async created() {
-            await this.$store.dispatch('fetchStudyInfos');
->>>>>>> b20bbe6ed60a7abfdef93932e9d48f8052b8ac44
-        }
     }
 </script>
 

@@ -58,9 +58,6 @@
                 return this.$store.getters.get_study_classes
             }
         },
-        async created() {
-            // await this.$store.dispatch('fetchStudyClasses');
-        },
         methods: {
             storeStudyClass(){
                 let self = this;

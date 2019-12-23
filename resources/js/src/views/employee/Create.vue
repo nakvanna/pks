@@ -245,10 +245,6 @@
                 return this.$store.getters.get_degree_notes
             }
         },
-        async created() {
-            await this.$store.dispatch('fetchPosition');
-            await this.$store.dispatch('fetchDegreeNote');
-        },
         methods: {
             showCreatePopup(selected){
                 this.is_update = true;

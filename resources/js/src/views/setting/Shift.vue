@@ -94,9 +94,6 @@
                 return this.$store.getters.get_shifts
             }
         },
-        async created() {
-            // await this.$store.dispatch('fetchShifts');
-        },
         methods: {
             storeShift(){
                 let self = this;

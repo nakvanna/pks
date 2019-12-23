@@ -11,7 +11,11 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _UpgradeCollection__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UpgradeCollection */ "./resources/js/src/views/setting/UpgradeCollection.vue");
+/* harmony import */ var ag_grid_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ag-grid-vue */ "./node_modules/ag-grid-vue/main.js");
+/* harmony import */ var ag_grid_vue__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(ag_grid_vue__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _sass_vuexy_extraComponents_agGridStyleOverride_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @sass/vuexy/extraComponents/agGridStyleOverride.scss */ "./resources/sass/vuexy/extraComponents/agGridStyleOverride.scss");
+/* harmony import */ var _sass_vuexy_extraComponents_agGridStyleOverride_scss__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_sass_vuexy_extraComponents_agGridStyleOverride_scss__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _UpgradeCollection__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./UpgradeCollection */ "./resources/js/src/views/setting/UpgradeCollection.vue");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -158,79 +162,76 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+//ag-grid
+
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Collection',
   components: {
-    UpgradeCollection: _UpgradeCollection__WEBPACK_IMPORTED_MODULE_1__["default"]
+    UpgradeCollection: _UpgradeCollection__WEBPACK_IMPORTED_MODULE_3__["default"],
+    AgGridVue: ag_grid_vue__WEBPACK_IMPORTED_MODULE_1__["AgGridVue"]
   },
   data: function data() {
     return {
+      //ag-grid
+      selected: [],
+      gridApi: null,
+      columnDefs: [{
+        headerName: 'ឆ្នាំសិក្សា',
+        field: 'year',
+        pinned: true,
+        checkboxSelection: true
+      }, {
+        headerName: 'ផ្នែកសិក្សា',
+        field: 'group_section'
+      }, {
+        headerName: 'កម្រិតសិក្សា',
+        field: 'section'
+      }, {
+        headerName: 'កម្រិត',
+        field: 'level'
+      }, {
+        headerName: 'ថ្នាក់',
+        field: 'class_name'
+      }, {
+        headerName: 'វេណ',
+        field: 'shift'
+      }, {
+        headerName: 'តម្លៃ ១ខែ',
+        field: 'cost_one'
+      }, {
+        headerName: 'តម្លៃ ១ត្រីមាស',
+        field: 'cost_three'
+      }, {
+        headerName: 'តម្លៃ ១ឆមាស',
+        field: 'cost_six'
+      }, {
+        headerName: 'តម្លៃ ១ឆ្នាំ',
+        field: 'cost_twelve'
+      }, {
+        headerName: 'គ្រូបន្ទុកថ្នាក់',
+        field: 'employee_name'
+      }],
+      defaultColDef: {
+        sortable: true,
+        resizable: true,
+        filter: true
+      },
+      rowData: [{
+        make: 'Toyota',
+        model: 'Celica',
+        price: 35000
+      }, {
+        make: 'Ford',
+        model: 'Mondeo',
+        price: 32000
+      }, {
+        make: 'Porsche',
+        model: 'Boxter',
+        price: 72000
+      }],
+      //end ag-grid
       is_update: false,
       collections: {
         id: '',
@@ -245,9 +246,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         cost_six: '',
         cost_twelve: '',
         employee_id: ''
-      },
-      selected: [],
-      'tableList': ['vs-th: Component', 'vs-tr: Component', 'vs-td: Component', 'thread: Slot', 'tbody: Slot', 'header: Slot']
+      }
     };
   },
   created: function () {
@@ -309,6 +308,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   methods: {
+    onGridReady: function onGridReady(params) {
+      this.gridApi = params.api;
+    },
+    onSelectionChanged: function onSelectionChanged() {
+      this.selected = this.gridApi.getSelectedRows();
+    },
     storeCollection: function storeCollection() {
       var self = this;
       var vm = this.collections;
@@ -357,6 +362,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             position: 'top-center'
           });
           self.clearCollectionForm();
+          self.gridApi.deselectAll();
           self.$vs.loading.close();
         }
       });
@@ -410,6 +416,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     position: 'top-center'
                   });
                   vm.selected = [];
+                  self.gridApi.deselectAll();
                   vm.$vs.loading.close();
                 });
 
@@ -545,27 +552,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return this.$store.getters.get_group_sections;
     }
   },
-  created: function () {
-    var _created = _asyncToGenerator(
-    /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee);
-    }));
-
-    function created() {
-      return _created.apply(this, arguments);
-    }
-
-    return created;
-  }(),
   methods: {
     storeGroupSection: function storeGroupSection() {
       var self = this;
@@ -604,11 +590,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     destroyGroupSection: function () {
       var _destroyGroupSection = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
         var vm, promises;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context3.prev = _context3.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
                 vm = this;
                 this.$vs.loading({
@@ -619,27 +605,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 function () {
                   var _ref = _asyncToGenerator(
                   /*#__PURE__*/
-                  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(data) {
-                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+                  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(data) {
+                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
                       while (1) {
-                        switch (_context2.prev = _context2.next) {
+                        switch (_context.prev = _context.next) {
                           case 0:
-                            _context2.next = 2;
+                            _context.next = 2;
                             return vm.$store.dispatch('destroyGroupSection', data.id);
 
                           case 2:
                           case "end":
-                            return _context2.stop();
+                            return _context.stop();
                         }
                       }
-                    }, _callee2);
+                    }, _callee);
                   }));
 
                   return function (_x) {
                     return _ref.apply(this, arguments);
                   };
                 }());
-                _context3.next = 5;
+                _context2.next = 5;
                 return Promise.all(promises).then(function () {
                   vm.$vs.notify({
                     title: 'ប្រតិបត្តិការណ៍ជោគជ័យ',
@@ -655,10 +641,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 5:
               case "end":
-                return _context3.stop();
+                return _context2.stop();
             }
           }
-        }, _callee3, this);
+        }, _callee2, this);
       }));
 
       function destroyGroupSection() {
@@ -753,27 +739,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return this.$store.getters.get_levels;
     }
   },
-  created: function () {
-    var _created = _asyncToGenerator(
-    /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee);
-    }));
-
-    function created() {
-      return _created.apply(this, arguments);
-    }
-
-    return created;
-  }(),
   methods: {
     storeLevel: function storeLevel() {
       var self = this;
@@ -812,11 +777,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     destroyLevel: function () {
       var _destroyLevel = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
         var vm, promises;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context3.prev = _context3.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
                 vm = this;
                 this.$vs.loading({
@@ -827,27 +792,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 function () {
                   var _ref = _asyncToGenerator(
                   /*#__PURE__*/
-                  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(data) {
-                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+                  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(data) {
+                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
                       while (1) {
-                        switch (_context2.prev = _context2.next) {
+                        switch (_context.prev = _context.next) {
                           case 0:
-                            _context2.next = 2;
+                            _context.next = 2;
                             return vm.$store.dispatch('destroyLevel', data.id);
 
                           case 2:
                           case "end":
-                            return _context2.stop();
+                            return _context.stop();
                         }
                       }
-                    }, _callee2);
+                    }, _callee);
                   }));
 
                   return function (_x) {
                     return _ref.apply(this, arguments);
                   };
                 }());
-                _context3.next = 5;
+                _context2.next = 5;
                 return Promise.all(promises).then(function () {
                   vm.$vs.notify({
                     title: 'ប្រតិបត្តិការណ៍ជោគជ័យ',
@@ -863,10 +828,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 5:
               case "end":
-                return _context3.stop();
+                return _context2.stop();
             }
           }
-        }, _callee3, this);
+        }, _callee2, this);
       }));
 
       function destroyLevel() {
@@ -960,27 +925,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return this.$store.getters.get_sections;
     }
   },
-  created: function () {
-    var _created = _asyncToGenerator(
-    /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee);
-    }));
-
-    function created() {
-      return _created.apply(this, arguments);
-    }
-
-    return created;
-  }(),
   methods: {
     storeSection: function storeSection() {
       var self = this;
@@ -1019,11 +963,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     destroySection: function () {
       var _destroySection = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
         var vm, promises;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context3.prev = _context3.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
                 vm = this;
                 this.$vs.loading({
@@ -1034,27 +978,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 function () {
                   var _ref = _asyncToGenerator(
                   /*#__PURE__*/
-                  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(data) {
-                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+                  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(data) {
+                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
                       while (1) {
-                        switch (_context2.prev = _context2.next) {
+                        switch (_context.prev = _context.next) {
                           case 0:
-                            _context2.next = 2;
+                            _context.next = 2;
                             return vm.$store.dispatch('destroySection', data.id);
 
                           case 2:
                           case "end":
-                            return _context2.stop();
+                            return _context.stop();
                         }
                       }
-                    }, _callee2);
+                    }, _callee);
                   }));
 
                   return function (_x) {
                     return _ref.apply(this, arguments);
                   };
                 }());
-                _context3.next = 5;
+                _context2.next = 5;
                 return Promise.all(promises).then(function () {
                   vm.$vs.notify({
                     title: 'ប្រតិបត្តិការណ៍ជោគជ័យ',
@@ -1070,10 +1014,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 5:
               case "end":
-                return _context3.stop();
+                return _context2.stop();
             }
           }
-        }, _callee3, this);
+        }, _callee2, this);
       }));
 
       function destroySection() {
@@ -1108,21 +1052,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _GroupSection__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./GroupSection */ "./resources/js/src/views/setting/GroupSection.vue");
-/* harmony import */ var _Section__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Section */ "./resources/js/src/views/setting/Section.vue");
-/* harmony import */ var _Level__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Level */ "./resources/js/src/views/setting/Level.vue");
-/* harmony import */ var _StudyClass__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./StudyClass */ "./resources/js/src/views/setting/StudyClass.vue");
-/* harmony import */ var _Shift__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Shift */ "./resources/js/src/views/setting/Shift.vue");
-/* harmony import */ var _Collection__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Collection */ "./resources/js/src/views/setting/Collection.vue");
-/* harmony import */ var _Year__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Year */ "./resources/js/src/views/setting/Year.vue");
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
+/* harmony import */ var _GroupSection__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./GroupSection */ "./resources/js/src/views/setting/GroupSection.vue");
+/* harmony import */ var _Section__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Section */ "./resources/js/src/views/setting/Section.vue");
+/* harmony import */ var _Level__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Level */ "./resources/js/src/views/setting/Level.vue");
+/* harmony import */ var _StudyClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./StudyClass */ "./resources/js/src/views/setting/StudyClass.vue");
+/* harmony import */ var _Shift__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Shift */ "./resources/js/src/views/setting/Shift.vue");
+/* harmony import */ var _Collection__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Collection */ "./resources/js/src/views/setting/Collection.vue");
+/* harmony import */ var _Year__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Year */ "./resources/js/src/views/setting/Year.vue");
 //
 //
 //
@@ -1188,64 +1124,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    GroupSection: _GroupSection__WEBPACK_IMPORTED_MODULE_1__["default"],
-    Section: _Section__WEBPACK_IMPORTED_MODULE_2__["default"],
-    Level: _Level__WEBPACK_IMPORTED_MODULE_3__["default"],
-    StudyClass: _StudyClass__WEBPACK_IMPORTED_MODULE_4__["default"],
-    Shift: _Shift__WEBPACK_IMPORTED_MODULE_5__["default"],
-    Collection: _Collection__WEBPACK_IMPORTED_MODULE_6__["default"],
-    Year: _Year__WEBPACK_IMPORTED_MODULE_7__["default"]
+    GroupSection: _GroupSection__WEBPACK_IMPORTED_MODULE_0__["default"],
+    Section: _Section__WEBPACK_IMPORTED_MODULE_1__["default"],
+    Level: _Level__WEBPACK_IMPORTED_MODULE_2__["default"],
+    StudyClass: _StudyClass__WEBPACK_IMPORTED_MODULE_3__["default"],
+    Shift: _Shift__WEBPACK_IMPORTED_MODULE_4__["default"],
+    Collection: _Collection__WEBPACK_IMPORTED_MODULE_5__["default"],
+    Year: _Year__WEBPACK_IMPORTED_MODULE_6__["default"]
   },
   name: 'Setting',
-  created: function () {
-    var _created = _asyncToGenerator(
-    /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              _context.next = 2;
-              return this.$store.dispatch('fetchGroupSections');
-
-            case 2:
-              _context.next = 4;
-              return this.$store.dispatch('fetchSections');
-
-            case 4:
-              _context.next = 6;
-              return this.$store.dispatch('fetchLevels');
-
-            case 6:
-              _context.next = 8;
-              return this.$store.dispatch('fetchShifts');
-
-            case 8:
-              _context.next = 10;
-              return this.$store.dispatch('fetchStudyClasses');
-
-            case 10:
-              _context.next = 12;
-              return this.$store.dispatch('fetchCollections');
-
-            case 12:
-              _context.next = 14;
-              return this.$store.dispatch('fetchYears');
-
-            case 14:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee, this);
-    }));
-
-    function created() {
-      return _created.apply(this, arguments);
-    }
-
-    return created;
-  }(),
   computed: {
     isSmallerScreen: function isSmallerScreen() {
       return this.$store.state.windowWidth < 768;
@@ -1360,27 +1247,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return this.$store.getters.get_shifts;
     }
   },
-  created: function () {
-    var _created = _asyncToGenerator(
-    /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee);
-    }));
-
-    function created() {
-      return _created.apply(this, arguments);
-    }
-
-    return created;
-  }(),
   methods: {
     storeShift: function storeShift() {
       var self = this;
@@ -1408,11 +1274,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     destroyShift: function () {
       var _destroyShift = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
         var vm, promises;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context3.prev = _context3.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
                 vm = this;
                 this.$vs.loading({
@@ -1423,27 +1289,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 function () {
                   var _ref = _asyncToGenerator(
                   /*#__PURE__*/
-                  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(data) {
-                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+                  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(data) {
+                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
                       while (1) {
-                        switch (_context2.prev = _context2.next) {
+                        switch (_context.prev = _context.next) {
                           case 0:
-                            _context2.next = 2;
+                            _context.next = 2;
                             return vm.$store.dispatch('destroyShift', data.id);
 
                           case 2:
                           case "end":
-                            return _context2.stop();
+                            return _context.stop();
                         }
                       }
-                    }, _callee2);
+                    }, _callee);
                   }));
 
                   return function (_x) {
                     return _ref.apply(this, arguments);
                   };
                 }());
-                _context3.next = 5;
+                _context2.next = 5;
                 return Promise.all(promises).then(function () {
                   vm.$vs.notify({
                     title: 'ប្រតិបត្តិការណ៍ជោគជ័យ',
@@ -1459,10 +1325,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 5:
               case "end":
-                return _context3.stop();
+                return _context2.stop();
             }
           }
-        }, _callee3, this);
+        }, _callee2, this);
       }));
 
       function destroyShift() {
@@ -1557,27 +1423,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return this.$store.getters.get_study_classes;
     }
   },
-  created: function () {
-    var _created = _asyncToGenerator(
-    /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee);
-    }));
-
-    function created() {
-      return _created.apply(this, arguments);
-    }
-
-    return created;
-  }(),
   methods: {
     storeStudyClass: function storeStudyClass() {
       var self = this;
@@ -1612,11 +1457,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     destroyStudyClass: function () {
       var _destroyStudyClass = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
         var vm, promises;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context3.prev = _context3.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
                 vm = this;
                 this.$vs.loading({
@@ -1627,27 +1472,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 function () {
                   var _ref = _asyncToGenerator(
                   /*#__PURE__*/
-                  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(data) {
-                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+                  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(data) {
+                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
                       while (1) {
-                        switch (_context2.prev = _context2.next) {
+                        switch (_context.prev = _context.next) {
                           case 0:
-                            _context2.next = 2;
+                            _context.next = 2;
                             return vm.$store.dispatch('destroyStudyClass', data.id);
 
                           case 2:
                           case "end":
-                            return _context2.stop();
+                            return _context.stop();
                         }
                       }
-                    }, _callee2);
+                    }, _callee);
                   }));
 
                   return function (_x) {
                     return _ref.apply(this, arguments);
                   };
                 }());
-                _context3.next = 5;
+                _context2.next = 5;
                 return Promise.all(promises).then(function () {
                   vm.$vs.notify({
                     title: 'ប្រតិបត្តិការណ៍ជោគជ័យ',
@@ -1663,10 +1508,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 5:
               case "end":
-                return _context3.stop();
+                return _context2.stop();
             }
           }
-        }, _callee3, this);
+        }, _callee2, this);
       }));
 
       function destroyStudyClass() {
@@ -1969,27 +1814,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return this.$store.getters.get_years;
     }
   },
-  created: function () {
-    var _created = _asyncToGenerator(
-    /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee);
-    }));
-
-    function created() {
-      return _created.apply(this, arguments);
-    }
-
-    return created;
-  }(),
   methods: {
     storeYear: function storeYear() {
       var self = this;
@@ -2028,11 +1852,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     updateYear: function () {
       var _updateYear = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(id, name) {
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(id, name) {
         var self, promises;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context3.prev = _context3.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
                 self = this;
                 this.$vs.loading({
@@ -2043,12 +1867,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 function () {
                   var _ref = _asyncToGenerator(
                   /*#__PURE__*/
-                  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(data) {
-                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+                  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(data) {
+                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
                       while (1) {
-                        switch (_context2.prev = _context2.next) {
+                        switch (_context.prev = _context.next) {
                           case 0:
-                            _context2.next = 2;
+                            _context.next = 2;
                             return self.$store.dispatch('updateYear', {
                               current: false,
                               id: data.id,
@@ -2056,7 +1880,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                             });
 
                           case 2:
-                            _context2.next = 4;
+                            _context.next = 4;
                             return self.$store.dispatch('updateYear', {
                               current: true,
                               id: id,
@@ -2065,17 +1889,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                           case 4:
                           case "end":
-                            return _context2.stop();
+                            return _context.stop();
                         }
                       }
-                    }, _callee2);
+                    }, _callee);
                   }));
 
                   return function (_x3) {
                     return _ref.apply(this, arguments);
                   };
                 }());
-                _context3.next = 5;
+                _context2.next = 5;
                 return Promise.all(promises).then(function () {
                   self.$vs.notify({
                     title: 'ប្រតិបត្តិការណ៍ជោគជ័យ',
@@ -2091,10 +1915,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 5:
               case "end":
-                return _context3.stop();
+                return _context2.stop();
             }
           }
-        }, _callee3, this);
+        }, _callee2, this);
       }));
 
       function updateYear(_x, _x2) {
@@ -2106,11 +1930,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     destroyYear: function () {
       var _destroyYear = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
         var vm, promises;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
           while (1) {
-            switch (_context5.prev = _context5.next) {
+            switch (_context4.prev = _context4.next) {
               case 0:
                 vm = this;
                 this.$vs.loading({
@@ -2121,27 +1945,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 function () {
                   var _ref2 = _asyncToGenerator(
                   /*#__PURE__*/
-                  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(data) {
-                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+                  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(data) {
+                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
                       while (1) {
-                        switch (_context4.prev = _context4.next) {
+                        switch (_context3.prev = _context3.next) {
                           case 0:
-                            _context4.next = 2;
+                            _context3.next = 2;
                             return vm.$store.dispatch('destroyYear', data.id);
 
                           case 2:
                           case "end":
-                            return _context4.stop();
+                            return _context3.stop();
                         }
                       }
-                    }, _callee4);
+                    }, _callee3);
                   }));
 
                   return function (_x4) {
                     return _ref2.apply(this, arguments);
                   };
                 }());
-                _context5.next = 5;
+                _context4.next = 5;
                 return Promise.all(promises).then(function () {
                   vm.$vs.notify({
                     title: 'ប្រតិបត្តិការណ៍ជោគជ័យ',
@@ -2157,10 +1981,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 5:
               case "end":
-                return _context5.stop();
+                return _context4.stop();
             }
           }
-        }, _callee5, this);
+        }, _callee4, this);
       }));
 
       function destroyYear() {
@@ -2912,201 +2736,6 @@ var render = function() {
       _vm._v(" "),
       _c("vs-divider"),
       _vm._v(" "),
-      _c(
-        "vs-table",
-        {
-          attrs: {
-            multiple: "",
-            pagination: "",
-            "max-items": "5",
-            search: "",
-            data: _vm.getCollection
-          },
-          scopedSlots: _vm._u([
-            {
-              key: "default",
-              fn: function(ref) {
-                var data = ref.data
-                return _vm._l(data, function(tr, indextr) {
-                  return _c(
-                    "vs-tr",
-                    { key: indextr, attrs: { data: tr } },
-                    [
-                      _c("vs-td", { attrs: { data: data[indextr].year } }, [
-                        _vm._v(
-                          "\n                    " +
-                            _vm._s(data[indextr].year) +
-                            "\n                "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "vs-td",
-                        { attrs: { data: data[indextr].group_section } },
-                        [
-                          _vm._v(
-                            "\n                    " +
-                              _vm._s(data[indextr].group_section) +
-                              "\n                "
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c("vs-td", { attrs: { data: data[indextr].section } }, [
-                        _vm._v(
-                          "\n                    " +
-                            _vm._s(data[indextr].section) +
-                            "\n                "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("vs-td", { attrs: { data: data[indextr].level } }, [
-                        _vm._v(
-                          "\n                    " +
-                            _vm._s(data[indextr].level) +
-                            "\n                "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "vs-td",
-                        { attrs: { data: data[indextr].class_name } },
-                        [
-                          _vm._v(
-                            "\n                    " +
-                              _vm._s(data[indextr].class_name) +
-                              "\n                "
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c("vs-td", { attrs: { data: data[indextr].shift } }, [
-                        _vm._v(
-                          "\n                    " +
-                            _vm._s(data[indextr].shift) +
-                            "\n                "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("vs-td", { attrs: { data: data[indextr].cost_one } }, [
-                        _vm._v(
-                          "\n                   $ " +
-                            _vm._s(data[indextr].cost_one) +
-                            "\n                "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "vs-td",
-                        { attrs: { data: data[indextr].cost_three } },
-                        [
-                          _vm._v(
-                            "\n                   $ " +
-                              _vm._s(data[indextr].cost_three) +
-                              "\n                "
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c("vs-td", { attrs: { data: data[indextr].cost_six } }, [
-                        _vm._v(
-                          "\n                   $ " +
-                            _vm._s(data[indextr].cost_six) +
-                            "\n                "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "vs-td",
-                        { attrs: { data: data[indextr].cost_twelve } },
-                        [
-                          _vm._v(
-                            "\n                    $ " +
-                              _vm._s(data[indextr].cost_twelve) +
-                              "\n                "
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "vs-td",
-                        { attrs: { data: data[indextr].employee_name } },
-                        [
-                          _vm._v(
-                            "\n                    " +
-                              _vm._s(data[indextr].employee_name) +
-                              "\n                "
-                          )
-                        ]
-                      )
-                    ],
-                    1
-                  )
-                })
-              }
-            }
-          ]),
-          model: {
-            value: _vm.selected,
-            callback: function($$v) {
-              _vm.selected = $$v
-            },
-            expression: "selected"
-          }
-        },
-        [
-          _c(
-            "template",
-            { slot: "thead" },
-            [
-              _c("vs-th", { attrs: { "sort-key": "year" } }, [
-                _vm._v("ឆ្នាំសិក្សា")
-              ]),
-              _vm._v(" "),
-              _c("vs-th", { attrs: { "sort-key": "group_section" } }, [
-                _vm._v("ផ្នែកសិក្សា")
-              ]),
-              _vm._v(" "),
-              _c("vs-th", { attrs: { "sort-key": "section" } }, [
-                _vm._v("កម្រិតសិក្សា")
-              ]),
-              _vm._v(" "),
-              _c("vs-th", { attrs: { "sort-key": "level" } }, [
-                _vm._v("កម្រិត")
-              ]),
-              _vm._v(" "),
-              _c("vs-th", { attrs: { "sort-key": "class_name" } }, [
-                _vm._v("ថ្នាក់")
-              ]),
-              _vm._v(" "),
-              _c("vs-th", { attrs: { "sort-key": "shift" } }, [_vm._v("វេណ")]),
-              _vm._v(" "),
-              _c("vs-th", { attrs: { "sort-key": "cost_one" } }, [
-                _vm._v("តម្លៃ ១ខែ")
-              ]),
-              _vm._v(" "),
-              _c("vs-th", { attrs: { "sort-key": "cost_three" } }, [
-                _vm._v("តម្លៃ ១ត្រីមាស")
-              ]),
-              _vm._v(" "),
-              _c("vs-th", { attrs: { "sort-key": "cost_six" } }, [
-                _vm._v("តម្លៃ ១ឆមាស")
-              ]),
-              _vm._v(" "),
-              _c("vs-th", { attrs: { "sort-key": "cost_twelve" } }, [
-                _vm._v("តម្លៃ ១ឆ្នាំ")
-              ]),
-              _vm._v(" "),
-              _c("vs-th", { attrs: { "sort-key": "employee_name" } }, [
-                _vm._v("គ្រូបន្ទុកថ្នាក់")
-              ])
-            ],
-            1
-          )
-        ],
-        2
-      ),
-      _vm._v(" "),
       _c("ag-grid-vue", {
         staticClass: "ag-theme-material w-100 my-4 ag-grid-table",
         attrs: {
@@ -3116,7 +2745,7 @@ var render = function() {
           pagination: true,
           paginationPageSize: 100,
           animateRows: true,
-          rowData: _vm.rowData
+          rowData: _vm.getCollection
         },
         on: {
           "grid-ready": _vm.onGridReady,

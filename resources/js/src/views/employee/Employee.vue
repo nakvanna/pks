@@ -236,9 +236,6 @@
                 return this.$store.getters.getAppUrl + 'images/placeholder/placeholder.png'
             }
         },
-        async created() {
-            await this.$store.dispatch('fetchEmployees');
-        },
         methods: {
             async destroyEmployee(){
                 let vm = this;

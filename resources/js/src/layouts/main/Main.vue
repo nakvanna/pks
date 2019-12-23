@@ -202,10 +202,43 @@
                 this.hideScrollToTop = val
             }
         },
-        created() {
-            const color = this.navbarColor == "#fff" && this.isThemeDark ? "#10163a" : this.navbarColor
-            this.updateNavbarColor(color)
-            this.setNavMenuVisibility(this.$store.state.mainLayoutType)
+        async created() {
+            let self = this;
+            const color = self.navbarColor == "#fff" && self.isThemeDark ? "#10163a" : self.navbarColor
+            self.updateNavbarColor(color);
+            self.setNavMenuVisibility(self.$store.state.mainLayoutType);
+            // vuex fetch
+            self.$vs.loading({
+                type: 'material',
+            });
+            await Promise.all([
+                self.$store.dispatch('fetchGroupSections'),
+                self.$store.dispatch('fetchSections'),
+                self.$store.dispatch('fetchLevels'),
+                self.$store.dispatch('fetchShifts'),
+                self.$store.dispatch('fetchStudyClasses'),
+                self.$store.dispatch('fetchCollections'),
+                self.$store.dispatch('fetchYears'),
+                self.$store.dispatch('fetchStudent'),
+                self.$store.dispatch('fetchEmployees'),
+                self.$store.dispatch('fetchServices'),
+                self.$store.dispatch('fetchYears'),
+                self.$store.dispatch('fetchEmployees'),
+                self.$store.dispatch('fetchPosition'),
+                self.$store.dispatch('fetchDegreeNote'),
+                self.$store.dispatch('fetchStudyInfos'),
+                self.$store.dispatch('fetchServiceInfos'),
+                self.$store.dispatch('fetchStudyInfos'),
+                self.$store.dispatch('fetchYears'),
+                self.$store.dispatch('fetchCollections'),
+                self.$store.dispatch('fetchYears'),
+                self.$store.dispatch('fetchCollections'),
+                self.$store.dispatch('fetchServiceInfos'),
+                self.$store.dispatch('fetchStudyInfos'),
+            ]).then(function () {
+                self.$vs.loading.close();
+            })
+
         }
     }
 
