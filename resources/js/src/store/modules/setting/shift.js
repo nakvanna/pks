@@ -9,11 +9,13 @@ const getters = {
 };
 const actions = {
     async fetchShifts({commit}){
-        try {
-            const res = await axios.get(route('shift.index'));
-            commit('SET_SHIFT',res.data);
-        }catch (e) {
-            return false
+        if (!state.shifts.length) {
+            try {
+                const res = await axios.get(route('shift.index'));
+                commit('SET_SHIFT', res.data);
+            } catch (e) {
+                return false
+            }
         }
     },
     async storeShift({commit},shifts){

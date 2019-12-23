@@ -13,19 +13,23 @@ const getters = {
 };
 const actions = {
     async fetchYears({commit}){
-        try {
-            const res = await axios.get(route('year.index'));
-            commit('SET_YEAR',res.data);
-        }catch (e) {
-            return false
+        if (!state.years.length) {
+            try {
+                const res = await axios.get(route('year.index'));
+                commit('SET_YEAR', res.data);
+            } catch (e) {
+                return false
+            }
         }
     },
     async fetchCurYear({commit}){
-        try {
-            const res = await axios.get(route('current.year'));
-            commit('SET_CUR_YEAR',res.data);
-        }catch (e) {
-            return false
+        if (!state.cur_year.length) {
+            try {
+                const res = await axios.get(route('current.year'));
+                commit('SET_CUR_YEAR', res.data);
+            } catch (e) {
+                return false
+            }
         }
     },
     async storeYear({commit},name){

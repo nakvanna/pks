@@ -212,6 +212,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Collection',
@@ -3095,6 +3106,23 @@ var render = function() {
         ],
         2
       ),
+      _vm._v(" "),
+      _c("ag-grid-vue", {
+        staticClass: "ag-theme-material w-100 my-4 ag-grid-table",
+        attrs: {
+          columnDefs: _vm.columnDefs,
+          defaultColDef: _vm.defaultColDef,
+          rowSelection: "multiple",
+          pagination: true,
+          paginationPageSize: 100,
+          animateRows: true,
+          rowData: _vm.rowData
+        },
+        on: {
+          "grid-ready": _vm.onGridReady,
+          "selection-changed": _vm.onSelectionChanged
+        }
+      }),
       _vm._v(" "),
       _c(
         "div",

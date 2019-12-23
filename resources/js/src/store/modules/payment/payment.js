@@ -9,11 +9,13 @@ const getters = {
 };
 const actions = {
     async fetchPayments({commit}, payment){
-        try {
-            const res = await axios.post(route('payment.get-info', {payment}));
-            commit('SET_PAYMENT',res.data);
-        }catch (e) {
-            return false
+        if (!state.payments.length) {
+            try {
+                const res = await axios.post(route('payment.get-info', {payment}));
+                commit('SET_PAYMENT', res.data);
+            } catch (e) {
+                return false
+            }
         }
     },
 };

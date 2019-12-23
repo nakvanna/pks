@@ -50,7 +50,11 @@ module.exports = {
   // separator: ':',
 
   theme: {
-
+    extend: {
+      screens: {
+        'print': {'raw': 'print'},
+      }
+    },
     /*
     |-----------------------------------------------------------------------------
     | Colors                                  https://tailwindcss.com/docs/colors

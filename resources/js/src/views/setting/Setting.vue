@@ -74,14 +74,21 @@
         },
         name:'Setting',
         async created() {
-            await this.$store.dispatch('fetchGroupSections');
-            await this.$store.dispatch('fetchSections');
-            await this.$store.dispatch('fetchLevels');
-            await this.$store.dispatch('fetchShifts');
-            await this.$store.dispatch('fetchStudyClasses');
-            await this.$store.dispatch('fetchCollections');
-            await this.$store.dispatch('fetchYears');
-
+            let self = this;
+            self.$vs.loading({
+                type:'material',
+            });
+            await Promise.all([
+                self.$store.dispatch('fetchGroupSections'),
+                self.$store.dispatch('fetchSections'),
+                self.$store.dispatch('fetchLevels'),
+                self.$store.dispatch('fetchShifts'),
+                self.$store.dispatch('fetchStudyClasses'),
+                self.$store.dispatch('fetchCollections'),
+                self.$store.dispatch('fetchYears'),
+            ]).then(function () {
+                self.$vs.loading.close();
+            })
         },
         computed: {
             isSmallerScreen() {

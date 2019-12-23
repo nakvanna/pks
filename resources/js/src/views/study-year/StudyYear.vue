@@ -169,13 +169,11 @@
             }
         },
         created() {
-            if(!this.getStudyInfos.length){
-                let self = this;
-                self.$vs.loading();
-                this.$store.dispatch('fetchStudyInfos').then(() => {
-                    self.$vs.loading.close();
-                });
-            }
+            let self = this;
+            self.$vs.loading();
+            this.$store.dispatch('fetchStudyInfos').then(() => {
+                self.$vs.loading.close();
+            });
         }
     }
 </script>

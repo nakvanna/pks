@@ -9,11 +9,13 @@ const getters = {
 };
 const actions = {
     async fetchServices({commit}){
-        try {
-            const res = await axios.get(route('service.index'));
-            commit('SET_SERVICE',res.data);
-        }catch (e) {
-            return false
+        if (!state.services.length) {
+            try {
+                const res = await axios.get(route('service.index'));
+                commit('SET_SERVICE', res.data);
+            } catch (e) {
+                return false
+            }
         }
     },
     async storeService({commit},services){

@@ -9,11 +9,13 @@ const getters = {
 };
 const actions = {
     async fetchStudyClasses({commit}){
-        try {
-            const res = await axios.get(route('study-class.index'));
-            commit('SET_STUDY_CLASS',res.data);
-        }catch (e) {
-            return false
+        if (!state.study_classes.length) {
+            try {
+                const res = await axios.get(route('study-class.index'));
+                commit('SET_STUDY_CLASS', res.data);
+            } catch (e) {
+                return false
+            }
         }
     },
     async storeStudyClass({commit},name){

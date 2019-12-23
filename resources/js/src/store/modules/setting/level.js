@@ -9,11 +9,13 @@ const getters = {
 };
 const actions = {
     async fetchLevels({commit}){
-        try {
-            const res = await axios.get(route('level.index'));
-            commit('SET_LEVEL',res.data);
-        }catch (e) {
-            return false
+        if (!state.levels.length) {
+            try {
+                const res = await axios.get(route('level.index'));
+                commit('SET_LEVEL', res.data);
+            } catch (e) {
+                return false
+            }
         }
     },
     async storeLevel({commit},name){

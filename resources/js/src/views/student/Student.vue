@@ -56,7 +56,7 @@
                 selected:[],
                 gridApi: null,
                 columnDefs: [
-                    {headerName: 'ល.រ', field: 'id', checkboxSelection: true},
+                    {headerName: 'ល.រ', field: 'id', pinned:true, checkboxSelection: true},
                     {headerName: 'ឈ្មោះ', field: 'name',},
                     {headerName: 'ឈ្មោះឡាតាំង', field: 'latin'},
                     {headerName: 'ថ្ងៃខែឆ្នាំកំណើត', field: 'dob'},
@@ -79,9 +79,7 @@
             }
         },
         created() {
-            if (!this.all_students.length) {
-                this.fetchStudent();
-            }
+            this.fetchStudent();
         },
         methods: {
             onGridReady(params) {
@@ -94,7 +92,7 @@
             fetchStudent() {
                 let self = this;
                 self.$vs.loading();
-                this.$store.dispatch('fetchStudent').then(function () {
+                self.$store.dispatch('fetchStudent').then(function () {
                     self.$vs.loading.close();
                 })
             },
