@@ -9,11 +9,13 @@ const getters = {
 };
 const actions = {
     async fetchEmployees({commit}){
-        try {
-            const res = await axios.get(route('employee.index'));
-            commit('SET_EMPLOYEE',res.data);
-        }catch (e) {
-            return false
+        if (!state.employees.length) {
+            try {
+                const res = await axios.get(route('employee.index'));
+                commit('SET_EMPLOYEE', res.data);
+            } catch (e) {
+                return false
+            }
         }
     },
     async storeEmployee({commit},employees){

@@ -73,16 +73,6 @@
             Year,
         },
         name:'Setting',
-        async created() {
-            await this.$store.dispatch('fetchGroupSections');
-            await this.$store.dispatch('fetchSections');
-            await this.$store.dispatch('fetchLevels');
-            await this.$store.dispatch('fetchShifts');
-            await this.$store.dispatch('fetchStudyClasses');
-            await this.$store.dispatch('fetchCollections');
-            await this.$store.dispatch('fetchYears');
-
-        },
         computed: {
             isSmallerScreen() {
                 return this.$store.state.windowWidth < 768

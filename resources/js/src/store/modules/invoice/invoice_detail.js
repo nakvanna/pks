@@ -9,11 +9,13 @@ const getters = {
 };
 const actions = {
     async fetchInvoiceDetails({commit}){
-        try {
-            const res = await axios.get(route('invoice-detail.index'));
-            commit('SET_INVOICE_DETAIL',res.data);
-        }catch (e) {
-            return false
+        if (!state.invoice_details.length) {
+            try {
+                const res = await axios.get(route('invoice-detail.index'));
+                commit('SET_INVOICE_DETAIL', res.data);
+            } catch (e) {
+                return false
+            }
         }
     },
     async showInvoiceDetail({commit}, id){

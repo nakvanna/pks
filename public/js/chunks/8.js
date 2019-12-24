@@ -9,6 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+<<<<<<< HEAD
 /* harmony import */ var vue2_dropzone__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue2-dropzone */ "./node_modules/vue2-dropzone/dist/vue2Dropzone.js");
 /* harmony import */ var vue2_dropzone__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue2_dropzone__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue2_dropzone_dist_vue2Dropzone_min_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue2-dropzone/dist/vue2Dropzone.min.css */ "./node_modules/vue2-dropzone/dist/vue2Dropzone.min.css");
@@ -126,6 +127,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+=======
+/* harmony import */ var _StudentStudyYear__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./StudentStudyYear */ "./resources/js/src/views/report/StudentStudyYear.vue");
+/* harmony import */ var _StudentUseService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./StudentUseService */ "./resources/js/src/views/report/StudentUseService.vue");
+>>>>>>> fbc6f95e175bb8daef65c3402bcba8d85a90c09c
 //
 //
 //
@@ -176,6 +181,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+<<<<<<< HEAD
   name: "addHome",
   props: ['is_popup'],
   data: function data() {
@@ -206,6 +212,13 @@ __webpack_require__.r(__webpack_exports__);
       options: {}
     };
   },
+=======
+  components: {
+    StudentStudyYear: _StudentStudyYear__WEBPACK_IMPORTED_MODULE_0__["default"],
+    StudentUseService: _StudentUseService__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  name: 'Setting',
+>>>>>>> fbc6f95e175bb8daef65c3402bcba8d85a90c09c
   computed: {
     popupSync: {
       get: function get() {
@@ -421,6 +434,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
   },
+<<<<<<< HEAD
   methods: {
     show: function show() {
       this.$modal.show('add');
@@ -465,6 +479,53 @@ __webpack_require__.r(__webpack_exports__);
             icon: 'icon-message-square',
             position: 'top-center'
           });
+=======
+  watch: {
+    '$store.state.windowWidth': function $storeStateWindowWidth(val) {
+      if (val <= 576) {
+        this.maxPageNumbers = 4;
+        this.gridOptions.columnApi.setColumnPinned('email', null);
+      } else this.gridOptions.columnApi.setColumnPinned('email', 'left');
+    }
+  },
+  created: function () {
+    var _created = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+      var sie, raw;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              sie = this.study_info_extract;
+              raw = this.getStudyInfos;
+              raw.map(
+              /*#__PURE__*/
+              function () {
+                var _ref = _asyncToGenerator(
+                /*#__PURE__*/
+                _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(data) {
+                  return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+                    while (1) {
+                      switch (_context.prev = _context.next) {
+                        case 0:
+                        case "end":
+                          return _context.stop();
+                      }
+                    }
+                  }, _callee);
+                }));
+
+                return function (_x) {
+                  return _ref.apply(this, arguments);
+                };
+              }());
+
+            case 3:
+            case "end":
+              return _context2.stop();
+          }
+>>>>>>> fbc6f95e175bb8daef65c3402bcba8d85a90c09c
         }
       });
     },
@@ -738,6 +799,79 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
   },
+<<<<<<< HEAD
+=======
+  watch: {
+    '$store.state.windowWidth': function $storeStateWindowWidth(val) {
+      if (val <= 576) {
+        this.maxPageNumbers = 4;
+        this.gridOptions.columnApi.setColumnPinned('email', null);
+      } else this.gridOptions.columnApi.setColumnPinned('email', 'left');
+    }
+  },
+  created: function () {
+    var _created = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+      var sie, raw;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              sie = this.service_info_extract;
+              raw = this.getServiceInfos;
+              raw.map(
+              /*#__PURE__*/
+              function () {
+                var _ref = _asyncToGenerator(
+                /*#__PURE__*/
+                _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(data) {
+                  return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+                    while (1) {
+                      switch (_context.prev = _context.next) {
+                        case 0:
+                          sie.push({
+                            id: data.id,
+                            year: data.year,
+                            student_id: data.students.id,
+                            name: data.students.name,
+                            latin: data.students.latin,
+                            gender: data.students.gender,
+                            dob: data.students.dob,
+                            service: data.services.type + '-' + data.services.service,
+                            date_pay: data.date_pay,
+                            last_term: data.last_term,
+                            is_used: data.is_used === true ? 'នៅប្រើ' : 'បានផ្អាក'
+                          });
+
+                        case 1:
+                        case "end":
+                          return _context.stop();
+                      }
+                    }
+                  }, _callee);
+                }));
+
+                return function (_x) {
+                  return _ref.apply(this, arguments);
+                };
+              }());
+
+            case 3:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, this);
+    }));
+
+    function created() {
+      return _created.apply(this, arguments);
+    }
+
+    return created;
+  }(),
+>>>>>>> fbc6f95e175bb8daef65c3402bcba8d85a90c09c
   computed: {
     popupSync: {
       get: function get() {

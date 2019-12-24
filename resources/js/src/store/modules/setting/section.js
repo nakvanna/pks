@@ -9,11 +9,13 @@ const getters = {
 };
 const actions = {
     async fetchSections({commit}){
-        try {
-            const res = await axios.get(route('section.index'));
-            commit('SET_SECTION',res.data);
-        }catch (e) {
-            return false
+        if (!state.sections.length) {
+            try {
+                const res = await axios.get(route('section.index'));
+                commit('SET_SECTION', res.data);
+            } catch (e) {
+                return false
+            }
         }
     },
     async storeSection({commit},name){

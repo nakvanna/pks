@@ -9,7 +9,17 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+<<<<<<< HEAD
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+=======
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var ag_grid_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ag-grid-vue */ "./node_modules/ag-grid-vue/main.js");
+/* harmony import */ var ag_grid_vue__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(ag_grid_vue__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _sass_vuexy_extraComponents_agGridStyleOverride_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @sass/vuexy/extraComponents/agGridStyleOverride.scss */ "./resources/sass/vuexy/extraComponents/agGridStyleOverride.scss");
+/* harmony import */ var _sass_vuexy_extraComponents_agGridStyleOverride_scss__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_sass_vuexy_extraComponents_agGridStyleOverride_scss__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _UpgradeCollection__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./UpgradeCollection */ "./resources/js/src/views/setting/UpgradeCollection.vue");
+>>>>>>> fbc6f95e175bb8daef65c3402bcba8d85a90c09c
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
@@ -462,6 +472,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+<<<<<<< HEAD
 //
 //
 //
@@ -517,6 +528,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 // import VNavMenuItem from './VerticalNavMenuItem.vue'
+=======
+//ag-grid
+
+
+>>>>>>> fbc6f95e175bb8daef65c3402bcba8d85a90c09c
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'h-nav-menu-group',
@@ -541,6 +557,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   components: {
+<<<<<<< HEAD
     HNavMenuItem: _HorizontalNavMenuItem_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   data: function data() {
@@ -548,6 +565,86 @@ __webpack_require__.r(__webpack_exports__);
       openItems: false,
       hovered: false,
       dropLeft: false
+=======
+    UpgradeCollection: _UpgradeCollection__WEBPACK_IMPORTED_MODULE_3__["default"],
+    AgGridVue: ag_grid_vue__WEBPACK_IMPORTED_MODULE_1__["AgGridVue"]
+  },
+  data: function data() {
+    return {
+      //ag-grid
+      selected: [],
+      gridApi: null,
+      columnDefs: [{
+        headerName: 'ឆ្នាំសិក្សា',
+        field: 'year',
+        pinned: true,
+        checkboxSelection: true
+      }, {
+        headerName: 'ផ្នែកសិក្សា',
+        field: 'group_section'
+      }, {
+        headerName: 'កម្រិតសិក្សា',
+        field: 'section'
+      }, {
+        headerName: 'កម្រិត',
+        field: 'level'
+      }, {
+        headerName: 'ថ្នាក់',
+        field: 'class_name'
+      }, {
+        headerName: 'វេណ',
+        field: 'shift'
+      }, {
+        headerName: 'តម្លៃ ១ខែ',
+        field: 'cost_one'
+      }, {
+        headerName: 'តម្លៃ ១ត្រីមាស',
+        field: 'cost_three'
+      }, {
+        headerName: 'តម្លៃ ១ឆមាស',
+        field: 'cost_six'
+      }, {
+        headerName: 'តម្លៃ ១ឆ្នាំ',
+        field: 'cost_twelve'
+      }, {
+        headerName: 'គ្រូបន្ទុកថ្នាក់',
+        field: 'employee_name'
+      }],
+      defaultColDef: {
+        sortable: true,
+        resizable: true,
+        filter: true
+      },
+      rowData: [{
+        make: 'Toyota',
+        model: 'Celica',
+        price: 35000
+      }, {
+        make: 'Ford',
+        model: 'Mondeo',
+        price: 32000
+      }, {
+        make: 'Porsche',
+        model: 'Boxter',
+        price: 72000
+      }],
+      //end ag-grid
+      is_update: false,
+      collections: {
+        id: '',
+        year: '',
+        group_section: '',
+        section: '',
+        level: '',
+        shift: '',
+        class_name: '',
+        cost_one: '',
+        cost_three: '',
+        cost_six: '',
+        cost_twelve: '',
+        employee_id: ''
+      }
+>>>>>>> fbc6f95e175bb8daef65c3402bcba8d85a90c09c
     };
   },
   computed: {
@@ -611,6 +708,7 @@ __webpack_require__.r(__webpack_exports__);
       };
     }
   },
+<<<<<<< HEAD
   watch: {
     hovered: function hovered(val) {
       var _this2 = this;
@@ -633,6 +731,124 @@ __webpack_require__.r(__webpack_exports__);
           if (_this2.$vs.rtl) {
             if (dd.getBoundingClientRect().right - dd.offsetWidth - 16 < 0) {
               _this2.dropLeft = true;
+=======
+  methods: {
+    onGridReady: function onGridReady(params) {
+      this.gridApi = params.api;
+    },
+    onSelectionChanged: function onSelectionChanged() {
+      this.selected = this.gridApi.getSelectedRows();
+    },
+    storeCollection: function storeCollection() {
+      var self = this;
+      var vm = this.collections;
+
+      if (vm.year === '' || vm.group_section === '' || vm.section === '' || vm.level === '' || vm.shift === '' || vm.class_name === '' || vm.cost_one === '' || vm.cost_three === '' || vm.cost_six === '' || vm.cost_twelve === '') {
+        self.$vs.notify({
+          title: 'ប្រតិបត្តិការណ៍បរាជ័យ',
+          text: 'ទិន្នន័យមិនមានគ្រប់គ្រាន់!',
+          color: 'danger',
+          iconPack: 'feather',
+          icon: 'icon-alert-octagon',
+          position: 'top-center'
+        });
+      } else {
+        self.$vs.loading({
+          type: 'material'
+        });
+        self.$store.dispatch('storeCollection', this.collections).then(function (data) {
+          if (data) {
+            self.$vs.notify({
+              title: 'ប្រតិបត្តិការណ៍ជោគជ័យ',
+              text: 'ទិន្នន័យត្រូវបានរក្សាទុក',
+              color: 'primary',
+              iconPack: 'feather',
+              icon: 'icon-check',
+              position: 'top-center'
+            });
+            self.$vs.loading.close();
+          }
+        });
+      }
+    },
+    updateCollection: function updateCollection() {
+      var self = this;
+      this.$vs.loading({
+        type: 'material'
+      });
+      self.$store.dispatch('updateCollection', self.collections).then(function (data) {
+        if (data) {
+          self.$vs.notify({
+            title: 'ប្រតិបត្តិការណ៍ជោគជ័យ',
+            text: 'ទិន្នន័យត្រូវបានកែប្រែ',
+            color: 'primary',
+            iconPack: 'feather',
+            icon: 'icon-check',
+            position: 'top-center'
+          });
+          self.clearCollectionForm();
+          self.gridApi.deselectAll();
+          self.$vs.loading.close();
+        }
+      });
+    },
+    destroyCollection: function () {
+      var _destroyCollection = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var vm, promises;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                vm = this;
+                this.$vs.loading({
+                  type: 'material'
+                });
+                promises = vm.selected.map(
+                /*#__PURE__*/
+                function () {
+                  var _ref = _asyncToGenerator(
+                  /*#__PURE__*/
+                  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(data) {
+                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+                      while (1) {
+                        switch (_context2.prev = _context2.next) {
+                          case 0:
+                            _context2.next = 2;
+                            return vm.$store.dispatch('destroyCollection', data.id);
+
+                          case 2:
+                          case "end":
+                            return _context2.stop();
+                        }
+                      }
+                    }, _callee2);
+                  }));
+
+                  return function (_x) {
+                    return _ref.apply(this, arguments);
+                  };
+                }());
+                _context3.next = 5;
+                return Promise.all(promises).then(function () {
+                  vm.$vs.notify({
+                    title: 'ប្រតិបត្តិការណ៍ជោគជ័យ',
+                    text: 'ទិន្នន័យត្រូវបានលុប!',
+                    color: 'danger',
+                    iconPack: 'feather',
+                    icon: 'icon-check',
+                    position: 'top-center'
+                  });
+                  vm.selected = [];
+                  self.gridApi.deselectAll();
+                  vm.$vs.loading.close();
+                });
+
+              case 5:
+              case "end":
+                return _context3.stop();
+>>>>>>> fbc6f95e175bb8daef65c3402bcba8d85a90c09c
             }
           }
         } else {
@@ -770,6 +986,7 @@ __webpack_require__.r(__webpack_exports__);
       return active;
     }
   },
+<<<<<<< HEAD
   watch: {
     showChildren: function showChildren() {
       var _this2 = this;
@@ -785,6 +1002,8 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
   },
+=======
+>>>>>>> fbc6f95e175bb8daef65c3402bcba8d85a90c09c
   methods: {
     checkGrpChildrenActive: function checkGrpChildrenActive(group) {
       var _this3 = this;
@@ -805,9 +1024,71 @@ __webpack_require__.r(__webpack_exports__);
 
       return active;
     },
+<<<<<<< HEAD
     hovered: function hovered() {
       var val = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
       this.isHovered = val;
+=======
+    destroyGroupSection: function () {
+      var _destroyGroupSection = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var vm, promises;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                vm = this;
+                this.$vs.loading({
+                  type: 'material'
+                });
+                promises = vm.selected.map(
+                /*#__PURE__*/
+                function () {
+                  var _ref = _asyncToGenerator(
+                  /*#__PURE__*/
+                  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(data) {
+                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+                      while (1) {
+                        switch (_context.prev = _context.next) {
+                          case 0:
+                            _context.next = 2;
+                            return vm.$store.dispatch('destroyGroupSection', data.id);
+
+                          case 2:
+                          case "end":
+                            return _context.stop();
+                        }
+                      }
+                    }, _callee);
+                  }));
+
+                  return function (_x) {
+                    return _ref.apply(this, arguments);
+                  };
+                }());
+                _context2.next = 5;
+                return Promise.all(promises).then(function () {
+                  vm.$vs.notify({
+                    title: 'ប្រតិបត្តិការណ៍ជោគជ័យ',
+                    text: 'ទិន្នន័យត្រូវបានលុប!',
+                    color: 'danger',
+                    iconPack: 'feather',
+                    icon: 'icon-check',
+                    position: 'top-center'
+                  });
+                  vm.selected = [];
+                  vm.$vs.loading.close();
+                });
+
+              case 5:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+>>>>>>> fbc6f95e175bb8daef65c3402bcba8d85a90c09c
 
       if (this.openOnHover) {
         val ? this.showChildren = true : this.showChildren = false;
@@ -915,15 +1196,139 @@ __webpack_require__.r(__webpack_exports__);
     activeLink: function activeLink() {
       return this.to == this.$route.path || this.$route.meta.parent == this.slug && this.to ? true : false;
     }
+<<<<<<< HEAD
+=======
+  },
+  methods: {
+    storeLevel: function storeLevel() {
+      var self = this;
+
+      if (self.name === '') {
+        self.$vs.notify({
+          title: 'ប្រតិបត្តិការណ៍បរាជ័យ',
+          text: 'ទិន្នន័យមិនមាន!',
+          color: 'danger',
+          iconPack: 'feather',
+          icon: 'icon-alert-octagon',
+          position: 'top-center'
+        });
+      } else {
+        this.$vs.loading({
+          type: 'material'
+        });
+        self.$store.dispatch('storeLevel', {
+          name: self.name
+        }).then(function (data) {
+          if (data) {
+            self.$vs.notify({
+              title: 'ប្រតិបត្តិការណ៍ជោគជ័យ',
+              text: 'ទិន្នន័យត្រូវបានរក្សាទុក',
+              color: 'primary',
+              iconPack: 'feather',
+              icon: 'icon-check',
+              position: 'top-center'
+            });
+            self.name = '';
+            self.$vs.loading.close();
+          }
+        });
+      }
+    },
+    destroyLevel: function () {
+      var _destroyLevel = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var vm, promises;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                vm = this;
+                this.$vs.loading({
+                  type: 'material'
+                });
+                promises = vm.selected.map(
+                /*#__PURE__*/
+                function () {
+                  var _ref = _asyncToGenerator(
+                  /*#__PURE__*/
+                  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(data) {
+                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+                      while (1) {
+                        switch (_context.prev = _context.next) {
+                          case 0:
+                            _context.next = 2;
+                            return vm.$store.dispatch('destroyLevel', data.id);
+
+                          case 2:
+                          case "end":
+                            return _context.stop();
+                        }
+                      }
+                    }, _callee);
+                  }));
+
+                  return function (_x) {
+                    return _ref.apply(this, arguments);
+                  };
+                }());
+                _context2.next = 5;
+                return Promise.all(promises).then(function () {
+                  vm.$vs.notify({
+                    title: 'ប្រតិបត្តិការណ៍ជោគជ័យ',
+                    text: 'ទិន្នន័យត្រូវបានលុប!',
+                    color: 'danger',
+                    iconPack: 'feather',
+                    icon: 'icon-check',
+                    position: 'top-center'
+                  });
+                  vm.selected = [];
+                  vm.$vs.loading.close();
+                });
+
+              case 5:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function destroyLevel() {
+        return _destroyLevel.apply(this, arguments);
+      }
+
+      return destroyLevel;
+    }(),
+    openAlert: function openAlert(color) {
+      this.colorAlert = color;
+      this.$vs.dialog({
+        color: this.colorAlert,
+        title: 'លុបទិន្នន័យ',
+        text: 'តើអ្នកប្រាកដជាចង់លុបឬ?',
+        accept: this.acceptAlert
+      });
+    },
+    acceptAlert: function acceptAlert() {
+      this.destroyLevel();
+    }
+>>>>>>> fbc6f95e175bb8daef65c3402bcba8d85a90c09c
   }
 });
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/layouts/components/navbar/TheNavbarHorizontal.vue?vue&type=script&lang=js&":
 /*!*************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/layouts/components/navbar/TheNavbarHorizontal.vue?vue&type=script&lang=js& ***!
   \*************************************************************************************************************************************************************************************************/
+=======
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/setting/Section.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/setting/Section.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************/
+>>>>>>> fbc6f95e175bb8daef65c3402bcba8d85a90c09c
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -984,6 +1389,7 @@ __webpack_require__.r(__webpack_exports__);
       required: true
     }
   },
+<<<<<<< HEAD
   components: {
     Logo: _Logo_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
     Bookmarks: _components_Bookmarks_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
@@ -998,12 +1404,124 @@ __webpack_require__.r(__webpack_exports__);
         if (this.scrollY < 50) {
           color = "#f7f7f7";
         }
+=======
+  methods: {
+    storeSection: function storeSection() {
+      var self = this;
+
+      if (self.name === '') {
+        self.$vs.notify({
+          title: 'ប្រតិបត្តិការណ៍បរាជ័យ',
+          text: 'ទិន្នន័យមិនមាន!',
+          color: 'danger',
+          iconPack: 'feather',
+          icon: 'icon-alert-octagon',
+          position: 'top-center'
+        });
+      } else {
+        this.$vs.loading({
+          type: 'material'
+        });
+        self.$store.dispatch('storeSection', {
+          name: self.name
+        }).then(function (data) {
+          if (data) {
+            self.$vs.notify({
+              title: 'ប្រតិបត្តិការណ៍ជោគជ័យ',
+              text: 'ទិន្នន័យត្រូវបានរក្សាទុក',
+              color: 'primary',
+              iconPack: 'feather',
+              icon: 'icon-check',
+              position: 'top-center'
+            });
+            self.name = '';
+            self.$vs.loading.close();
+          }
+        });
+>>>>>>> fbc6f95e175bb8daef65c3402bcba8d85a90c09c
       }
       this.isThemedark === "dark" ? color === "#fff" ? color = "#10163a" : color = "#262c49" : null;
       return color;
     },
+<<<<<<< HEAD
     isThemedark: function isThemedark() {
       return this.$store.state.theme;
+=======
+    destroySection: function () {
+      var _destroySection = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var vm, promises;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                vm = this;
+                this.$vs.loading({
+                  type: 'material'
+                });
+                promises = vm.selected.map(
+                /*#__PURE__*/
+                function () {
+                  var _ref = _asyncToGenerator(
+                  /*#__PURE__*/
+                  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(data) {
+                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+                      while (1) {
+                        switch (_context.prev = _context.next) {
+                          case 0:
+                            _context.next = 2;
+                            return vm.$store.dispatch('destroySection', data.id);
+
+                          case 2:
+                          case "end":
+                            return _context.stop();
+                        }
+                      }
+                    }, _callee);
+                  }));
+
+                  return function (_x) {
+                    return _ref.apply(this, arguments);
+                  };
+                }());
+                _context2.next = 5;
+                return Promise.all(promises).then(function () {
+                  vm.$vs.notify({
+                    title: 'ប្រតិបត្តិការណ៍ជោគជ័យ',
+                    text: 'ទិន្នន័យត្រូវបានលុប!',
+                    color: 'danger',
+                    iconPack: 'feather',
+                    icon: 'icon-check',
+                    position: 'top-center'
+                  });
+                  vm.selected = [];
+                  vm.$vs.loading.close();
+                });
+
+              case 5:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function destroySection() {
+        return _destroySection.apply(this, arguments);
+      }
+
+      return destroySection;
+    }(),
+    openAlert: function openAlert(color) {
+      this.colorAlert = color;
+      this.$vs.dialog({
+        color: this.colorAlert,
+        title: 'លុបទិន្នន័យ',
+        text: 'តើអ្នកប្រាកដជាចង់លុបឬ?',
+        accept: this.acceptAlert
+      });
+>>>>>>> fbc6f95e175bb8daef65c3402bcba8d85a90c09c
     },
     navbarStyle: function navbarStyle() {
       return this.navbarType === "static" ? {
@@ -1036,10 +1554,20 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+<<<<<<< HEAD
 /* harmony import */ var _components_Bookmarks_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/Bookmarks.vue */ "./resources/js/src/layouts/components/navbar/components/Bookmarks.vue");
 /* harmony import */ var _components_SearchBar_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/SearchBar.vue */ "./resources/js/src/layouts/components/navbar/components/SearchBar.vue");
 /* harmony import */ var _components_NotificationDropDown_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/NotificationDropDown.vue */ "./resources/js/src/layouts/components/navbar/components/NotificationDropDown.vue");
 /* harmony import */ var _components_ProfileDropDown_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/ProfileDropDown.vue */ "./resources/js/src/layouts/components/navbar/components/ProfileDropDown.vue");
+=======
+/* harmony import */ var _GroupSection__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./GroupSection */ "./resources/js/src/views/setting/GroupSection.vue");
+/* harmony import */ var _Section__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Section */ "./resources/js/src/views/setting/Section.vue");
+/* harmony import */ var _Level__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Level */ "./resources/js/src/views/setting/Level.vue");
+/* harmony import */ var _StudyClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./StudyClass */ "./resources/js/src/views/setting/StudyClass.vue");
+/* harmony import */ var _Shift__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Shift */ "./resources/js/src/views/setting/Shift.vue");
+/* harmony import */ var _Collection__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Collection */ "./resources/js/src/views/setting/Collection.vue");
+/* harmony import */ var _Year__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Year */ "./resources/js/src/views/setting/Year.vue");
+>>>>>>> fbc6f95e175bb8daef65c3402bcba8d85a90c09c
 //
 //
 //
@@ -1090,11 +1618,23 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   components: {
+<<<<<<< HEAD
     Bookmarks: _components_Bookmarks_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     SearchBar: _components_SearchBar_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     NotificationDropDown: _components_NotificationDropDown_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
     ProfileDropDown: _components_ProfileDropDown_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
+=======
+    GroupSection: _GroupSection__WEBPACK_IMPORTED_MODULE_0__["default"],
+    Section: _Section__WEBPACK_IMPORTED_MODULE_1__["default"],
+    Level: _Level__WEBPACK_IMPORTED_MODULE_2__["default"],
+    StudyClass: _StudyClass__WEBPACK_IMPORTED_MODULE_3__["default"],
+    Shift: _Shift__WEBPACK_IMPORTED_MODULE_4__["default"],
+    Collection: _Collection__WEBPACK_IMPORTED_MODULE_5__["default"],
+    Year: _Year__WEBPACK_IMPORTED_MODULE_6__["default"]
+  },
+  name: 'Setting',
+>>>>>>> fbc6f95e175bb8daef65c3402bcba8d85a90c09c
   computed: {
     navbarColorLocal: function navbarColorLocal() {
       return this.$store.state.theme === "dark" && this.navbarColor === "#fff" ? "#10163a" : this.navbarColor;
@@ -1264,6 +1804,7 @@ __webpack_require__.r(__webpack_exports__);
       this.showBookmarkPagesDropdown = false;
       this.$router.push(obj.pages.url).catch(function () {});
     },
+<<<<<<< HEAD
     actionClicked: function actionClicked(item) {
       this.$store.dispatch('updateStarredPage', {
         url: item.url,
@@ -1288,6 +1829,67 @@ __webpack_require__.r(__webpack_exports__);
             binding.value(e);
           }
         };
+=======
+    destroyShift: function () {
+      var _destroyShift = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var vm, promises;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                vm = this;
+                this.$vs.loading({
+                  type: 'material'
+                });
+                promises = vm.selected.map(
+                /*#__PURE__*/
+                function () {
+                  var _ref = _asyncToGenerator(
+                  /*#__PURE__*/
+                  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(data) {
+                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+                      while (1) {
+                        switch (_context.prev = _context.next) {
+                          case 0:
+                            _context.next = 2;
+                            return vm.$store.dispatch('destroyShift', data.id);
+
+                          case 2:
+                          case "end":
+                            return _context.stop();
+                        }
+                      }
+                    }, _callee);
+                  }));
+
+                  return function (_x) {
+                    return _ref.apply(this, arguments);
+                  };
+                }());
+                _context2.next = 5;
+                return Promise.all(promises).then(function () {
+                  vm.$vs.notify({
+                    title: 'ប្រតិបត្តិការណ៍ជោគជ័យ',
+                    text: 'ទិន្នន័យត្រូវបានលុប!',
+                    color: 'danger',
+                    iconPack: 'feather',
+                    icon: 'icon-check',
+                    position: 'top-center'
+                  });
+                  vm.selected = [];
+                  vm.$vs.loading.close();
+                });
+
+              case 5:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+>>>>>>> fbc6f95e175bb8daef65c3402bcba8d85a90c09c
 
         el.__vueClickOutside__ = handler;
         document.addEventListener('click', handler);
@@ -1422,6 +2024,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
   },
+<<<<<<< HEAD
   methods: {
     elapsedTime: function elapsedTime(startTime) {
       var x = new Date(startTime);
@@ -1448,6 +2051,109 @@ __webpack_require__.r(__webpack_exports__);
         return minutes + (minutes > 1 ? ' Mins ' : ' Min ') + 'ago';
       } else if (seconds > 0) {
         return seconds + (seconds > 1 ? ' sec ago' : 'just now');
+=======
+  computed: {
+    isSmallerScreen: function isSmallerScreen() {
+      return this.$store.state.windowWidth < 768;
+    },
+    getStudyClass: function getStudyClass() {
+      return this.$store.getters.get_study_classes;
+    }
+  },
+  methods: {
+    storeStudyClass: function storeStudyClass() {
+      var self = this;
+
+      if (self.name === '') {
+        self.$vs.notify({
+          title: 'ប្រតិបត្តិការណ៍បរាជ័យ',
+          text: 'ទិន្នន័យមិនមាន!',
+          color: 'danger',
+          iconPack: 'feather',
+          icon: 'icon-alert-octagon',
+          position: 'top-center'
+        });
+      } else {
+        self.$store.dispatch('storeStudyClass', {
+          name: self.name
+        }).then(function (data) {
+          if (data) {
+            self.$vs.notify({
+              title: 'ប្រតិបត្តិការណ៍ជោគជ័យ',
+              text: 'ទិន្នន័យត្រូវបានរក្សាទុក',
+              color: 'primary',
+              iconPack: 'feather',
+              icon: 'icon-check',
+              position: 'top-center'
+            });
+            self.name = '';
+          }
+        });
+      }
+    },
+    destroyStudyClass: function () {
+      var _destroyStudyClass = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var vm, promises;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                vm = this;
+                this.$vs.loading({
+                  type: 'material'
+                });
+                promises = vm.selected.map(
+                /*#__PURE__*/
+                function () {
+                  var _ref = _asyncToGenerator(
+                  /*#__PURE__*/
+                  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(data) {
+                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+                      while (1) {
+                        switch (_context.prev = _context.next) {
+                          case 0:
+                            _context.next = 2;
+                            return vm.$store.dispatch('destroyStudyClass', data.id);
+
+                          case 2:
+                          case "end":
+                            return _context.stop();
+                        }
+                      }
+                    }, _callee);
+                  }));
+
+                  return function (_x) {
+                    return _ref.apply(this, arguments);
+                  };
+                }());
+                _context2.next = 5;
+                return Promise.all(promises).then(function () {
+                  vm.$vs.notify({
+                    title: 'ប្រតិបត្តិការណ៍ជោគជ័យ',
+                    text: 'ទិន្នន័យត្រូវបានលុប!',
+                    color: 'danger',
+                    iconPack: 'feather',
+                    icon: 'icon-check',
+                    position: 'top-center'
+                  });
+                  vm.selected = [];
+                  vm.$vs.loading.close();
+                });
+
+              case 5:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function destroyStudyClass() {
+        return _destroyStudyClass.apply(this, arguments);
+>>>>>>> fbc6f95e175bb8daef65c3402bcba8d85a90c09c
       }
 
       return 'Just Now';
@@ -1669,6 +2375,7 @@ __webpack_require__.r(__webpack_exports__);
       // Show overlay if any character is entered
       this.$store.commit('TOGGLE_CONTENT_OVERLAY', query ? true : false);
     }
+<<<<<<< HEAD
   }
 });
 
@@ -2564,8 +3271,181 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 
+=======
+  },
+  methods: {
+    storeYear: function storeYear() {
+      var self = this;
+
+      if (self.name === '') {
+        self.$vs.notify({
+          title: 'ប្រតិបត្តិការណ៍បរាជ័យ',
+          text: 'ទិន្នន័យមិនមាន!',
+          color: 'danger',
+          iconPack: 'feather',
+          icon: 'icon-alert-octagon',
+          position: 'top-center'
+        });
+      } else {
+        this.$vs.loading({
+          type: 'material'
+        });
+        self.$store.dispatch('storeYear', {
+          name: self.name
+        }).then(function (data) {
+          if (data) {
+            self.$vs.notify({
+              title: 'ប្រតិបត្តិការណ៍ជោគជ័យ',
+              text: 'ទិន្នន័យត្រូវបានរក្សាទុក',
+              color: 'primary',
+              iconPack: 'feather',
+              icon: 'icon-check',
+              position: 'top-center'
+            });
+            self.name = '';
+            self.$vs.loading.close();
+          }
+        });
+      }
+    },
+    updateYear: function () {
+      var _updateYear = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(id, name) {
+        var self, promises;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                self = this;
+                this.$vs.loading({
+                  type: 'material'
+                });
+                promises = self.getYears.map(
+                /*#__PURE__*/
+                function () {
+                  var _ref = _asyncToGenerator(
+                  /*#__PURE__*/
+                  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(data) {
+                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+                      while (1) {
+                        switch (_context.prev = _context.next) {
+                          case 0:
+                            _context.next = 2;
+                            return self.$store.dispatch('updateYear', {
+                              current: false,
+                              id: data.id,
+                              name: data.name
+                            });
+
+                          case 2:
+                            _context.next = 4;
+                            return self.$store.dispatch('updateYear', {
+                              current: true,
+                              id: id,
+                              name: name
+                            });
+
+                          case 4:
+                          case "end":
+                            return _context.stop();
+                        }
+                      }
+                    }, _callee);
+                  }));
+
+                  return function (_x3) {
+                    return _ref.apply(this, arguments);
+                  };
+                }());
+                _context2.next = 5;
+                return Promise.all(promises).then(function () {
+                  self.$vs.notify({
+                    title: 'ប្រតិបត្តិការណ៍ជោគជ័យ',
+                    text: 'ទិន្នន័យសិស្សត្រូវបានបញ្ចូលក្នុងឆ្នាំសិក្សា!',
+                    color: 'success',
+                    iconPack: 'feather',
+                    icon: 'icon-check',
+                    position: 'top-center'
+                  });
+                  self.selected = [];
+                  self.$vs.loading.close();
+                });
+
+              case 5:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+>>>>>>> fbc6f95e175bb8daef65c3402bcba8d85a90c09c
 
 
+<<<<<<< HEAD
+=======
+      return updateYear;
+    }(),
+    destroyYear: function () {
+      var _destroyYear = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        var vm, promises;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                vm = this;
+                this.$vs.loading({
+                  type: 'material'
+                });
+                promises = vm.selected.map(
+                /*#__PURE__*/
+                function () {
+                  var _ref2 = _asyncToGenerator(
+                  /*#__PURE__*/
+                  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(data) {
+                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+                      while (1) {
+                        switch (_context3.prev = _context3.next) {
+                          case 0:
+                            _context3.next = 2;
+                            return vm.$store.dispatch('destroyYear', data.id);
+
+                          case 2:
+                          case "end":
+                            return _context3.stop();
+                        }
+                      }
+                    }, _callee3);
+                  }));
+
+                  return function (_x4) {
+                    return _ref2.apply(this, arguments);
+                  };
+                }());
+                _context4.next = 5;
+                return Promise.all(promises).then(function () {
+                  vm.$vs.notify({
+                    title: 'ប្រតិបត្តិការណ៍ជោគជ័យ',
+                    text: 'ទិន្នន័យត្រូវបានលុប!',
+                    color: 'danger',
+                    iconPack: 'feather',
+                    icon: 'icon-check',
+                    position: 'top-center'
+                  });
+                  vm.selected = [];
+                  vm.$vs.loading.close();
+                });
+
+              case 5:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4, this);
+      }));
+>>>>>>> fbc6f95e175bb8daef65c3402bcba8d85a90c09c
 
 
 
@@ -3362,6 +4242,7 @@ var render = function(_h, _vm) {
           })
         ],
         1
+<<<<<<< HEAD
       )
     ]
   )
@@ -3541,6 +4422,165 @@ var render = function() {
             ],
             1
           ),
+=======
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "row flex" },
+        [
+          _c(
+            "vs-select",
+            {
+              staticClass: "w-1/3 mr-2",
+              attrs: {
+                autocomplete: "",
+                label: "គ្រូបន្ទុកថ្នាក់",
+                placeholder: "ជ្រើសរើស"
+              },
+              model: {
+                value: _vm.collections.employee_id,
+                callback: function($$v) {
+                  _vm.$set(_vm.collections, "employee_id", $$v)
+                },
+                expression: "collections.employee_id"
+              }
+            },
+            [
+              _c("vs-select-item", { attrs: { value: "0", text: "None" } }),
+              _vm._v(" "),
+              _vm._l(_vm.getEmployees, function(item, index) {
+                return item.position.toString().toUpperCase() === "TEACHER"
+                  ? _c("vs-select-item", {
+                      key: index,
+                      attrs: {
+                        value: item.id,
+                        text: item.kh_name + " " + item.en_name
+                      }
+                    })
+                  : _vm._e()
+              })
+            ],
+            2
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "flex btn-group mt-4" },
+        [
+          _vm.is_update === false
+            ? _c(
+                "vs-button",
+                {
+                  attrs: {
+                    type: "relief",
+                    "icon-pack": "feather",
+                    icon: "icon-plus-square"
+                  },
+                  on: { click: _vm.storeCollection }
+                },
+                [_vm._v("\n            បន្ថែម\n        ")]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.is_update === true
+            ? _c(
+                "vs-button",
+                {
+                  attrs: {
+                    color: "warning",
+                    type: "relief",
+                    "icon-pack": "feather",
+                    icon: "icon-edit"
+                  },
+                  on: { click: _vm.updateCollection }
+                },
+                [_vm._v("\n            កែប្រែ\n        ")]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.is_update === true
+            ? _c(
+                "vs-button",
+                {
+                  attrs: {
+                    type: "relief",
+                    "icon-pack": "feather",
+                    icon: "icon-refresh-ccw"
+                  },
+                  on: { click: _vm.clearCollectionForm }
+                },
+                [_vm._v("\n            សម្អាត\n        ")]
+              )
+            : _vm._e()
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("vs-divider"),
+      _vm._v(" "),
+      _c("ag-grid-vue", {
+        staticClass: "ag-theme-material w-100 my-4 ag-grid-table",
+        attrs: {
+          columnDefs: _vm.columnDefs,
+          defaultColDef: _vm.defaultColDef,
+          rowSelection: "multiple",
+          pagination: true,
+          paginationPageSize: 100,
+          animateRows: true,
+          rowData: _vm.getCollection
+        },
+        on: {
+          "grid-ready": _vm.onGridReady,
+          "selection-changed": _vm.onSelectionChanged
+        }
+      }),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "flex btn-group" },
+        [
+          _vm.selected.length
+            ? _c(
+                "vs-button",
+                {
+                  staticClass: "mb-2",
+                  attrs: {
+                    color: "danger",
+                    type: "relief",
+                    "icon-pack": "feather",
+                    icon: "icon-trash-2"
+                  },
+                  on: {
+                    click: function($event) {
+                      return _vm.openAlert("danger")
+                    }
+                  }
+                },
+                [_vm._v("\n            លុប\n        ")]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.selected.length === 1
+            ? _c(
+                "vs-button",
+                {
+                  staticClass: "mb-2",
+                  attrs: {
+                    color: "warning",
+                    type: "relief",
+                    "icon-pack": "feather",
+                    icon: "icon-edit"
+                  },
+                  on: { click: _vm.editCollection }
+                },
+                [_vm._v("\n            កែប្រែ\n        ")]
+              )
+            : _vm._e(),
+>>>>>>> fbc6f95e175bb8daef65c3402bcba8d85a90c09c
           _vm._v(" "),
           _c("feather-icon", {
             class: [{ rotate90: _vm.openItems }, "feather-grp-header-arrow"],

@@ -163,7 +163,6 @@ export default {
     }
   },
   async created() {
-    await this.$store.dispatch('fetchStudyInfos');
     let sie = this.study_info_extract;
     let raw = this.getStudyInfos;
     raw.map(async function (data) {

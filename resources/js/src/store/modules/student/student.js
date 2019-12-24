@@ -9,11 +9,13 @@ const getters = {
 };
 const actions = {
     async fetchStudent({commit}){
-        try {
-            const res = await axios.post(route('student.json'));
-            commit('SET_STUDENT',res.data)
-        }catch (e) {
-            return false
+        if (!state.students.length){
+            try {
+                const res = await axios.post(route('student.json'));
+                commit('SET_STUDENT',res.data);
+            }catch (e) {
+                return false
+            }
         }
     },
     async storeStudent({commit},data){

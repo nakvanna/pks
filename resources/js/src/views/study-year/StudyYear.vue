@@ -135,9 +135,6 @@
                 });
             }
         },
-        async created() {
-            await this.$store.dispatch('fetchStudyInfos');
-        }
     }
 </script>
 

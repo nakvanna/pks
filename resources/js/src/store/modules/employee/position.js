@@ -9,11 +9,13 @@ const getters = {
 };
 const actions = {
     async fetchPosition({commit}){
-        try {
-            const res = await axios.get(route('position.index'));
-            commit('SET_POSITION',res.data);
-        }catch (e) {
-            return false
+        if (!state.positions.length) {
+            try {
+                const res = await axios.get(route('position.index'));
+                commit('SET_POSITION', res.data);
+            } catch (e) {
+                return false
+            }
         }
     },
     async storePosition({commit}, position){

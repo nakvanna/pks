@@ -127,6 +127,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return this.$store.getters.get_services;
     }
   },
+<<<<<<< HEAD
   created: function () {
     var _created = _asyncToGenerator(
     /*#__PURE__*/
@@ -156,6 +157,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
     return created;
   }(),
+=======
+>>>>>>> fbc6f95e175bb8daef65c3402bcba8d85a90c09c
   methods: {
     show: function show(selected, is_student) {
       this.$modal.show('addServiceService');
@@ -196,11 +199,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     storeServiceInfo: function () {
       var _storeServiceInfo = _asyncToGenerator(
       /*#__PURE__*/
+<<<<<<< HEAD
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
         var self, year, date_pay, last_date_pay, sinfo, stuid, i, j, promises;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
+=======
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var self;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+>>>>>>> fbc6f95e175bb8daef65c3402bcba8d85a90c09c
               case 0:
                 self = this;
                 year = this.data.year;
@@ -267,10 +278,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 11:
               case "end":
+<<<<<<< HEAD
                 return _context3.stop();
             }
           }
         }, _callee3, this);
+=======
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+>>>>>>> fbc6f95e175bb8daef65c3402bcba8d85a90c09c
       }));
 
       function storeServiceInfo() {

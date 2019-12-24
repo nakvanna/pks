@@ -9,8 +9,133 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+<<<<<<< HEAD
 /* harmony import */ var xlsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! xlsx */ "./node_modules/xlsx/xlsx.js");
 /* harmony import */ var xlsx__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(xlsx__WEBPACK_IMPORTED_MODULE_0__);
+=======
+/* harmony import */ var vuejs_datepicker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuejs-datepicker */ "./node_modules/vuejs-datepicker/dist/vuejs-datepicker.esm.js");
+/* harmony import */ var vue2_dropzone__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue2-dropzone */ "./node_modules/vue2-dropzone/dist/vue2Dropzone.js");
+/* harmony import */ var vue2_dropzone__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue2_dropzone__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vue2_dropzone_dist_vue2Dropzone_min_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue2-dropzone/dist/vue2Dropzone.min.css */ "./node_modules/vue2-dropzone/dist/vue2Dropzone.min.css");
+/* harmony import */ var vue2_dropzone_dist_vue2Dropzone_min_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue2_dropzone_dist_vue2Dropzone_min_css__WEBPACK_IMPORTED_MODULE_2__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+>>>>>>> fbc6f95e175bb8daef65c3402bcba8d85a90c09c
 //
 //
 //
@@ -30,11 +155,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+<<<<<<< HEAD
   props: {
     onSuccess: {
       type: Function,
       required: true
     }
+=======
+  name: "Create",
+  components: {
+    Datepicker: vuejs_datepicker__WEBPACK_IMPORTED_MODULE_0__["default"],
+    vueDropzone: vue2_dropzone__WEBPACK_IMPORTED_MODULE_1___default.a
+>>>>>>> fbc6f95e175bb8daef65c3402bcba8d85a90c09c
   },
   data: function data() {
     return {
@@ -45,6 +177,17 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
   },
+<<<<<<< HEAD
+=======
+  computed: {
+    getPositions: function getPositions() {
+      return this.$store.getters.get_positions;
+    },
+    getDegreeNotes: function getDegreeNotes() {
+      return this.$store.getters.get_degree_notes;
+    }
+  },
+>>>>>>> fbc6f95e175bb8daef65c3402bcba8d85a90c09c
   methods: {
     generateData: function generateData(_ref) {
       var header = _ref.header,
@@ -229,6 +372,7 @@ __webpack_require__.r(__webpack_exports__);
       this.tableData = results;
       this.sheetName = meta.sheetName;
     },
+<<<<<<< HEAD
     importStudent: function importStudent() {
       var self = this;
       self.$vs.loading();
@@ -246,6 +390,86 @@ __webpack_require__.r(__webpack_exports__);
           });
           self.$vs.loading.close();
         }
+=======
+    placeholder: function placeholder() {
+      return this.$store.getters.getAppUrl + 'images/placeholder/placeholder.png';
+    }
+  },
+  methods: {
+    destroyEmployee: function () {
+      var _destroyEmployee = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var vm, promises;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                vm = this;
+                this.$vs.loading({
+                  type: 'material'
+                });
+                promises = vm.selected.map(
+                /*#__PURE__*/
+                function () {
+                  var _ref = _asyncToGenerator(
+                  /*#__PURE__*/
+                  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(data) {
+                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+                      while (1) {
+                        switch (_context.prev = _context.next) {
+                          case 0:
+                            _context.next = 2;
+                            return vm.$store.dispatch('destroyEmployee', data.id);
+
+                          case 2:
+                          case "end":
+                            return _context.stop();
+                        }
+                      }
+                    }, _callee);
+                  }));
+
+                  return function (_x) {
+                    return _ref.apply(this, arguments);
+                  };
+                }());
+                _context2.next = 5;
+                return Promise.all(promises).then(function () {
+                  vm.$vs.notify({
+                    title: 'ប្រតិបត្តិការណ៍ជោគជ័យ',
+                    text: 'ទិន្នន័យត្រូវបានលុប!',
+                    color: 'danger',
+                    iconPack: 'feather',
+                    icon: 'icon-check',
+                    position: 'top-center'
+                  });
+                  vm.selected = [];
+                  vm.$vs.loading.close();
+                });
+
+              case 5:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function destroyEmployee() {
+        return _destroyEmployee.apply(this, arguments);
+      }
+
+      return destroyEmployee;
+    }(),
+    openAlert: function openAlert(color) {
+      this.colorAlert = color;
+      this.$vs.dialog({
+        color: this.colorAlert,
+        title: 'លុបទិន្នន័យ',
+        text: 'តើអ្នកប្រាកដជាចង់លុបឬ?',
+        accept: this.acceptAlert
+>>>>>>> fbc6f95e175bb8daef65c3402bcba8d85a90c09c
       });
     },
     importCollection: function importCollection() {

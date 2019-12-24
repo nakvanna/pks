@@ -10,11 +10,13 @@ const getters = {
 };
 const actions = {
     async fetchInvoices({commit}){
-        try {
-            const res = await axios.get(route('invoice.index'));
-            commit('SET_INVOICE',res.data);
-        }catch (e) {
-            return false
+        if (!state.invoice_extract.length) {
+            try {
+                const res = await axios.get(route('invoice.index'));
+                commit('SET_INVOICE', res.data);
+            } catch (e) {
+                return false
+            }
         }
     },
     async storeInvoice({commit}, invoices){

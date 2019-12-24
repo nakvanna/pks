@@ -1,61 +1,94 @@
 <template>
-    <modal width="1000" height="auto" :scrollable="true" :pivotY="0.07" :adaptive="true" :clickToClose="false" name="print-invoice">
-        <div class="flex justify-end">
-            <i @click="$modal.hide('print-invoice')" class="vs-icon vs-popup--close material-icons text-warning" style="background: rgb(255, 255, 255);">close</i>
-        </div>
+    <sweet-modal ref="print_invoice" title="Print Invoice" :blocking="true" :width="!mobilecheck()?'50%':''">
         <vx-card no-shadow>
-            <div id="print-invoice">
+            <div id="section-to-print" class="pb-4">
                 <div class="vx-row">
-                    <img class="pl-4" style="width: 100%" src="images/placeholder/pks.png" alt="">
-                </div>
-                <div class="vx-row">
-                    <div class="vx-col md:w-2/5 flex mt-10 mb-10">
-                        <h4>ឈ្មោះ​​ ៖​ {{master_item.name}}</h4>
-                    </div>
-                    <div class="vx-col md:w-2/5 flex mt-10 mb-10">
-                        <h4>ឡាតាំង ៖ {{master_item.latin}}</h4>
-                    </div>
-                    <div class="vx-col md:w-1/5 flex mt-10">
-                        <h4>ភេទ: {{master_item.gender}}</h4>
+                    <div class="vx-col w-full">
+                        <img class="w-full" src="images/placeholder/pks.png" alt="">
                     </div>
                 </div>
-
-                <table>
-                    <tr>
-                        <th>ល.រ</th>
-                        <th>រាយមុខសេវាកម្ម</th>
-                        <th>រយៈពេលបង់</th>
-                        <th>ចំនួនទឹកប្រាក់</th>
-                        <th>អ្នកទទូលបន្ទុក</th>
-                        <th>ចាប់ផ្ដើមពីថ្ងៃទី</th>
-                        <th>រហូតដល់ថ្ងៃទី</th>
-                    </tr>
-                    <tr v-for="(item, i) in list_item" :key="i">
-                        <td>{{i + 1}}</td>
-                        <td>{{item.item}}</td>
-                        <td>{{item.term}}</td>
-                        <td>{{item.balance}}</td>
-                        <td>{{item.emp_name}}</td>
-                        <td>{{item.date_pay}}</td>
-                        <td>{{item.next_date_pay}}</td>
-                    </tr>
-                </table>
-
-                <div class="vx-row">
-                    <div class="vx-col md:w-1/3">
-                        <h4 class="mt-4 mb-2"><b>ទឹកប្រាក់សរុប:</b> {{$formatter.format(master_item.total)}}</h4>
-                        <h4 class="mb-2"><b>បញ្ចុះតម្លៃ:</b> {{master_item.discount}} %</h4>
-                        <h4><b>ទឹកប្រាក់ត្រូវបង់:</b> {{$formatter.format(master_item.after)}}</h4>
-                    </div>
-                    <div class="vx-col md:w-2/3 text-right mt-4">
-                        <h5>ម៉ោង​__________ថ្ងៃទីៈ______ខែ________ឆ្នាំ__________</h5>
-                        <h2 class="mt-4" style="text-align: center; padding-left: 40%">បេឡា</h2>
+                <div class="vx-row mb-3 mt-3">
+                    <div class="vx-col w-full">
+                        <table class="w-full">
+                            <tr>
+                                <td class="w-1/3 print:w-1/3"><h5>ឈ្មោះ​​ ៖​ {{master_item.name}}</h5></td>
+                                <td class="w-1/3 print:w-1/3"><h5>ឡាតាំង ៖ {{master_item.latin}}</h5></td>
+                                <td class="w-1/3 print:w-1/3"><h5>ភេទ: {{master_item.gender}}</h5></td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
-                <div class="vx-row mt-4">
-                    <div class="vx-col md:w-2/3">
-                        <h6 class="text-danger">1: ទឹកប្រាក់បង់ហើយមិនអាចដកវិញបានទេ 2: សូមរក្សាបង្កាន់ដៃបង់ប្រាក់ដើម្បីផ្ទៀងផ្ទាត់​</h6>
-                        <h6 class="text-danger mt-2">3: តម្លៃខាងលើ គឺសម្រាប់តែសេវាកម្មអប់រំប៉ុណ្ណោះ ចំពោះការគ្រោះថ្នាក់ជាយថាហេតុជាបន្ទុករបស់ មាតាបិតា ឬអាណាព្យាបាលសិស្ស</h6>
+                <div class="vx-row">
+                    <div class="vx-col w-full">
+                        <table class="custom">
+                            <tbody>
+                            <tr>
+                                <th class="custom">ល.រ</th>
+                                <th class="custom">រាយមុខសេវាកម្ម</th>
+                                <th class="custom">រយៈពេលបង់</th>
+                                <th class="custom">ចំនួនទឹកប្រាក់</th>
+                                <th class="custom">អ្នកទទូលបន្ទុក</th>
+                                <th class="custom">ចាប់ផ្ដើមពីថ្ងៃទី</th>
+                                <th class="custom">រហូតដល់ថ្ងៃទី</th>
+                            </tr>
+                            <tr v-for="(item, i) in list_item" :key="i">
+                                <td class="custom">{{i + 1}}</td>
+                                <td class="custom">{{item.item}}</td>
+                                <td class="custom">{{item.term}}</td>
+                                <td class="custom">{{item.balance}}</td>
+                                <td class="custom">{{item.emp_name}}</td>
+                                <td class="custom">{{item.date_pay}}</td>
+                                <td class="custom">{{item.next_date_pay}}</td>
+                            </tr>
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <td class="custom text-right" colspan="3"> <b>ទឹកប្រាក់សរុប:</b></td>
+                                <td class="custom">
+                                    <b>{{$formatter.format(master_item.total)}}</b>
+                                </td>
+                                <td colspan="3" class="text-center">
+                                    ម៉ោង <b>{{moment().format('h:mm:ss A')}}</b> ថ្ងៃទីៈ <b>{{moment().format('D')}}</b> ខែ <b>{{moment().format('MMM')}}</b> ឆ្នាំ <b>{{moment().format('Y')}}</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="custom text-right" colspan="3"> <b>បញ្ចុះតម្លៃ:</b></td>
+                                <td class="custom">
+                                    <b>{{master_item.discount}} %</b>
+                                </td>
+                                <td></td>
+                                <td class="text-center">
+                                    <h5>បេឡា</h5>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td class="custom text-right" colspan="3"> <b>ទឹកប្រាក់ត្រូវបង់:</b></td>
+                                <td class="custom">
+                                    <b>{{$formatter.format(master_item.after)}}</b>
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+                <div class="vx-row mt-3">
+                    <div class="vx-col w-full">
+                        <table>
+                            <tr>
+                                <td class="text-danger">
+                                    1: ទឹកប្រាក់បង់ហើយមិនអាចដកវិញបានទេ 2: សូមរក្សាបង្កាន់ដៃបង់ប្រាក់ដើម្បីផ្ទៀងផ្ទាត់
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-danger">
+                                    3: តម្លៃខាងលើ គឺសម្រាប់តែសេវាកម្មអប់រំប៉ុណ្ណោះ ចំពោះការគ្រោះថ្នាក់ជាយថាហេតុជាបន្ទុករបស់ មាតាបិតា ឬអាណាព្យាបាលសិស្ស
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -65,7 +98,7 @@
                 <vs-button icon="icon-printer" @click="printHtml" icon-pack="feather" type="relief">បោះពុម្ភ</vs-button>
             </div>
         </vx-card>
-    </modal>
+    </sweet-modal>
 </template>
 
 <script>
@@ -80,7 +113,7 @@
         },
         methods: {
             show(master_item, items){
-                this.$modal.show('print-invoice');
+                this.$refs.print_invoice.open();
                 this.master_item = master_item;
                 this.list_item = items;
             },
@@ -94,25 +127,22 @@
                 return await this.$html2canvas(el, options);
             },
             async printHtml() {
-                let image = await this._print();
-                printJS(image, 'image')
+                /*let image = await this._print();
+                printJS(image, 'image')*/
+                printJS({printable: 'section-to-print', type: 'html',css:[
+                    'https://fonts.googleapis.com/css?family=Battambang&display=swap',
+                        'https://pks.dev.siqware.app/css/main.css',
+                        'https://pks.dev.siqware.app/css/vuesax.css',
+                        'https://pks.dev.siqware.app/css/app.css'
+                    ]})
             },
+        },
+        mounted() {
+            this.moment.locale('km');
         }
     }
 </script>
 
 <style scoped>
-    table, td, th {
-        border: 1px solid #ddd;
-        text-align: left;
-    }
 
-    table {
-        border-collapse: collapse;
-        width: 100%;
-    }
-
-    th, td {
-        padding: 10px;
-    }
 </style>

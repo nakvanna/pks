@@ -76,6 +76,7 @@ function _objectSpread(target) {
     });
   }
 
+<<<<<<< HEAD
   return target;
 }
 
@@ -102,10 +103,60 @@ function () {
     set: function set(language) {
       if (typeof language !== 'string') {
         throw new TypeError('Language must be a string');
+=======
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "Student",
+  components: {
+    AddServiceInfo: _addServiceInfo__WEBPACK_IMPORTED_MODULE_6__["default"],
+    AddStudyInfo: _addStudyInfo__WEBPACK_IMPORTED_MODULE_5__["default"],
+    EditStudent: _editStudent__WEBPACK_IMPORTED_MODULE_4__["default"],
+    AddStudent: _addStudent__WEBPACK_IMPORTED_MODULE_3__["default"],
+    AgGridVue: ag_grid_vue__WEBPACK_IMPORTED_MODULE_1__["AgGridVue"]
+  },
+  data: function data() {
+    return {
+      selected: [],
+      gridApi: null,
+      columnDefs: [{
+        headerName: 'ល.រ',
+        field: 'id',
+        pinned: true,
+        checkboxSelection: true
+      }, {
+        headerName: 'ឈ្មោះ',
+        field: 'name'
+      }, {
+        headerName: 'ឈ្មោះឡាតាំង',
+        field: 'latin'
+      }, {
+        headerName: 'ថ្ងៃខែឆ្នាំកំណើត',
+        field: 'dob'
+      }, {
+        headerName: 'ទំនាក់ទំនង',
+        field: 'std_contact'
+      }, {
+        headerName: 'អាស័យដ្ឋានបច្ចុប្បន្ន',
+        field: 'address'
+      }, {
+        headerName: 'ស្ថានភាព',
+        field: 'status'
+      }, {
+        headerName: 'ថ្នាក់បណ្តុះអាសន្ន',
+        field: 'temp_grade'
+      }, {
+        headerName: 'កាលបរិច្ឆេទ',
+        field: 'created_at'
+      }],
+      defaultColDef: {
+        sortable: true,
+        resizable: true,
+        filter: true
+>>>>>>> fbc6f95e175bb8daef65c3402bcba8d85a90c09c
       }
 
       this._language = language;
     }
+<<<<<<< HEAD
   }, {
     key: "months",
     get: function get() {
@@ -127,6 +178,75 @@ function () {
       if (monthsAbbr.length !== 12) {
         throw new RangeError("There must be 12 abbreviated months for ".concat(this.language, " language"));
       }
+=======
+  },
+  methods: {
+    onGridReady: function onGridReady(params) {
+      this.gridApi = params.api;
+    },
+    onSelectionChanged: function onSelectionChanged() {
+      this.selected = this.gridApi.getSelectedRows();
+    },
+    //destroy
+    toggleStudent: function () {
+      var _toggleStudent = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var self, promises;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                self = this;
+                self.$vs.loading();
+                promises = self.selected.map(
+                /*#__PURE__*/
+                function () {
+                  var _ref = _asyncToGenerator(
+                  /*#__PURE__*/
+                  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(data) {
+                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+                      while (1) {
+                        switch (_context.prev = _context.next) {
+                          case 0:
+                            _context.next = 2;
+                            return self.$store.dispatch('toggleStudent', data.id);
+
+                          case 2:
+                          case "end":
+                            return _context.stop();
+                        }
+                      }
+                    }, _callee);
+                  }));
+
+                  return function (_x) {
+                    return _ref.apply(this, arguments);
+                  };
+                }());
+                _context2.next = 5;
+                return Promise.all(promises).then(function () {
+                  self.$vs.notify({
+                    time: 4000,
+                    title: 'ប្រតិបត្តិការជោគជ័យ',
+                    text: 'ទិន្នន័យបានកែប្រែ',
+                    color: 'success',
+                    iconPack: 'feather',
+                    icon: 'icon-check',
+                    position: 'top-center'
+                  });
+                  self.selected = [];
+                  self.$vs.loading.close();
+                });
+
+              case 5:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+>>>>>>> fbc6f95e175bb8daef65c3402bcba8d85a90c09c
 
       this._monthsAbbr = monthsAbbr;
     }

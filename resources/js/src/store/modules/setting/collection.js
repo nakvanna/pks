@@ -10,11 +10,13 @@ const getters = {
 };
 const actions = {
     async fetchCollections({commit}){
-        try {
-            const res = await axios.get(route('collection.index'));
-            commit('SET_COLLECTION',res.data);
-        }catch (e) {
-            return false
+        if (!state.collections.length) {
+            try {
+                const res = await axios.get(route('collection.index'));
+                commit('SET_COLLECTION', res.data);
+            } catch (e) {
+                return false
+            }
         }
     },
     async storeCollection({commit},collections){

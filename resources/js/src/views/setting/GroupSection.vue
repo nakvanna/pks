@@ -57,9 +57,6 @@
                 return this.$store.getters.get_group_sections
             }
         },
-        async created() {
-            // await this.$store.dispatch('fetchGroupSections');
-        },
         methods:{
             storeGroupSection(){
                 let self = this;

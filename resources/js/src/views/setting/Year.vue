@@ -71,9 +71,6 @@
                 return this.$store.getters.get_years
             }
         },
-        async created() {
-            // await this.$store.dispatch('fetchYears');
-        },
         methods: {
             storeYear(){
                 let self = this;

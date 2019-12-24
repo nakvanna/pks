@@ -58,9 +58,6 @@
                 return this.$store.getters.get_levels
             }
         },
-        async created() {
-            // await this.$store.dispatch('fetchLevels');
-        },
         methods: {
             storeLevel(){
                 let self = this;

@@ -166,7 +166,6 @@
             }
         },
         async created() {
-            await this.$store.dispatch('fetchServiceInfos');
             let sie = this.service_info_extract;
             let raw = this.getServiceInfos;
             raw.map(async function (data) {

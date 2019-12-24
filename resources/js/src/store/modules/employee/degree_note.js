@@ -9,11 +9,13 @@ const getters = {
 };
 const actions = {
     async fetchDegreeNote({commit}){
-        try {
-            const res = await axios.get(route('degree-note.index'));
-            commit('SET_DEGREE_NOTE',res.data);
-        }catch (e) {
-            return false
+        if (!state.degree_notes.length) {
+            try {
+                const res = await axios.get(route('degree-note.index'));
+                commit('SET_DEGREE_NOTE', res.data);
+            } catch (e) {
+                return false
+            }
         }
     },
     async storeDegreeNote({commit}, degree_note){

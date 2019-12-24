@@ -162,11 +162,6 @@
                 return this.$store.getters.get_employees
             },
         },
-        async created() {
-            await this.$store.dispatch('fetchServices');
-            await this.$store.dispatch('fetchYears');
-            await this.$store.dispatch('fetchEmployees');
-        },
         methods: {
             onGridReady(params) {
                 this.gridApi = params.api;

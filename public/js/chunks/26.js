@@ -249,6 +249,66 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+<<<<<<< HEAD
+/* harmony import */ var _student_addStudyInfo__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../student/addStudyInfo */ "./resources/js/src/views/student/addStudyInfo.vue");
+/* harmony import */ var _student_changeStudyInfo__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../student/changeStudyInfo */ "./resources/js/src/views/student/changeStudyInfo.vue");
+/* harmony import */ var ag_grid_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ag-grid-vue */ "./node_modules/ag-grid-vue/main.js");
+/* harmony import */ var ag_grid_vue__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(ag_grid_vue__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _sass_vuexy_extraComponents_agGridStyleOverride_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @sass/vuexy/extraComponents/agGridStyleOverride.scss */ "./resources/sass/vuexy/extraComponents/agGridStyleOverride.scss");
+/* harmony import */ var _sass_vuexy_extraComponents_agGridStyleOverride_scss__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_sass_vuexy_extraComponents_agGridStyleOverride_scss__WEBPACK_IMPORTED_MODULE_3__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+=======
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _student_addStudyInfo__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../student/addStudyInfo */ "./resources/js/src/views/student/addStudyInfo.vue");
@@ -263,6 +323,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+>>>>>>> b20bbe6ed60a7abfdef93932e9d48f8052b8ac44
 //
 //
 //
@@ -323,9 +384,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "StudyYear",
   components: {
+<<<<<<< HEAD
+    ChangeStudyInfo: _student_changeStudyInfo__WEBPACK_IMPORTED_MODULE_1__["default"],
+    AddStudyInfo: _student_addStudyInfo__WEBPACK_IMPORTED_MODULE_0__["default"],
+    AgGridVue: ag_grid_vue__WEBPACK_IMPORTED_MODULE_2__["AgGridVue"]
+=======
     ChangeStudyInfo: _student_changeStudyInfo__WEBPACK_IMPORTED_MODULE_2__["default"],
     AddStudyInfo: _student_addStudyInfo__WEBPACK_IMPORTED_MODULE_1__["default"],
     AgGridVue: ag_grid_vue__WEBPACK_IMPORTED_MODULE_3__["AgGridVue"]
+>>>>>>> b20bbe6ed60a7abfdef93932e9d48f8052b8ac44
   },
   data: function data() {
     return {
@@ -357,6 +424,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }, {
         headerName: 'ថ្ងៃត្រូវបង់លុយ',
         field: 'date_pay'
+<<<<<<< HEAD
+=======
       }, {
         headerName: 'ថ្ងៃត្រូវបង់លុយ',
         field: 'day_left',
@@ -373,6 +442,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
           return day_left;
         }
+>>>>>>> b20bbe6ed60a7abfdef93932e9d48f8052b8ac44
       }],
       defaultColDef: {
         sortable: true,
@@ -394,10 +464,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return this.$store.getters.get_study_infos;
     },
     study_info_extract: function study_info_extract() {
+<<<<<<< HEAD
+      return this.getStudyInfos.map(function (data) {
+=======
       var self = this;
       return this.getStudyInfos.map(function (data) {
         var to_day = self.moment();
         var day_pay = self.moment(data.date_pay);
+>>>>>>> b20bbe6ed60a7abfdef93932e9d48f8052b8ac44
         return {
           study_info_id: data.id,
           id: data.students.id,
@@ -412,12 +486,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           date_pay: data.date_pay,
           last_date_pay: data.last_date_pay,
           last_term: data.last_term,
+<<<<<<< HEAD
+          to_class: data.to_class
+=======
           to_class: data.to_class,
           day_left: day_pay.diff(to_day, 'days')
+>>>>>>> b20bbe6ed60a7abfdef93932e9d48f8052b8ac44
         };
       });
     }
   },
+<<<<<<< HEAD
+  created: function created() {
+    var self = this;
+    self.$vs.loading();
+    this.$store.dispatch('fetchStudyInfos').then(function () {
+      self.$vs.loading.close();
+    });
+  }
+=======
   created: function () {
     var _created = _asyncToGenerator(
     /*#__PURE__*/
@@ -443,6 +530,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
     return created;
   }()
+>>>>>>> b20bbe6ed60a7abfdef93932e9d48f8052b8ac44
 });
 
 /***/ }),
@@ -873,8 +961,11 @@ var render = function() {
         }
       }),
       _vm._v(" "),
+<<<<<<< HEAD
+=======
       _c("pre", [_vm._v(_vm._s(_vm.selected))]),
       _vm._v(" "),
+>>>>>>> b20bbe6ed60a7abfdef93932e9d48f8052b8ac44
       _c("add-study-info", {
         ref: "addStudyInfo",
         on: {

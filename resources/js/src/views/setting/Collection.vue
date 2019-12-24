@@ -100,71 +100,17 @@
             </vs-button>
         </div>
         <vs-divider/>
-        <vs-table multiple v-model="selected" pagination max-items="5" search :data="getCollection">
-
-            <template slot="thead">
-                <vs-th sort-key="year">ឆ្នាំសិក្សា</vs-th>
-                <vs-th sort-key="group_section">ផ្នែកសិក្សា</vs-th>
-                <vs-th sort-key="section">កម្រិតសិក្សា</vs-th>
-                <vs-th sort-key="level">កម្រិត</vs-th>
-                <vs-th sort-key="class_name">ថ្នាក់</vs-th>
-                <vs-th sort-key="shift">វេណ</vs-th>
-                <vs-th sort-key="cost_one">តម្លៃ ១ខែ</vs-th>
-                <vs-th sort-key="cost_three">តម្លៃ ១ត្រីមាស</vs-th>
-                <vs-th sort-key="cost_six">តម្លៃ ១ឆមាស</vs-th>
-                <vs-th sort-key="cost_twelve">តម្លៃ ១ឆ្នាំ</vs-th>
-                <vs-th sort-key="employee_name">គ្រូបន្ទុកថ្នាក់</vs-th>
-            </template>
-
-            <template slot-scope="{data}">
-                <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in data">
-
-                    <vs-td :data="data[indextr].year">
-                        {{ data[indextr].year }}
-                    </vs-td>
-
-                    <vs-td :data="data[indextr].group_section">
-                        {{ data[indextr].group_section }}
-                    </vs-td>
-
-                    <vs-td :data="data[indextr].section">
-                        {{ data[indextr].section }}
-                    </vs-td>
-
-                    <vs-td :data="data[indextr].level">
-                        {{ data[indextr].level }}
-                    </vs-td>
-
-                    <vs-td :data="data[indextr].class_name">
-                        {{ data[indextr].class_name }}
-                    </vs-td>
-
-                    <vs-td :data="data[indextr].shift">
-                        {{ data[indextr].shift }}
-                    </vs-td>
-
-                    <vs-td :data="data[indextr].cost_one">
-                       $ {{ data[indextr].cost_one }}
-                    </vs-td>
-
-                    <vs-td :data="data[indextr].cost_three">
-                       $ {{ data[indextr].cost_three }}
-                    </vs-td>
-
-                    <vs-td :data="data[indextr].cost_six">
-                       $ {{ data[indextr].cost_six }}
-                    </vs-td>
-
-                    <vs-td :data="data[indextr].cost_twelve">
-                        $ {{ data[indextr].cost_twelve }}
-                    </vs-td>
-
-                    <vs-td :data="data[indextr].employee_name">
-                        {{ data[indextr].employee_name }}
-                    </vs-td>
-                </vs-tr>
-            </template>
-        </vs-table>
+        <ag-grid-vue class="ag-theme-material w-100 my-4 ag-grid-table"
+                     :columnDefs="columnDefs"
+                     :defaultColDef="defaultColDef"
+                     rowSelection="multiple"
+                     @grid-ready="onGridReady"
+                     @selection-changed="onSelectionChanged"
+                     :pagination="true"
+                     :paginationPageSize="100"
+                     :animateRows="true"
+                     :rowData="getCollection">
+        </ag-grid-vue>
         <div class="flex btn-group">
             <vs-button
                     @click="openAlert('danger')" class="mb-2" color="danger"
@@ -193,14 +139,45 @@
     </div>
 </template>
 <script>
+    //ag-grid
+    import {AgGridVue} from "ag-grid-vue";
+    import '@sass/vuexy/extraComponents/agGridStyleOverride.scss'
     import UpgradeCollection from './UpgradeCollection'
     export default {
         name:'Collection',
         components: {
-            UpgradeCollection
+            UpgradeCollection,
+            AgGridVue
         },
         data() {
             return {
+                //ag-grid
+                selected: [],
+                gridApi: null,
+                columnDefs: [
+                    {headerName: 'ឆ្នាំសិក្សា', field: 'year',pinned:true, checkboxSelection: true},
+                    {headerName: 'ផ្នែកសិក្សា', field: 'group_section'},
+                    {headerName: 'កម្រិតសិក្សា', field: 'section'},
+                    {headerName: 'កម្រិត', field: 'level'},
+                    {headerName: 'ថ្នាក់', field: 'class_name'},
+                    {headerName: 'វេណ', field: 'shift'},
+                    {headerName: 'តម្លៃ ១ខែ', field: 'cost_one'},
+                    {headerName: 'តម្លៃ ១ត្រីមាស', field: 'cost_three'},
+                    {headerName: 'តម្លៃ ១ឆមាស', field: 'cost_six'},
+                    {headerName: 'តម្លៃ ១ឆ្នាំ', field: 'cost_twelve'},
+                    {headerName: 'គ្រូបន្ទុកថ្នាក់', field: 'employee_name'},
+                ],
+                defaultColDef: {
+                    sortable: true,
+                    resizable: true,
+                    filter: true,
+                },
+                rowData: [
+                    {make: 'Toyota', model: 'Celica', price: 35000},
+                    {make: 'Ford', model: 'Mondeo', price: 32000},
+                    {make: 'Porsche', model: 'Boxter', price: 72000}
+                ],
+                //end ag-grid
                 is_update: false,
                 collections: {
                     id: '',
@@ -216,15 +193,6 @@
                     cost_twelve: '',
                     employee_id: '',
                 },
-                selected: [],
-                'tableList': [
-                    'vs-th: Component',
-                    'vs-tr: Component',
-                    'vs-td: Component',
-                    'thread: Slot',
-                    'tbody: Slot',
-                    'header: Slot'
-                ],
             }
         },
 
@@ -262,6 +230,12 @@
             },
         },
         methods: {
+            onGridReady(params) {
+                this.gridApi = params.api;
+            },
+            onSelectionChanged() {
+                this.selected = this.gridApi.getSelectedRows();
+            },
             storeCollection(){
                 let self = this;
                 let vm = this.collections;
@@ -309,6 +283,7 @@
                             position:'top-center'
                         });
                         self.clearCollectionForm();
+                        self.gridApi.deselectAll();
                         self.$vs.loading.close();
                     }
                 })
@@ -331,6 +306,7 @@
                         position:'top-center'
                     });
                     vm.selected = [];
+                    self.gridApi.deselectAll();
                     vm.$vs.loading.close()
                 })
             },
