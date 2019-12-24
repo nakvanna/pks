@@ -9,16 +9,8 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _StudentStudyYear__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./StudentStudyYear */ "./resources/js/src/views/report/StudentStudyYear.vue");
-/* harmony import */ var _StudentUseService__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./StudentUseService */ "./resources/js/src/views/report/StudentUseService.vue");
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
+/* harmony import */ var _StudentStudyYear__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./StudentStudyYear */ "./resources/js/src/views/report/StudentStudyYear.vue");
+/* harmony import */ var _StudentUseService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./StudentUseService */ "./resources/js/src/views/report/StudentUseService.vue");
 //
 //
 //
@@ -72,31 +64,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    StudentStudyYear: _StudentStudyYear__WEBPACK_IMPORTED_MODULE_1__["default"],
-    StudentUseService: _StudentUseService__WEBPACK_IMPORTED_MODULE_2__["default"]
+    StudentStudyYear: _StudentStudyYear__WEBPACK_IMPORTED_MODULE_0__["default"],
+    StudentUseService: _StudentUseService__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   name: 'Setting',
-  created: function () {
-    var _created = _asyncToGenerator(
-    /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee);
-    }));
-
-    function created() {
-      return _created.apply(this, arguments);
-    }
-
-    return created;
-  }(),
   computed: {
     isSmallerScreen: function isSmallerScreen() {
       return this.$store.state.windowWidth < 768;
@@ -288,10 +259,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              _context2.next = 2;
-              return this.$store.dispatch('fetchStudyInfos');
-
-            case 2:
               sie = this.study_info_extract;
               raw = this.getStudyInfos;
               raw.map(
@@ -316,7 +283,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 };
               }());
 
-            case 5:
+            case 3:
             case "end":
               return _context2.stop();
           }
@@ -564,10 +531,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              _context2.next = 2;
-              return this.$store.dispatch('fetchServiceInfos');
-
-            case 2:
               sie = this.service_info_extract;
               raw = this.getServiceInfos;
               raw.map(
@@ -607,7 +570,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 };
               }());
 
-            case 5:
+            case 3:
             case "end":
               return _context2.stop();
           }

@@ -1,30 +1,16 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[12],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/student/Student.vue?vue&type=script&lang=js&":
-/*!*************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/student/Student.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/components/excel/ImportExcel.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/components/excel/ImportExcel.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var ag_grid_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ag-grid-vue */ "./node_modules/ag-grid-vue/main.js");
-/* harmony import */ var ag_grid_vue__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(ag_grid_vue__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _sass_vuexy_extraComponents_agGridStyleOverride_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @sass/vuexy/extraComponents/agGridStyleOverride.scss */ "./resources/sass/vuexy/extraComponents/agGridStyleOverride.scss");
-/* harmony import */ var _sass_vuexy_extraComponents_agGridStyleOverride_scss__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_sass_vuexy_extraComponents_agGridStyleOverride_scss__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _addStudent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./addStudent */ "./resources/js/src/views/student/addStudent.vue");
-/* harmony import */ var _editStudent__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./editStudent */ "./resources/js/src/views/student/editStudent.vue");
-/* harmony import */ var _addStudyInfo__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./addStudyInfo */ "./resources/js/src/views/student/addStudyInfo.vue");
-/* harmony import */ var _addServiceInfo__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./addServiceInfo */ "./resources/js/src/views/student/addServiceInfo.vue");
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
+/* harmony import */ var xlsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! xlsx */ "./node_modules/xlsx/xlsx.js");
+/* harmony import */ var xlsx__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(xlsx__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -42,678 +28,346 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//ag-grid
-
-
-
-
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "Student",
-  components: {
-    AddServiceInfo: _addServiceInfo__WEBPACK_IMPORTED_MODULE_6__["default"],
-    AddStudyInfo: _addStudyInfo__WEBPACK_IMPORTED_MODULE_5__["default"],
-    EditStudent: _editStudent__WEBPACK_IMPORTED_MODULE_4__["default"],
-    AddStudent: _addStudent__WEBPACK_IMPORTED_MODULE_3__["default"],
-    AgGridVue: ag_grid_vue__WEBPACK_IMPORTED_MODULE_1__["AgGridVue"]
+  props: {
+    onSuccess: {
+      type: Function,
+      required: true
+    }
   },
   data: function data() {
     return {
-      selected: [],
-      gridApi: null,
-      columnDefs: [{
-        headerName: 'ល.រ',
-        field: 'id',
-        checkboxSelection: true
-      }, {
-        headerName: 'ឈ្មោះ',
-        field: 'name'
-      }, {
-        headerName: 'ឈ្មោះឡាតាំង',
-        field: 'latin'
-      }, {
-        headerName: 'ថ្ងៃខែឆ្នាំកំណើត',
-        field: 'dob'
-      }, {
-        headerName: 'ទំនាក់ទំនង',
-        field: 'std_contact'
-      }, {
-        headerName: 'អាស័យដ្ឋានបច្ចុប្បន្ន',
-        field: 'address'
-      }, {
-        headerName: 'ស្ថានភាព',
-        field: 'status'
-      }, {
-        headerName: 'ថ្នាក់បណ្តុះអាសន្ន',
-        field: 'temp_grade'
-      }, {
-        headerName: 'កាលបរិច្ឆេទ',
-        field: 'created_at'
-      }],
-      defaultColDef: {
-        sortable: true,
-        resizable: true,
-        filter: true
+      excelData: {
+        header: null,
+        results: null,
+        meta: null
       }
     };
   },
-  computed: {
-    all_students: function all_students() {
-      return this.$store.getters.all_students;
+  methods: {
+    generateData: function generateData(_ref) {
+      var header = _ref.header,
+          results = _ref.results,
+          meta = _ref.meta;
+      this.excelData.header = header;
+      this.excelData.results = results;
+      this.excelData.meta = meta;
+      this.onSuccess && this.onSuccess(this.excelData);
+    },
+    getHeaderRow: function getHeaderRow(sheet) {
+      var headers = [];
+      var range = xlsx__WEBPACK_IMPORTED_MODULE_0___default.a.utils.decode_range(sheet['!ref']);
+      var C;
+      var R = range.s.r;
+      /* start in the first row */
+
+      for (C = range.s.c; C <= range.e.c; ++C) {
+        /* walk every column in the range */
+        var cell = sheet[xlsx__WEBPACK_IMPORTED_MODULE_0___default.a.utils.encode_cell({
+          c: C,
+          r: R
+        })];
+        /* find the cell in the first row */
+
+        var hdr = 'UNKNOWN ' + C; // <-- replace with your desired default
+
+        if (cell && cell.t) hdr = xlsx__WEBPACK_IMPORTED_MODULE_0___default.a.utils.format_cell(cell);
+        headers.push(hdr);
+      }
+
+      return headers;
+    },
+    handleDragover: function handleDragover(e) {
+      e.stopPropagation();
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'copy';
+    },
+    handleDrop: function handleDrop(e) {
+      e.stopPropagation();
+      e.preventDefault();
+      var files = e.dataTransfer.files;
+
+      if (files.length !== 1) {
+        this.$vs.notify({
+          title: 'Login Attempt',
+          text: 'Only support uploading one file!',
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'warning'
+        });
+        return;
+      }
+
+      var rawFile = files[0]; // only use files[0]
+
+      if (!this.isExcel(rawFile)) {
+        this.$vs.notify({
+          title: 'Login Attempt',
+          text: 'Only supports upload .xlsx, .xls, .csv suffix files',
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'warning'
+        });
+        return false;
+      }
+
+      this.uploadFile(rawFile);
+    },
+    readerData: function readerData(rawFile) {
+      var _this = this;
+
+      return new Promise(function (resolve) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+          var data = e.target.result;
+          var workbook = xlsx__WEBPACK_IMPORTED_MODULE_0___default.a.read(data, {
+            type: 'array'
+          });
+          var firstSheetName = workbook.SheetNames[0];
+          var worksheet = workbook.Sheets[firstSheetName];
+
+          var header = _this.getHeaderRow(worksheet);
+
+          var results = xlsx__WEBPACK_IMPORTED_MODULE_0___default.a.utils.sheet_to_json(worksheet);
+          var meta = {
+            sheetName: firstSheetName
+          };
+
+          _this.generateData({
+            header: header,
+            results: results,
+            meta: meta
+          });
+
+          resolve();
+        };
+
+        reader.readAsArrayBuffer(rawFile);
+      });
+    },
+    handleClick: function handleClick(e) {
+      var files = e.target.files;
+      var rawFile = files[0];
+      if (!rawFile) return;
+      this.uploadFile(rawFile);
+    },
+    isExcel: function isExcel(file) {
+      return /\.(xlsx|xls|csv)$/.test(file.name);
+    },
+    uploadFile: function uploadFile(file) {
+      this.$refs['fileInput'].value = null; // fix can't select the same excel
+
+      this.readerData(file);
     }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/import/Excel.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/import/Excel.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _components_excel_ImportExcel__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../components/excel/ImportExcel */ "./resources/js/src/components/excel/ImportExcel.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "Excel",
+  components: {
+    ImportExcel: _components_excel_ImportExcel__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  created: function created() {
-    if (!this.all_students.length) {
-      this.fetchStudent();
-    }
+  data: function data() {
+    return {
+      tableData: [],
+      header: [],
+      sheetName: ""
+    };
   },
   methods: {
-    onGridReady: function onGridReady(params) {
-      this.gridApi = params.api;
+    loadDataInTable: function loadDataInTable(_ref) {
+      var results = _ref.results,
+          header = _ref.header,
+          meta = _ref.meta;
+      this.header = header;
+      this.tableData = results;
+      this.sheetName = meta.sheetName;
     },
-    onSelectionChanged: function onSelectionChanged() {
-      this.selected = this.gridApi.getSelectedRows();
-    },
-    //fetch
-    fetchStudent: function fetchStudent() {
+    importStudent: function importStudent() {
       var self = this;
       self.$vs.loading();
-      this.$store.dispatch('fetchStudent').then(function () {
-        self.$vs.loading.close();
+      self.$store.dispatch('importStudent', {
+        data: self.tableData
+      }).then(function (data) {
+        if (data) {
+          self.$vs.notify({
+            title: 'ប្រតិបត្តិការណ៍ជោគជ័យ',
+            text: 'ទិន្នន័យត្រូវបានរក្សាទុក',
+            color: 'primary',
+            iconPack: 'feather',
+            icon: 'icon-check',
+            position: 'top-center'
+          });
+          self.$vs.loading.close();
+        }
       });
     },
-    //destroy
-    toggleStudent: function () {
-      var _toggleStudent = _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        var self, promises;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                self = this;
-                self.$vs.loading();
-                promises = self.selected.map(
-                /*#__PURE__*/
-                function () {
-                  var _ref = _asyncToGenerator(
-                  /*#__PURE__*/
-                  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(data) {
-                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-                      while (1) {
-                        switch (_context.prev = _context.next) {
-                          case 0:
-                            _context.next = 2;
-                            return self.$store.dispatch('toggleStudent', data.id);
+    importCollection: function importCollection() {
+      var self = this;
+      self.$vs.loading();
+      self.$store.dispatch('importCollection', {
+        data: self.tableData
+      }).then(function (data) {
+        if (data) {
+          self.$vs.notify({
+            title: 'ប្រតិបត្តិការណ៍ជោគជ័យ',
+            text: 'ទិន្នន័យត្រូវបានរក្សាទុក',
+            color: 'primary',
+            iconPack: 'feather',
+            icon: 'icon-check',
+            position: 'top-center'
+          });
+          self.$vs.loading.close();
+        }
+      });
+    },
+    importEmployee: function importEmployee() {
+      var self = this;
+      self.$vs.loading();
+      self.$store.dispatch('importEmployee', {
+        data: self.tableData
+      }).then(function (data) {
+        if (data) {
+          self.$vs.notify({
+            title: 'ប្រតិបត្តិការណ៍ជោគជ័យ',
+            text: 'ទិន្នន័យត្រូវបានរក្សាទុក',
+            color: 'primary',
+            iconPack: 'feather',
+            icon: 'icon-check',
+            position: 'top-center'
+          });
+          self.$vs.loading.close();
+        }
+      });
+    }
+  }
+});
 
-                          case 2:
-                          case "end":
-                            return _context.stop();
-                        }
-                      }
-                    }, _callee);
-                  }));
+/***/ }),
 
-                  return function (_x) {
-                    return _ref.apply(this, arguments);
-                  };
-                }());
-                _context2.next = 5;
-                return Promise.all(promises).then(function () {
-                  self.$vs.notify({
-                    time: 4000,
-                    title: 'ប្រតិបត្តិការជោគជ័យ',
-                    text: 'ទិន្នន័យបានកែប្រែ',
-                    color: 'success',
-                    iconPack: 'feather',
-                    icon: 'icon-check',
-                    position: 'top-center'
-                  });
-                  self.selected = [];
-                  self.$vs.loading.close();
-                });
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/components/excel/ImportExcel.vue?vue&type=template&id=435d3aaa&":
+/*!************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/components/excel/ImportExcel.vue?vue&type=template&id=435d3aaa& ***!
+  \************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-              case 5:
-              case "end":
-                return _context2.stop();
-            }
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "excel-import" }, [
+    _c("input", {
+      ref: "fileInput",
+      staticClass: "hidden",
+      attrs: { type: "file", accept: ".xlsx, .xls" },
+      on: { change: _vm.handleClick }
+    }),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass:
+          "px-8 py-16 cursor-pointer text-center border-2 border-dashed d-theme-border-grey-light d-theme-dark-bg text-xl",
+        on: {
+          click: function($event) {
+            return _vm.$refs.fileInput.click()
+          },
+          drop: _vm.handleDrop,
+          dragover: _vm.handleDragover,
+          dragenter: _vm.handleDragover
+        }
+      },
+      [
+        _c("feather-icon", {
+          staticClass: "block",
+          attrs: {
+            icon: "UploadCloudIcon",
+            svgClasses: "h-16 w-16 stroke-current text-grey"
           }
-        }, _callee2, this);
-      }));
-
-      function toggleStudent() {
-        return _toggleStudent.apply(this, arguments);
-      }
-
-      return toggleStudent;
-    }()
-  }
-});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/student/addStudent.vue?vue&type=script&lang=js&":
-/*!****************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/student/addStudent.vue?vue&type=script&lang=js& ***!
-  \****************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue2_dropzone__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue2-dropzone */ "./node_modules/vue2-dropzone/dist/vue2Dropzone.js");
-/* harmony import */ var vue2_dropzone__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue2_dropzone__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vue2_dropzone_dist_vue2Dropzone_min_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue2-dropzone/dist/vue2Dropzone.min.css */ "./node_modules/vue2-dropzone/dist/vue2Dropzone.min.css");
-/* harmony import */ var vue2_dropzone_dist_vue2Dropzone_min_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue2_dropzone_dist_vue2Dropzone_min_css__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var vue_flatpickr_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-flatpickr-component */ "./node_modules/vue-flatpickr-component/dist/vue-flatpickr.min.js");
-/* harmony import */ var vue_flatpickr_component__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_flatpickr_component__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var flatpickr_dist_flatpickr_min_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! flatpickr/dist/flatpickr.min.css */ "./node_modules/flatpickr/dist/flatpickr.min.css");
-/* harmony import */ var flatpickr_dist_flatpickr_min_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(flatpickr_dist_flatpickr_min_css__WEBPACK_IMPORTED_MODULE_3__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  name: "addStudent",
-  components: {
-    flatPickr: vue_flatpickr_component__WEBPACK_IMPORTED_MODULE_2___default.a,
-    vueDropzone: vue2_dropzone__WEBPACK_IMPORTED_MODULE_0___default.a
-  },
-  data: function data() {
-    return {
-      data: {
-        name: '',
-        latin: '',
-        gender: 'ប្រុស',
-        photo: 'placeholder/placeholder.png',
-        dob: '',
-        std_contact: '',
-        pob: '',
-        address: '',
-        father_name: '',
-        father_job: '',
-        father_contact: '',
-        mother_name: '',
-        mother_job: '',
-        mother_contact: ''
-      },
-      dropzoneOptions: {
-        url: route('file.upload'),
-        maxFiles: 1,
-        addRemoveLinks: true,
-        dictDefaultMessage: "ដាក់រូបភាពសិស្ស",
-        thumbnailWidth: 150,
-        thumbnailHeight: 150
-      }
-    };
-  },
-  methods: {
-    show: function show() {
-      this.$modal.show('add');
-    },
-    //store
-    storeStudent: function storeStudent() {
-      var self = this;
-      this.$validator.validateAll().then(function (result) {
-        if (result && self.data.gender && self.data.photo) {
-          self.$vs.loading();
-          self.$store.dispatch('storeStudent', self.data).then(function (data) {
-            if (data) {
-              self.$vs.notify({
-                time: 4000,
-                title: 'ប្រតិបត្តិការជោគជ័យ',
-                text: 'ទិន្នន័យបានបន្ថែម',
-                color: 'success',
-                iconPack: 'feather',
-                icon: 'icon-check',
-                position: 'top-center'
-              });
-              self.resetField();
-            } else {
-              self.$vs.notify({
-                title: 'ប្រតិបត្តិការបរាជ័យ',
-                text: 'ទិន្នន័យមិនបានបន្ថែម',
-                color: 'danger',
-                iconPack: 'feather',
-                icon: 'icon-message-square',
-                position: 'top-center'
-              });
+        }),
+        _vm._v(" "),
+        _c("span", [_vm._v("Drop Excel File or ")]),
+        _vm._v(" "),
+        _c(
+          "span",
+          {
+            staticClass: "font-medium text-primary",
+            on: {
+              click: function($event) {
+                $event.stopPropagation()
+                return _vm.$refs.fileInput.click()
+              }
             }
+          },
+          [_vm._v("Browse")]
+        )
+      ],
+      1
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
 
-            self.$vs.loading.close();
-          });
-        } else {
-          self.$vs.notify({
-            title: 'ប្រតិបត្តិការបរាជ័យ',
-            text: 'សូមបំពេញទិន្នន័យអោយបានត្រឹមត្រូវ',
-            color: 'danger',
-            iconPack: 'feather',
-            icon: 'icon-message-square',
-            position: 'top-center'
-          });
-        }
-      });
-    },
-    resetField: function resetField() {
-      this.data = {
-        name: '',
-        latin: '',
-        gender: 'ប្រុស',
-        photo: 'placeholder/placeholder.png',
-        dob: '',
-        std_contact: '',
-        pob: '',
-        address: '',
-        father_name: '',
-        father_job: '',
-        father_contact: '',
-        mother_name: '',
-        mother_job: '',
-        mother_contact: ''
-      };
-    },
-    //image upload
-    successUpload: function successUpload(file, res) {
-      this.data.photo = res.path;
-    }
-  }
-});
+
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/student/editStudent.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/student/editStudent.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue2_dropzone__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue2-dropzone */ "./node_modules/vue2-dropzone/dist/vue2Dropzone.js");
-/* harmony import */ var vue2_dropzone__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue2_dropzone__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vue2_dropzone_dist_vue2Dropzone_min_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue2-dropzone/dist/vue2Dropzone.min.css */ "./node_modules/vue2-dropzone/dist/vue2Dropzone.min.css");
-/* harmony import */ var vue2_dropzone_dist_vue2Dropzone_min_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue2_dropzone_dist_vue2Dropzone_min_css__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var vue_flatpickr_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-flatpickr-component */ "./node_modules/vue-flatpickr-component/dist/vue-flatpickr.min.js");
-/* harmony import */ var vue_flatpickr_component__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_flatpickr_component__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var flatpickr_dist_flatpickr_min_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! flatpickr/dist/flatpickr.min.css */ "./node_modules/flatpickr/dist/flatpickr.min.css");
-/* harmony import */ var flatpickr_dist_flatpickr_min_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(flatpickr_dist_flatpickr_min_css__WEBPACK_IMPORTED_MODULE_3__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  name: "editStudent",
-  components: {
-    flatPickr: vue_flatpickr_component__WEBPACK_IMPORTED_MODULE_2___default.a,
-    vueDropzone: vue2_dropzone__WEBPACK_IMPORTED_MODULE_0___default.a
-  },
-  data: function data() {
-    return {
-      data: {
-        name: '',
-        latin: '',
-        gender: 'ប្រុស',
-        photo: 'placeholder/placeholder.png',
-        dob: '',
-        std_contact: '',
-        pob: '',
-        address: '',
-        father_name: '',
-        father_job: '',
-        father_contact: '',
-        mother_name: '',
-        mother_job: '',
-        mother_contact: ''
-      },
-      dropzoneOptions: {
-        url: route('file.upload'),
-        maxFiles: 1,
-        addRemoveLinks: true,
-        dictDefaultMessage: "ដាក់រូបភាពសិស្ស",
-        thumbnailWidth: 150,
-        thumbnailHeight: 150
-      }
-    };
-  },
-  methods: {
-    show: function show() {
-      this.$modal.show('edit');
-    },
-    //store
-    updateStudent: function updateStudent() {
-      var self = this;
-      this.$validator.validateAll().then(function (result) {
-        if (result && self.data.gender && self.data.photo) {
-          self.$vs.loading();
-          self.$store.dispatch('updateStudent', self.data).then(function (data) {
-            if (data) {
-              self.$vs.notify({
-                time: 4000,
-                title: 'ប្រតិបត្តិការជោគជ័យ',
-                text: 'ទិន្នន័យបានកែប្រែ',
-                color: 'success',
-                iconPack: 'feather',
-                icon: 'icon-check',
-                position: 'top-center'
-              });
-            } else {
-              self.$vs.notify({
-                title: 'ប្រតិបត្តិការបរាជ័យ',
-                text: 'ទិន្នន័យមិនបានកែប្រែ',
-                color: 'danger',
-                iconPack: 'feather',
-                icon: 'icon-message-square',
-                position: 'top-center'
-              });
-            }
-
-            self.$vs.loading.close();
-            self.$emit('finished');
-          });
-        } else {
-          self.$vs.notify({
-            title: 'ប្រតិបត្តិការបរាជ័យ',
-            text: 'សូមបំពេញទិន្នន័យអោយបានត្រឹមត្រូវ',
-            color: 'danger',
-            iconPack: 'feather',
-            icon: 'icon-message-square',
-            position: 'top-center'
-          });
-        }
-      });
-    },
-    //edit student
-    editStudent: function editStudent(data) {
-      this.data = data;
-    },
-    //image upload
-    successUpload: function successUpload(file, res) {
-      this.data.photo = res.path;
-    },
-    loadPhoto: function loadPhoto() {
-      this.$refs.myVueDropzone.manuallyAddFile({
-        size: 123
-      }, this.data.photo);
-    }
-  }
-});
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/student/Student.vue?vue&type=template&id=422176a6&scoped=true&":
-/*!*****************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/student/Student.vue?vue&type=template&id=422176a6&scoped=true& ***!
-  \*****************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/import/Excel.vue?vue&type=template&id=7efa1992&scoped=true&":
+/*!**************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/import/Excel.vue?vue&type=template&id=7efa1992&scoped=true& ***!
+  \**************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -726,12 +380,13 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "vx-card",
-    { attrs: { "no-shadow": "" } },
+    "vs-card",
     [
+      _c("import-excel", { attrs: { onSuccess: _vm.loadDataInTable } }),
+      _vm._v(" "),
       _c(
         "div",
-        { staticClass: "flex btn-group" },
+        { staticClass: "flex btn-group my-4" },
         [
           _c(
             "vs-button",
@@ -739,897 +394,141 @@ var render = function() {
               attrs: {
                 type: "relief",
                 "icon-pack": "feather",
-                icon: "icon-plus-square"
+                icon: "icon-download"
               },
-              on: {
-                click: function($event) {
-                  return _vm.$refs.addStudent.show()
-                }
-              }
+              on: { click: _vm.importStudent }
             },
-            [_vm._v("\n            បន្ថែម\n        ")]
+            [_vm._v("Import Student")]
           ),
           _vm._v(" "),
           _c(
             "vs-button",
             {
               attrs: {
-                color: "success",
-                disabled: _vm.selected.length <= 0,
+                color: "warning",
                 type: "relief",
                 "icon-pack": "feather",
-                icon: "icon-check-square"
+                icon: "icon-download"
               },
-              on: {
-                click: function($event) {
-                  return _vm.gridApi.deselectAll()
-                }
-              }
+              on: { click: _vm.importCollection }
             },
-            [_vm._v("Clear\n        ")]
+            [_vm._v("Import Collection")]
           ),
           _vm._v(" "),
-          _vm.selected.length === 1
-            ? _c(
-                "vs-button",
-                {
-                  attrs: {
-                    color: "warning",
-                    type: "relief",
-                    "icon-pack": "feather",
-                    icon: "icon-edit"
-                  },
-                  on: {
-                    click: function($event) {
-                      _vm.$refs.editStudent.show()
-                      _vm.$refs.editStudent.editStudent(_vm.selected[0])
-                    }
-                  }
-                },
-                [_vm._v("កែប្រែ\n        ")]
-              )
-            : _vm._e(),
+          _c(
+            "vs-button",
+            {
+              attrs: {
+                color: "dark",
+                type: "relief",
+                "icon-pack": "feather",
+                icon: "icon-download"
+              },
+              on: { click: _vm.importEmployee }
+            },
+            [_vm._v("Import Employee")]
+          ),
           _vm._v(" "),
-          _vm.selected.length
-            ? _c(
-                "vs-button",
-                {
-                  attrs: {
-                    color: "danger",
-                    type: "relief",
-                    "icon-pack": "feather",
-                    icon: "icon-circle"
-                  },
-                  on: { click: _vm.toggleStudent }
-                },
-                [_vm._v("Toggle Status\n        ")]
-              )
-            : _vm._e(),
+          _c(
+            "vs-button",
+            {
+              attrs: {
+                type: "relief",
+                "icon-pack": "feather",
+                icon: "icon-package"
+              }
+            },
+            [_vm._v("អាប់គ្រេដ")]
+          ),
           _vm._v(" "),
-          _vm.selected.length
-            ? _c(
-                "vs-button",
-                {
-                  attrs: {
-                    type: "relief",
-                    "icon-pack": "feather",
-                    icon: "icon-upload"
-                  },
-                  on: {
-                    click: function($event) {
-                      return _vm.$refs.addStudyInfo.show(_vm.selected)
-                    }
-                  }
-                },
-                [_vm._v("ការសិក្សា\n        ")]
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.selected.length
-            ? _c(
-                "vs-button",
-                {
-                  attrs: {
-                    color: "dark",
-                    type: "relief",
-                    "icon-pack": "feather",
-                    icon: "icon-upload"
-                  },
-                  on: {
-                    click: function($event) {
-                      return _vm.$refs.addServiceInfo.show(_vm.selected, true)
-                    }
-                  }
-                },
-                [_vm._v("សេវាកម្ម\n        ")]
-              )
-            : _vm._e()
+          _c(
+            "vs-button",
+            {
+              attrs: {
+                color: "danger",
+                type: "relief",
+                "icon-pack": "feather",
+                icon: "icon-trash-2"
+              }
+            },
+            [_vm._v("លុប")]
+          )
         ],
         1
       ),
       _vm._v(" "),
-      _c("ag-grid-vue", {
-        staticClass: "ag-theme-material w-100 my-4 ag-grid-table",
-        staticStyle: { height: "900px" },
-        attrs: {
-          columnDefs: _vm.columnDefs,
-          defaultColDef: _vm.defaultColDef,
-          rowSelection: "multiple",
-          pagination: true,
-          paginationPageSize: 150,
-          animateRows: true,
-          rowData: _vm.all_students
-        },
-        on: {
-          "grid-ready": _vm.onGridReady,
-          "selection-changed": _vm.onSelectionChanged
-        }
-      }),
-      _vm._v(" "),
-      _c("add-student", { ref: "addStudent" }),
-      _vm._v(" "),
-      _c("edit-student", {
-        ref: "editStudent",
-        on: {
-          finished: function($event) {
-            _vm.selected = []
-          }
-        }
-      }),
-      _vm._v(" "),
-      _c("add-study-info", {
-        ref: "addStudyInfo",
-        on: {
-          finished: function($event) {
-            _vm.selected = []
-            _vm.gridApi.deselectAll()
-          }
-        }
-      }),
-      _vm._v(" "),
-      _c("add-service-info", { ref: "addServiceInfo" })
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/student/addStudent.vue?vue&type=template&id=61a22838&scoped=true&":
-/*!********************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/student/addStudent.vue?vue&type=template&id=61a22838&scoped=true& ***!
-  \********************************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "modal",
-    {
-      attrs: {
-        width: "90%",
-        height: "auto",
-        scrollable: true,
-        pivotY: 0.5,
-        clickToClose: false,
-        name: "add"
-      }
-    },
-    [
-      _c("div", { staticClass: "flex justify-end" }, [
-        _c(
-          "i",
-          {
-            staticClass: "vs-icon vs-popup--close material-icons text-warning",
-            staticStyle: { background: "rgb(255, 255, 255)" },
-            on: {
-              click: function($event) {
-                return _vm.$modal.hide("add")
-              }
-            }
-          },
-          [_vm._v("close")]
-        )
-      ]),
-      _vm._v(" "),
-      _c(
-        "vx-card",
-        { attrs: { "no-shadow": "" } },
-        [
-          _c("vs-divider", { attrs: { position: "left" } }, [
-            _vm._v("ពត៌មានសិស្ស")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "vx-row" }, [
-            _c("div", { staticClass: "vx-col lg:w-3/4 w-full" }, [
-              _c("div", { staticClass: "vx-row" }, [
-                _c(
-                  "div",
-                  { staticClass: "vx-col lg:w-1/4 w-full" },
-                  [
-                    _c("vs-input", {
-                      directives: [
-                        {
-                          name: "validate",
-                          rawName: "v-validate",
-                          value: "required",
-                          expression: "'required'"
-                        }
-                      ],
-                      staticClass: "w-full mt-6",
-                      attrs: {
-                        "label-placeholder": "គោតនាម នាម",
-                        name: "name"
-                      },
-                      on: {
-                        keyup: function($event) {
-                          if (
-                            !$event.type.indexOf("key") &&
-                            _vm._k(
-                              $event.keyCode,
-                              "enter",
-                              13,
-                              $event.key,
-                              "Enter"
+      _vm.tableData.length && _vm.header.length
+        ? _c(
+            "div",
+            [
+              _c(
+                "vs-table",
+                {
+                  attrs: {
+                    stripe: "",
+                    pagination: "",
+                    "max-items": 10,
+                    search: "",
+                    data: _vm.tableData
+                  },
+                  scopedSlots: _vm._u(
+                    [
+                      {
+                        key: "default",
+                        fn: function(ref) {
+                          var data = ref.data
+                          return _vm._l(data, function(tr, indextr) {
+                            return _c(
+                              "vs-tr",
+                              { key: indextr, attrs: { data: tr } },
+                              _vm._l(data[indextr], function(col, indexcol) {
+                                return _c(
+                                  "vs-td",
+                                  { key: indexcol + col, attrs: { data: col } },
+                                  [
+                                    _vm._v(
+                                      "\n                        " +
+                                        _vm._s(col) +
+                                        "\n                    "
+                                    )
+                                  ]
+                                )
+                              }),
+                              1
                             )
-                          ) {
-                            return null
-                          }
-                          return _vm.storeStudent($event)
+                          })
                         }
-                      },
-                      model: {
-                        value: _vm.data.name,
-                        callback: function($$v) {
-                          _vm.$set(_vm.data, "name", $$v)
-                        },
-                        expression: "data.name"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "span",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.errors.has("name"),
-                            expression: "errors.has('name')"
-                          }
-                        ],
-                        staticClass: "text-danger text-sm"
-                      },
-                      [_vm._v(_vm._s(_vm.errors.first("name")))]
-                    )
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "vx-col lg:w-1/4 w-full" },
-                  [
-                    _c("vs-input", {
-                      directives: [
-                        {
-                          name: "validate",
-                          rawName: "v-validate",
-                          value: "required",
-                          expression: "'required'"
-                        }
-                      ],
-                      staticClass: "w-full mt-6",
-                      attrs: {
-                        "label-placeholder": "គោតនាម នាមឡាតាំង",
-                        name: "latin"
-                      },
-                      model: {
-                        value: _vm.data.latin,
-                        callback: function($$v) {
-                          _vm.$set(_vm.data, "latin", $$v)
-                        },
-                        expression: "data.latin"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "span",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.errors.has("latin"),
-                            expression: "errors.has('latin')"
-                          }
-                        ],
-                        staticClass: "text-danger text-sm"
-                      },
-                      [_vm._v(_vm._s(_vm.errors.first("latin")))]
-                    )
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "vx-col lg:w-1/4 w-full" },
-                  [
-                    _c(
-                      "vs-select",
-                      {
-                        staticClass: "w-full",
-                        attrs: { label: "ភេទ" },
-                        model: {
-                          value: _vm.data.gender,
-                          callback: function($$v) {
-                            _vm.$set(_vm.data, "gender", $$v)
-                          },
-                          expression: "data.gender"
-                        }
-                      },
-                      [
-                        _c("vs-select-item", {
-                          attrs: { value: "ប្រុស", text: "ប្រុស" }
-                        }),
-                        _vm._v(" "),
-                        _c("vs-select-item", {
-                          attrs: { value: "ស្រី", text: "ស្រី" }
-                        })
-                      ],
-                      1
-                    )
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "vx-col lg:w-1/4" },
-                  [
-                    _c("label", [_vm._v("ថ្ងៃខែឆ្មាំកំណើត")]),
-                    _vm._v(" "),
-                    _c("flat-pickr", {
-                      directives: [
-                        {
-                          name: "validate",
-                          rawName: "v-validate",
-                          value: "required",
-                          expression: "'required'"
-                        }
-                      ],
-                      staticClass: "w-full",
-                      attrs: { placeholder: "ថ្ងៃខែឆ្មាំកំណើត", name: "dob" },
-                      model: {
-                        value: _vm.data.dob,
-                        callback: function($$v) {
-                          _vm.$set(_vm.data, "dob", $$v)
-                        },
-                        expression: "data.dob"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "span",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.errors.has("dob"),
-                            expression: "errors.has('dob')"
-                          }
-                        ],
-                        staticClass: "text-danger text-sm"
-                      },
-                      [_vm._v(_vm._s(_vm.errors.first("dob")))]
-                    )
-                  ],
-                  1
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "vx-row" }, [
-                _c(
-                  "div",
-                  { staticClass: "vx-col lg:w-3/3 w-full mt-6" },
-                  [
-                    _c("label", [_vm._v("ទំនាក់ទំនង")]),
-                    _vm._v(" "),
-                    _c("vs-textarea", {
-                      directives: [
-                        {
-                          name: "validate",
-                          rawName: "v-validate",
-                          value: "required",
-                          expression: "'required'"
-                        }
-                      ],
-                      staticClass: "w-full",
-                      attrs: { label: "ទំនាក់ទំនង", name: "std_contact" },
-                      model: {
-                        value: _vm.data.std_contact,
-                        callback: function($$v) {
-                          _vm.$set(_vm.data, "std_contact", $$v)
-                        },
-                        expression: "data.std_contact"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "span",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.errors.has("std_contact"),
-                            expression: "errors.has('std_contact')"
-                          }
-                        ],
-                        staticClass: "text-danger text-sm"
-                      },
-                      [_vm._v(_vm._s(_vm.errors.first("std_contact")))]
-                    )
-                  ],
-                  1
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "vx-col lg:w-1/4 w-full" },
-              [
-                _c("vue-dropzone", {
-                  ref: "myVueDropzone",
-                  staticClass: "max-content p-1",
-                  attrs: {
-                    duplicateCheck: "",
-                    id: "dropzone",
-                    options: _vm.dropzoneOptions
-                  },
-                  on: { "vdropzone-success": _vm.successUpload }
-                })
-              ],
-              1
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "vx-row" }, [
-            _c(
-              "div",
-              { staticClass: "vx-col lg:w-1/2 w-full" },
-              [
-                _c("label", [_vm._v("ទីកន្លែងកំណើត")]),
-                _vm._v(" "),
-                _c("vs-textarea", {
-                  directives: [
-                    {
-                      name: "validate",
-                      rawName: "v-validate",
-                      value: "required",
-                      expression: "'required'"
-                    }
-                  ],
-                  staticClass: "w-full",
-                  attrs: { label: "ទីកន្លែងកំណើត", name: "pob" },
-                  model: {
-                    value: _vm.data.pob,
-                    callback: function($$v) {
-                      _vm.$set(_vm.data, "pob", $$v)
-                    },
-                    expression: "data.pob"
-                  }
-                }),
-                _vm._v(" "),
-                _c(
-                  "span",
-                  {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: _vm.errors.has("pob"),
-                        expression: "errors.has('pob')"
                       }
                     ],
-                    staticClass: "text-danger text-sm"
-                  },
-                  [_vm._v(_vm._s(_vm.errors.first("pob")))]
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "vx-col lg:w-1/2 w-full" },
-              [
-                _c("label", [_vm._v("អាស័យដ្ឋានបច្ចុប្បន្ន")]),
-                _vm._v(" "),
-                _c("vs-textarea", {
-                  directives: [
-                    {
-                      name: "validate",
-                      rawName: "v-validate",
-                      value: "required",
-                      expression: "'required'"
-                    }
-                  ],
-                  staticClass: "w-full",
-                  attrs: { label: "អាស័យដ្ឋានបច្ចុប្បន្ន", name: "address" },
-                  model: {
-                    value: _vm.data.address,
-                    callback: function($$v) {
-                      _vm.$set(_vm.data, "address", $$v)
-                    },
-                    expression: "data.address"
-                  }
-                }),
-                _vm._v(" "),
-                _c(
-                  "span",
-                  {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: _vm.errors.has("address"),
-                        expression: "errors.has('address')"
-                      }
-                    ],
-                    staticClass: "text-danger text-sm"
-                  },
-                  [_vm._v(_vm._s(_vm.errors.first("address")))]
-                )
-              ],
-              1
-            )
-          ]),
-          _vm._v(" "),
-          _c("vs-divider", { attrs: { position: "left" } }, [
-            _vm._v("ពត៌មានអាណាព្យាបាល")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "vx-row" }, [
-            _c(
-              "div",
-              { staticClass: "vx-col md:w-1/2" },
-              [
-                _c("vs-divider", { attrs: { position: "left-center" } }, [
-                  _vm._v("ឪពុក")
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "vx-row" }, [
-                  _c(
-                    "div",
-                    { staticClass: "vx-col md:w-1/2 w-full" },
-                    [
-                      _c("vs-input", {
-                        directives: [
-                          {
-                            name: "validate",
-                            rawName: "v-validate",
-                            value: "required",
-                            expression: "'required'"
-                          }
-                        ],
-                        staticClass: "w-full mt-6",
-                        attrs: {
-                          "label-placeholder": "គោតនាម នាម",
-                          name: "father_name"
-                        },
-                        model: {
-                          value: _vm.data.father_name,
-                          callback: function($$v) {
-                            _vm.$set(_vm.data, "father_name", $$v)
-                          },
-                          expression: "data.father_name"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "span",
-                        {
-                          directives: [
-                            {
-                              name: "show",
-                              rawName: "v-show",
-                              value: _vm.errors.has("father_name"),
-                              expression: "errors.has('father_name')"
-                            }
-                          ],
-                          staticClass: "text-danger text-sm"
-                        },
-                        [_vm._v(_vm._s(_vm.errors.first("father_name")))]
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "vx-col md:w-1/2 w-full" },
-                    [
-                      _c("vs-input", {
-                        directives: [
-                          {
-                            name: "validate",
-                            rawName: "v-validate",
-                            value: "required",
-                            expression: "'required'"
-                          }
-                        ],
-                        staticClass: "w-full mt-6",
-                        attrs: {
-                          "label-placeholder": "មុខរបរ",
-                          name: "father_job"
-                        },
-                        model: {
-                          value: _vm.data.father_job,
-                          callback: function($$v) {
-                            _vm.$set(_vm.data, "father_job", $$v)
-                          },
-                          expression: "data.father_job"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "span",
-                        {
-                          directives: [
-                            {
-                              name: "show",
-                              rawName: "v-show",
-                              value: _vm.errors.has("father_job"),
-                              expression: "errors.has('father_job')"
-                            }
-                          ],
-                          staticClass: "text-danger text-sm"
-                        },
-                        [_vm._v(_vm._s(_vm.errors.first("father_job")))]
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "vx-col w-full mt-5" },
-                    [
-                      _c("label", [_vm._v("ទំនាក់ទំនង")]),
-                      _vm._v(" "),
-                      _c("vs-textarea", {
-                        directives: [
-                          {
-                            name: "validate",
-                            rawName: "v-validate",
-                            value: "required",
-                            expression: "'required'"
-                          }
-                        ],
-                        staticClass: "w-full",
-                        attrs: { label: "ទំនាក់ទំនង", name: "father_contact" },
-                        model: {
-                          value: _vm.data.father_contact,
-                          callback: function($$v) {
-                            _vm.$set(_vm.data, "father_contact", $$v)
-                          },
-                          expression: "data.father_contact"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "span",
-                        {
-                          directives: [
-                            {
-                              name: "show",
-                              rawName: "v-show",
-                              value: _vm.errors.has("father_contact"),
-                              expression: "errors.has('father_contact')"
-                            }
-                          ],
-                          staticClass: "text-danger text-sm"
-                        },
-                        [_vm._v(_vm._s(_vm.errors.first("father_contact")))]
-                      )
-                    ],
-                    1
+                    null,
+                    false,
+                    4141501407
                   )
-                ])
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "vx-col md:w-1/2" },
-              [
-                _c("vs-divider", { attrs: { position: "left-center" } }, [
-                  _vm._v("ម្តាយ")
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "vx-row" }, [
-                  _c(
-                    "div",
-                    { staticClass: "vx-col md:w-1/2 w-full" },
-                    [
-                      _c("vs-input", {
-                        directives: [
-                          {
-                            name: "validate",
-                            rawName: "v-validate",
-                            value: "required",
-                            expression: "'required'"
-                          }
-                        ],
-                        staticClass: "w-full mt-6",
-                        attrs: {
-                          "label-placeholder": "គោតនាម នាម",
-                          name: "mother_name"
-                        },
-                        model: {
-                          value: _vm.data.mother_name,
-                          callback: function($$v) {
-                            _vm.$set(_vm.data, "mother_name", $$v)
-                          },
-                          expression: "data.mother_name"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "span",
-                        {
-                          directives: [
-                            {
-                              name: "show",
-                              rawName: "v-show",
-                              value: _vm.errors.has("mother_name"),
-                              expression: "errors.has('mother_name')"
-                            }
-                          ],
-                          staticClass: "text-danger text-sm"
-                        },
-                        [_vm._v(_vm._s(_vm.errors.first("mother_name")))]
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "vx-col md:w-1/2 w-full" },
-                    [
-                      _c("vs-input", {
-                        directives: [
-                          {
-                            name: "validate",
-                            rawName: "v-validate",
-                            value: "required",
-                            expression: "'required'"
-                          }
-                        ],
-                        staticClass: "w-full mt-6",
-                        attrs: {
-                          "label-placeholder": "មុខរបរ",
-                          name: "mother_job"
-                        },
-                        model: {
-                          value: _vm.data.mother_job,
-                          callback: function($$v) {
-                            _vm.$set(_vm.data, "mother_job", $$v)
-                          },
-                          expression: "data.mother_job"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "span",
-                        {
-                          directives: [
-                            {
-                              name: "show",
-                              rawName: "v-show",
-                              value: _vm.errors.has("mother_job"),
-                              expression: "errors.has('mother_job')"
-                            }
-                          ],
-                          staticClass: "text-danger text-sm"
-                        },
-                        [_vm._v(_vm._s(_vm.errors.first("mother_job")))]
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "vx-col w-full mt-5" },
-                    [
-                      _c("label", [_vm._v("ទំនាក់ទំនង")]),
-                      _vm._v(" "),
-                      _c("vs-textarea", {
-                        directives: [
-                          {
-                            name: "validate",
-                            rawName: "v-validate",
-                            value: "required",
-                            expression: "'required'"
-                          }
-                        ],
-                        staticClass: "w-full",
-                        attrs: { label: "ទំនាក់ទំនង", name: "mother_contact" },
-                        model: {
-                          value: _vm.data.mother_contact,
-                          callback: function($$v) {
-                            _vm.$set(_vm.data, "mother_contact", $$v)
-                          },
-                          expression: "data.mother_contact"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "span",
-                        {
-                          directives: [
-                            {
-                              name: "show",
-                              rawName: "v-show",
-                              value: _vm.errors.has("mother_contact"),
-                              expression: "errors.has('mother_contact')"
-                            }
-                          ],
-                          staticClass: "text-danger text-sm"
-                        },
-                        [_vm._v(_vm._s(_vm.errors.first("mother_contact")))]
-                      )
-                    ],
-                    1
-                  )
-                ])
-              ],
-              1
-            )
-          ]),
-          _vm._v(" "),
-          _c("vs-divider"),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "flex justify-end btn-group" },
-            [
-              _c(
-                "vs-button",
-                {
-                  attrs: {
-                    icon: "icon-save",
-                    "icon-pack": "feather",
-                    type: "relief"
-                  },
-                  on: { click: _vm.storeStudent }
                 },
-                [_vm._v("រក្សាទុក")]
+                [
+                  _c("template", { slot: "header" }, [
+                    _c("h4", [_vm._v(_vm._s(_vm.sheetName))])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "template",
+                    { slot: "thead" },
+                    _vm._l(_vm.header, function(heading) {
+                      return _c(
+                        "vs-th",
+                        { key: heading, attrs: { "sort-key": heading } },
+                        [_vm._v(_vm._s(heading))]
+                      )
+                    }),
+                    1
+                  )
+                ],
+                2
               )
             ],
             1
           )
-        ],
-        1
-      )
+        : _vm._e()
     ],
     1
   )
@@ -1641,727 +540,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/student/editStudent.vue?vue&type=template&id=48d03f63&scoped=true&":
-/*!*********************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/student/editStudent.vue?vue&type=template&id=48d03f63&scoped=true& ***!
-  \*********************************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "modal",
-    {
-      attrs: {
-        width: "1500",
-        height: "auto",
-        scrollable: true,
-        pivotY: 0.2,
-        adaptive: true,
-        clickToClose: false,
-        name: "edit"
-      }
-    },
-    [
-      _c("div", { staticClass: "flex justify-end" }, [
-        _c(
-          "i",
-          {
-            staticClass: "vs-icon vs-popup--close material-icons text-warning",
-            staticStyle: { background: "rgb(255, 255, 255)" },
-            on: {
-              click: function($event) {
-                return _vm.$modal.hide("edit")
-              }
-            }
-          },
-          [_vm._v("close")]
-        )
-      ]),
-      _vm._v(" "),
-      _c(
-        "vx-card",
-        { attrs: { "no-shadow": "" } },
-        [
-          _c("vs-divider", { attrs: { position: "left" } }, [
-            _vm._v("ពត៌មានសិស្ស")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "vx-row" }, [
-            _c("div", { staticClass: "vx-col lg:w-3/4 w-full" }, [
-              _c("div", { staticClass: "vx-row" }, [
-                _c(
-                  "div",
-                  { staticClass: "vx-col lg:w-1/3 w-full" },
-                  [
-                    _c("vs-input", {
-                      directives: [
-                        {
-                          name: "validate",
-                          rawName: "v-validate",
-                          value: "required",
-                          expression: "'required'"
-                        }
-                      ],
-                      staticClass: "w-full mt-6",
-                      attrs: {
-                        "label-placeholder": "គោតនាម នាម",
-                        name: "name"
-                      },
-                      model: {
-                        value: _vm.data.name,
-                        callback: function($$v) {
-                          _vm.$set(_vm.data, "name", $$v)
-                        },
-                        expression: "data.name"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "span",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.errors.has("name"),
-                            expression: "errors.has('name')"
-                          }
-                        ],
-                        staticClass: "text-danger text-sm"
-                      },
-                      [_vm._v(_vm._s(_vm.errors.first("name")))]
-                    )
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "vx-col lg:w-1/3 w-full" },
-                  [
-                    _c("vs-input", {
-                      directives: [
-                        {
-                          name: "validate",
-                          rawName: "v-validate",
-                          value: "required",
-                          expression: "'required'"
-                        }
-                      ],
-                      staticClass: "w-full mt-6",
-                      attrs: {
-                        "label-placeholder": "គោតនាម នាមឡាតាំង",
-                        name: "latin"
-                      },
-                      model: {
-                        value: _vm.data.latin,
-                        callback: function($$v) {
-                          _vm.$set(_vm.data, "latin", $$v)
-                        },
-                        expression: "data.latin"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "span",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.errors.has("latin"),
-                            expression: "errors.has('latin')"
-                          }
-                        ],
-                        staticClass: "text-danger text-sm"
-                      },
-                      [_vm._v(_vm._s(_vm.errors.first("latin")))]
-                    )
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "vx-col lg:w-1/3 w-full" },
-                  [
-                    _c(
-                      "vs-select",
-                      {
-                        staticClass: "w-full",
-                        attrs: { label: "ភេទ" },
-                        model: {
-                          value: _vm.data.gender,
-                          callback: function($$v) {
-                            _vm.$set(_vm.data, "gender", $$v)
-                          },
-                          expression: "data.gender"
-                        }
-                      },
-                      [
-                        _c("vs-select-item", {
-                          attrs: { value: "ប្រុស", text: "ប្រុស" }
-                        }),
-                        _vm._v(" "),
-                        _c("vs-select-item", {
-                          attrs: { value: "ស្រី", text: "ស្រី" }
-                        })
-                      ],
-                      1
-                    )
-                  ],
-                  1
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "vx-row" }, [
-                _c(
-                  "div",
-                  { staticClass: "vx-col lg:w-1/3 w-full mt-6" },
-                  [
-                    _c("label", [_vm._v("ថ្ងៃខែឆ្មាំកំណើត")]),
-                    _vm._v(" "),
-                    _c("flat-pickr", {
-                      directives: [
-                        {
-                          name: "validate",
-                          rawName: "v-validate",
-                          value: "required",
-                          expression: "'required'"
-                        }
-                      ],
-                      staticClass: "w-full",
-                      attrs: { placeholder: "ថ្ងៃខែឆ្មាំកំណើត", name: "dob" },
-                      model: {
-                        value: _vm.data.dob,
-                        callback: function($$v) {
-                          _vm.$set(_vm.data, "dob", $$v)
-                        },
-                        expression: "data.dob"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "span",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.errors.has("dob"),
-                            expression: "errors.has('dob')"
-                          }
-                        ],
-                        staticClass: "text-danger text-sm"
-                      },
-                      [_vm._v(_vm._s(_vm.errors.first("dob")))]
-                    )
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "vx-col lg:w-2/3 w-full mt-6" },
-                  [
-                    _c("label", [_vm._v("ទំនាក់ទំនង")]),
-                    _vm._v(" "),
-                    _c("vs-textarea", {
-                      directives: [
-                        {
-                          name: "validate",
-                          rawName: "v-validate",
-                          value: "required",
-                          expression: "'required'"
-                        }
-                      ],
-                      staticClass: "w-full",
-                      attrs: { label: "ទំនាក់ទំនង", name: "std_contact" },
-                      model: {
-                        value: _vm.data.std_contact,
-                        callback: function($$v) {
-                          _vm.$set(_vm.data, "std_contact", $$v)
-                        },
-                        expression: "data.std_contact"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "span",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.errors.has("std_contact"),
-                            expression: "errors.has('std_contact')"
-                          }
-                        ],
-                        staticClass: "text-danger text-sm"
-                      },
-                      [_vm._v(_vm._s(_vm.errors.first("std_contact")))]
-                    )
-                  ],
-                  1
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "vx-row" }, [
-                _c(
-                  "div",
-                  { staticClass: "vx-col lg:w-1/2 w-full" },
-                  [
-                    _c("label", [_vm._v("ទីកន្លែងកំណើត")]),
-                    _vm._v(" "),
-                    _c("vs-textarea", {
-                      directives: [
-                        {
-                          name: "validate",
-                          rawName: "v-validate",
-                          value: "required",
-                          expression: "'required'"
-                        }
-                      ],
-                      staticClass: "w-full",
-                      attrs: { label: "ទីកន្លែងកំណើត", name: "pob" },
-                      model: {
-                        value: _vm.data.pob,
-                        callback: function($$v) {
-                          _vm.$set(_vm.data, "pob", $$v)
-                        },
-                        expression: "data.pob"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "span",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.errors.has("pob"),
-                            expression: "errors.has('pob')"
-                          }
-                        ],
-                        staticClass: "text-danger text-sm"
-                      },
-                      [_vm._v(_vm._s(_vm.errors.first("pob")))]
-                    )
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "vx-col lg:w-1/2 w-full" },
-                  [
-                    _c("label", [_vm._v("អាស័យដ្ឋានបច្ចុប្បន្ន")]),
-                    _vm._v(" "),
-                    _c("vs-textarea", {
-                      directives: [
-                        {
-                          name: "validate",
-                          rawName: "v-validate",
-                          value: "required",
-                          expression: "'required'"
-                        }
-                      ],
-                      staticClass: "w-full",
-                      attrs: {
-                        label: "អាស័យដ្ឋានបច្ចុប្បន្ន",
-                        name: "address"
-                      },
-                      model: {
-                        value: _vm.data.address,
-                        callback: function($$v) {
-                          _vm.$set(_vm.data, "address", $$v)
-                        },
-                        expression: "data.address"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "span",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.errors.has("address"),
-                            expression: "errors.has('address')"
-                          }
-                        ],
-                        staticClass: "text-danger text-sm"
-                      },
-                      [_vm._v(_vm._s(_vm.errors.first("address")))]
-                    )
-                  ],
-                  1
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "vx-col lg:w-1/4 w-full" },
-              [
-                _c("vue-dropzone", {
-                  ref: "myVueDropzone",
-                  staticClass: "max-content p-1",
-                  attrs: {
-                    duplicateCheck: "",
-                    id: "dropzone",
-                    options: _vm.dropzoneOptions
-                  },
-                  on: {
-                    "vdropzone-mounted": _vm.loadPhoto,
-                    "vdropzone-success": _vm.successUpload
-                  }
-                })
-              ],
-              1
-            )
-          ]),
-          _vm._v(" "),
-          _c("vs-divider", { attrs: { position: "left" } }, [
-            _vm._v("ពត៌មានអាណាព្យាបាល")
-          ]),
-          _vm._v(" "),
-          _c("vs-divider", { attrs: { position: "left-center" } }, [
-            _vm._v("ឪពុក")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "vx-row" }, [
-            _c(
-              "div",
-              { staticClass: "vx-col lg:w-1/4 w-full" },
-              [
-                _c("vs-input", {
-                  directives: [
-                    {
-                      name: "validate",
-                      rawName: "v-validate",
-                      value: "required",
-                      expression: "'required'"
-                    }
-                  ],
-                  staticClass: "w-full mt-6",
-                  attrs: {
-                    "label-placeholder": "គោតនាម នាម",
-                    name: "father_name"
-                  },
-                  model: {
-                    value: _vm.data.father_name,
-                    callback: function($$v) {
-                      _vm.$set(_vm.data, "father_name", $$v)
-                    },
-                    expression: "data.father_name"
-                  }
-                }),
-                _vm._v(" "),
-                _c(
-                  "span",
-                  {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: _vm.errors.has("father_name"),
-                        expression: "errors.has('father_name')"
-                      }
-                    ],
-                    staticClass: "text-danger text-sm"
-                  },
-                  [_vm._v(_vm._s(_vm.errors.first("father_name")))]
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "vx-col lg:w-1/4 w-full" },
-              [
-                _c("vs-input", {
-                  directives: [
-                    {
-                      name: "validate",
-                      rawName: "v-validate",
-                      value: "required",
-                      expression: "'required'"
-                    }
-                  ],
-                  staticClass: "w-full mt-6",
-                  attrs: { "label-placeholder": "មុខរបរ", name: "father_job" },
-                  model: {
-                    value: _vm.data.father_job,
-                    callback: function($$v) {
-                      _vm.$set(_vm.data, "father_job", $$v)
-                    },
-                    expression: "data.father_job"
-                  }
-                }),
-                _vm._v(" "),
-                _c(
-                  "span",
-                  {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: _vm.errors.has("father_job"),
-                        expression: "errors.has('father_job')"
-                      }
-                    ],
-                    staticClass: "text-danger text-sm"
-                  },
-                  [_vm._v(_vm._s(_vm.errors.first("father_job")))]
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "vx-col lg:w-1/4 w-full" },
-              [
-                _c("label", [_vm._v("ទំនាក់ទំនង")]),
-                _vm._v(" "),
-                _c("vs-textarea", {
-                  directives: [
-                    {
-                      name: "validate",
-                      rawName: "v-validate",
-                      value: "required",
-                      expression: "'required'"
-                    }
-                  ],
-                  staticClass: "w-full",
-                  attrs: { label: "ទំនាក់ទំនង", name: "father_contact" },
-                  model: {
-                    value: _vm.data.father_contact,
-                    callback: function($$v) {
-                      _vm.$set(_vm.data, "father_contact", $$v)
-                    },
-                    expression: "data.father_contact"
-                  }
-                }),
-                _vm._v(" "),
-                _c(
-                  "span",
-                  {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: _vm.errors.has("father_contact"),
-                        expression: "errors.has('father_contact')"
-                      }
-                    ],
-                    staticClass: "text-danger text-sm"
-                  },
-                  [_vm._v(_vm._s(_vm.errors.first("father_contact")))]
-                )
-              ],
-              1
-            )
-          ]),
-          _vm._v(" "),
-          _c("vs-divider", { attrs: { position: "left-center" } }, [
-            _vm._v("ម្តាយ")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "vx-row" }, [
-            _c(
-              "div",
-              { staticClass: "vx-col lg:w-1/4 w-full" },
-              [
-                _c("vs-input", {
-                  directives: [
-                    {
-                      name: "validate",
-                      rawName: "v-validate",
-                      value: "required",
-                      expression: "'required'"
-                    }
-                  ],
-                  staticClass: "w-full mt-6",
-                  attrs: {
-                    "label-placeholder": "គោតនាម នាម",
-                    name: "mother_name"
-                  },
-                  model: {
-                    value: _vm.data.mother_name,
-                    callback: function($$v) {
-                      _vm.$set(_vm.data, "mother_name", $$v)
-                    },
-                    expression: "data.mother_name"
-                  }
-                }),
-                _vm._v(" "),
-                _c(
-                  "span",
-                  {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: _vm.errors.has("mother_name"),
-                        expression: "errors.has('mother_name')"
-                      }
-                    ],
-                    staticClass: "text-danger text-sm"
-                  },
-                  [_vm._v(_vm._s(_vm.errors.first("mother_name")))]
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "vx-col lg:w-1/4 w-full" },
-              [
-                _c("vs-input", {
-                  directives: [
-                    {
-                      name: "validate",
-                      rawName: "v-validate",
-                      value: "required",
-                      expression: "'required'"
-                    }
-                  ],
-                  staticClass: "w-full mt-6",
-                  attrs: { "label-placeholder": "មុខរបរ", name: "mother_job" },
-                  model: {
-                    value: _vm.data.mother_job,
-                    callback: function($$v) {
-                      _vm.$set(_vm.data, "mother_job", $$v)
-                    },
-                    expression: "data.mother_job"
-                  }
-                }),
-                _vm._v(" "),
-                _c(
-                  "span",
-                  {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: _vm.errors.has("mother_job"),
-                        expression: "errors.has('mother_job')"
-                      }
-                    ],
-                    staticClass: "text-danger text-sm"
-                  },
-                  [_vm._v(_vm._s(_vm.errors.first("mother_job")))]
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "vx-col lg:w-1/4 w-full" },
-              [
-                _c("label", [_vm._v("ទំនាក់ទំនង")]),
-                _vm._v(" "),
-                _c("vs-textarea", {
-                  directives: [
-                    {
-                      name: "validate",
-                      rawName: "v-validate",
-                      value: "required",
-                      expression: "'required'"
-                    }
-                  ],
-                  staticClass: "w-full",
-                  attrs: { label: "ទំនាក់ទំនង", name: "mother_contact" },
-                  model: {
-                    value: _vm.data.mother_contact,
-                    callback: function($$v) {
-                      _vm.$set(_vm.data, "mother_contact", $$v)
-                    },
-                    expression: "data.mother_contact"
-                  }
-                }),
-                _vm._v(" "),
-                _c(
-                  "span",
-                  {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: _vm.errors.has("mother_contact"),
-                        expression: "errors.has('mother_contact')"
-                      }
-                    ],
-                    staticClass: "text-danger text-sm"
-                  },
-                  [_vm._v(_vm._s(_vm.errors.first("mother_contact")))]
-                )
-              ],
-              1
-            )
-          ]),
-          _vm._v(" "),
-          _c("vs-divider"),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "flex justify-end btn-group" },
-            [
-              _c(
-                "vs-button",
-                {
-                  attrs: {
-                    icon: "icon-edit",
-                    "icon-pack": "feather",
-                    type: "relief"
-                  },
-                  on: { click: _vm.updateStudent }
-                },
-                [_vm._v("កែប្រែ")]
-              )
-            ],
-            1
-          )
-        ],
-        1
-      )
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./resources/js/src/views/student/Student.vue":
-/*!****************************************************!*\
-  !*** ./resources/js/src/views/student/Student.vue ***!
-  \****************************************************/
+/***/ "./resources/js/src/components/excel/ImportExcel.vue":
+/*!***********************************************************!*\
+  !*** ./resources/js/src/components/excel/ImportExcel.vue ***!
+  \***********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Student_vue_vue_type_template_id_422176a6_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Student.vue?vue&type=template&id=422176a6&scoped=true& */ "./resources/js/src/views/student/Student.vue?vue&type=template&id=422176a6&scoped=true&");
-/* harmony import */ var _Student_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Student.vue?vue&type=script&lang=js& */ "./resources/js/src/views/student/Student.vue?vue&type=script&lang=js&");
+/* harmony import */ var _ImportExcel_vue_vue_type_template_id_435d3aaa___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ImportExcel.vue?vue&type=template&id=435d3aaa& */ "./resources/js/src/components/excel/ImportExcel.vue?vue&type=template&id=435d3aaa&");
+/* harmony import */ var _ImportExcel_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ImportExcel.vue?vue&type=script&lang=js& */ "./resources/js/src/components/excel/ImportExcel.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -2371,66 +560,66 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _Student_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Student_vue_vue_type_template_id_422176a6_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _Student_vue_vue_type_template_id_422176a6_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _ImportExcel_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ImportExcel_vue_vue_type_template_id_435d3aaa___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ImportExcel_vue_vue_type_template_id_435d3aaa___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
-  "422176a6",
+  null,
   null
   
 )
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/src/views/student/Student.vue"
+component.options.__file = "resources/js/src/components/excel/ImportExcel.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/src/views/student/Student.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************!*\
-  !*** ./resources/js/src/views/student/Student.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************/
+/***/ "./resources/js/src/components/excel/ImportExcel.vue?vue&type=script&lang=js&":
+/*!************************************************************************************!*\
+  !*** ./resources/js/src/components/excel/ImportExcel.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Student_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./Student.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/student/Student.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Student_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ImportExcel_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./ImportExcel.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/components/excel/ImportExcel.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ImportExcel_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/src/views/student/Student.vue?vue&type=template&id=422176a6&scoped=true&":
-/*!***********************************************************************************************!*\
-  !*** ./resources/js/src/views/student/Student.vue?vue&type=template&id=422176a6&scoped=true& ***!
-  \***********************************************************************************************/
+/***/ "./resources/js/src/components/excel/ImportExcel.vue?vue&type=template&id=435d3aaa&":
+/*!******************************************************************************************!*\
+  !*** ./resources/js/src/components/excel/ImportExcel.vue?vue&type=template&id=435d3aaa& ***!
+  \******************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Student_vue_vue_type_template_id_422176a6_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./Student.vue?vue&type=template&id=422176a6&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/student/Student.vue?vue&type=template&id=422176a6&scoped=true&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Student_vue_vue_type_template_id_422176a6_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ImportExcel_vue_vue_type_template_id_435d3aaa___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./ImportExcel.vue?vue&type=template&id=435d3aaa& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/components/excel/ImportExcel.vue?vue&type=template&id=435d3aaa&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ImportExcel_vue_vue_type_template_id_435d3aaa___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Student_vue_vue_type_template_id_422176a6_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ImportExcel_vue_vue_type_template_id_435d3aaa___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
 /***/ }),
 
-/***/ "./resources/js/src/views/student/addStudent.vue":
-/*!*******************************************************!*\
-  !*** ./resources/js/src/views/student/addStudent.vue ***!
-  \*******************************************************/
+/***/ "./resources/js/src/views/import/Excel.vue":
+/*!*************************************************!*\
+  !*** ./resources/js/src/views/import/Excel.vue ***!
+  \*************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _addStudent_vue_vue_type_template_id_61a22838_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./addStudent.vue?vue&type=template&id=61a22838&scoped=true& */ "./resources/js/src/views/student/addStudent.vue?vue&type=template&id=61a22838&scoped=true&");
-/* harmony import */ var _addStudent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./addStudent.vue?vue&type=script&lang=js& */ "./resources/js/src/views/student/addStudent.vue?vue&type=script&lang=js&");
+/* harmony import */ var _Excel_vue_vue_type_template_id_7efa1992_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Excel.vue?vue&type=template&id=7efa1992&scoped=true& */ "./resources/js/src/views/import/Excel.vue?vue&type=template&id=7efa1992&scoped=true&");
+/* harmony import */ var _Excel_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Excel.vue?vue&type=script&lang=js& */ "./resources/js/src/views/import/Excel.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -2440,121 +629,85 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _addStudent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _addStudent_vue_vue_type_template_id_61a22838_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _addStudent_vue_vue_type_template_id_61a22838_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _Excel_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Excel_vue_vue_type_template_id_7efa1992_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Excel_vue_vue_type_template_id_7efa1992_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
-  "61a22838",
+  "7efa1992",
   null
   
 )
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/src/views/student/addStudent.vue"
+component.options.__file = "resources/js/src/views/import/Excel.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/src/views/student/addStudent.vue?vue&type=script&lang=js&":
-/*!********************************************************************************!*\
-  !*** ./resources/js/src/views/student/addStudent.vue?vue&type=script&lang=js& ***!
-  \********************************************************************************/
+/***/ "./resources/js/src/views/import/Excel.vue?vue&type=script&lang=js&":
+/*!**************************************************************************!*\
+  !*** ./resources/js/src/views/import/Excel.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_addStudent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./addStudent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/student/addStudent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_addStudent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Excel_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./Excel.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/import/Excel.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Excel_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/src/views/student/addStudent.vue?vue&type=template&id=61a22838&scoped=true&":
-/*!**************************************************************************************************!*\
-  !*** ./resources/js/src/views/student/addStudent.vue?vue&type=template&id=61a22838&scoped=true& ***!
-  \**************************************************************************************************/
+/***/ "./resources/js/src/views/import/Excel.vue?vue&type=template&id=7efa1992&scoped=true&":
+/*!********************************************************************************************!*\
+  !*** ./resources/js/src/views/import/Excel.vue?vue&type=template&id=7efa1992&scoped=true& ***!
+  \********************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_addStudent_vue_vue_type_template_id_61a22838_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./addStudent.vue?vue&type=template&id=61a22838&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/student/addStudent.vue?vue&type=template&id=61a22838&scoped=true&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_addStudent_vue_vue_type_template_id_61a22838_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Excel_vue_vue_type_template_id_7efa1992_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./Excel.vue?vue&type=template&id=7efa1992&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/import/Excel.vue?vue&type=template&id=7efa1992&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Excel_vue_vue_type_template_id_7efa1992_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_addStudent_vue_vue_type_template_id_61a22838_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Excel_vue_vue_type_template_id_7efa1992_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
 /***/ }),
 
-/***/ "./resources/js/src/views/student/editStudent.vue":
-/*!********************************************************!*\
-  !*** ./resources/js/src/views/student/editStudent.vue ***!
-  \********************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ 1:
+/*!********************!*\
+  !*** fs (ignored) ***!
+  \********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _editStudent_vue_vue_type_template_id_48d03f63_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./editStudent.vue?vue&type=template&id=48d03f63&scoped=true& */ "./resources/js/src/views/student/editStudent.vue?vue&type=template&id=48d03f63&scoped=true&");
-/* harmony import */ var _editStudent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./editStudent.vue?vue&type=script&lang=js& */ "./resources/js/src/views/student/editStudent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _editStudent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _editStudent_vue_vue_type_template_id_48d03f63_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _editStudent_vue_vue_type_template_id_48d03f63_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  "48d03f63",
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/js/src/views/student/editStudent.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+/* (ignored) */
 
 /***/ }),
 
-/***/ "./resources/js/src/views/student/editStudent.vue?vue&type=script&lang=js&":
-/*!*********************************************************************************!*\
-  !*** ./resources/js/src/views/student/editStudent.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ 2:
+/*!************************!*\
+  !*** crypto (ignored) ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_editStudent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./editStudent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/student/editStudent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_editStudent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* (ignored) */
 
 /***/ }),
 
-/***/ "./resources/js/src/views/student/editStudent.vue?vue&type=template&id=48d03f63&scoped=true&":
-/*!***************************************************************************************************!*\
-  !*** ./resources/js/src/views/student/editStudent.vue?vue&type=template&id=48d03f63&scoped=true& ***!
-  \***************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ 3:
+/*!************************!*\
+  !*** stream (ignored) ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_editStudent_vue_vue_type_template_id_48d03f63_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./editStudent.vue?vue&type=template&id=48d03f63&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/student/editStudent.vue?vue&type=template&id=48d03f63&scoped=true&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_editStudent_vue_vue_type_template_id_48d03f63_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_editStudent_vue_vue_type_template_id_48d03f63_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
+/* (ignored) */
 
 /***/ })
 

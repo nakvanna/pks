@@ -339,6 +339,7 @@
             getCostThree(three, date_pay, i){
                 var price = three;
                 var temp_next_date = this.moment(date_pay).add('month', 3).format('YYYY-MM-DD');
+                console.log(this.moment().add('months', 2).format('YYYY-MM-DD'));
                 if(temp_next_date > this.all_infos[i].last_date_pay){
                     this.all_infos[i].next_date_pay = this.all_infos[i].last_date_pay;
                     var a = this.moment(date_pay);
@@ -629,6 +630,9 @@
                 await this.$store.dispatch('showInvoiceDetail', id);
                 this.$refs.PrintInvoice.show({name: name, latin: latin, gender: gender, total: total, after: after, discount: discount}, this.getInvoicesDetail);
             }
+        },
+        mounted() {
+            this.moment.locale('en');
         }
     }
 </script>
