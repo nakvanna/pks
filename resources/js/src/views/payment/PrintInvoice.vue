@@ -113,6 +113,7 @@
         },
         methods: {
             show(master_item, items){
+                this.moment.locale('km');
                 this.$refs.print_invoice.open();
                 this.master_item = master_item;
                 this.list_item = items;
@@ -137,9 +138,6 @@
                     ]})
             },
         },
-        mounted() {
-            this.moment.locale('km');
-        }
     }
 </script>
 

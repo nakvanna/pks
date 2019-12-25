@@ -396,6 +396,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getCostThree: function getCostThree(three, date_pay, i) {
       var price = three;
       var temp_next_date = this.moment(date_pay).add('month', 3).format('YYYY-MM-DD');
+      console.log(this.moment().add('months', 2).format('YYYY-MM-DD'));
 
       if (temp_next_date > this.all_infos[i].last_date_pay) {
         this.all_infos[i].next_date_pay = this.all_infos[i].last_date_pay;
@@ -951,6 +952,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       return printInvoice;
     }()
+  },
+  mounted: function mounted() {
+    this.moment.locale('en');
   }
 });
 
@@ -1089,6 +1093,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   methods: {
     show: function show(master_item, items) {
+      this.moment.locale('km');
       this.$refs.print_invoice.open();
       this.master_item = master_item;
       this.list_item = items;
@@ -1157,9 +1162,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       return printHtml;
     }()
-  },
-  mounted: function mounted() {
-    this.moment.locale('km');
   }
 });
 
