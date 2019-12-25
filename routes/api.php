@@ -31,6 +31,7 @@ Route::resource('/position','PositionController');
 Route::resource('/degree-note','DegreeNoteController');
 Route::resource('/employee','EmployeeController');
 Route::resource('/student','StudentController');
+Route::delete('/student-delete/{id}','StudentController@delete')->name('student.delete');
 Route::resource('/user','UserController');
 Route::post('/user-json','UserController@json')->name('user.json');
 Route::post('/student-json','StudentController@json')->name('student.json');

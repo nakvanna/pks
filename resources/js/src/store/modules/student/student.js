@@ -44,6 +44,15 @@ const actions = {
             return false
         }
     },
+    async deleteStudent({commit},id){
+        try {
+            await axios.delete(route('student.delete',id));
+            commit('DELETE_STUDENT',id);
+            return true
+        }catch (e) {
+            return false
+        }
+    },
     async updateStudent({commit},data){
         try {
             const res = await axios.put(route('student.update',data.id),data);
@@ -69,7 +78,7 @@ const mutations = {
         let index = state.students.findIndex(x=>x.id===data.id);
         state.students.splice(index,1,data)
     },
-    DESTROY_STUDENT:function (state,id) {
+    DELETE_STUDENT:function (state,id) {
         return state.students = state.students.filter(function (student,index) {
             return student.id !== id
         })

@@ -9,14 +9,12 @@ const getters = {
 };
 const actions = {
     async fetchStudyInfos({commit}){
-        if (!state.study_infos.length) {
             try {
                 const res = await axios.get(route('study-info.index'));
                 commit('SET_STUDY_INFO', res.data);
             } catch (e) {
                 return false
             }
-        }
     },
     async storeStudyInfo({commit},data){
         try {

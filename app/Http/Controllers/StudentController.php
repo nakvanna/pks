@@ -100,4 +100,12 @@ class StudentController extends Controller
         $toggle->save();
         return $toggle;
     }
+    //delete
+    public function delete($id){
+        $student = Student::findOrFail($id);
+        $student->study_info()->delete();
+        $student->service_info()->delete();
+        $student->invoice()->delete();
+        $student->delete();
+    }
 }
