@@ -5,8 +5,12 @@
             <i @click="$modal.hide('add-study-info')" class="vs-icon vs-popup--close material-icons text-warning"
                style="background: rgb(255, 255, 255);">close</i>
         </div>
-        <h4 class="ml-2"><u> ការសិក្សា</u></h4>
         <vx-card no-shadow>
+            <div class="vx-row">
+                <div class="vx-col w-full">
+                    <h4 class="mb-base">ចំនួនសិស្សដែលបានជ្រើសរើស៖  <b>{{data.students.length}}</b> នាក់</h4>
+                </div>
+            </div>
             <div class="vx-row">
                 <div class="vx-col lg:w-1/3 w-full">
                     <v-select v-validate="'required'" :clearable="false" name="year" v-model="data.year"
@@ -138,7 +142,7 @@
                                     position: 'top-center'
                                 });
                                 self.$emit('finished');
-                                self.$modal.hide('add-study-info');
+                                self.resetField();
                             } else {
                                 self.$vs.notify({
                                     title: 'ប្រតិបត្តិការបរាជ័យ',
@@ -163,6 +167,15 @@
                     }
                 })
             },
+            resetField(){
+                this.data = {
+                    year: {name: '2019-2020', id: null},
+                    date_pay: null,
+                    last_date_pay: null,
+                    study_infos: [{collection_id: null}],
+                    students: []
+                }
+            }
         },
     }
 </script>

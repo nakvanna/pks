@@ -11,9 +11,13 @@
                        @click="$refs.editStudent.show(); $refs.editStudent.editStudent(selected[0])" color="warning"
                        type="relief" icon-pack="feather" icon="icon-edit">កែប្រែ
             </vs-button>
-            <vs-button v-if="selected.length" @click="toggleStudent" color="danger" type="relief" icon-pack="feather"
+            <vs-button v-if="selected.length" @click="confirmToggle" color="danger" type="relief" icon-pack="feather"
                        icon="icon-circle">Toggle Status
             </vs-button>
+            <vs-button v-if="selected.length===1" @click="confirmDelete" color="warning" type="relief" icon-pack="feather"
+                       icon="icon-trash">លុប
+            </vs-button>
+
             <vs-button v-if="selected.length" @click="$refs.addStudyInfo.show(selected)" type="relief"
                        icon-pack="feather" icon="icon-upload">ការសិក្សា
             </vs-button>
@@ -85,7 +89,15 @@
             onSelectionChanged() {
                 this.selected = this.gridApi.getSelectedRows();
             },
-            //destroy
+            //toggle
+            confirmToggle(){
+                this.$vs.dialog({
+                    color:'warning',
+                    title: 'Make active/inactive\'s status?',
+                    text: 'ចុចពាក្យ Accept ដើម្បីយល់ព្រម!',
+                    accept:this.deleteStudent
+                })
+            },
             async toggleStudent() {
                 let self = this;
                 self.$vs.loading();
@@ -96,7 +108,7 @@
                     self.$vs.notify({
                         time: 4000,
                         title: 'ប្រតិបត្តិការជោគជ័យ',
-                        text: 'ទិន្នន័យបានកែប្រែ',
+                        text: 'ទិន្នន័យបានលុប',
                         color: 'success',
                         iconPack: 'feather',
                         icon: 'icon-check',
@@ -105,6 +117,42 @@
                     self.selected = [];
                     self.$vs.loading.close();
                 })
+            },
+            //destroy
+            confirmDelete(){
+                this.$vs.dialog({
+                    color:'danger',
+                    title: 'លុបទិន្នន័យ?',
+                    text: 'ចុចពាក្យ Accept ដើម្បីយល់ព្រម!',
+                    accept:this.deleteStudent
+                })
+            },
+            async deleteStudent() {
+                let self = this;
+                self.$vs.loading({
+                    type:'material'
+                });
+                self.$store.dispatch('deleteStudent',self.selected[0].id).then(async function (data) {
+                    if (data){
+                        self.$vs.notify({
+                            time: 4000,
+                            title: 'ប្រតិបត្តិការជោគជ័យ',
+                            text: 'ទិន្នន័យបានកែប្រែ',
+                            color: 'success',
+                            iconPack: 'feather',
+                            icon: 'icon-check',
+                            position: 'top-center'
+                        });
+                        await Promise.all([
+                            self.$store.dispatch('fetchStudyInfos'),
+                            self.$store.dispatch('fetchServiceInfos'),
+                            self.$store.dispatch('fetchInvoices')
+                        ]).then(function () {
+                            self.$vs.loading.close();
+                            self.selected = [];
+                        });
+                    }
+                });
             }
         }
     }
