@@ -321,14 +321,14 @@ __webpack_require__.r(__webpack_exports__);
         headerName: 'ថ្ងៃត្រូវបង់លុយ',
         field: 'date_pay'
       }, {
-        headerName: 'ថ្ងៃត្រូវបង់លុយ',
+        headerName: 'ចំនួនថ្ងៃនៅសល់',
         field: 'day_left',
         cellRenderer: function cellRenderer(params) {
           var day_left;
 
           if (params.data.day_left < 0) {
             day_left = "<span class=\"text-danger\"><b>".concat(params.data.day_left, "</b></span>");
-          } else if (params.data.day_left < 5) {
+          } else if (params.data.day_left <= 5) {
             day_left = "<span class=\"text-warning\"><b>".concat(params.data.day_left, "</b></span>");
           } else {
             day_left = "<span class=\"text-success\"><b>".concat(params.data.day_left, "</b></span>");

@@ -10,22 +10,27 @@
                 បង់លុយ
             </vs-button>
         </div>
-        <vs-table multiple v-model="selected" pagination max-items="5" search :data="getInvoices">
+        <vs-table pagination max-items="5" search :data="getInvoices">
 
             <template slot="thead">
+                <vs-th sort-key="id">លេខវិក័យបត្រ</vs-th>
                 <vs-th sort-key="name">ឈ្មោះសិស្ស</vs-th>
                 <vs-th sort-key="latin">ឈ្មោះឡាតាំង</vs-th>
                 <vs-th sort-key="balance">តម្លៃដើម</vs-th>
                 <vs-th sort-key="discount">បញ្ចុះតម្លៃ</vs-th>
                 <vs-th sort-key="after_discount">តម្លៃត្រូវបង់</vs-th>
                 <vs-th sort-key="due_balance">ជំពាក់</vs-th>
-                <vs-th sort-key="is_used">ថ្ងៃបង់លុយ</vs-th>
-                <vs-th sort-key="is_used">បានទទូល</vs-th>
+                <vs-th sort-key="invoice_date">ថ្ងៃបង់លុយ</vs-th>
+                <vs-th sort-key="payment_status">បានទទូល</vs-th>
                 <vs-th >ប្រតិបត្តិការណ៌</vs-th>
             </template>
 
             <template slot-scope="{data}">
                 <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in data">
+
+                    <vs-td :data="data[indextr].id">
+                        {{ preFixZero(data[indextr].id, 7) }}
+                    </vs-td>
 
                     <vs-td :data="data[indextr].name">
                         {{ data[indextr].name }}
@@ -364,6 +369,13 @@
             }
         },
         methods: {
+            preFixZero(number, length){
+                var str = '' + number;
+                while (str.length < length) {
+                    str = '0' + str;
+                }
+                return str;
+            },
             cashDiscount(){
                 this.discount = parseFloat(this.cash_discount * 100 / this.total_payment).toFixed(2);
                 this.after_discount = this.total_payment - this.cash_discount;

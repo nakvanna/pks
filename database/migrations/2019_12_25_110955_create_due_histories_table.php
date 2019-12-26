@@ -15,6 +15,7 @@ class CreateDueHistoriesTable extends Migration
     {
         Schema::create('due_histories', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('user_id')->default(0);
             $table->bigInteger('invoice_id');
             $table->date('date_reduce_due');
             $table->double('pay_due');

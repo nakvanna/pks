@@ -76,13 +76,13 @@
                     { headerName: 'ពេលសិក្សា', field: 'shift', },
                     { headerName: 'ថ្ងៃត្រូវបង់លុយ', field: 'date_pay', },
                     {
-                        headerName: 'ថ្ងៃត្រូវបង់លុយ',
+                        headerName: 'ចំនួនថ្ងៃនៅសល់',
                         field: 'day_left',
                         cellRenderer:function (params) {
                             var day_left;
                             if(params.data.day_left < 0){
                                 day_left = `<span class="text-danger"><b>${params.data.day_left}</b></span>`
-                            } else if (params.data.day_left < 5) {
+                            } else if (params.data.day_left <= 5) {
                                 day_left = `<span class="text-warning"><b>${params.data.day_left}</b></span>`
                             } else {
                                 day_left = `<span class="text-success"><b>${params.data.day_left}</b></span>`

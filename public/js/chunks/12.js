@@ -502,6 +502,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -622,6 +627,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   methods: {
+    preFixZero: function preFixZero(number, length) {
+      var str = '' + number;
+
+      while (str.length < length) {
+        str = '0' + str;
+      }
+
+      return str;
+    },
     cashDiscount: function cashDiscount() {
       this.discount = parseFloat(this.cash_discount * 100 / this.total_payment).toFixed(2);
       this.after_discount = this.total_payment - this.cash_discount;
@@ -1705,7 +1719,6 @@ var render = function() {
         "vs-table",
         {
           attrs: {
-            multiple: "",
             pagination: "",
             "max-items": "5",
             search: "",
@@ -1721,6 +1734,14 @@ var render = function() {
                     "vs-tr",
                     { key: indextr, attrs: { data: tr } },
                     [
+                      _c("vs-td", { attrs: { data: data[indextr].id } }, [
+                        _vm._v(
+                          "\n                    " +
+                            _vm._s(_vm.preFixZero(data[indextr].id, 7)) +
+                            "\n                "
+                        )
+                      ]),
+                      _vm._v(" "),
                       _c("vs-td", { attrs: { data: data[indextr].name } }, [
                         _vm._v(
                           "\n                    " +
@@ -1897,20 +1918,17 @@ var render = function() {
                 })
               }
             }
-          ]),
-          model: {
-            value: _vm.selected,
-            callback: function($$v) {
-              _vm.selected = $$v
-            },
-            expression: "selected"
-          }
+          ])
         },
         [
           _c(
             "template",
             { slot: "thead" },
             [
+              _c("vs-th", { attrs: { "sort-key": "id" } }, [
+                _vm._v("លេខវិក័យបត្រ")
+              ]),
+              _vm._v(" "),
               _c("vs-th", { attrs: { "sort-key": "name" } }, [
                 _vm._v("ឈ្មោះសិស្ស")
               ]),
@@ -1935,11 +1953,11 @@ var render = function() {
                 _vm._v("ជំពាក់")
               ]),
               _vm._v(" "),
-              _c("vs-th", { attrs: { "sort-key": "is_used" } }, [
+              _c("vs-th", { attrs: { "sort-key": "invoice_date" } }, [
                 _vm._v("ថ្ងៃបង់លុយ")
               ]),
               _vm._v(" "),
-              _c("vs-th", { attrs: { "sort-key": "is_used" } }, [
+              _c("vs-th", { attrs: { "sort-key": "payment_status" } }, [
                 _vm._v("បានទទូល")
               ]),
               _vm._v(" "),
