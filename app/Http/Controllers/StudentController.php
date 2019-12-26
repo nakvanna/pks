@@ -93,6 +93,17 @@ class StudentController extends Controller
         $update->save();
         return $update;
     }
+    //update only balance
+    public function update_balance(Request $request,$id){
+        $input = $request->all();
+        $request->validate([
+            'balance' => 'required',
+        ]);
+        $update = Student::findOrFail($id);
+        $update->balance = $input['balance'];
+        $update->save();
+        return $update;
+    }
     //destroy
     public function destroy($id){
         $toggle = Student::findOrFail($id);

@@ -45,3 +45,5 @@ Route::resource('/import','ExcelImportController');
 Route::post('/import-student','ExcelImportController@import_student')->name('import.student');
 Route::post('/import-collection','ExcelImportController@import_collection')->name('import.collection');
 Route::post('/import-employee','ExcelImportController@import_employee')->name('import.employee');
+Route::resource('/due-history', 'DueHistoryController');
+Route::get('/due-history-only/{id}', 'DueHistoryController@index_only')->name('due-history.only');

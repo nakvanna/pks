@@ -15,9 +15,10 @@
             <template slot="thead">
                 <vs-th sort-key="name">ឈ្មោះសិស្ស</vs-th>
                 <vs-th sort-key="latin">ឈ្មោះឡាតាំង</vs-th>
-                <vs-th sort-key="class_name">តម្លៃដើម</vs-th>
-                <vs-th sort-key="date_pay">បញ្ចុះតម្លៃ</vs-th>
-                <vs-th sort-key="is_used">តម្លៃក្រោយបញ្ចុះតម្លៃ</vs-th>
+                <vs-th sort-key="balance">តម្លៃដើម</vs-th>
+                <vs-th sort-key="discount">បញ្ចុះតម្លៃ</vs-th>
+                <vs-th sort-key="after_discount">តម្លៃត្រូវបង់</vs-th>
+                <vs-th sort-key="due_balance">ជំពាក់</vs-th>
                 <vs-th sort-key="is_used">ថ្ងៃបង់លុយ</vs-th>
                 <vs-th sort-key="is_used">បានទទូល</vs-th>
                 <vs-th >ប្រតិបត្តិការណ៌</vs-th>
@@ -46,6 +47,10 @@
                         $ {{ data[indextr].after_discount}}
                     </vs-td>
 
+                    <vs-td :data="data[indextr].due_balance">
+                        $ {{ data[indextr].due_balance}}
+                    </vs-td>
+
                     <vs-td :data="data[indextr].invoice_date">
                         {{ data[indextr].invoice_date }}
                     </vs-td>
@@ -71,7 +76,12 @@
                             <vs-button
                                     @click="printInvoice(data[indextr].id, data[indextr].name, data[indextr].latin, data[indextr].gender, data[indextr].balance, data[indextr].after_discount, data[indextr].discount)"
                                     size="small" color="primary" type="line" icon-pack="feather" icon="icon-printer"
-                            >បោះពុម្ភ
+                            > បោះពុម្ភ
+                            </vs-button>
+                            <vs-button
+                                    @click="dueHistory(data[indextr].id, data[indextr].due_balance)"
+                                    size="small" color="success" type="line" icon-pack="feather" icon="icon-money"
+                            > ទូទាត់ប្រាក់
                             </vs-button>
                         </div>
                     </vs-td>
@@ -138,7 +148,8 @@
                                 @change="passStudentInfo(students)"
                         >
                             <vs-select-item :key="i"
-                                            v-for="(item, i) in all_students" :value="item.id+','+item.gender+','+item.dob+','+item.photo+','+item.name+','+item.latin"
+                                            v-for="(item, i) in all_students"
+                                            :value="item.id+','+item.gender+','+item.dob+','+item.photo+','+item.name+','+item.latin+','+item.balance+','+item.discount"
                                             :text="item.name +' '+ item.latin"
                             />
                         </vs-select>
@@ -154,7 +165,8 @@
                         <img style="height: 150px" :src="photo"/>
                     </div>
                 </div>
-                <vs-table pagination max-items="5" search :data="all_infos">
+                <h3 class="mb-10">បញ្ចុះតម្លៃ {{default_discount}}%</h3>
+                <vs-table :data="all_infos">
 
                     <template slot="thead">
                         <vs-th sort-key="year">ឆ្នាំសិក្សា</vs-th>
@@ -228,14 +240,30 @@
                         </vs-tr>
                     </template>
                 </vs-table>
-                <div class="centerx">
-                    <h3><span>តម្លៃសរុប: <b>{{totalPayment.toFixed(2)}}$​ -> {{after_discount.toFixed(2)}}$</b></span></h3>
-                    <div class="flex">
-                        <div class="flex mt-5">
-                            <vs-input-number @input="percentDiscount" v-model="discount" label="បញ្ចុះភាគរយ %:" min="0" max="100" icon-inc="expand_less" icon-dec="expand_more"/>
+                <div class="centerx vx-row mt-10">
+                    <div class="vx-col md:w-1/2">
+                        <h3><span>តម្លៃសរុប: <b>{{$formatter.format(totalPayment)}}​ -> {{$formatter.format(parseFloat(after_discount))}}</b></span></h3>
+                        <div class="flex">
+                            <div class="flex mt-5">
+                                <vs-input-number @input="percentDiscount" v-model="discount" label="បញ្ចុះភាគរយ %:" min="0" max="100" icon-inc="expand_less" icon-dec="expand_more"/>
+                            </div>
+                            <div class="flex mt-5">
+                                <vs-input-number @input="cashDiscount" v-model="cash_discount" label="បញ្ចុះជាសាច់ប្រាក់ $:" min="0" :max="total_payment" icon-inc="expand_less" icon-dec="expand_more"/>
+                            </div>
                         </div>
-                        <div class="flex mt-5">
-                            <vs-input-number @input="cashDiscount" v-model="cash_discount" label="បញ្ចុះជាសាច់ប្រាក់ $:" min="0" :max="total_payment" icon-inc="expand_less" icon-dec="expand_more"/>
+                    </div>
+                    <div class="vx-col md:w-1/2">
+                        <vs-divider position="left-center">ទូទាត់សាច់ប្រាក់</vs-divider>
+                        <div class="flex">
+                            <vs-input-number label="សាច់ប្រាក់ទទូល $:" v-model="rec_balance" icon-inc="expand_less" icon-dec="expand_more"/>
+                        </div>
+                        <div class="flex">
+                            <div class="flex ">
+                                <vs-input-number label="សាច់ប្រាក់ជំពាក់ $:" v-model="dueBalance" disabled icon-inc="expand_less" icon-dec="expand_more"/>
+                            </div>
+                            <div class="flex ">
+                                <vs-input-number label="សាច់ប្រាក់អាប់ $:" v-model="returnBalance" disabled icon-inc="expand_less" icon-dec="expand_more"/>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -248,6 +276,7 @@
         </modal>
 
         <print-invoice ref="PrintInvoice"></print-invoice>
+        <due-history ref="DueHistory"></due-history>
     </vx-card>
 </template>
 
@@ -255,10 +284,11 @@
     import flatPickr from 'vue-flatpickr-component';
     import 'flatpickr/dist/flatpickr.min.css';
     import PrintInvoice from './PrintInvoice';
+    import DueHistory from '../due-history/DueHistory'
     export default {
         name: "Payment",
         components: {
-            flatPickr, PrintInvoice
+            flatPickr, PrintInvoice, DueHistory
         },
         computed: {
             all_students(){
@@ -286,6 +316,22 @@
             },
             getInvoicesDetail(){
                 return this.$store.getters.get_invoice_details
+            },
+            returnBalance(){
+                var return_bal = 0;
+                if(this.after_discount <= this.rec_balance){
+                    return_bal = this.rec_balance - this.after_discount;
+                }
+                this.ret_balance = return_bal;
+                return return_bal;
+            },
+            dueBalance(){
+                var return_bal = 0;
+                if(this.after_discount >= this.rec_balance){
+                    return_bal = this.rec_balance - this.after_discount;
+                }
+                this.due_balance = return_bal;
+                return return_bal;
             }
         },
         async created (){
@@ -298,12 +344,17 @@
                 discount: 0,
                 after_discount: 0,
                 cash_discount: 0,
+                rec_balance: 0,
+                due_balance: 0,
+                ret_balance: 0,
+                default_discount: 0,
                 users: [],
                 selected: [],
                 students:'', //all info
                 student_id: '',
                 gender: '',
                 dob: null,
+                balance: 0,
                 photo: 'https://data.whicdn.com/images/300580381/original.jpg',
                 name: '',
                 latin: '',
@@ -369,7 +420,7 @@
             },
             getCostTwelve(twelve, date_pay, i){
                 var price = twelve;
-                var temp_next_date = this.moment(date_pay).add('months', 12).format('YYYY-MM-DD');
+                var temp_next_date = this.moment(date_pay).add('months', 12).subtract().format('YYYY-MM-DD');
                 if(temp_next_date > this.all_infos[i].last_date_pay){
                     this.all_infos[i].next_date_pay = this.all_infos[i].last_date_pay;
                     var a = this.moment(date_pay);
@@ -486,6 +537,8 @@
                 this.photo = student_arr[3];
                 this.name = student_arr[4];
                 this.latin = student_arr[5];
+                this.balance = student_arr[6];
+                this.default_discount = student_arr[7];
                 this.getServiceStudy({'id':student_arr[0], 'cur_year': this.getCurYear})
             },
             async updateStudyInfo(update_study_items){
@@ -570,7 +623,8 @@
 
                 await self.$store.dispatch('storeInvoice', {
                     student_id: this.student_id, invoice_date : this.today_date, balance : this.total_payment, after_discount : this.after_discount,
-                    discount : this.discount, payment_status : false
+                    discount : this.discount, payment_status : false, due_balance: this.due_balance,
+                    receive_balance: this.rec_balance, return_balance: this.ret_balance
                 }).then(function (data_res) {
                     if (data_res){
                         var new_all_infos = []; //បង្កើតសម្រាប់បោះតម្លៃទៅ Print
@@ -629,7 +683,10 @@
             async printInvoice(id, name, latin, gender, total, after, discount,){
                 await this.$store.dispatch('showInvoiceDetail', id);
                 this.$refs.PrintInvoice.show({name: name, latin: latin, gender: gender, total: total, after: after, discount: discount}, this.getInvoicesDetail);
-            }
+            },
+            dueHistory(inv_id, due_bal){
+                this.$refs.DueHistory.show(inv_id, due_bal)
+            },
         },
         mounted() {
             this.moment.locale('en');
