@@ -19,6 +19,9 @@ class InvoiceController extends Controller
             'after_discount'=>'required',
             'payment_status'=>'required',
             'invoice_date'=>'required',
+            'due_balance'=>'required',
+            'receive_balance'=>'required',
+            'return_balance'=>'required',
         ]);
         $store = new Invoice();
         $store->student_id = $input['student_id'];
@@ -27,6 +30,9 @@ class InvoiceController extends Controller
         $store->after_discount = $input['after_discount'];
         $store->payment_status = $input['payment_status'];
         $store->invoice_date = $input['invoice_date'];
+        $store->due_balance = $input['due_balance'];
+        $store->receive_balance = $input['receive_balance'];
+        $store->return_balance = $input['return_balance'];
         $store->save();
         return Invoice::with('students')->where('id', $store->id)->first();
     }

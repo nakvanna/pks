@@ -37,6 +37,7 @@ import payment from './modules/payment/payment';
 import invoice from './modules/invoice/invoice';
 import invoice_detail from './modules/invoice/invoice_detail';
 import excel_import from './modules/import/excel';
+import due_history from './modules/deu-history/due_history'
 export default new Vuex.Store({
     getters,
     mutations,
@@ -62,5 +63,6 @@ export default new Vuex.Store({
         invoice,
         invoice_detail,
         excel_import,
+        due_history
     }
 })

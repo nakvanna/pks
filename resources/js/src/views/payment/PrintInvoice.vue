@@ -34,11 +34,11 @@
                             <tr v-for="(item, i) in list_item" :key="i">
                                 <td class="custom">{{i + 1}}</td>
                                 <td class="custom">{{item.item}}</td>
-                                <td class="custom">{{item.term}}</td>
-                                <td class="custom">{{item.balance}}</td>
+                                <td class="custom">{{item.term}} ខែ</td>
+                                <td class="custom">$ {{item.balance}}</td>
                                 <td class="custom">{{item.emp_name}}</td>
-                                <td class="custom">{{item.date_pay}}</td>
-                                <td class="custom">{{item.next_date_pay}}</td>
+                                <td class="custom">{{moment(item.date_pay).format('YYYY-MM-DD')}}</td>
+                                <td class="custom">{{moment(item.next_date_pay).subtract(1, 'day').format('YYYY-MM-DD')}}</td>
                             </tr>
                             </tbody>
                             <tfoot>
@@ -113,7 +113,7 @@
         },
         methods: {
             show(master_item, items){
-                this.moment.locale('km');
+                this.moment.locale('en');
                 this.$refs.print_invoice.open();
                 this.master_item = master_item;
                 this.list_item = items;
