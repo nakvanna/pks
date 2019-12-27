@@ -24,6 +24,14 @@ const actions = {
             return false
         }
     },
+    async importService({commit},data){
+        try {
+            await axios.post(route('import.service'),data);
+            return true
+        }catch (e) {
+            return false
+        }
+    },
     async importEmployee({commit},data){
         try {
             await axios.post(route('import.employee'),data);

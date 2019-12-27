@@ -206,7 +206,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Excel",
@@ -233,6 +232,25 @@ __webpack_require__.r(__webpack_exports__);
       var self = this;
       self.$vs.loading();
       self.$store.dispatch('importStudent', {
+        data: self.tableData
+      }).then(function (data) {
+        if (data) {
+          self.$vs.notify({
+            title: 'ប្រតិបត្តិការណ៍ជោគជ័យ',
+            text: 'ទិន្នន័យត្រូវបានរក្សាទុក',
+            color: 'primary',
+            iconPack: 'feather',
+            icon: 'icon-check',
+            position: 'top-center'
+          });
+          self.$vs.loading.close();
+        }
+      });
+    },
+    importService: function importService() {
+      var self = this;
+      self.$vs.loading();
+      self.$store.dispatch('importService', {
         data: self.tableData
       }).then(function (data) {
         if (data) {
@@ -419,6 +437,20 @@ var render = function() {
             "vs-button",
             {
               attrs: {
+                color: "success",
+                type: "relief",
+                "icon-pack": "feather",
+                icon: "icon-download"
+              },
+              on: { click: _vm.importService }
+            },
+            [_vm._v("Import Services")]
+          ),
+          _vm._v(" "),
+          _c(
+            "vs-button",
+            {
+              attrs: {
                 color: "dark",
                 type: "relief",
                 "icon-pack": "feather",
@@ -427,31 +459,6 @@ var render = function() {
               on: { click: _vm.importEmployee }
             },
             [_vm._v("Import Employee")]
-          ),
-          _vm._v(" "),
-          _c(
-            "vs-button",
-            {
-              attrs: {
-                type: "relief",
-                "icon-pack": "feather",
-                icon: "icon-package"
-              }
-            },
-            [_vm._v("អាប់គ្រេដ")]
-          ),
-          _vm._v(" "),
-          _c(
-            "vs-button",
-            {
-              attrs: {
-                color: "danger",
-                type: "relief",
-                "icon-pack": "feather",
-                icon: "icon-trash-2"
-              }
-            },
-            [_vm._v("លុប")]
           )
         ],
         1
