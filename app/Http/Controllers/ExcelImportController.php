@@ -21,7 +21,7 @@ class ExcelImportController extends Controller
                 'name' => $item['name'],
                 'latin' => 'មិនបានដាក់ជូន',
                 'gender' => $item['gender'],
-                'photo' => 'image/placeholder/placeholder.png',
+                'photo' => 'images/placeholder/placeholder.png',
                 'dob' => Carbon::parse($item['dob']),
                 'std_contact' => $item['student_tel'],
                 'pob' => $item['pob'],

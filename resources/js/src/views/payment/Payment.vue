@@ -2,7 +2,7 @@
     <vx-card no-shadow>
         <div class="flex btn-group">
             <vs-button
-                    @click="$modal.show('add-payment')"
+                    @click="$refs.add_payment.open()"
                     type="relief"
                     icon-pack="feather"
                     icon="icon-plus-square"
@@ -138,148 +138,142 @@
         </modal>
 
         <!--Modal payment-->
-        <modal width="95%" height="auto" :scrollable="true" :pivotY="0.07" :adaptive="true" :clickToClose="false" name="add-payment">
-            <div class="flex justify-end">
-                <i @click="$modal.hide('add-payment')" class="vs-icon vs-popup--close material-icons text-warning" style="background: rgb(255, 255, 255);">close</i>
+        <sweet-modal ref="add_payment" title="បង់លុយ" :blocking="true" :width="!mobilecheck()?'100%':''">
+            <div class="vx-row">
+                <div class="vx-col w-full">
+                    <v-select
+                            class="w-full"
+                            :clearable="false"
+                            v-model="students"
+                            placeholder="ជ្រើសរើសឈ្មោះសិស្ស"
+                            :options="student_options"
+                            label="label_data"
+                            @input="passStudentInfo"
+                    ></v-select>
+                </div>
             </div>
-            <vx-card no-shadow>
-                <div class="vx-row">
-                    <div class="vx-col md:w-3/4 flex mt-20">
-                        <vs-select
-                                class="w-1/4"
-                                autocomplete
-                                placeholder="ជ្រើសរើសឈ្មោះសិស្ស"
-                                v-model="students"
-                                @change="passStudentInfo(students)"
-                        >
-                            <vs-select-item :key="i"
-                                            v-for="(item, i) in all_students"
-                                            :value="item.id+','+item.gender+','+item.dob+','+item.photo+','+item.name+','+item.latin+','+item.balance+','+item.discount"
-                                            :text="item.name +' '+ item.latin"
-                            />
-                        </vs-select>
-                        <vs-input class="w-1/4 ml-2 mr-2" placeholder="ភេទ" v-model="gender" disabled />
-                        <div class="w-1/4">
-                            <flat-pickr class="w-full" v-model="dob" placeholder="ថ្ងៃខែឆ្នាំកំណើត" disabled/>
-                        </div>
-                        <div class="w-1/4">
-                            <flat-pickr class="w-full ml-2"  v-model="today_date" placeholder="ថ្ងៃបង់លុយ" />
-                        </div>
-                    </div>
-                    <div class="vx-col lg:w-1/4 justify-end">
-                        <img style="height: 150px" :src="photo"/>
-                    </div>
+            <div class="vx-row mt-base mb-base">
+                <div class="vx-col md:w-1/5 w-full">
+                    <img alt="" class="shadow-md" height="150" :src="students.photo"/>
                 </div>
-                <h3 class="mb-10">បញ្ចុះតម្លៃ {{default_discount}}%</h3>
-                <vs-table :data="all_infos">
-
-                    <template slot="thead">
-                        <vs-th sort-key="year">ឆ្នាំសិក្សា</vs-th>
-                        <vs-th sort-key="name">ប្រភេទត្រូវបង់</vs-th>
-                        <vs-th>រយៈពេលបង់</vs-th>
-                        <vs-th>តម្លៃ</vs-th>
-                        <vs-th>ថ្ងៃខែឆ្នាំត្រូវបង់</vs-th>
-                        <vs-th>ថ្ងៃខែឆ្នាំត្រូវបង់បន្ទាប់</vs-th>
-                        <vs-th>គ្រប់ឬនៅ</vs-th>
-                    </template>
-
-                    <template slot-scope="{data}">
-                        <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in data">
-
-                            <vs-td :data="data[indextr].year">
-                                {{ data[indextr].year }}
-                            </vs-td>
-
-                            <vs-td :data="data[indextr].name">
-                                {{ data[indextr].name }}
-                            </vs-td>
-
-                            <!--Term selected-->
-                            <vs-td>
-                                <vs-select
-                                        class="w-full"
-                                        autocomplete
-                                        placeholder="ជ្រើសរើសរយៈពេល"
-                                        v-model="data[indextr].last_term"
-                                >
-                                    <vs-select-item value="1" text="1"/>
-                                    <vs-select-item value="3" text="3"/>
-                                    <vs-select-item value="6" text="6"/>
-                                    <vs-select-item value="12" text="12"/>
-                                </vs-select>
-                            </vs-td>
-                            <!--Term selected-->
-
-                            <!--Cost term-->
-                            <vs-td v-if="data[indextr].last_term === 1 || data[indextr].last_term === '1' ">
-                                {{getCostOne(data[indextr].cost_one, data[indextr].date_pay, indextr)}}
-                            </vs-td>
-                            <vs-td v-if="data[indextr].last_term === 3 || data[indextr].last_term === '3' ">
-                                {{getCostThree(data[indextr].cost_three, data[indextr].date_pay, indextr)}}
-                            </vs-td>
-                            <vs-td v-if="data[indextr].last_term === 6 || data[indextr].last_term === '6' ">
-                                {{getCostSix(data[indextr].cost_six, data[indextr].date_pay, indextr)}}
-                            </vs-td>
-                            <vs-td v-if="data[indextr].last_term === 12 || data[indextr].last_term === '12' ">
-                                {{getCostTwelve(data[indextr].cost_twelve, data[indextr].date_pay, indextr)}}
-                            </vs-td>
-                            <vs-td v-if="data[indextr].last_term === 0">
-                                0
-                            </vs-td>
-                            <!--Cost term-->
-
-                            <vs-td v-if="data[indextr].date_pay !== null">
-                                <flat-pickr class="w-full" :value="data[indextr].date_pay" placeholder="ថ្ងៃត្រូវបង់លុយដំបូង" disabled/>
-                            </vs-td>
-                            <vs-td v-else >
-                                <flat-pickr class="w-full" v-model="data[indextr].date_pay"  placeholder="ថ្ងៃត្រូវបង់លុយដំបូង"/>
-                            </vs-td>
-
-                            <vs-td>
-                                <flat-pickr class="w-full" v-model="data[indextr].next_date_pay" placeholder="ថ្ងៃត្រូវបង់លុយដំបូង" disabled/>
-                            </vs-td>
-
-                            <vs-td>
-                                <vs-button @click="removeItem(indextr)" radius color="danger" type="relief" icon-pack="feather" icon="icon-trash"></vs-button>
-                            </vs-td>
-                        </vs-tr>
-                    </template>
-                </vs-table>
-                <div class="centerx vx-row mt-10">
-                    <div class="vx-col md:w-1/2">
-                        <h3><span>តម្លៃសរុប: <b>{{$formatter.format(totalPayment)}}​ -> {{$formatter.format(parseFloat(after_discount))}}</b></span></h3>
-                        <div class="flex">
-                            <div class="flex mt-5">
-                                <vs-input-number @input="percentDiscount" v-model="discount" label="បញ្ចុះភាគរយ %:" min="0" max="100" icon-inc="expand_less" icon-dec="expand_more"/>
-                            </div>
-                            <div class="flex mt-5">
-                                <vs-input-number @input="cashDiscount" v-model="cash_discount" label="បញ្ចុះជាសាច់ប្រាក់ $:" min="0" :max="total_payment" icon-inc="expand_less" icon-dec="expand_more"/>
-                            </div>
+                <div class="vx-col md:w-2/5 w-full">
+                    <div class="vx-row">
+                        <div class="vx-col w-full">
+                            <vs-input class="w-full" placeholder="ភេទ" v-model="students.gender" disabled />
                         </div>
-                    </div>
-                    <div class="vx-col md:w-1/2">
-                        <vs-divider position="left-center">ទូទាត់សាច់ប្រាក់</vs-divider>
-                        <div class="flex">
-                            <vs-input-number label="សាច់ប្រាក់ទទូល $:" v-model="rec_balance" icon-inc="expand_less" icon-dec="expand_more"/>
-                        </div>
-                        <div class="flex">
-                            <div class="flex ">
-                                <vs-input-number label="សាច់ប្រាក់ជំពាក់ $:" v-model="dueBalance" disabled icon-inc="expand_less" icon-dec="expand_more"/>
-                            </div>
-                            <div class="flex ">
-                                <vs-input-number label="សាច់ប្រាក់អាប់ $:" v-model="returnBalance" disabled icon-inc="expand_less" icon-dec="expand_more"/>
-                            </div>
+                        <div class="vx-col w-full mt-base">
+                            <flat-pickr class="w-full" v-model="students.dob" placeholder="ថ្ងៃខែឆ្នាំកំណើត" disabled/>
                         </div>
                     </div>
                 </div>
-                <vs-divider/>
-                <!-- Save & Reset Button -->
-                <div class="flex justify-end btn-group">
-                    <vs-button @click="storeInvoice" icon="icon-save" icon-pack="feather" type="relief" v-if="all_infos.length">រក្សាទុក</vs-button>
+                <div class="vx-col md:w-1/5 w-full">
+                    <flat-pickr class="w-full"  v-model="today_date" placeholder="ថ្ងៃបង់លុយ" />
                 </div>
-            </vx-card>
-        </modal>
+            </div>
+            <h3 class="mb-10">បញ្ចុះតម្លៃ {{default_discount}}%</h3>
+            <vs-table :data="all_infos">
 
+                <template slot="thead">
+                    <vs-th sort-key="year">ឆ្នាំសិក្សា</vs-th>
+                    <vs-th sort-key="name">ប្រភេទត្រូវបង់</vs-th>
+                    <vs-th>រយៈពេលបង់</vs-th>
+                    <vs-th>តម្លៃ</vs-th>
+                    <vs-th>ថ្ងៃខែឆ្នាំត្រូវបង់</vs-th>
+                    <vs-th>ថ្ងៃខែឆ្នាំត្រូវបង់បន្ទាប់</vs-th>
+                    <vs-th>គ្រប់ឬនៅ</vs-th>
+                </template>
+
+                <template slot-scope="{data}">
+                    <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in data">
+
+                        <vs-td :data="data[indextr].year">
+                            {{ data[indextr].year }}
+                        </vs-td>
+
+                        <vs-td :data="data[indextr].name">
+                            {{ data[indextr].name }}
+                        </vs-td>
+
+                        <!--Term selected-->
+                        <vs-td>
+                            <vs-select
+                                    class="w-full"
+                                    autocomplete
+                                    placeholder="ជ្រើសរើសរយៈពេល"
+                                    v-model="data[indextr].last_term"
+                            >
+                                <vs-select-item value="1" text="1"/>
+                                <vs-select-item value="3" text="3"/>
+                                <vs-select-item value="6" text="6"/>
+                                <vs-select-item value="12" text="12"/>
+                            </vs-select>
+                        </vs-td>
+                        <!--Term selected-->
+
+                        <!--Cost term-->
+                        <vs-td v-if="data[indextr].last_term === 1 || data[indextr].last_term === '1' ">
+                            {{getCostOne(data[indextr].cost_one, data[indextr].date_pay, indextr)}}
+                        </vs-td>
+                        <vs-td v-if="data[indextr].last_term === 3 || data[indextr].last_term === '3' ">
+                            {{getCostThree(data[indextr].cost_three, data[indextr].date_pay, indextr)}}
+                        </vs-td>
+                        <vs-td v-if="data[indextr].last_term === 6 || data[indextr].last_term === '6' ">
+                            {{getCostSix(data[indextr].cost_six, data[indextr].date_pay, indextr)}}
+                        </vs-td>
+                        <vs-td v-if="data[indextr].last_term === 12 || data[indextr].last_term === '12' ">
+                            {{getCostTwelve(data[indextr].cost_twelve, data[indextr].date_pay, indextr)}}
+                        </vs-td>
+                        <vs-td v-if="data[indextr].last_term === 0">
+                            0
+                        </vs-td>
+                        <!--Cost term-->
+
+                        <vs-td v-if="data[indextr].date_pay !== null">
+                            <flat-pickr class="w-full" :value="data[indextr].date_pay" placeholder="ថ្ងៃត្រូវបង់លុយដំបូង" disabled/>
+                        </vs-td>
+                        <vs-td v-else >
+                            <flat-pickr class="w-full" v-model="data[indextr].date_pay"  placeholder="ថ្ងៃត្រូវបង់លុយដំបូង"/>
+                        </vs-td>
+
+                        <vs-td>
+                            <flat-pickr class="w-full" v-model="data[indextr].next_date_pay" placeholder="ថ្ងៃត្រូវបង់លុយដំបូង" disabled/>
+                        </vs-td>
+
+                        <vs-td>
+                            <vs-button @click="removeItem(indextr)" radius color="danger" type="relief" icon-pack="feather" icon="icon-trash"></vs-button>
+                        </vs-td>
+                    </vs-tr>
+                </template>
+            </vs-table>
+            <div class="centerx vx-row mt-10">
+                <div class="vx-col md:w-1/2">
+                    <h3><span>តម្លៃសរុប: <b>{{$formatter.format(totalPayment)}}​ -> {{$formatter.format(parseFloat(after_discount))}}</b></span></h3>
+                    <div class="flex">
+                        <div class="flex mt-5">
+                            <vs-input-number @input="percentDiscount" v-model="discount" label="បញ្ចុះភាគរយ %:" min="0" max="100" icon-inc="expand_less" icon-dec="expand_more"/>
+                        </div>
+                        <div class="flex mt-5">
+                            <vs-input-number @input="cashDiscount" v-model="cash_discount" label="បញ្ចុះជាសាច់ប្រាក់ $:" min="0" :max="total_payment" icon-inc="expand_less" icon-dec="expand_more"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="vx-col md:w-1/2">
+                    <vs-divider position="left-center">ទូទាត់សាច់ប្រាក់</vs-divider>
+                    <div class="flex">
+                        <vs-input-number label="សាច់ប្រាក់ទទូល $:" v-model="rec_balance" icon-inc="expand_less" icon-dec="expand_more"/>
+                    </div>
+                    <div class="flex">
+                        <div class="flex ">
+                            <vs-input-number label="សាច់ប្រាក់ជំពាក់ $:" v-model="dueBalance" disabled icon-inc="expand_less" icon-dec="expand_more"/>
+                        </div>
+                        <div class="flex ">
+                            <vs-input-number label="សាច់ប្រាក់អាប់ $:" v-model="returnBalance" disabled icon-inc="expand_less" icon-dec="expand_more"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <vs-button @click="storeInvoice" slot="button" v-if="all_infos.length">បង់លុយ</vs-button>
+        </sweet-modal>
         <print-invoice ref="PrintInvoice"></print-invoice>
         <due-history ref="DueHistory"></due-history>
     </vx-card>
@@ -298,6 +292,21 @@
         computed: {
             all_students(){
                 return this.$store.getters.all_students
+            },
+            student_options(){
+                return this.all_students.map(function (x){
+                    return {
+                        id:x.id,
+                        name:x.name,
+                        latin:x.latin,
+                        label_data:`${x.name}-${x.latin}-${x.gender}-${x.dob}`,
+                        gender: x.gender,
+                        dob: x.dob,
+                        photo: x.photo,
+                        balance: x.balance,
+                        discount: x.discount,
+                    }
+                });
             },
             getPayments() {
                 return this.$store.getters.get_payments;
@@ -355,7 +364,7 @@
                 default_discount: 0,
                 users: [],
                 selected: [],
-                students:'', //all info
+                students:{label_data:'ជ្រើសរើសសិស្ស',gender:'ភេទ',dob:'ថ្ងៃខែឆ្នាំកំណើត',photo:'images/placeholder/placeholder.png'}, //all info
                 student_id: '',
                 gender: '',
                 dob: null,
@@ -539,19 +548,18 @@
                 });
             },
             //Pass student info when student select change
-            passStudentInfo(students){
+            passStudentInfo(){
                 this.selected = [];
                 this.all_infos = [];
-                var student_arr = students.split(',');
-                this.student_id = student_arr[0];
-                this.gender = student_arr[1];
-                this.dob = student_arr[2];
-                this.photo = student_arr[3];
-                this.name = student_arr[4];
-                this.latin = student_arr[5];
-                this.balance = student_arr[6];
-                this.default_discount = student_arr[7];
-                this.getServiceStudy({'id':student_arr[0], 'cur_year': this.getCurYear})
+                this.student_id = this.students.id;
+                this.gender = this.students.gender;
+                this.dob = this.students.dob;
+                this.photo = this.students.photo;
+                this.name = this.students.name;
+                this.latin = this.students.latin;
+                this.balance = this.students.balance;
+                this.default_discount = this.students.discount;
+                this.getServiceStudy({'id':this.students.id, 'cur_year': this.getCurYear})
             },
             async updateStudyInfo(update_study_items){
                 let self = this;
