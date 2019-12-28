@@ -44,7 +44,6 @@
                      :animateRows="true"
                      :rowData="study_info_extract">
         </ag-grid-vue>
-        <pre>{{selected}}</pre>
 
         <add-study-info @finished="selected=[]" ref="addStudyInfo"></add-study-info>
         <change-study-info @finished="selected=[]" ref="changeStudyInfo"></change-study-info>
