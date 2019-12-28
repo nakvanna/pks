@@ -7,13 +7,14 @@
                         <table class="w-full text-primary">
                             <tr>
                                 <td class="w-1/3 print:w-1/3">
-
+                                    <img class="w-full" style="height: 100px;" src="images/ponlok-khmer-header.jpg" alt="header">
                                 </td>
-                                <td class="w-1/3 print:w-1/3">
-
+                                <td class="w-1/3 print:w-1/3 text-center">
+                                    <h4 class="text-primary"><u>វិក័យបត្របង់ប្រាក់</u></h4>
+                                    <h4 class="text-primary"><u>Invoice</u></h4>
                                 </td>
                                 <td class="w-1/3 print:w-1/3 text-right">
-                                    <barcode class="d-inline" style="display: inline;" tag="img" text-aling="right" :value="123" :height="100">
+                                    <barcode class="d-inline" style="display: inline;" v-if="master_item.id" tag="img" text-aling="right" :value="master_item.id" :height="100">
                                         Show this if the rendering fails.
                                     </barcode>
                                 </td>
@@ -65,37 +66,6 @@
                                 </td>
                             </tr>
                             </tfoot>
-                            <!--<tfoot>
-                            <tr>
-                                <td class="custom text-right" colspan="3"> <b>ទឹកប្រាក់សរុប:</b></td>
-                                <td class="custom">
-                                    <b>{{$formatter.format(master_item.total)}}</b>
-                                </td>
-                                <td colspan="3" class="text-center">
-                                    ម៉ោង <b>{{moment().format('h:mm:ss A')}}</b> ថ្ងៃទីៈ <b>{{moment().format('D')}}</b> ខែ <b>{{moment().format('MMM')}}</b> ឆ្នាំ <b>{{moment().format('Y')}}</b>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="custom text-right" colspan="3"> <b>បញ្ចុះតម្លៃ:</b></td>
-                                <td class="custom">
-                                    <b>{{master_item.discount}} %</b>
-                                </td>
-                                <td></td>
-                                <td class="text-center">
-                                    <h5>បេឡា</h5>
-                                </td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td class="custom text-right" colspan="3"> <b>ទឹកប្រាក់ត្រូវបង់:</b></td>
-                                <td class="custom">
-                                    <b>{{$formatter.format(master_item.after)}}</b>
-                                </td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            </tfoot>-->
                         </table>
                     </div>
                 </div>
@@ -166,23 +136,12 @@
                 this.master_item = master_item;
                 this.list_item = items;
             },
-
-            //print
-            async _print() {
-                const el = document.querySelector('#print-invoice');
-                const options = {
-                    type: 'dataURL'
-                };
-                return await this.$html2canvas(el, options);
-            },
             async printHtml() {
-                /*let image = await this._print();
-                printJS(image, 'image')*/
                 printJS({printable: 'section-to-print', type: 'html',css:[
                     'https://fonts.googleapis.com/css?family=Battambang&display=swap',
-                        'http://localhost:3000/css/main.css',
-                        'http://localhost:3000/css/vuesax.css',
-                        'http://localhost:3000/css/app.css'
+                        'https://pks.siqware.com/css/main.css',
+                        'https://pks.siqware.com/css/vuesax.css',
+                        'https://pks.siqware.com/css/app.css'
                     ]})
             },
         },

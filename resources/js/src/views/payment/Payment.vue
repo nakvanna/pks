@@ -26,41 +26,41 @@
             </template>
 
             <template slot-scope="{data}">
-                <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in data">
+                <vs-tr :data="tr" :key="index" v-for="(tr, index) in data">
 
-                    <vs-td :data="data[indextr].id">
-                        {{ preFixZero(data[indextr].id, 7) }}
+                    <vs-td :data="tr.id">
+                        {{ preFixZero(tr.id, 7) }}
                     </vs-td>
 
-                    <vs-td :data="data[indextr].name">
-                        {{ data[indextr].name }}
+                    <vs-td :data="tr.name">
+                        {{ tr.name }}
                     </vs-td>
 
-                    <vs-td :data="data[indextr].latin">
-                        {{ data[indextr].latin }}
+                    <vs-td :data="tr.latin">
+                        {{ tr.latin }}
                     </vs-td>
 
-                    <vs-td :data="data[indextr].balance">
-                        $ {{ data[indextr].balance }}
+                    <vs-td :data="tr.balance">
+                        $ {{ tr.balance }}
                     </vs-td>
 
-                    <vs-td :data="data[indextr].discount">
-                        {{ data[indextr].discount }} %
+                    <vs-td :data="tr.discount">
+                        {{ tr.discount }} %
                     </vs-td>
 
-                    <vs-td :data="data[indextr].after_discount">
-                        $ {{ data[indextr].after_discount}}
+                    <vs-td :data="tr.after_discount">
+                        $ {{ tr.after_discount}}
                     </vs-td>
 
-                    <vs-td :data="data[indextr].due_balance">
-                        $ {{ data[indextr].due_balance}}
+                    <vs-td :data="tr.due_balance">
+                        $ {{ tr.due_balance}}
                     </vs-td>
 
-                    <vs-td :data="data[indextr].invoice_date">
-                        {{ data[indextr].invoice_date }}
+                    <vs-td :data="tr.invoice_date">
+                        {{ tr.invoice_date }}
                     </vs-td>
 
-                    <vs-td v-if="data[indextr].payment_status === true">
+                    <vs-td v-if="tr.payment_status === true">
                         <vs-chip color="success">
                             <span>បានទទូល</span>
                         </vs-chip>
@@ -74,17 +74,17 @@
                     <vs-td>
                         <div class="btn-group">
                             <vs-button
-                                    @click="showInvoiceDetail(data[indextr].id)"
+                                    @click="showInvoiceDetail(tr.id)"
                                     size="small" color="success" type="line" icon-pack="feather" icon="icon-eye"
                             > លម្អិត
                             </vs-button>
                             <vs-button
-                                    @click="printInvoice(data[indextr].id, data[indextr].name, data[indextr].latin, data[indextr].gender, data[indextr].balance, data[indextr].after_discount, data[indextr].discount)"
+                                    @click="printInvoice(preFixZero(tr.id, 7), tr.name, tr.latin, tr.gender, tr.balance, tr.after_discount, tr.discount)"
                                     size="small" color="primary" type="line" icon-pack="feather" icon="icon-printer"
                             > បោះពុម្ភ
                             </vs-button>
                             <vs-button
-                                    @click="dueHistory(data[indextr].id, data[indextr].due_balance)"
+                                    @click="dueHistory(tr.id, tr.due_balance)"
                                     size="small" color="success" type="line" icon-pack="feather" icon="icon-money"
                             > ទូទាត់ប្រាក់
                             </vs-button>
@@ -101,33 +101,33 @@
             <vx-card no-shadow>
                 <vs-table pagination max-items="10" :data="getInvoicesDetail">
                     <template slot="thead">
-                        <vs-th sort-key="indextr">ល.រ</vs-th>
+                        <vs-th sort-key="index">ល.រ</vs-th>
                         <vs-th sort-key="item">ប្រភេទត្រូវបង់</vs-th>
                         <vs-th sort-key="term">រយៈពេលបង់</vs-th>
                         <vs-th sort-key="balance">តម្លៃ</vs-th>
                         <vs-th sort-key="created_at">កាលបរិច្ឆេទ</vs-th>
                     </template>
                     <template slot-scope="{data}">
-                        <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in data">
+                        <vs-tr :data="tr" :key="index" v-for="(tr, index) in data">
 
-                            <vs-td :data="indextr">
-                                {{ indextr + 1}}
+                            <vs-td :data="index">
+                                {{ index + 1}}
                             </vs-td>
 
-                            <vs-td :data="data[indextr].item">
-                                {{ data[indextr].item }}
+                            <vs-td :data="tr.item">
+                                {{ tr.item }}
                             </vs-td>
 
-                            <vs-td :data="data[indextr].term">
-                                {{ data[indextr].term }} ខែ
+                            <vs-td :data="tr.term">
+                                {{ tr.term }} ខែ
                             </vs-td>
 
-                            <vs-td :data="data[indextr].balance">
-                                $ {{ data[indextr].balance }}
+                            <vs-td :data="tr.balance">
+                                $ {{ tr.balance }}
                             </vs-td>
 
-                            <vs-td :data="data[indextr].created_at">
-                                {{ data[indextr].created_at }}
+                            <vs-td :data="tr.created_at">
+                                {{ tr.created_at }}
                             </vs-td>
 
                         </vs-tr>
@@ -162,7 +162,7 @@
                             <vs-input class="w-full" placeholder="ភេទ" v-model="students.gender" disabled />
                         </div>
                         <div class="vx-col w-full mt-base">
-                            <flat-pickr class="w-full" v-model="students.dob" placeholder="ថ្ងៃខែឆ្នាំកំណើត" disabled/>
+                            <vs-input class="w-full" placeholder="ថ្ងៃខែឆ្នាំកំណើត" v-model="students.dob" disabled />
                         </div>
                     </div>
                 </div>
@@ -184,14 +184,14 @@
                 </template>
 
                 <template slot-scope="{data}">
-                    <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in data">
+                    <vs-tr :data="tr" :key="index" v-for="(tr, index) in data">
 
-                        <vs-td :data="data[indextr].year">
-                            {{ data[indextr].year }}
+                        <vs-td :data="tr.year">
+                            {{ tr.year }}
                         </vs-td>
 
-                        <vs-td :data="data[indextr].name">
-                            {{ data[indextr].name }}
+                        <vs-td :data="tr.name">
+                            {{ tr.name }}
                         </vs-td>
 
                         <!--Term selected-->
@@ -200,7 +200,7 @@
                                     class="w-full"
                                     autocomplete
                                     placeholder="ជ្រើសរើសរយៈពេល"
-                                    v-model="data[indextr].last_term"
+                                    v-model="tr.last_term"
                             >
                                 <vs-select-item value="1" text="1"/>
                                 <vs-select-item value="3" text="3"/>
@@ -211,36 +211,36 @@
                         <!--Term selected-->
 
                         <!--Cost term-->
-                        <vs-td v-if="data[indextr].last_term === 1 || data[indextr].last_term === '1' ">
-                            {{getCostOne(data[indextr].cost_one, data[indextr].date_pay, indextr)}}
+                        <vs-td v-if="tr.last_term === 1 || tr.last_term === '1' ">
+                            {{getCostOne(tr.cost_one, tr.date_pay, index)}}
                         </vs-td>
-                        <vs-td v-if="data[indextr].last_term === 3 || data[indextr].last_term === '3' ">
-                            {{getCostThree(data[indextr].cost_three, data[indextr].date_pay, indextr)}}
+                        <vs-td v-if="tr.last_term === 3 || tr.last_term === '3' ">
+                            {{getCostThree(tr.cost_three, tr.date_pay, index)}}
                         </vs-td>
-                        <vs-td v-if="data[indextr].last_term === 6 || data[indextr].last_term === '6' ">
-                            {{getCostSix(data[indextr].cost_six, data[indextr].date_pay, indextr)}}
+                        <vs-td v-if="tr.last_term === 6 || tr.last_term === '6' ">
+                            {{getCostSix(tr.cost_six, tr.date_pay, index)}}
                         </vs-td>
-                        <vs-td v-if="data[indextr].last_term === 12 || data[indextr].last_term === '12' ">
-                            {{getCostTwelve(data[indextr].cost_twelve, data[indextr].date_pay, indextr)}}
+                        <vs-td v-if="tr.last_term === 12 || tr.last_term === '12' ">
+                            {{getCostTwelve(tr.cost_twelve, tr.date_pay, index)}}
                         </vs-td>
-                        <vs-td v-if="data[indextr].last_term === 0">
+                        <vs-td v-if="tr.last_term === 0">
                             0
                         </vs-td>
                         <!--Cost term-->
 
-                        <vs-td v-if="data[indextr].date_pay !== null">
-                            <flat-pickr class="w-full" :value="data[indextr].date_pay" placeholder="ថ្ងៃត្រូវបង់លុយដំបូង" disabled/>
+                        <vs-td v-if="tr.date_pay !== null">
+                            <flat-pickr class="w-full" :value="tr.date_pay" placeholder="ថ្ងៃត្រូវបង់លុយដំបូង" disabled/>
                         </vs-td>
                         <vs-td v-else >
-                            <flat-pickr class="w-full" v-model="data[indextr].date_pay"  placeholder="ថ្ងៃត្រូវបង់លុយដំបូង"/>
+                            <flat-pickr class="w-full" v-model="tr.date_pay"  placeholder="ថ្ងៃត្រូវបង់លុយដំបូង"/>
                         </vs-td>
 
                         <vs-td>
-                            <flat-pickr class="w-full" v-model="data[indextr].next_date_pay" placeholder="ថ្ងៃត្រូវបង់លុយដំបូង" disabled/>
+                            <flat-pickr class="w-full" v-model="tr.next_date_pay" placeholder="ថ្ងៃត្រូវបង់លុយដំបូង" disabled/>
                         </vs-td>
 
                         <vs-td>
-                            <vs-button @click="removeItem(indextr)" radius color="danger" type="relief" icon-pack="feather" icon="icon-trash"></vs-button>
+                            <vs-button @click="removeItem(index)" radius color="danger" type="relief" icon-pack="feather" icon="icon-trash"></vs-button>
                         </vs-td>
                     </vs-tr>
                 </template>
@@ -702,7 +702,7 @@
             },
             async printInvoice(id, name, latin, gender, total, after, discount,){
                 await this.$store.dispatch('showInvoiceDetail', id);
-                this.$refs.PrintInvoice.show({name: name, latin: latin, gender: gender, total: total, after: after, discount: discount}, this.getInvoicesDetail);
+                this.$refs.PrintInvoice.show({id:id,name: name, latin: latin, gender: gender, total: total, after: after, discount: discount}, this.getInvoicesDetail);
             },
             dueHistory(inv_id, due_bal){
                 this.$refs.DueHistory.show(inv_id, due_bal)
