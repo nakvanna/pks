@@ -1216,6 +1216,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 2:
                 this.$refs.PrintInvoice.show({
+                  id: id,
                   name: name,
                   latin: latin,
                   gender: gender,
@@ -1389,36 +1390,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "PrintInvoice",
@@ -1435,62 +1406,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.master_item = master_item;
       this.list_item = items;
     },
-    //print
-    _print: function () {
-      var _print2 = _asyncToGenerator(
+    printHtml: function () {
+      var _printHtml = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var el, options;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                el = document.querySelector('#print-invoice');
-                options = {
-                  type: 'dataURL'
-                };
-                _context.next = 4;
-                return this.$html2canvas(el, options);
-
-              case 4:
-                return _context.abrupt("return", _context.sent);
-
-              case 5:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee, this);
-      }));
-
-      function _print() {
-        return _print2.apply(this, arguments);
-      }
-
-      return _print;
-    }(),
-    printHtml: function () {
-      var _printHtml = _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                /*let image = await this._print();
-                printJS(image, 'image')*/
                 print_js__WEBPACK_IMPORTED_MODULE_1___default()({
                   printable: 'section-to-print',
                   type: 'html',
-                  css: ['https://fonts.googleapis.com/css?family=Battambang&display=swap', 'http://localhost:3000/css/main.css', 'http://localhost:3000/css/vuesax.css', 'http://localhost:3000/css/app.css']
+                  css: ['https://fonts.googleapis.com/css?family=Battambang&display=swap', 'https://pks.siqware.com/css/main.css', 'https://pks.siqware.com/css/vuesax.css', 'https://pks.siqware.com/css/app.css']
                 });
 
               case 1:
               case "end":
-                return _context2.stop();
+                return _context.stop();
             }
           }
-        }, _callee2);
+        }, _callee);
       }));
 
       function printHtml() {
@@ -1790,88 +1725,76 @@ var render = function() {
               key: "default",
               fn: function(ref) {
                 var data = ref.data
-                return _vm._l(data, function(tr, indextr) {
+                return _vm._l(data, function(tr, index) {
                   return _c(
                     "vs-tr",
-                    { key: indextr, attrs: { data: tr } },
+                    { key: index, attrs: { data: tr } },
                     [
-                      _c("vs-td", { attrs: { data: data[indextr].id } }, [
+                      _c("vs-td", { attrs: { data: tr.id } }, [
                         _vm._v(
                           "\n                    " +
-                            _vm._s(_vm.preFixZero(data[indextr].id, 7)) +
+                            _vm._s(_vm.preFixZero(tr.id, 7)) +
                             "\n                "
                         )
                       ]),
                       _vm._v(" "),
-                      _c("vs-td", { attrs: { data: data[indextr].name } }, [
+                      _c("vs-td", { attrs: { data: tr.name } }, [
                         _vm._v(
                           "\n                    " +
-                            _vm._s(data[indextr].name) +
+                            _vm._s(tr.name) +
                             "\n                "
                         )
                       ]),
                       _vm._v(" "),
-                      _c("vs-td", { attrs: { data: data[indextr].latin } }, [
+                      _c("vs-td", { attrs: { data: tr.latin } }, [
                         _vm._v(
                           "\n                    " +
-                            _vm._s(data[indextr].latin) +
+                            _vm._s(tr.latin) +
                             "\n                "
                         )
                       ]),
                       _vm._v(" "),
-                      _c("vs-td", { attrs: { data: data[indextr].balance } }, [
+                      _c("vs-td", { attrs: { data: tr.balance } }, [
                         _vm._v(
                           "\n                    $ " +
-                            _vm._s(data[indextr].balance) +
+                            _vm._s(tr.balance) +
                             "\n                "
                         )
                       ]),
                       _vm._v(" "),
-                      _c("vs-td", { attrs: { data: data[indextr].discount } }, [
+                      _c("vs-td", { attrs: { data: tr.discount } }, [
                         _vm._v(
                           "\n                    " +
-                            _vm._s(data[indextr].discount) +
+                            _vm._s(tr.discount) +
                             " %\n                "
                         )
                       ]),
                       _vm._v(" "),
-                      _c(
-                        "vs-td",
-                        { attrs: { data: data[indextr].after_discount } },
-                        [
-                          _vm._v(
-                            "\n                    $ " +
-                              _vm._s(data[indextr].after_discount) +
-                              "\n                "
-                          )
-                        ]
-                      ),
+                      _c("vs-td", { attrs: { data: tr.after_discount } }, [
+                        _vm._v(
+                          "\n                    $ " +
+                            _vm._s(tr.after_discount) +
+                            "\n                "
+                        )
+                      ]),
                       _vm._v(" "),
-                      _c(
-                        "vs-td",
-                        { attrs: { data: data[indextr].due_balance } },
-                        [
-                          _vm._v(
-                            "\n                    $ " +
-                              _vm._s(data[indextr].due_balance) +
-                              "\n                "
-                          )
-                        ]
-                      ),
+                      _c("vs-td", { attrs: { data: tr.due_balance } }, [
+                        _vm._v(
+                          "\n                    $ " +
+                            _vm._s(tr.due_balance) +
+                            "\n                "
+                        )
+                      ]),
                       _vm._v(" "),
-                      _c(
-                        "vs-td",
-                        { attrs: { data: data[indextr].invoice_date } },
-                        [
-                          _vm._v(
-                            "\n                    " +
-                              _vm._s(data[indextr].invoice_date) +
-                              "\n                "
-                          )
-                        ]
-                      ),
+                      _c("vs-td", { attrs: { data: tr.invoice_date } }, [
+                        _vm._v(
+                          "\n                    " +
+                            _vm._s(tr.invoice_date) +
+                            "\n                "
+                        )
+                      ]),
                       _vm._v(" "),
-                      data[indextr].payment_status === true
+                      tr.payment_status === true
                         ? _c(
                             "vs-td",
                             [
@@ -1908,9 +1831,7 @@ var render = function() {
                                 },
                                 on: {
                                   click: function($event) {
-                                    return _vm.showInvoiceDetail(
-                                      data[indextr].id
-                                    )
+                                    return _vm.showInvoiceDetail(tr.id)
                                   }
                                 }
                               },
@@ -1929,14 +1850,14 @@ var render = function() {
                                 },
                                 on: {
                                   click: function($event) {
-                                    return _vm.printInvoice(
-                                      data[indextr].id,
-                                      data[indextr].name,
-                                      data[indextr].latin,
-                                      data[indextr].gender,
-                                      data[indextr].balance,
-                                      data[indextr].after_discount,
-                                      data[indextr].discount
+                                    _vm.printInvoice(
+                                      _vm.preFixZero(tr.id, 7),
+                                      tr.name,
+                                      tr.latin,
+                                      tr.gender,
+                                      tr.balance,
+                                      tr.after_discount,
+                                      tr.discount
                                     )
                                   }
                                 }
@@ -1956,10 +1877,7 @@ var render = function() {
                                 },
                                 on: {
                                   click: function($event) {
-                                    return _vm.dueHistory(
-                                      data[indextr].id,
-                                      data[indextr].due_balance
-                                    )
+                                    return _vm.dueHistory(tr.id, tr.due_balance)
                                   }
                                 }
                               },
@@ -2078,66 +1996,50 @@ var render = function() {
                       key: "default",
                       fn: function(ref) {
                         var data = ref.data
-                        return _vm._l(data, function(tr, indextr) {
+                        return _vm._l(data, function(tr, index) {
                           return _c(
                             "vs-tr",
-                            { key: indextr, attrs: { data: tr } },
+                            { key: index, attrs: { data: tr } },
                             [
-                              _c("vs-td", { attrs: { data: indextr } }, [
+                              _c("vs-td", { attrs: { data: index } }, [
                                 _vm._v(
                                   "\n                            " +
-                                    _vm._s(indextr + 1) +
+                                    _vm._s(index + 1) +
                                     "\n                        "
                                 )
                               ]),
                               _vm._v(" "),
-                              _c(
-                                "vs-td",
-                                { attrs: { data: data[indextr].item } },
-                                [
-                                  _vm._v(
-                                    "\n                            " +
-                                      _vm._s(data[indextr].item) +
-                                      "\n                        "
-                                  )
-                                ]
-                              ),
+                              _c("vs-td", { attrs: { data: tr.item } }, [
+                                _vm._v(
+                                  "\n                            " +
+                                    _vm._s(tr.item) +
+                                    "\n                        "
+                                )
+                              ]),
                               _vm._v(" "),
-                              _c(
-                                "vs-td",
-                                { attrs: { data: data[indextr].term } },
-                                [
-                                  _vm._v(
-                                    "\n                            " +
-                                      _vm._s(data[indextr].term) +
-                                      " ខែ\n                        "
-                                  )
-                                ]
-                              ),
+                              _c("vs-td", { attrs: { data: tr.term } }, [
+                                _vm._v(
+                                  "\n                            " +
+                                    _vm._s(tr.term) +
+                                    " ខែ\n                        "
+                                )
+                              ]),
                               _vm._v(" "),
-                              _c(
-                                "vs-td",
-                                { attrs: { data: data[indextr].balance } },
-                                [
-                                  _vm._v(
-                                    "\n                            $ " +
-                                      _vm._s(data[indextr].balance) +
-                                      "\n                        "
-                                  )
-                                ]
-                              ),
+                              _c("vs-td", { attrs: { data: tr.balance } }, [
+                                _vm._v(
+                                  "\n                            $ " +
+                                    _vm._s(tr.balance) +
+                                    "\n                        "
+                                )
+                              ]),
                               _vm._v(" "),
-                              _c(
-                                "vs-td",
-                                { attrs: { data: data[indextr].created_at } },
-                                [
-                                  _vm._v(
-                                    "\n                            " +
-                                      _vm._s(data[indextr].created_at) +
-                                      "\n                        "
-                                  )
-                                ]
-                              )
+                              _c("vs-td", { attrs: { data: tr.created_at } }, [
+                                _vm._v(
+                                  "\n                            " +
+                                    _vm._s(tr.created_at) +
+                                    "\n                        "
+                                )
+                              ])
                             ],
                             1
                           )
@@ -2151,7 +2053,7 @@ var render = function() {
                     "template",
                     { slot: "thead" },
                     [
-                      _c("vs-th", { attrs: { "sort-key": "indextr" } }, [
+                      _c("vs-th", { attrs: { "sort-key": "index" } }, [
                         _vm._v("ល.រ")
                       ]),
                       _vm._v(" "),
@@ -2256,7 +2158,7 @@ var render = function() {
                   "div",
                   { staticClass: "vx-col w-full mt-base" },
                   [
-                    _c("flat-pickr", {
+                    _c("vs-input", {
                       staticClass: "w-full",
                       attrs: { placeholder: "ថ្ងៃខែឆ្នាំកំណើត", disabled: "" },
                       model: {
@@ -2306,23 +2208,23 @@ var render = function() {
                   key: "default",
                   fn: function(ref) {
                     var data = ref.data
-                    return _vm._l(data, function(tr, indextr) {
+                    return _vm._l(data, function(tr, index) {
                       return _c(
                         "vs-tr",
-                        { key: indextr, attrs: { data: tr } },
+                        { key: index, attrs: { data: tr } },
                         [
-                          _c("vs-td", { attrs: { data: data[indextr].year } }, [
+                          _c("vs-td", { attrs: { data: tr.year } }, [
                             _vm._v(
                               "\n                        " +
-                                _vm._s(data[indextr].year) +
+                                _vm._s(tr.year) +
                                 "\n                    "
                             )
                           ]),
                           _vm._v(" "),
-                          _c("vs-td", { attrs: { data: data[indextr].name } }, [
+                          _c("vs-td", { attrs: { data: tr.name } }, [
                             _vm._v(
                               "\n                        " +
-                                _vm._s(data[indextr].name) +
+                                _vm._s(tr.name) +
                                 "\n                    "
                             )
                           ]),
@@ -2339,11 +2241,11 @@ var render = function() {
                                     placeholder: "ជ្រើសរើសរយៈពេល"
                                   },
                                   model: {
-                                    value: data[indextr].last_term,
+                                    value: tr.last_term,
                                     callback: function($$v) {
-                                      _vm.$set(data[indextr], "last_term", $$v)
+                                      _vm.$set(tr, "last_term", $$v)
                                     },
-                                    expression: "data[indextr].last_term"
+                                    expression: "tr.last_term"
                                   }
                                 },
                                 [
@@ -2369,16 +2271,15 @@ var render = function() {
                             1
                           ),
                           _vm._v(" "),
-                          data[indextr].last_term === 1 ||
-                          data[indextr].last_term === "1"
+                          tr.last_term === 1 || tr.last_term === "1"
                             ? _c("vs-td", [
                                 _vm._v(
                                   "\n                        " +
                                     _vm._s(
                                       _vm.getCostOne(
-                                        data[indextr].cost_one,
-                                        data[indextr].date_pay,
-                                        indextr
+                                        tr.cost_one,
+                                        tr.date_pay,
+                                        index
                                       )
                                     ) +
                                     "\n                    "
@@ -2386,16 +2287,15 @@ var render = function() {
                               ])
                             : _vm._e(),
                           _vm._v(" "),
-                          data[indextr].last_term === 3 ||
-                          data[indextr].last_term === "3"
+                          tr.last_term === 3 || tr.last_term === "3"
                             ? _c("vs-td", [
                                 _vm._v(
                                   "\n                        " +
                                     _vm._s(
                                       _vm.getCostThree(
-                                        data[indextr].cost_three,
-                                        data[indextr].date_pay,
-                                        indextr
+                                        tr.cost_three,
+                                        tr.date_pay,
+                                        index
                                       )
                                     ) +
                                     "\n                    "
@@ -2403,16 +2303,15 @@ var render = function() {
                               ])
                             : _vm._e(),
                           _vm._v(" "),
-                          data[indextr].last_term === 6 ||
-                          data[indextr].last_term === "6"
+                          tr.last_term === 6 || tr.last_term === "6"
                             ? _c("vs-td", [
                                 _vm._v(
                                   "\n                        " +
                                     _vm._s(
                                       _vm.getCostSix(
-                                        data[indextr].cost_six,
-                                        data[indextr].date_pay,
-                                        indextr
+                                        tr.cost_six,
+                                        tr.date_pay,
+                                        index
                                       )
                                     ) +
                                     "\n                    "
@@ -2420,16 +2319,15 @@ var render = function() {
                               ])
                             : _vm._e(),
                           _vm._v(" "),
-                          data[indextr].last_term === 12 ||
-                          data[indextr].last_term === "12"
+                          tr.last_term === 12 || tr.last_term === "12"
                             ? _c("vs-td", [
                                 _vm._v(
                                   "\n                        " +
                                     _vm._s(
                                       _vm.getCostTwelve(
-                                        data[indextr].cost_twelve,
-                                        data[indextr].date_pay,
-                                        indextr
+                                        tr.cost_twelve,
+                                        tr.date_pay,
+                                        index
                                       )
                                     ) +
                                     "\n                    "
@@ -2437,7 +2335,7 @@ var render = function() {
                               ])
                             : _vm._e(),
                           _vm._v(" "),
-                          data[indextr].last_term === 0
+                          tr.last_term === 0
                             ? _c("vs-td", [
                                 _vm._v(
                                   "\n                        0\n                    "
@@ -2445,14 +2343,14 @@ var render = function() {
                               ])
                             : _vm._e(),
                           _vm._v(" "),
-                          data[indextr].date_pay !== null
+                          tr.date_pay !== null
                             ? _c(
                                 "vs-td",
                                 [
                                   _c("flat-pickr", {
                                     staticClass: "w-full",
                                     attrs: {
-                                      value: data[indextr].date_pay,
+                                      value: tr.date_pay,
                                       placeholder: "ថ្ងៃត្រូវបង់លុយដំបូង",
                                       disabled: ""
                                     }
@@ -2469,11 +2367,11 @@ var render = function() {
                                       placeholder: "ថ្ងៃត្រូវបង់លុយដំបូង"
                                     },
                                     model: {
-                                      value: data[indextr].date_pay,
+                                      value: tr.date_pay,
                                       callback: function($$v) {
-                                        _vm.$set(data[indextr], "date_pay", $$v)
+                                        _vm.$set(tr, "date_pay", $$v)
                                       },
-                                      expression: "data[indextr].date_pay"
+                                      expression: "tr.date_pay"
                                     }
                                   })
                                 ],
@@ -2490,15 +2388,11 @@ var render = function() {
                                   disabled: ""
                                 },
                                 model: {
-                                  value: data[indextr].next_date_pay,
+                                  value: tr.next_date_pay,
                                   callback: function($$v) {
-                                    _vm.$set(
-                                      data[indextr],
-                                      "next_date_pay",
-                                      $$v
-                                    )
+                                    _vm.$set(tr, "next_date_pay", $$v)
                                   },
-                                  expression: "data[indextr].next_date_pay"
+                                  expression: "tr.next_date_pay"
                                 }
                               })
                             ],
@@ -2518,7 +2412,7 @@ var render = function() {
                                 },
                                 on: {
                                   click: function($event) {
-                                    return _vm.removeItem(indextr)
+                                    return _vm.removeItem(index)
                                   }
                                 }
                               })
@@ -2781,32 +2675,55 @@ var render = function() {
                 _c("div", { staticClass: "vx-col w-full" }, [
                   _c("table", { staticClass: "w-full text-primary" }, [
                     _c("tr", [
-                      _c("td", { staticClass: "w-1/3 print:w-1/3" }),
+                      _c("td", { staticClass: "w-1/3 print:w-1/3" }, [
+                        _c("img", {
+                          staticClass: "w-full",
+                          staticStyle: { height: "100px" },
+                          attrs: {
+                            src: "images/ponlok-khmer-header.jpg",
+                            alt: "header"
+                          }
+                        })
+                      ]),
                       _vm._v(" "),
-                      _c("td", { staticClass: "w-1/3 print:w-1/3" }),
+                      _c(
+                        "td",
+                        { staticClass: "w-1/3 print:w-1/3 text-center" },
+                        [
+                          _c("h4", { staticClass: "text-primary" }, [
+                            _c("u", [_vm._v("វិក័យបត្របង់ប្រាក់")])
+                          ]),
+                          _vm._v(" "),
+                          _c("h4", { staticClass: "text-primary" }, [
+                            _c("u", [_vm._v("Invoice")])
+                          ])
+                        ]
+                      ),
                       _vm._v(" "),
                       _c(
                         "td",
                         { staticClass: "w-1/3 print:w-1/3 text-right" },
                         [
-                          _c(
-                            "barcode",
-                            {
-                              staticClass: "d-inline",
-                              staticStyle: { display: "inline" },
-                              attrs: {
-                                tag: "img",
-                                "text-aling": "right",
-                                value: 123,
-                                height: 100
-                              }
-                            },
-                            [
-                              _vm._v(
-                                "\n                                    Show this if the rendering fails.\n                                "
+                          _vm.master_item.id
+                            ? _c(
+                                "barcode",
+                                {
+                                  staticClass: "d-inline",
+                                  staticStyle: { display: "inline" },
+                                  attrs: {
+                                    tag: "img",
+                                    "text-aling": "right",
+                                    value: _vm.master_item.id,
+                                    height: 100
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                    Show this if the rendering fails.\n                                "
+                                  )
+                                ]
                               )
-                            ]
-                          )
+                            : _vm._e()
                         ],
                         1
                       )
