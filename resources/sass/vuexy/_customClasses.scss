@@ -565,11 +565,17 @@ ul.bordered-items {
   .mt-3 {
     margin-top: 3px;
   }
+  .pt-3 {
+    padding-top: 3px;
+  }
   .text-right {
     text-align: right !important;
   }
   .text-center {
     text-align: center;
+  }
+  .d-inline{
+    display: inline !important;
   }
 }
 
@@ -594,5 +600,5 @@ table.custom {
 }
 
 th.custom, td.custom {
-  padding: 10px;
+  padding: 2px 10px
 }

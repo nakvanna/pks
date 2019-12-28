@@ -1,19 +1,33 @@
 <template>
-    <sweet-modal ref="print_invoice" title="Print Invoice" :blocking="true" :width="!mobilecheck()?'50%':''">
+    <sweet-modal ref="print_invoice" title="Print Invoice" :blocking="true" :width="!mobilecheck()?'60%':''">
         <vx-card no-shadow>
             <div id="section-to-print" class="pb-4">
                 <div class="vx-row">
                     <div class="vx-col w-full">
-                        <img class="w-full" src="images/placeholder/pks.png" alt="">
+                        <table class="w-full text-primary">
+                            <tr>
+                                <td class="w-1/3 print:w-1/3">
+
+                                </td>
+                                <td class="w-1/3 print:w-1/3">
+
+                                </td>
+                                <td class="w-1/3 print:w-1/3 text-right">
+                                    <barcode class="d-inline" style="display: inline;" tag="img" text-aling="right" :value="123" :height="100">
+                                        Show this if the rendering fails.
+                                    </barcode>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
                 <div class="vx-row mb-3 mt-3">
                     <div class="vx-col w-full">
-                        <table class="w-full">
+                        <table class="w-full text-primary">
                             <tr>
-                                <td class="w-1/3 print:w-1/3"><h5>ឈ្មោះ​​ ៖​ {{master_item.name}}</h5></td>
-                                <td class="w-1/3 print:w-1/3"><h5>ឡាតាំង ៖ {{master_item.latin}}</h5></td>
-                                <td class="w-1/3 print:w-1/3"><h5>ភេទ: {{master_item.gender}}</h5></td>
+                                <td class="w-1/3 print:w-1/3"><b>ឈ្មោះ​​ ៖​ {{master_item.name}}</b></td>
+                                <td class="w-1/3 print:w-1/3"><b>ឡាតាំង ៖ {{master_item.latin}}</b></td>
+                                <td class="w-1/3 print:w-1/3"><b>ភេទ: {{master_item.gender}}</b></td>
                             </tr>
                         </table>
                     </div>
@@ -43,6 +57,16 @@
                             </tbody>
                             <tfoot>
                             <tr>
+                                <td class="pt-3" colspan="7">
+                                    <b>ទឹកប្រាក់សរុប:</b> {{$formatter.format(master_item.total)}}
+                                    <b>បញ្ចុះតម្លៃ:</b> {{master_item.discount}} %
+                                    <b>ទឹកប្រាក់ត្រូវបង់:</b> {{$formatter.format(master_item.after)}}
+                                    <b>ទឹកប្រាក់ជំពាក់:</b>
+                                </td>
+                            </tr>
+                            </tfoot>
+                            <!--<tfoot>
+                            <tr>
                                 <td class="custom text-right" colspan="3"> <b>ទឹកប្រាក់សរុប:</b></td>
                                 <td class="custom">
                                     <b>{{$formatter.format(master_item.total)}}</b>
@@ -71,7 +95,7 @@
                                 <td></td>
                                 <td></td>
                             </tr>
-                            </tfoot>
+                            </tfoot>-->
                         </table>
                     </div>
                 </div>
@@ -87,6 +111,30 @@
                                 <td class="text-danger">
                                     3: តម្លៃខាងលើ គឺសម្រាប់តែសេវាកម្មអប់រំប៉ុណ្ណោះ ចំពោះការគ្រោះថ្នាក់ជាយថាហេតុជាបន្ទុករបស់ មាតាបិតា ឬអាណាព្យាបាលសិស្ស
                                 </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="vx-col w-full mt-3">
+                        <table class="text-primary">
+                            <tr>
+                                <td><b>អាស័យដ្ឋាន:</b></td>
+                                <td>
+                                    ភូមិ ក្បាលស្ពាន ២ សង្កាត់ ប៉ោយប៉ែត ក្រុង ប៉ោយប៉ែត ខេត្ត បន្ទាយមានជ័យ
+                                </td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><b>លេខទូរស័ព្ទ:</b></td>
+                                <td>012 383 838 / 012 382 957 / 085 598 999</td>
+                                <td><b>អ៊ីម៉ែល:</b></td>
+                                <td>ponlorkkhmerschool@gmail.com</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>096 799 9999 / 068 598 999</td>
+                                <td></td>
+                                <td></td>
                             </tr>
                         </table>
                     </div>
@@ -132,9 +180,9 @@
                 printJS(image, 'image')*/
                 printJS({printable: 'section-to-print', type: 'html',css:[
                     'https://fonts.googleapis.com/css?family=Battambang&display=swap',
-                        'https://pks.dev.siqware.app/css/main.css',
-                        'https://pks.dev.siqware.app/css/vuesax.css',
-                        'https://pks.dev.siqware.app/css/app.css'
+                        'http://localhost:3000/css/main.css',
+                        'http://localhost:3000/css/vuesax.css',
+                        'http://localhost:3000/css/app.css'
                     ]})
             },
         },

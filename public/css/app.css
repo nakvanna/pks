@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 @import url(https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700);/* (ignored) *//* (ignored) *//* (ignored) *//*=========================================================================================
+=======
+@import url(https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700);/*=========================================================================================
+>>>>>>> 86ace9f4b473f4607c41f459fce34f05e5825f2b
   File Name: app.scss
   Description: Write your custom scss
   ----------------------------------------------------------------------------------------
@@ -4200,6 +4204,13 @@ ul.bordered-items > li:not(:last-of-type):not([class*='shadow']) {
     margin-top: 3px;
   }
 
+<<<<<<< HEAD
+=======
+  .pt-3 {
+    padding-top: 3px;
+  }
+
+>>>>>>> 86ace9f4b473f4607c41f459fce34f05e5825f2b
   .text-right {
     text-align: right !important;
   }
@@ -4207,6 +4218,13 @@ ul.bordered-items > li:not(:last-of-type):not([class*='shadow']) {
   .text-center {
     text-align: center;
   }
+<<<<<<< HEAD
+=======
+
+  .d-inline {
+    display: inline !important;
+  }
+>>>>>>> 86ace9f4b473f4607c41f459fce34f05e5825f2b
 }
 
 .sweet-modal .sweet-title > h2 {
@@ -4230,7 +4248,11 @@ table.custom {
 
 th.custom,
 td.custom {
+<<<<<<< HEAD
   padding: 10px;
+=======
+  padding: 2px 10px;
+>>>>>>> 86ace9f4b473f4607c41f459fce34f05e5825f2b
 }
 
 /*=========================================================================================
@@ -4872,3 +4894,7 @@ button:focus {
   padding-top: 41.66666666666667% !important;
 }
 
+<<<<<<< HEAD
+=======
+/* (ignored) *//* (ignored) *//* (ignored) */
+>>>>>>> 86ace9f4b473f4607c41f459fce34f05e5825f2b

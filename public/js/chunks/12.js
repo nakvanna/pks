@@ -1371,6 +1371,54 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "PrintInvoice",
@@ -1434,7 +1482,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 print_js__WEBPACK_IMPORTED_MODULE_1___default()({
                   printable: 'section-to-print',
                   type: 'html',
-                  css: ['https://fonts.googleapis.com/css?family=Battambang&display=swap', 'https://pks.dev.siqware.app/css/main.css', 'https://pks.dev.siqware.app/css/vuesax.css', 'https://pks.dev.siqware.app/css/app.css']
+                  css: ['https://fonts.googleapis.com/css?family=Battambang&display=swap', 'http://localhost:3000/css/main.css', 'http://localhost:3000/css/vuesax.css', 'http://localhost:3000/css/app.css']
                 });
 
               case 1:
@@ -2717,7 +2765,7 @@ var render = function() {
       attrs: {
         title: "Print Invoice",
         blocking: true,
-        width: !_vm.mobilecheck() ? "50%" : ""
+        width: !_vm.mobilecheck() ? "60%" : ""
       }
     },
     [
@@ -2731,31 +2779,60 @@ var render = function() {
             [
               _c("div", { staticClass: "vx-row" }, [
                 _c("div", { staticClass: "vx-col w-full" }, [
-                  _c("img", {
-                    staticClass: "w-full",
-                    attrs: { src: "images/placeholder/pks.png", alt: "" }
-                  })
+                  _c("table", { staticClass: "w-full text-primary" }, [
+                    _c("tr", [
+                      _c("td", { staticClass: "w-1/3 print:w-1/3" }),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "w-1/3 print:w-1/3" }),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        { staticClass: "w-1/3 print:w-1/3 text-right" },
+                        [
+                          _c(
+                            "barcode",
+                            {
+                              staticClass: "d-inline",
+                              staticStyle: { display: "inline" },
+                              attrs: {
+                                tag: "img",
+                                "text-aling": "right",
+                                value: 123,
+                                height: 100
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                    Show this if the rendering fails.\n                                "
+                              )
+                            ]
+                          )
+                        ],
+                        1
+                      )
+                    ])
+                  ])
                 ])
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "vx-row mb-3 mt-3" }, [
                 _c("div", { staticClass: "vx-col w-full" }, [
-                  _c("table", { staticClass: "w-full" }, [
+                  _c("table", { staticClass: "w-full text-primary" }, [
                     _c("tr", [
                       _c("td", { staticClass: "w-1/3 print:w-1/3" }, [
-                        _c("h5", [
+                        _c("b", [
                           _vm._v("ឈ្មោះ​​ ៖​ " + _vm._s(_vm.master_item.name))
                         ])
                       ]),
                       _vm._v(" "),
                       _c("td", { staticClass: "w-1/3 print:w-1/3" }, [
-                        _c("h5", [
+                        _c("b", [
                           _vm._v("ឡាតាំង ៖ " + _vm._s(_vm.master_item.latin))
                         ])
                       ]),
                       _vm._v(" "),
                       _c("td", { staticClass: "w-1/3 print:w-1/3" }, [
-                        _c("h5", [
+                        _c("b", [
                           _vm._v("ភេទ: " + _vm._s(_vm.master_item.gender))
                         ])
                       ])
@@ -2848,96 +2925,33 @@ var render = function() {
                       _c("tr", [
                         _c(
                           "td",
-                          {
-                            staticClass: "custom text-right",
-                            attrs: { colspan: "3" }
-                          },
-                          [_c("b", [_vm._v("ទឹកប្រាក់សរុប:")])]
-                        ),
-                        _vm._v(" "),
-                        _c("td", { staticClass: "custom" }, [
-                          _c("b", [
-                            _vm._v(
-                              _vm._s(
-                                _vm.$formatter.format(_vm.master_item.total)
-                              )
-                            )
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "td",
-                          {
-                            staticClass: "text-center",
-                            attrs: { colspan: "3" }
-                          },
+                          { staticClass: "pt-3", attrs: { colspan: "7" } },
                           [
-                            _vm._v("\n                                ម៉ោង "),
-                            _c("b", [
-                              _vm._v(_vm._s(_vm.moment().format("h:mm:ss A")))
-                            ]),
-                            _vm._v(" ថ្ងៃទីៈ "),
-                            _c("b", [_vm._v(_vm._s(_vm.moment().format("D")))]),
-                            _vm._v(" ខែ "),
-                            _c("b", [
-                              _vm._v(_vm._s(_vm.moment().format("MMM")))
-                            ]),
-                            _vm._v(" ឆ្នាំ "),
-                            _c("b", [_vm._v(_vm._s(_vm.moment().format("Y")))])
+                            _c("b", [_vm._v("ទឹកប្រាក់សរុប:")]),
+                            _vm._v(
+                              " " +
+                                _vm._s(
+                                  _vm.$formatter.format(_vm.master_item.total)
+                                ) +
+                                "\n                                "
+                            ),
+                            _c("b", [_vm._v("បញ្ចុះតម្លៃ:")]),
+                            _vm._v(
+                              " " +
+                                _vm._s(_vm.master_item.discount) +
+                                " %\n                                "
+                            ),
+                            _c("b", [_vm._v("ទឹកប្រាក់ត្រូវបង់:")]),
+                            _vm._v(
+                              " " +
+                                _vm._s(
+                                  _vm.$formatter.format(_vm.master_item.after)
+                                ) +
+                                "\n                                "
+                            ),
+                            _c("b", [_vm._v("ទឹកប្រាក់ជំពាក់:")])
                           ]
                         )
-                      ]),
-                      _vm._v(" "),
-                      _c("tr", [
-                        _c(
-                          "td",
-                          {
-                            staticClass: "custom text-right",
-                            attrs: { colspan: "3" }
-                          },
-                          [_c("b", [_vm._v("បញ្ចុះតម្លៃ:")])]
-                        ),
-                        _vm._v(" "),
-                        _c("td", { staticClass: "custom" }, [
-                          _c("b", [
-                            _vm._v(_vm._s(_vm.master_item.discount) + " %")
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("td"),
-                        _vm._v(" "),
-                        _c("td", { staticClass: "text-center" }, [
-                          _c("h5", [_vm._v("បេឡា")])
-                        ]),
-                        _vm._v(" "),
-                        _c("td")
-                      ]),
-                      _vm._v(" "),
-                      _c("tr", [
-                        _c(
-                          "td",
-                          {
-                            staticClass: "custom text-right",
-                            attrs: { colspan: "3" }
-                          },
-                          [_c("b", [_vm._v("ទឹកប្រាក់ត្រូវបង់:")])]
-                        ),
-                        _vm._v(" "),
-                        _c("td", { staticClass: "custom" }, [
-                          _c("b", [
-                            _vm._v(
-                              _vm._s(
-                                _vm.$formatter.format(_vm.master_item.after)
-                              )
-                            )
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("td"),
-                        _vm._v(" "),
-                        _c("td"),
-                        _vm._v(" "),
-                        _c("td")
                       ])
                     ])
                   ])
@@ -2961,6 +2975,46 @@ var render = function() {
                           "\n                                3: តម្លៃខាងលើ គឺសម្រាប់តែសេវាកម្មអប់រំប៉ុណ្ណោះ ចំពោះការគ្រោះថ្នាក់ជាយថាហេតុជាបន្ទុករបស់ មាតាបិតា ឬអាណាព្យាបាលសិស្ស\n                            "
                         )
                       ])
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "vx-col w-full mt-3" }, [
+                  _c("table", { staticClass: "text-primary" }, [
+                    _c("tr", [
+                      _c("td", [_c("b", [_vm._v("អាស័យដ្ឋាន:")])]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(
+                          "\n                                ភូមិ ក្បាលស្ពាន ២ សង្កាត់ ប៉ោយប៉ែត ក្រុង ប៉ោយប៉ែត ខេត្ត បន្ទាយមានជ័យ\n                            "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td"),
+                      _vm._v(" "),
+                      _c("td")
+                    ]),
+                    _vm._v(" "),
+                    _c("tr", [
+                      _c("td", [_c("b", [_vm._v("លេខទូរស័ព្ទ:")])]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v("012 383 838 / 012 382 957 / 085 598 999")
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [_c("b", [_vm._v("អ៊ីម៉ែល:")])]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v("ponlorkkhmerschool@gmail.com")])
+                    ]),
+                    _vm._v(" "),
+                    _c("tr", [
+                      _c("td"),
+                      _vm._v(" "),
+                      _c("td", [_vm._v("096 799 9999 / 068 598 999")]),
+                      _vm._v(" "),
+                      _c("td"),
+                      _vm._v(" "),
+                      _c("td")
                     ])
                   ])
                 ])

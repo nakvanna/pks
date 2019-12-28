@@ -76,7 +76,11 @@ Vue.prototype.$formatter = new Intl.NumberFormat('en-US', {
 //print
 import VueHtml2Canvas from 'vue-html2canvas';
 Vue.use(VueHtml2Canvas);
-
+//barcode
+/*import VueBarcode from 'vue-barcode';
+Vue.component('barcode',VueBarcode);*/
+import VueBarcode from '@xkeshi/vue-barcode';
+Vue.component('barcode', VueBarcode);
 Vue.config.productionTip = false;
 new Vue({
     router,
