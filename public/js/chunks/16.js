@@ -278,7 +278,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -810,8 +809,6 @@ var render = function() {
           "selection-changed": _vm.onSelectionChanged
         }
       }),
-      _vm._v(" "),
-      _c("pre", [_vm._v(_vm._s(_vm.selected))]),
       _vm._v(" "),
       _c("add-study-info", {
         ref: "addStudyInfo",
