@@ -501,12 +501,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 
 
@@ -521,6 +515,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   computed: {
     all_students: function all_students() {
       return this.$store.getters.all_students;
+    },
+    student_options: function student_options() {
+      return this.all_students.map(function (x) {
+        return {
+          id: x.id,
+          name: x.name,
+          latin: x.latin,
+          label_data: "".concat(x.name, "-").concat(x.latin, "-").concat(x.gender, "-").concat(x.dob),
+          gender: x.gender,
+          dob: x.dob,
+          photo: x.photo,
+          balance: x.balance,
+          discount: x.discount
+        };
+      });
     },
     getPayments: function getPayments() {
       return this.$store.getters.get_payments;
@@ -612,7 +621,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       default_discount: 0,
       users: [],
       selected: [],
-      students: '',
+      students: {
+        label_data: 'ជ្រើសរើសសិស្ស',
+        gender: 'ភេទ',
+        dob: 'ថ្ងៃខែឆ្នាំកំណើត',
+        photo: 'images/placeholder/placeholder.png'
+      },
       //all info
       student_id: '',
       gender: '',
@@ -865,20 +879,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return getServiceStudy;
     }(),
     //Pass student info when student select change
-    passStudentInfo: function passStudentInfo(students) {
+    passStudentInfo: function passStudentInfo() {
       this.selected = [];
       this.all_infos = [];
-      var student_arr = students.split(',');
-      this.student_id = student_arr[0];
-      this.gender = student_arr[1];
-      this.dob = student_arr[2];
-      this.photo = student_arr[3];
-      this.name = student_arr[4];
-      this.latin = student_arr[5];
-      this.balance = student_arr[6];
-      this.default_discount = student_arr[7];
+      this.student_id = this.students.id;
+      this.gender = this.students.gender;
+      this.dob = this.students.dob;
+      this.photo = this.students.photo;
+      this.name = this.students.name;
+      this.latin = this.students.latin;
+      this.balance = this.students.balance;
+      this.default_discount = this.students.discount;
       this.getServiceStudy({
-        'id': student_arr[0],
+        'id': this.students.id,
         'cur_year': this.getCurYear
       });
     },
@@ -1705,7 +1718,7 @@ var render = function() {
               },
               on: {
                 click: function($event) {
-                  return _vm.$modal.show("add-payment")
+                  return _vm.$refs.add_payment.open()
                 }
               }
             },
@@ -2125,622 +2138,545 @@ var render = function() {
       ),
       _vm._v(" "),
       _c(
-        "modal",
+        "sweet-modal",
         {
+          ref: "add_payment",
           attrs: {
-            width: "95%",
-            height: "auto",
-            scrollable: true,
-            pivotY: 0.07,
-            adaptive: true,
-            clickToClose: false,
-            name: "add-payment"
+            title: "បង់លុយ",
+            blocking: true,
+            width: !_vm.mobilecheck() ? "100%" : ""
           }
         },
         [
-          _c("div", { staticClass: "flex justify-end" }, [
+          _c("div", { staticClass: "vx-row" }, [
             _c(
-              "i",
-              {
-                staticClass:
-                  "vs-icon vs-popup--close material-icons text-warning",
-                staticStyle: { background: "rgb(255, 255, 255)" },
-                on: {
-                  click: function($event) {
-                    return _vm.$modal.hide("add-payment")
+              "div",
+              { staticClass: "vx-col w-full" },
+              [
+                _c("v-select", {
+                  staticClass: "w-full",
+                  attrs: {
+                    clearable: false,
+                    placeholder: "ជ្រើសរើសឈ្មោះសិស្ស",
+                    options: _vm.student_options,
+                    label: "label_data"
+                  },
+                  on: { input: _vm.passStudentInfo },
+                  model: {
+                    value: _vm.students,
+                    callback: function($$v) {
+                      _vm.students = $$v
+                    },
+                    expression: "students"
                   }
-                }
-              },
-              [_vm._v("close")]
+                })
+              ],
+              1
             )
           ]),
           _vm._v(" "),
-          _c(
-            "vx-card",
-            { attrs: { "no-shadow": "" } },
-            [
+          _c("div", { staticClass: "vx-row mt-base mb-base" }, [
+            _c("div", { staticClass: "vx-col md:w-1/5 w-full" }, [
+              _c("img", {
+                staticClass: "shadow-md",
+                attrs: { alt: "", height: "150", src: _vm.students.photo }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "vx-col md:w-2/5 w-full" }, [
               _c("div", { staticClass: "vx-row" }, [
                 _c(
                   "div",
-                  { staticClass: "vx-col md:w-3/4 flex mt-20" },
+                  { staticClass: "vx-col w-full" },
                   [
-                    _c(
-                      "vs-select",
-                      {
-                        staticClass: "w-1/4",
-                        attrs: {
-                          autocomplete: "",
-                          placeholder: "ជ្រើសរើសឈ្មោះសិស្ស"
-                        },
-                        on: {
-                          change: function($event) {
-                            return _vm.passStudentInfo(_vm.students)
-                          }
-                        },
-                        model: {
-                          value: _vm.students,
-                          callback: function($$v) {
-                            _vm.students = $$v
-                          },
-                          expression: "students"
-                        }
-                      },
-                      _vm._l(_vm.all_students, function(item, i) {
-                        return _c("vs-select-item", {
-                          key: i,
-                          attrs: {
-                            value:
-                              item.id +
-                              "," +
-                              item.gender +
-                              "," +
-                              item.dob +
-                              "," +
-                              item.photo +
-                              "," +
-                              item.name +
-                              "," +
-                              item.latin +
-                              "," +
-                              item.balance +
-                              "," +
-                              item.discount,
-                            text: item.name + " " + item.latin
-                          }
-                        })
-                      }),
-                      1
-                    ),
-                    _vm._v(" "),
                     _c("vs-input", {
-                      staticClass: "w-1/4 ml-2 mr-2",
+                      staticClass: "w-full",
                       attrs: { placeholder: "ភេទ", disabled: "" },
                       model: {
-                        value: _vm.gender,
+                        value: _vm.students.gender,
                         callback: function($$v) {
-                          _vm.gender = $$v
+                          _vm.$set(_vm.students, "gender", $$v)
                         },
-                        expression: "gender"
+                        expression: "students.gender"
                       }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "w-1/4" },
-                      [
-                        _c("flat-pickr", {
-                          staticClass: "w-full",
-                          attrs: {
-                            placeholder: "ថ្ងៃខែឆ្នាំកំណើត",
-                            disabled: ""
-                          },
-                          model: {
-                            value: _vm.dob,
-                            callback: function($$v) {
-                              _vm.dob = $$v
-                            },
-                            expression: "dob"
-                          }
-                        })
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "w-1/4" },
-                      [
-                        _c("flat-pickr", {
-                          staticClass: "w-full ml-2",
-                          attrs: { placeholder: "ថ្ងៃបង់លុយ" },
-                          model: {
-                            value: _vm.today_date,
-                            callback: function($$v) {
-                              _vm.today_date = $$v
-                            },
-                            expression: "today_date"
-                          }
-                        })
-                      ],
-                      1
-                    )
+                    })
                   ],
                   1
                 ),
                 _vm._v(" "),
-                _c("div", { staticClass: "vx-col lg:w-1/4 justify-end" }, [
-                  _c("img", {
-                    staticStyle: { height: "150px" },
-                    attrs: { src: _vm.photo }
-                  })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("h3", { staticClass: "mb-10" }, [
-                _vm._v("បញ្ចុះតម្លៃ " + _vm._s(_vm.default_discount) + "%")
-              ]),
-              _vm._v(" "),
-              _c(
-                "vs-table",
+                _c(
+                  "div",
+                  { staticClass: "vx-col w-full mt-base" },
+                  [
+                    _c("flat-pickr", {
+                      staticClass: "w-full",
+                      attrs: { placeholder: "ថ្ងៃខែឆ្នាំកំណើត", disabled: "" },
+                      model: {
+                        value: _vm.students.dob,
+                        callback: function($$v) {
+                          _vm.$set(_vm.students, "dob", $$v)
+                        },
+                        expression: "students.dob"
+                      }
+                    })
+                  ],
+                  1
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "vx-col md:w-1/5 w-full" },
+              [
+                _c("flat-pickr", {
+                  staticClass: "w-full",
+                  attrs: { placeholder: "ថ្ងៃបង់លុយ" },
+                  model: {
+                    value: _vm.today_date,
+                    callback: function($$v) {
+                      _vm.today_date = $$v
+                    },
+                    expression: "today_date"
+                  }
+                })
+              ],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          _c("h3", { staticClass: "mb-10" }, [
+            _vm._v("បញ្ចុះតម្លៃ " + _vm._s(_vm.default_discount) + "%")
+          ]),
+          _vm._v(" "),
+          _c(
+            "vs-table",
+            {
+              attrs: { data: _vm.all_infos },
+              scopedSlots: _vm._u([
                 {
-                  attrs: { data: _vm.all_infos },
-                  scopedSlots: _vm._u([
-                    {
-                      key: "default",
-                      fn: function(ref) {
-                        var data = ref.data
-                        return _vm._l(data, function(tr, indextr) {
-                          return _c(
-                            "vs-tr",
-                            { key: indextr, attrs: { data: tr } },
+                  key: "default",
+                  fn: function(ref) {
+                    var data = ref.data
+                    return _vm._l(data, function(tr, indextr) {
+                      return _c(
+                        "vs-tr",
+                        { key: indextr, attrs: { data: tr } },
+                        [
+                          _c("vs-td", { attrs: { data: data[indextr].year } }, [
+                            _vm._v(
+                              "\n                        " +
+                                _vm._s(data[indextr].year) +
+                                "\n                    "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("vs-td", { attrs: { data: data[indextr].name } }, [
+                            _vm._v(
+                              "\n                        " +
+                                _vm._s(data[indextr].name) +
+                                "\n                    "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "vs-td",
                             [
                               _c(
-                                "vs-td",
-                                { attrs: { data: data[indextr].year } },
-                                [
-                                  _vm._v(
-                                    "\n                            " +
-                                      _vm._s(data[indextr].year) +
-                                      "\n                        "
-                                  )
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "vs-td",
-                                { attrs: { data: data[indextr].name } },
-                                [
-                                  _vm._v(
-                                    "\n                            " +
-                                      _vm._s(data[indextr].name) +
-                                      "\n                        "
-                                  )
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "vs-td",
-                                [
-                                  _c(
-                                    "vs-select",
-                                    {
-                                      staticClass: "w-full",
-                                      attrs: {
-                                        autocomplete: "",
-                                        placeholder: "ជ្រើសរើសរយៈពេល"
-                                      },
-                                      model: {
-                                        value: data[indextr].last_term,
-                                        callback: function($$v) {
-                                          _vm.$set(
-                                            data[indextr],
-                                            "last_term",
-                                            $$v
-                                          )
-                                        },
-                                        expression: "data[indextr].last_term"
-                                      }
+                                "vs-select",
+                                {
+                                  staticClass: "w-full",
+                                  attrs: {
+                                    autocomplete: "",
+                                    placeholder: "ជ្រើសរើសរយៈពេល"
+                                  },
+                                  model: {
+                                    value: data[indextr].last_term,
+                                    callback: function($$v) {
+                                      _vm.$set(data[indextr], "last_term", $$v)
                                     },
-                                    [
-                                      _c("vs-select-item", {
-                                        attrs: { value: "1", text: "1" }
-                                      }),
-                                      _vm._v(" "),
-                                      _c("vs-select-item", {
-                                        attrs: { value: "3", text: "3" }
-                                      }),
-                                      _vm._v(" "),
-                                      _c("vs-select-item", {
-                                        attrs: { value: "6", text: "6" }
-                                      }),
-                                      _vm._v(" "),
-                                      _c("vs-select-item", {
-                                        attrs: { value: "12", text: "12" }
-                                      })
-                                    ],
-                                    1
-                                  )
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              data[indextr].last_term === 1 ||
-                              data[indextr].last_term === "1"
-                                ? _c("vs-td", [
-                                    _vm._v(
-                                      "\n                            " +
-                                        _vm._s(
-                                          _vm.getCostOne(
-                                            data[indextr].cost_one,
-                                            data[indextr].date_pay,
-                                            indextr
-                                          )
-                                        ) +
-                                        "\n                        "
-                                    )
-                                  ])
-                                : _vm._e(),
-                              _vm._v(" "),
-                              data[indextr].last_term === 3 ||
-                              data[indextr].last_term === "3"
-                                ? _c("vs-td", [
-                                    _vm._v(
-                                      "\n                            " +
-                                        _vm._s(
-                                          _vm.getCostThree(
-                                            data[indextr].cost_three,
-                                            data[indextr].date_pay,
-                                            indextr
-                                          )
-                                        ) +
-                                        "\n                        "
-                                    )
-                                  ])
-                                : _vm._e(),
-                              _vm._v(" "),
-                              data[indextr].last_term === 6 ||
-                              data[indextr].last_term === "6"
-                                ? _c("vs-td", [
-                                    _vm._v(
-                                      "\n                            " +
-                                        _vm._s(
-                                          _vm.getCostSix(
-                                            data[indextr].cost_six,
-                                            data[indextr].date_pay,
-                                            indextr
-                                          )
-                                        ) +
-                                        "\n                        "
-                                    )
-                                  ])
-                                : _vm._e(),
-                              _vm._v(" "),
-                              data[indextr].last_term === 12 ||
-                              data[indextr].last_term === "12"
-                                ? _c("vs-td", [
-                                    _vm._v(
-                                      "\n                            " +
-                                        _vm._s(
-                                          _vm.getCostTwelve(
-                                            data[indextr].cost_twelve,
-                                            data[indextr].date_pay,
-                                            indextr
-                                          )
-                                        ) +
-                                        "\n                        "
-                                    )
-                                  ])
-                                : _vm._e(),
-                              _vm._v(" "),
-                              data[indextr].last_term === 0
-                                ? _c("vs-td", [
-                                    _vm._v(
-                                      "\n                            0\n                        "
-                                    )
-                                  ])
-                                : _vm._e(),
-                              _vm._v(" "),
-                              data[indextr].date_pay !== null
-                                ? _c(
-                                    "vs-td",
-                                    [
-                                      _c("flat-pickr", {
-                                        staticClass: "w-full",
-                                        attrs: {
-                                          value: data[indextr].date_pay,
-                                          placeholder: "ថ្ងៃត្រូវបង់លុយដំបូង",
-                                          disabled: ""
-                                        }
-                                      })
-                                    ],
-                                    1
-                                  )
-                                : _c(
-                                    "vs-td",
-                                    [
-                                      _c("flat-pickr", {
-                                        staticClass: "w-full",
-                                        attrs: {
-                                          placeholder: "ថ្ងៃត្រូវបង់លុយដំបូង"
-                                        },
-                                        model: {
-                                          value: data[indextr].date_pay,
-                                          callback: function($$v) {
-                                            _vm.$set(
-                                              data[indextr],
-                                              "date_pay",
-                                              $$v
-                                            )
-                                          },
-                                          expression: "data[indextr].date_pay"
-                                        }
-                                      })
-                                    ],
-                                    1
-                                  ),
-                              _vm._v(" "),
-                              _c(
-                                "vs-td",
+                                    expression: "data[indextr].last_term"
+                                  }
+                                },
                                 [
-                                  _c("flat-pickr", {
-                                    staticClass: "w-full",
-                                    attrs: {
-                                      placeholder: "ថ្ងៃត្រូវបង់លុយដំបូង",
-                                      disabled: ""
-                                    },
-                                    model: {
-                                      value: data[indextr].next_date_pay,
-                                      callback: function($$v) {
-                                        _vm.$set(
-                                          data[indextr],
-                                          "next_date_pay",
-                                          $$v
-                                        )
-                                      },
-                                      expression: "data[indextr].next_date_pay"
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "vs-td",
-                                [
-                                  _c("vs-button", {
-                                    attrs: {
-                                      radius: "",
-                                      color: "danger",
-                                      type: "relief",
-                                      "icon-pack": "feather",
-                                      icon: "icon-trash"
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        return _vm.removeItem(indextr)
-                                      }
-                                    }
+                                  _c("vs-select-item", {
+                                    attrs: { value: "1", text: "1" }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("vs-select-item", {
+                                    attrs: { value: "3", text: "3" }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("vs-select-item", {
+                                    attrs: { value: "6", text: "6" }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("vs-select-item", {
+                                    attrs: { value: "12", text: "12" }
                                   })
                                 ],
                                 1
                               )
                             ],
                             1
-                          )
-                        })
-                      }
-                    }
-                  ])
-                },
-                [
-                  _c(
-                    "template",
-                    { slot: "thead" },
-                    [
-                      _c("vs-th", { attrs: { "sort-key": "year" } }, [
-                        _vm._v("ឆ្នាំសិក្សា")
-                      ]),
-                      _vm._v(" "),
-                      _c("vs-th", { attrs: { "sort-key": "name" } }, [
-                        _vm._v("ប្រភេទត្រូវបង់")
-                      ]),
-                      _vm._v(" "),
-                      _c("vs-th", [_vm._v("រយៈពេលបង់")]),
-                      _vm._v(" "),
-                      _c("vs-th", [_vm._v("តម្លៃ")]),
-                      _vm._v(" "),
-                      _c("vs-th", [_vm._v("ថ្ងៃខែឆ្នាំត្រូវបង់")]),
-                      _vm._v(" "),
-                      _c("vs-th", [_vm._v("ថ្ងៃខែឆ្នាំត្រូវបង់បន្ទាប់")]),
-                      _vm._v(" "),
-                      _c("vs-th", [_vm._v("គ្រប់ឬនៅ")])
-                    ],
-                    1
-                  )
-                ],
-                2
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "centerx vx-row mt-10" }, [
-                _c("div", { staticClass: "vx-col md:w-1/2" }, [
-                  _c("h3", [
-                    _c("span", [
-                      _vm._v("តម្លៃសរុប: "),
-                      _c("b", [
-                        _vm._v(
-                          _vm._s(_vm.$formatter.format(_vm.totalPayment)) +
-                            "​ -> " +
-                            _vm._s(
-                              _vm.$formatter.format(
-                                parseFloat(_vm.after_discount)
+                          ),
+                          _vm._v(" "),
+                          data[indextr].last_term === 1 ||
+                          data[indextr].last_term === "1"
+                            ? _c("vs-td", [
+                                _vm._v(
+                                  "\n                        " +
+                                    _vm._s(
+                                      _vm.getCostOne(
+                                        data[indextr].cost_one,
+                                        data[indextr].date_pay,
+                                        indextr
+                                      )
+                                    ) +
+                                    "\n                    "
+                                )
+                              ])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          data[indextr].last_term === 3 ||
+                          data[indextr].last_term === "3"
+                            ? _c("vs-td", [
+                                _vm._v(
+                                  "\n                        " +
+                                    _vm._s(
+                                      _vm.getCostThree(
+                                        data[indextr].cost_three,
+                                        data[indextr].date_pay,
+                                        indextr
+                                      )
+                                    ) +
+                                    "\n                    "
+                                )
+                              ])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          data[indextr].last_term === 6 ||
+                          data[indextr].last_term === "6"
+                            ? _c("vs-td", [
+                                _vm._v(
+                                  "\n                        " +
+                                    _vm._s(
+                                      _vm.getCostSix(
+                                        data[indextr].cost_six,
+                                        data[indextr].date_pay,
+                                        indextr
+                                      )
+                                    ) +
+                                    "\n                    "
+                                )
+                              ])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          data[indextr].last_term === 12 ||
+                          data[indextr].last_term === "12"
+                            ? _c("vs-td", [
+                                _vm._v(
+                                  "\n                        " +
+                                    _vm._s(
+                                      _vm.getCostTwelve(
+                                        data[indextr].cost_twelve,
+                                        data[indextr].date_pay,
+                                        indextr
+                                      )
+                                    ) +
+                                    "\n                    "
+                                )
+                              ])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          data[indextr].last_term === 0
+                            ? _c("vs-td", [
+                                _vm._v(
+                                  "\n                        0\n                    "
+                                )
+                              ])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          data[indextr].date_pay !== null
+                            ? _c(
+                                "vs-td",
+                                [
+                                  _c("flat-pickr", {
+                                    staticClass: "w-full",
+                                    attrs: {
+                                      value: data[indextr].date_pay,
+                                      placeholder: "ថ្ងៃត្រូវបង់លុយដំបូង",
+                                      disabled: ""
+                                    }
+                                  })
+                                ],
+                                1
                               )
-                            )
-                        )
-                      ])
-                    ])
+                            : _c(
+                                "vs-td",
+                                [
+                                  _c("flat-pickr", {
+                                    staticClass: "w-full",
+                                    attrs: {
+                                      placeholder: "ថ្ងៃត្រូវបង់លុយដំបូង"
+                                    },
+                                    model: {
+                                      value: data[indextr].date_pay,
+                                      callback: function($$v) {
+                                        _vm.$set(data[indextr], "date_pay", $$v)
+                                      },
+                                      expression: "data[indextr].date_pay"
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                          _vm._v(" "),
+                          _c(
+                            "vs-td",
+                            [
+                              _c("flat-pickr", {
+                                staticClass: "w-full",
+                                attrs: {
+                                  placeholder: "ថ្ងៃត្រូវបង់លុយដំបូង",
+                                  disabled: ""
+                                },
+                                model: {
+                                  value: data[indextr].next_date_pay,
+                                  callback: function($$v) {
+                                    _vm.$set(
+                                      data[indextr],
+                                      "next_date_pay",
+                                      $$v
+                                    )
+                                  },
+                                  expression: "data[indextr].next_date_pay"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "vs-td",
+                            [
+                              _c("vs-button", {
+                                attrs: {
+                                  radius: "",
+                                  color: "danger",
+                                  type: "relief",
+                                  "icon-pack": "feather",
+                                  icon: "icon-trash"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.removeItem(indextr)
+                                  }
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    })
+                  }
+                }
+              ])
+            },
+            [
+              _c(
+                "template",
+                { slot: "thead" },
+                [
+                  _c("vs-th", { attrs: { "sort-key": "year" } }, [
+                    _vm._v("ឆ្នាំសិក្សា")
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "flex" }, [
-                    _c(
-                      "div",
-                      { staticClass: "flex mt-5" },
-                      [
-                        _c("vs-input-number", {
-                          attrs: {
-                            label: "បញ្ចុះភាគរយ %:",
-                            min: "0",
-                            max: "100",
-                            "icon-inc": "expand_less",
-                            "icon-dec": "expand_more"
-                          },
-                          on: { input: _vm.percentDiscount },
-                          model: {
-                            value: _vm.discount,
-                            callback: function($$v) {
-                              _vm.discount = $$v
-                            },
-                            expression: "discount"
-                          }
-                        })
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "flex mt-5" },
-                      [
-                        _c("vs-input-number", {
-                          attrs: {
-                            label: "បញ្ចុះជាសាច់ប្រាក់ $:",
-                            min: "0",
-                            max: _vm.total_payment,
-                            "icon-inc": "expand_less",
-                            "icon-dec": "expand_more"
-                          },
-                          on: { input: _vm.cashDiscount },
-                          model: {
-                            value: _vm.cash_discount,
-                            callback: function($$v) {
-                              _vm.cash_discount = $$v
-                            },
-                            expression: "cash_discount"
-                          }
-                        })
-                      ],
-                      1
-                    )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "vx-col md:w-1/2" },
-                  [
-                    _c("vs-divider", { attrs: { position: "left-center" } }, [
-                      _vm._v("ទូទាត់សាច់ប្រាក់")
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "flex" },
-                      [
-                        _c("vs-input-number", {
-                          attrs: {
-                            label: "សាច់ប្រាក់ទទូល $:",
-                            "icon-inc": "expand_less",
-                            "icon-dec": "expand_more"
-                          },
-                          model: {
-                            value: _vm.rec_balance,
-                            callback: function($$v) {
-                              _vm.rec_balance = $$v
-                            },
-                            expression: "rec_balance"
-                          }
-                        })
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "flex" }, [
-                      _c(
-                        "div",
-                        { staticClass: "flex " },
-                        [
-                          _c("vs-input-number", {
-                            attrs: {
-                              label: "សាច់ប្រាក់ជំពាក់ $:",
-                              disabled: "",
-                              "icon-inc": "expand_less",
-                              "icon-dec": "expand_more"
-                            },
-                            model: {
-                              value: _vm.dueBalance,
-                              callback: function($$v) {
-                                _vm.dueBalance = $$v
-                              },
-                              expression: "dueBalance"
-                            }
-                          })
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "flex " },
-                        [
-                          _c("vs-input-number", {
-                            attrs: {
-                              label: "សាច់ប្រាក់អាប់ $:",
-                              disabled: "",
-                              "icon-inc": "expand_less",
-                              "icon-dec": "expand_more"
-                            },
-                            model: {
-                              value: _vm.returnBalance,
-                              callback: function($$v) {
-                                _vm.returnBalance = $$v
-                              },
-                              expression: "returnBalance"
-                            }
-                          })
-                        ],
-                        1
-                      )
-                    ])
-                  ],
-                  1
-                )
-              ]),
-              _vm._v(" "),
-              _c("vs-divider"),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "flex justify-end btn-group" },
-                [
-                  _vm.all_infos.length
-                    ? _c(
-                        "vs-button",
-                        {
-                          attrs: {
-                            icon: "icon-save",
-                            "icon-pack": "feather",
-                            type: "relief"
-                          },
-                          on: { click: _vm.storeInvoice }
-                        },
-                        [_vm._v("រក្សាទុក")]
-                      )
-                    : _vm._e()
+                  _c("vs-th", { attrs: { "sort-key": "name" } }, [
+                    _vm._v("ប្រភេទត្រូវបង់")
+                  ]),
+                  _vm._v(" "),
+                  _c("vs-th", [_vm._v("រយៈពេលបង់")]),
+                  _vm._v(" "),
+                  _c("vs-th", [_vm._v("តម្លៃ")]),
+                  _vm._v(" "),
+                  _c("vs-th", [_vm._v("ថ្ងៃខែឆ្នាំត្រូវបង់")]),
+                  _vm._v(" "),
+                  _c("vs-th", [_vm._v("ថ្ងៃខែឆ្នាំត្រូវបង់បន្ទាប់")]),
+                  _vm._v(" "),
+                  _c("vs-th", [_vm._v("គ្រប់ឬនៅ")])
                 ],
                 1
               )
             ],
-            1
-          )
+            2
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "centerx vx-row mt-10" }, [
+            _c("div", { staticClass: "vx-col md:w-1/2" }, [
+              _c("h3", [
+                _c("span", [
+                  _vm._v("តម្លៃសរុប: "),
+                  _c("b", [
+                    _vm._v(
+                      _vm._s(_vm.$formatter.format(_vm.totalPayment)) +
+                        "​ -> " +
+                        _vm._s(
+                          _vm.$formatter.format(parseFloat(_vm.after_discount))
+                        )
+                    )
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "flex" }, [
+                _c(
+                  "div",
+                  { staticClass: "flex mt-5" },
+                  [
+                    _c("vs-input-number", {
+                      attrs: {
+                        label: "បញ្ចុះភាគរយ %:",
+                        min: "0",
+                        max: "100",
+                        "icon-inc": "expand_less",
+                        "icon-dec": "expand_more"
+                      },
+                      on: { input: _vm.percentDiscount },
+                      model: {
+                        value: _vm.discount,
+                        callback: function($$v) {
+                          _vm.discount = $$v
+                        },
+                        expression: "discount"
+                      }
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "flex mt-5" },
+                  [
+                    _c("vs-input-number", {
+                      attrs: {
+                        label: "បញ្ចុះជាសាច់ប្រាក់ $:",
+                        min: "0",
+                        max: _vm.total_payment,
+                        "icon-inc": "expand_less",
+                        "icon-dec": "expand_more"
+                      },
+                      on: { input: _vm.cashDiscount },
+                      model: {
+                        value: _vm.cash_discount,
+                        callback: function($$v) {
+                          _vm.cash_discount = $$v
+                        },
+                        expression: "cash_discount"
+                      }
+                    })
+                  ],
+                  1
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "vx-col md:w-1/2" },
+              [
+                _c("vs-divider", { attrs: { position: "left-center" } }, [
+                  _vm._v("ទូទាត់សាច់ប្រាក់")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "flex" },
+                  [
+                    _c("vs-input-number", {
+                      attrs: {
+                        label: "សាច់ប្រាក់ទទូល $:",
+                        "icon-inc": "expand_less",
+                        "icon-dec": "expand_more"
+                      },
+                      model: {
+                        value: _vm.rec_balance,
+                        callback: function($$v) {
+                          _vm.rec_balance = $$v
+                        },
+                        expression: "rec_balance"
+                      }
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "flex" }, [
+                  _c(
+                    "div",
+                    { staticClass: "flex " },
+                    [
+                      _c("vs-input-number", {
+                        attrs: {
+                          label: "សាច់ប្រាក់ជំពាក់ $:",
+                          disabled: "",
+                          "icon-inc": "expand_less",
+                          "icon-dec": "expand_more"
+                        },
+                        model: {
+                          value: _vm.dueBalance,
+                          callback: function($$v) {
+                            _vm.dueBalance = $$v
+                          },
+                          expression: "dueBalance"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "flex " },
+                    [
+                      _c("vs-input-number", {
+                        attrs: {
+                          label: "សាច់ប្រាក់អាប់ $:",
+                          disabled: "",
+                          "icon-inc": "expand_less",
+                          "icon-dec": "expand_more"
+                        },
+                        model: {
+                          value: _vm.returnBalance,
+                          callback: function($$v) {
+                            _vm.returnBalance = $$v
+                          },
+                          expression: "returnBalance"
+                        }
+                      })
+                    ],
+                    1
+                  )
+                ])
+              ],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          _vm.all_infos.length
+            ? _c(
+                "vs-button",
+                {
+                  attrs: { slot: "button" },
+                  on: { click: _vm.storeInvoice },
+                  slot: "button"
+                },
+                [_vm._v("បង់លុយ")]
+              )
+            : _vm._e()
         ],
         1
       ),

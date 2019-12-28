@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Service;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -20,7 +21,7 @@ class ExcelImportController extends Controller
                 'name' => $item['name'],
                 'latin' => 'មិនបានដាក់ជូន',
                 'gender' => $item['gender'],
-                'photo' => 'image/placeholder/placeholder.png',
+                'photo' => 'images/placeholder/placeholder.png',
                 'dob' => Carbon::parse($item['dob']),
                 'std_contact' => $item['student_tel'],
                 'pob' => $item['pob'],
@@ -46,7 +47,7 @@ class ExcelImportController extends Controller
             'data.*' => 'required'
         ]);
         foreach ($input['data'] as $item) {
-            DB::table('collections')->insertGetId([
+            DB::table('collections')->insert([
                 'year' => $item['year'],
                 'group_section' => $item['group_section'],
                 'section' => $item['section'],
@@ -63,7 +64,27 @@ class ExcelImportController extends Controller
             ]);
         }
     }
-
+    //service
+    public function import_service(Request $request){
+        $input = $request->all();
+        $request->validate([
+            'data.*' =>'required'
+        ]);
+        foreach ($input['data'] as $item) {
+            DB::table('services')->insert([
+                'year' => $item['year'],
+                'type' => $item['type'],
+                'service' => $item['service'],
+                'cost_one' => $item['cost_one'],
+                'cost_three' => $item['cost_three'],
+                'cost_six' => $item['cost_six'],
+                'cost_twelve' => $item['cost_twelve'],
+                'employee_id' => $item['employee_id'],
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ]);
+        }
+    }
     //employee
     public function import_employee(Request $request){
         $input = $request->all();
