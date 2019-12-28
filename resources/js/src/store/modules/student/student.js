@@ -1,6 +1,7 @@
 import axios from  'axios'
 const state = {
-    students:[]
+    students:[],
+    total:null
 };
 const getters = {
     all_students:function (state) {
@@ -9,11 +10,27 @@ const getters = {
 };
 const actions = {
     async fetchStudent({commit}){
-        if (!state.students.length){
+        async function next_page(url) {
+            const res = await axios.post(url);
+            return res.data
+        }
+        if (!state.students.length >= state.total) {
             try {
-                const res = await axios.post(route('student.json'));
-                commit('SET_STUDENT',res.data);
-            }catch (e) {
+                axios.post(route('student.json')).then(function (res) {
+                    return res.data
+                }).then(async function (data) {
+                    commit('SET_STUDENT', data);
+                    async function f(next_url) {
+                        if (next_url) {
+                            next_page(next_url).then(async function (_data) {
+                                commit('SET_STUDENT', _data);
+                                await f(_data.next_page_url);
+                            });
+                        }
+                    }
+                    await f(data.next_page_url)
+                });
+            } catch (e) {
                 return false
             }
         }
@@ -68,7 +85,10 @@ const mutations = {
         state.students.unshift(data)
     },
     SET_STUDENT:function (state,data) {
-        state.students = data
+        state.total = data.total;
+        data.data.forEach(function (item, index) {
+            state.students.push(item);
+        });
     },
     UPDATE_STUDENT:function (state,data) {
         let index = state.students.findIndex(x=>x.id===data.id);
