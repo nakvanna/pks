@@ -62,7 +62,7 @@
                                     <b>ទឹកប្រាក់សរុប:</b> {{$formatter.format(master_item.total)}}
                                     <b>បញ្ចុះតម្លៃ:</b> {{master_item.discount}} %
                                     <b>ទឹកប្រាក់ត្រូវបង់:</b> {{$formatter.format(master_item.after)}}
-                                    <b>ទឹកប្រាក់ជំពាក់:</b>
+                                    <b>ទឹកប្រាក់ជំពាក់:</b> {{$formatter.format(master_item.due_balance)}}
                                 </td>
                             </tr>
                             </tfoot>
@@ -139,9 +139,9 @@
             async printHtml() {
                 printJS({printable: 'section-to-print', type: 'html',css:[
                     'https://fonts.googleapis.com/css?family=Battambang&display=swap',
-                        'http://localhost:3000/css/main.css',
-                        'http://localhost:3000/css/vuesax.css',
-                        'http://localhost:3000/css/app.css'
+                        'https://pks.siqware.com/css/main.css',
+                        'https://pks.siqware.com/css/vuesax.css',
+                        'https://pks.siqware.com/css/app.css'
                     ]})
             },
         },
