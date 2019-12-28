@@ -79,7 +79,7 @@
                             > លម្អិត
                             </vs-button>
                             <vs-button
-                                    @click="printInvoice(preFixZero(tr.id, 7), tr.name, tr.latin, tr.gender, tr.balance, tr.after_discount, tr.discount)"
+                                    @click="printInvoice(preFixZero(tr.id, 7), tr.name, tr.latin, tr.gender, tr.balance, tr.after_discount, tr.discount, tr.due_balance)"
                                     size="small" color="primary" type="line" icon-pack="feather" icon="icon-printer"
                             > បោះពុម្ភ
                             </vs-button>
@@ -370,6 +370,7 @@
                 dob: null,
                 balance: 0,
                 photo: 'https://data.whicdn.com/images/300580381/original.jpg',
+                id: 0, //Is a invoice id for barcode
                 name: '',
                 latin: '',
                 all_infos: [],
@@ -678,12 +679,14 @@
                         });
                         self.$vs.loading.close();
                         self.$refs.PrintInvoice.show({
+                                id: self.preFixZero(new_all_infos[0].invoice_id, 7),
                                 name: self.name,
                                 latin: self.latin,
                                 gender: self.gender,
                                 total: self.total_payment,
                                 after: self.after_discount,
-                                discount: self.discount
+                                discount: self.discount,
+                                due_balance: self.due_balance
                             },
                             new_all_infos
                         );
@@ -700,9 +703,9 @@
                 this.$modal.show('show-invoice-detail');
                 await this.$store.dispatch('showInvoiceDetail', id);
             },
-            async printInvoice(id, name, latin, gender, total, after, discount,){
+            async printInvoice(id, name, latin, gender, total, after, discount, due){
                 await this.$store.dispatch('showInvoiceDetail', id);
-                this.$refs.PrintInvoice.show({id:id,name: name, latin: latin, gender: gender, total: total, after: after, discount: discount}, this.getInvoicesDetail);
+                this.$refs.PrintInvoice.show({id:id,name: name, latin: latin, gender: gender, total: total, after: after, discount: discount, due_balance: due}, this.getInvoicesDetail);
             },
             dueHistory(inv_id, due_bal){
                 this.$refs.DueHistory.show(inv_id, due_bal)

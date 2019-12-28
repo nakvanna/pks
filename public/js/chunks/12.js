@@ -175,6 +175,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 }).then(function (data_res) {
                   if (data_res) {
                     self.$vs.loading.close();
+                    self.pay_due = 0;
                   }
                 });
 
@@ -633,6 +634,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       dob: null,
       balance: 0,
       photo: 'https://data.whicdn.com/images/300580381/original.jpg',
+      id: 0,
+      //Is a invoice id for barcode
       name: '',
       latin: '',
       all_infos: [],
@@ -1145,12 +1148,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     });
                     self.$vs.loading.close();
                     self.$refs.PrintInvoice.show({
+                      id: self.preFixZero(new_all_infos[0].invoice_id, 7),
                       name: self.name,
                       latin: self.latin,
                       gender: self.gender,
                       total: self.total_payment,
                       after: self.after_discount,
-                      discount: self.discount
+                      discount: self.discount,
+                      due_balance: self.due_balance
                     }, new_all_infos);
                   }
                 });
@@ -1206,7 +1211,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     printInvoice: function () {
       var _printInvoice = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee12(id, name, latin, gender, total, after, discount) {
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee12(id, name, latin, gender, total, after, discount, due) {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee12$(_context12) {
           while (1) {
             switch (_context12.prev = _context12.next) {
@@ -1222,7 +1227,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   gender: gender,
                   total: total,
                   after: after,
-                  discount: discount
+                  discount: discount,
+                  due_balance: due
                 }, this.getInvoicesDetail);
 
               case 3:
@@ -1233,7 +1239,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee12, this);
       }));
 
-      function printInvoice(_x10, _x11, _x12, _x13, _x14, _x15, _x16) {
+      function printInvoice(_x10, _x11, _x12, _x13, _x14, _x15, _x16, _x17) {
         return _printInvoice.apply(this, arguments);
       }
 
@@ -1857,7 +1863,8 @@ var render = function() {
                                       tr.gender,
                                       tr.balance,
                                       tr.after_discount,
-                                      tr.discount
+                                      tr.discount,
+                                      tr.due_balance
                                     )
                                   }
                                 }
@@ -2866,7 +2873,16 @@ var render = function() {
                                 ) +
                                 "\n                                "
                             ),
-                            _c("b", [_vm._v("ទឹកប្រាក់ជំពាក់:")])
+                            _c("b", [_vm._v("ទឹកប្រាក់ជំពាក់:")]),
+                            _vm._v(
+                              " " +
+                                _vm._s(
+                                  _vm.$formatter.format(
+                                    _vm.master_item.due_balance
+                                  )
+                                ) +
+                                "\n                            "
+                            )
                           ]
                         )
                       ])

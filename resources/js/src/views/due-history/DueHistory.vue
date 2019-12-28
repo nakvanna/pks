@@ -111,6 +111,7 @@
                     }).then(function(data_res) {
                         if(data_res){
                             self.$vs.loading.close();
+                            self.pay_due = 0;
                         }
                     })
                 }
