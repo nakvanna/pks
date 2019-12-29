@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 
 class ServiceController extends Controller
 {
+    public function json(){
+        return Service::with('employees')->orderBy('id','desc')->paginate(25);
+    }
     public function index(){
         return Service::with('employees')->orderBy('id','desc')->get();
     }

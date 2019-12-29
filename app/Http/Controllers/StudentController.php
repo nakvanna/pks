@@ -9,7 +9,7 @@ class StudentController extends Controller
 {
     //index
     public function json(){
-        return Student::latest('created_at')->paginate(25);
+        return Student::orderBy('id','desc')->paginate(25);
     }
     //index
     public function index(){

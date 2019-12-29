@@ -73,7 +73,7 @@
                      :pagination="true"
                      :paginationPageSize="100"
                      :animateRows="true"
-                     :rowData="getService">
+                     :rowData="modify_get_service">
         </ag-grid-vue>
 
         <vs-row vs-type="flex" vs-justify="flex-end">
@@ -128,7 +128,7 @@
                     { headerName: 'តម្លៃ​ ១ត្រីមាស', field: 'cost_three', },
                     { headerName: 'តម្លៃ ១ឆមាស', field: 'cost_six', },
                     { headerName: 'តម្លៃ​ ១ឆ្នាំ', field: 'cost_twelve', },
-                    { headerName: 'អ្នកទទួលបន្ទុក', field: 'employee_name', },
+                    { headerName: 'អ្នកទទួលបន្ទុក', field: 'employee', },
                 ],
                 defaultColDef: {
                     sortable: true,
@@ -157,6 +157,14 @@
             },
             getService(){
                 return this.$store.getters.get_services
+            },
+            modify_get_service(){
+                return this.getService.map(function (x) {
+                    return{
+                        ...x,
+                        employee: x.employees===null?'មិនបានដាក់ជូន':`${x.employees.kh_name}-${x.employees.en_name}`
+                    }
+                })
             },
             getEmployees(){
                 return this.$store.getters.get_employees

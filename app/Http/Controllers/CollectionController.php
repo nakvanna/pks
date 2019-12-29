@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 
 class CollectionController extends Controller
 {
+    public function json(){
+        return Collection::with('employees')->orderBy('id','desc')->paginate(25);
+    }
     public function index(){
         return Collection::with('employees')->orderBy('id','desc')->get();
     }

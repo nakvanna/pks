@@ -18,6 +18,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _UpgradeCollection__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./UpgradeCollection */ "./resources/js/src/views/setting/UpgradeCollection.vue");
 
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -211,7 +217,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         field: 'cost_twelve'
       }, {
         headerName: 'គ្រូបន្ទុកថ្នាក់',
-        field: 'employee_name'
+        field: 'employee'
       }],
       defaultColDef: {
         sortable: true,
@@ -287,6 +293,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     getGroupSection: function getGroupSection() {
       return this.$store.getters.get_group_sections;
+    },
+    modify_get_collection: function modify_get_collection() {
+      return this.getCollection.map(function (x) {
+        return _objectSpread({}, x, {
+          employee: x.employees === null ? 'មិនបានដាក់ជូន' : "".concat(x.employees.kh_name, "-").concat(x.employees.en_name)
+        });
+      });
     },
     getSection: function getSection() {
       return this.$store.getters.get_sections;
@@ -2745,7 +2758,7 @@ var render = function() {
           pagination: true,
           paginationPageSize: 100,
           animateRows: true,
-          rowData: _vm.getCollection
+          rowData: _vm.modify_get_collection
         },
         on: {
           "grid-ready": _vm.onGridReady,

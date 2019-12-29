@@ -1973,35 +1973,23 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "vs-td",
-                        {
-                          attrs: {
-                            data: data[indextr].start_work.substr(0, 10)
-                          }
-                        },
+                        { attrs: { data: data[indextr].start_work } },
                         [
                           _vm._v(
                             "\n                    " +
-                              _vm._s(data[indextr].start_work.substr(0, 10)) +
+                              _vm._s(data[indextr].start_work) +
                               "\n                "
                           )
                         ]
                       ),
                       _vm._v(" "),
-                      _c(
-                        "vs-td",
-                        {
-                          attrs: { data: data[indextr].contact.substr(0, 30) }
-                        },
-                        [
-                          _vm._v(
-                            "\n                    " +
-                              _vm._s(
-                                data[indextr].contact.substr(0, 30) + "..."
-                              ) +
-                              "\n                "
-                          )
-                        ]
-                      )
+                      _c("vs-td", { attrs: { data: data[indextr].contact } }, [
+                        _vm._v(
+                          "\n                    " +
+                            _vm._s(data[indextr].contact) +
+                            "\n                "
+                        )
+                      ])
                     ],
                     1
                   )

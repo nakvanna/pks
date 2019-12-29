@@ -1,6 +1,7 @@
 import axios from  'axios'
 const state = {
     collections:[],
+    total:null,
     collections_extracts:[],
 };
 const getters = {
@@ -10,10 +11,26 @@ const getters = {
 };
 const actions = {
     async fetchCollections({commit}){
-        if (!state.collections.length) {
+        async function next_page(url) {
+            const res = await axios.post(url);
+            return res.data
+        }
+        if (!state.collections.length >= state.total) {
             try {
-                const res = await axios.get(route('collection.index'));
-                commit('SET_COLLECTION', res.data);
+                axios.post(route('collection.json')).then(function (res) {
+                    return res.data
+                }).then(async function (data) {
+                    commit('SET_COLLECTION', data);
+                    async function f(next_url) {
+                        if (next_url) {
+                            next_page(next_url).then(async function (_data) {
+                                commit('SET_COLLECTION', _data);
+                                await f(_data.next_page_url);
+                            });
+                        }
+                    }
+                    await f(data.next_page_url)
+                });
             } catch (e) {
                 return false
             }
@@ -49,113 +66,17 @@ const actions = {
 };
 const mutations = {
     SET_COLLECTION:function (state,data) {
-        state.collections = [];
-        for (var i = 0; i < data.length; i ++){
-            if (data[i].employee_id === 0){
-                state.collections.push({
-                    id            : data[i].id,
-                    year          : data[i].year,
-                    group_section : data[i].group_section,
-                    section       : data[i].section,
-                    level         : data[i].level,
-                    shift         : data[i].shift,
-                    class_name    : data[i].class_name,
-                    cost_one      : data[i].cost_one,
-                    cost_three    : data[i].cost_three,
-                    cost_six      : data[i].cost_six,
-                    cost_twelve   : data[i].cost_twelve,
-                    employee_id   : data[i].employee_id,
-                    employee_name : "គ្មានគ្រូបន្ទុកថ្នាក់"
-                })
-            } else {
-                state.collections.push({
-                    id            : data[i].id,
-                    year          : data[i].year,
-                    group_section : data[i].group_section,
-                    section       : data[i].section,
-                    level         : data[i].level,
-                    shift         : data[i].shift,
-                    class_name    : data[i].class_name,
-                    cost_one      : data[i].cost_one,
-                    cost_three    : data[i].cost_three,
-                    cost_six      : data[i].cost_six,
-                    cost_twelve   : data[i].cost_twelve,
-                    employee_id   : data[i].employee_id,
-                    employee_name : data[i].employees.kh_name + ' ' + data[i].employees.en_name
-                })
-            }
-        }
+        state.total = data.total;
+        data.data.forEach(function (item, index) {
+            state.collections.push(item);
+        });
     },
     ADD_COLLECTION:function (state,data) {
-        if(data.employee_id === 0) {
-            state.collections.unshift({
-                id : data.id,
-                year : data.year,
-                group_section : data.group_section,
-                section : data.section,
-                level : data.level,
-                shift : data.shift,
-                class_name : data.class_name,
-                cost_one : data.cost_one,
-                cost_three : data.cost_three,
-                cost_six : data.cost_six,
-                cost_twelve : data.cost_twelve,
-                employee_id : data.employee_id,
-                employee_name : "គ្មានគ្រូបន្ទុកថ្នាក់" ,
-            });
-        } else {
-            state.collections.unshift({
-                id : data.id,
-                year : data.year,
-                group_section : data.group_section,
-                section : data.section,
-                level : data.level,
-                shift : data.shift,
-                class_name : data.class_name,
-                cost_one : data.cost_one,
-                cost_three : data.cost_three,
-                cost_six : data.cost_six,
-                cost_twelve : data.cost_twelve,
-                employee_id : data.employee_id,
-                employee_name : data.employees.kh_name + ' ' + data.employees.en_name ,
-            });
-        }
+        state.collections.unshift(data)
     },
     UPDATE_COLLECTION: function(state, data){
         const index = state.collections.findIndex(collection => collection.id === data.id);
-        if (data.employee_id === 0){
-            state.collections.splice(index, 1, {
-                id            : data.id,
-                year          : data.year,
-                group_section : data.group_section,
-                section       : data.section,
-                level         : data.level,
-                shift         : data.shift,
-                class_name    : data.class_name,
-                cost_one      : data.cost_one,
-                cost_three    : data.cost_three,
-                cost_six      : data.cost_six,
-                cost_twelve   : data.cost_twelve,
-                employee_id   : data.employee_id,
-                employee_name : "គ្មានអ្នកទទូលបន្ទុក",
-            });
-        } else {
-            state.collections.splice(index, 1, {
-                id            : data.id,
-                year          : data.year,
-                group_section : data.group_section,
-                section       : data.section,
-                level         : data.level,
-                shift         : data.shift,
-                class_name    : data.class_name,
-                cost_one      : data.cost_one,
-                cost_three    : data.cost_three,
-                cost_six      : data.cost_six,
-                cost_twelve   : data.cost_twelve,
-                employee_id   : data.employee_id,
-                employee_name : data.employees.kh_name + ' ' + data.employees.en_name,
-            });
-        }
+        state.collections.splice(index,1,data)
     },
     REMOVE_COLLECTION: function (state, id) {
         state.collections = state.collections.filter(collection => collection.id !== id);

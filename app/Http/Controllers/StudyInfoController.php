@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\DB;
 
 class StudyInfoController extends Controller
 {
+    public function json(){
+        return StudyInfo::with('students')->with('study_infos')->orderBy('id','desc')->paginate(25);
+    }
     public function index(){
         return StudyInfo::with('students')->with('study_infos')->get();
     }

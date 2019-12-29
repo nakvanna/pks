@@ -39,12 +39,12 @@
                         {{ data[indextr].degree_note }}
                     </vs-td>
 
-                    <vs-td :data="data[indextr].start_work.substr(0, 10)">
-                        {{ data[indextr].start_work.substr(0, 10) }}
+                    <vs-td :data="data[indextr].start_work">
+                        {{ data[indextr].start_work}}
                     </vs-td>
 
-                    <vs-td :data="data[indextr].contact.substr(0, 30)">
-                        {{ data[indextr].contact.substr(0, 30)+ '...' }}
+                    <vs-td :data="data[indextr].contact">
+                        {{ data[indextr].contact}}
                     </vs-td>
                 </vs-tr>
             </template>

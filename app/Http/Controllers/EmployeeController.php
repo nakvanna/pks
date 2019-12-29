@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
 {
+    public function json(){
+        return Employee::orderBy('id','desc')->paginate(25);
+    }
     public function index(){
         return Employee::orderBy('id','desc')->get();
     }

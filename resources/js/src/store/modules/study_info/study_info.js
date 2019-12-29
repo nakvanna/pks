@@ -1,6 +1,7 @@
 import axios from  'axios'
 const state = {
-    study_infos:[]
+    study_infos:[],
+    total:null
 };
 const getters = {
     get_study_infos:function (state) {
@@ -9,12 +10,30 @@ const getters = {
 };
 const actions = {
     async fetchStudyInfos({commit}){
+        async function next_page(url) {
+            const res = await axios.post(url);
+            return res.data
+        }
+        if (!state.study_infos.length >= state.total) {
             try {
-                const res = await axios.get(route('study-info.index'));
-                commit('SET_STUDY_INFO', res.data);
+                axios.post(route('study_info.json')).then(function (res) {
+                    return res.data
+                }).then(async function (data) {
+                    commit('SET_STUDY_INFO', data);
+                    async function f(next_url) {
+                        if (next_url) {
+                            next_page(next_url).then(async function (_data) {
+                                commit('SET_STUDY_INFO', _data);
+                                await f(_data.next_page_url);
+                            });
+                        }
+                    }
+                    await f(data.next_page_url)
+                });
             } catch (e) {
                 return false
             }
+        }
     },
     async storeStudyInfo({commit},data){
         try {
@@ -55,7 +74,10 @@ const actions = {
 };
 const mutations = {
     SET_STUDY_INFO:function (state,data) {
-        state.study_infos = data
+        state.total = data.total;
+        data.data.forEach(function (item, index) {
+            state.study_infos.push(item);
+        });
     },
     ADD_STUDY_INFO:function (state,data) {
         data.forEach(function (item,index) {

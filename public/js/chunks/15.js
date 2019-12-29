@@ -22,6 +22,12 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -169,7 +175,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         field: 'cost_twelve'
       }, {
         headerName: 'អ្នកទទួលបន្ទុក',
-        field: 'employee_name'
+        field: 'employee'
       }],
       defaultColDef: {
         sortable: true,
@@ -198,6 +204,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     getService: function getService() {
       return this.$store.getters.get_services;
+    },
+    modify_get_service: function modify_get_service() {
+      return this.getService.map(function (x) {
+        return _objectSpread({}, x, {
+          employee: x.employees === null ? 'មិនបានដាក់ជូន' : "".concat(x.employees.kh_name, "-").concat(x.employees.en_name)
+        });
+      });
     },
     getEmployees: function getEmployees() {
       return this.$store.getters.get_employees;
@@ -876,7 +889,7 @@ var render = function() {
           pagination: true,
           paginationPageSize: 100,
           animateRows: true,
-          rowData: _vm.getService
+          rowData: _vm.modify_get_service
         },
         on: {
           "grid-ready": _vm.onGridReady,

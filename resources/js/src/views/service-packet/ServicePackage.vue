@@ -25,61 +25,6 @@
             </vs-col>
         </vs-row>
         <vs-divider/>
-        <!--<vs-table multiple v-model="selected" pagination max-items="5" search :data="service_info_extract">
-
-            <template slot="thead">
-                <vs-th sort-key="year">ឆ្នាំសិក្សា</vs-th>
-                <vs-th sort-key="name">ឈ្មោះសិស្ស</vs-th>
-                <vs-th sort-key="latin">ឈ្មោះឡាតាំ</vs-th>
-                <vs-th sort-key="gender">ភេទ</vs-th>
-                <vs-th sort-key="dob">ថ្ងៃខែឆ្នាំកំណើត</vs-th>
-                <vs-th sort-key="class_name">កំពុងប្រើប្រាស់សេវាកម្ម</vs-th>
-                <vs-th sort-key="date_pay">ថ្ងៃត្រូវបង់លុយ</vs-th>
-                <vs-th sort-key="is_used">ស្ថានភាព</vs-th>
-            </template>
-
-            <template slot-scope="{data}">
-                <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in data">
-
-                    <vs-td :data="data[indextr].year">
-                        {{ data[indextr].year }}
-                    </vs-td>
-
-                    <vs-td :data="data[indextr].name">
-                        {{ data[indextr].name }}
-                    </vs-td>
-
-                    <vs-td :data="data[indextr].latin">
-                        {{ data[indextr].latin }}
-                    </vs-td>
-
-                    <vs-td :data="data[indextr].gender">
-                        {{ data[indextr].gender}}
-                    </vs-td>
-
-                    <vs-td :data="data[indextr].dob">
-                        {{ data[indextr].dob}}
-                    </vs-td>
-
-                    <vs-td :data="data[indextr].service">
-                        {{ data[indextr].service }}
-                    </vs-td>
-
-                    <vs-td v-if="data[indextr].date_pay !== null" :data="data[indextr].date_pay">
-                        {{ data[indextr].date_pay.substr(0, 10) }}
-                    </vs-td>
-                    <vs-td v-else :data="data[indextr].date_pay">
-                        មិនបានកំណត់
-                    </vs-td>
-
-                    <vs-td :data="data[indextr].is_used">
-                        <vs-chip v-if="data[indextr].is_used === 'នៅប្រើ'" color="primary">{{ data[indextr].is_used }}</vs-chip>
-                        <vs-chip v-else color="danger">{{ data[indextr].is_used }}</vs-chip>
-                    </vs-td>
-                </vs-tr>
-            </template>
-        </vs-table>-->
-
         <ag-grid-vue class="ag-theme-material w-100 my-4 ag-grid-table"
                      :columnDefs="columnDefs"
                      :defaultColDef="defaultColDef"

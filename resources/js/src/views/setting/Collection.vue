@@ -109,7 +109,7 @@
                      :pagination="true"
                      :paginationPageSize="100"
                      :animateRows="true"
-                     :rowData="getCollection">
+                     :rowData="modify_get_collection">
         </ag-grid-vue>
         <div class="flex btn-group">
             <vs-button
@@ -165,7 +165,7 @@
                     {headerName: 'តម្លៃ ១ត្រីមាស', field: 'cost_three'},
                     {headerName: 'តម្លៃ ១ឆមាស', field: 'cost_six'},
                     {headerName: 'តម្លៃ ១ឆ្នាំ', field: 'cost_twelve'},
-                    {headerName: 'គ្រូបន្ទុកថ្នាក់', field: 'employee_name'},
+                    {headerName: 'គ្រូបន្ទុកថ្នាក់', field: 'employee'},
                 ],
                 defaultColDef: {
                     sortable: true,
@@ -209,6 +209,14 @@
             },
             getGroupSection(){
                 return this.$store.getters.get_group_sections
+            },
+            modify_get_collection(){
+                return this.getCollection.map(function (x) {
+                    return{
+                        ...x,
+                        employee: x.employees===null?'មិនបានដាក់ជូន':`${x.employees.kh_name}-${x.employees.en_name}`
+                    }
+                })
             },
             getSection(){
                 return this.$store.getters.get_sections

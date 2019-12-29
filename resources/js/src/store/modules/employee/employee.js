@@ -1,6 +1,7 @@
 import axios from  'axios'
 const state = {
-    employees:[]
+    employees:[],
+    total:null
 };
 const getters = {
     get_employees:function (state) {
@@ -9,10 +10,26 @@ const getters = {
 };
 const actions = {
     async fetchEmployees({commit}){
-        if (!state.employees.length) {
+        async function next_page(url) {
+            const res = await axios.post(url);
+            return res.data
+        }
+        if (!state.employees.length >= state.total) {
             try {
-                const res = await axios.get(route('employee.index'));
-                commit('SET_EMPLOYEE', res.data);
+                axios.post(route('employee.json')).then(function (res) {
+                    return res.data
+                }).then(async function (data) {
+                    commit('SET_EMPLOYEE', data);
+                    async function f(next_url) {
+                        if (next_url) {
+                            next_page(next_url).then(async function (_data) {
+                                commit('SET_EMPLOYEE', _data);
+                                await f(_data.next_page_url);
+                            });
+                        }
+                    }
+                    await f(data.next_page_url)
+                });
             } catch (e) {
                 return false
             }
@@ -48,29 +65,17 @@ const actions = {
 };
 const mutations = {
     SET_EMPLOYEE:function (state,data) {
-        state.employees = data
+        state.total = data.total;
+        data.data.forEach(function (item, index) {
+            state.employees.push(item);
+        });
     },
     ADD_EMPLOYEE:function (state,data) {
         state.employees.unshift(data);
     },
     UPDATE_EMPLOYEE: function(state, data){
         const index = state.employees.findIndex(employee => employee.id === data.id);
-        if(index !== -1){
-            state.employees.splice(index, 1, {
-                id          : data.id,
-                profile     : data.profile,
-                kh_name     : data.kh_name,
-                en_name     : data.en_name,
-                gender      : data.gender,
-                dob         : data.dob,
-                position    : data.position,
-                degree_note : data.degree_note,
-                start_work  : data.start_work,
-                contact     : data.contact,
-                pob         : data.pob,
-                addr        : data.addr,
-            });
-        }
+        state.employees.splice(index,1,data)
     },
     REMOVE_EMPLOYEE: function (state, id) {
         state.employees = state.employees.filter(employee => employee.id !== id);
