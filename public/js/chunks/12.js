@@ -1396,6 +1396,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "PrintInvoice",
@@ -2849,7 +2867,7 @@ var render = function() {
                       _c("tr", [
                         _c(
                           "td",
-                          { staticClass: "pt-3", attrs: { colspan: "7" } },
+                          { staticClass: "pt-3", attrs: { colspan: "5" } },
                           [
                             _c("b", [_vm._v("ទឹកប្រាក់សរុប:")]),
                             _vm._v(
@@ -2884,6 +2902,52 @@ var render = function() {
                                 "\n                            "
                             )
                           ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          {
+                            staticClass: "text-center",
+                            attrs: { colspan: "2" }
+                          },
+                          [
+                            _vm._v(
+                              "\n                                ម៉ោង " +
+                                _vm._s(_vm.moment().format("h:mm:ss A")) +
+                                " ថ្ងៃទី " +
+                                _vm._s(_vm.moment().format("D")) +
+                                " ខែ " +
+                                _vm._s(_vm.moment().format("M")) +
+                                " ឆ្នាំ " +
+                                _vm._s(_vm.moment().format("Y")) +
+                                "\n                            "
+                            )
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("tr", [
+                        _c("td"),
+                        _vm._v(" "),
+                        _c("td"),
+                        _vm._v(" "),
+                        _c("td"),
+                        _vm._v(" "),
+                        _c("td"),
+                        _vm._v(" "),
+                        _c("td"),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          {
+                            staticClass: "text-center",
+                            attrs: { colspan: "2" }
+                          },
+                          [
+                            _vm._v(
+                              "\n                                បេឡា\n                            "
+                            )
+                          ]
                         )
                       ])
                     ])
@@ -2905,7 +2969,15 @@ var render = function() {
                     _c("tr", [
                       _c("td", { staticClass: "text-danger" }, [
                         _vm._v(
-                          "\n                                3: តម្លៃខាងលើ គឺសម្រាប់តែសេវាកម្មអប់រំប៉ុណ្ណោះ ចំពោះការគ្រោះថ្នាក់ជាយថាហេតុជាបន្ទុករបស់ មាតាបិតា ឬអាណាព្យាបាលសិស្ស\n                            "
+                          "\n                                3: តម្លៃខាងលើ គឺសម្រាប់តែសេវាកម្មអប់រំប៉ុណ្ណោះ\n                            "
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("tr", [
+                      _c("td", { staticClass: "text-danger pl-3" }, [
+                        _vm._v(
+                          "\n                                ចំពោះការគ្រោះថ្នាក់ជាយថាហេតុជាបន្ទុករបស់ មាតាបិតា ឬអាណាព្យាបាលសិស្ស\n                            "
                         )
                       ])
                     ])

@@ -58,11 +58,24 @@
                             </tbody>
                             <tfoot>
                             <tr>
-                                <td class="pt-3" colspan="7">
+                                <td class="pt-3" colspan="5">
                                     <b>ទឹកប្រាក់សរុប:</b> {{$formatter.format(master_item.total)}}
                                     <b>បញ្ចុះតម្លៃ:</b> {{master_item.discount}} %
                                     <b>ទឹកប្រាក់ត្រូវបង់:</b> {{$formatter.format(master_item.after)}}
                                     <b>ទឹកប្រាក់ជំពាក់:</b> {{$formatter.format(master_item.due_balance)}}
+                                </td>
+                                <td class="text-center" colspan="2">
+                                    ម៉ោង {{moment().format('h:mm:ss A')}} ថ្ងៃទី {{moment().format('D')}} ខែ {{moment().format('M')}} ឆ្នាំ {{moment().format('Y')}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td class="text-center" colspan="2">
+                                    បេឡា
                                 </td>
                             </tr>
                             </tfoot>
@@ -79,7 +92,12 @@
                             </tr>
                             <tr>
                                 <td class="text-danger">
-                                    3: តម្លៃខាងលើ គឺសម្រាប់តែសេវាកម្មអប់រំប៉ុណ្ណោះ ចំពោះការគ្រោះថ្នាក់ជាយថាហេតុជាបន្ទុករបស់ មាតាបិតា ឬអាណាព្យាបាលសិស្ស
+                                    3: តម្លៃខាងលើ គឺសម្រាប់តែសេវាកម្មអប់រំប៉ុណ្ណោះ
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-danger pl-3">
+                                    ចំពោះការគ្រោះថ្នាក់ជាយថាហេតុជាបន្ទុករបស់ មាតាបិតា ឬអាណាព្យាបាលសិស្ស
                                 </td>
                             </tr>
                         </table>
