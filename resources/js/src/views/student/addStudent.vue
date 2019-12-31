@@ -139,7 +139,7 @@
                     name:'',
                     latin:'',
                     gender:'ប្រុស',
-                    photo:'placeholder/placeholder.png',
+                    photo:'images/placeholder/placeholder.png',
                     dob:'',
                     std_contact:'',
                     pob:'',

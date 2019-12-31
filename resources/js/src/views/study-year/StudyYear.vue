@@ -24,10 +24,18 @@
                     <vs-button
                             color="danger"
                             type="relief"
+                            icon-pack="feather" icon="icon-trash"
+                            @click="confirmDelete"
+                    >
+                        លុប
+                    </vs-button>
+                    <!--<vs-button
+                            color="danger"
+                            type="relief"
                             icon-pack="feather" icon="icon-refresh-ccw"
                     >
                         ឈប់រៀន
-                    </vs-button>
+                    </vs-button>-->
                 </div>
             </vs-col>
         </vs-row>
@@ -44,7 +52,6 @@
                      :animateRows="true"
                      :rowData="study_info_extract">
         </ag-grid-vue>
-
         <add-study-info @finished="selected=[]" ref="addStudyInfo"></add-study-info>
         <change-study-info @finished="selected=[]" ref="changeStudyInfo"></change-study-info>
     </vx-card>
@@ -55,6 +62,7 @@
     import ChangeStudyInfo from "../student/changeStudyInfo";
     import {AgGridVue} from "ag-grid-vue";
     import '@sass/vuexy/extraComponents/agGridStyleOverride.scss'
+
     export default {
         name: "StudyYear",
         components: {
@@ -66,20 +74,20 @@
                 selected: [],
                 gridApi: null,
                 columnDefs: [
-                    { headerName: 'ឆ្នាំសិក្សា', field: 'year', checkboxSelection: true, pinned: true },
-                    { headerName: 'ឈ្មោះសិស្ស', field: 'name', },
-                    { headerName: 'ឈ្មោះឡាតាំ', field: 'latin', },
-                    { headerName: 'ភេទ', field: 'gender', },
-                    { headerName: 'ថ្ងៃខែឆ្នាំកំណើត', field: 'dob', },
-                    { headerName: 'កំពុងរៀនថ្នាក់ទី', field: 'class_name', },
-                    { headerName: 'ពេលសិក្សា', field: 'shift', },
-                    { headerName: 'ថ្ងៃត្រូវបង់លុយ', field: 'date_pay', },
+                    {headerName: 'ឆ្នាំសិក្សា', field: 'year', checkboxSelection: true, pinned: true},
+                    {headerName: 'ឈ្មោះសិស្ស', field: 'name',},
+                    {headerName: 'ឈ្មោះឡាតាំ', field: 'latin',},
+                    {headerName: 'ភេទ', field: 'gender',},
+                    {headerName: 'ថ្ងៃខែឆ្នាំកំណើត', field: 'dob',},
+                    {headerName: 'កំពុងរៀនថ្នាក់ទី', field: 'class_name',},
+                    {headerName: 'ពេលសិក្សា', field: 'shift',},
+                    {headerName: 'ថ្ងៃត្រូវបង់លុយ', field: 'date_pay',},
                     {
                         headerName: 'ចំនួនថ្ងៃនៅសល់',
                         field: 'day_left',
-                        cellRenderer:function (params) {
-                            var day_left;
-                            if(params.data.day_left < 0){
+                        cellRenderer: function (params) {
+                            let day_left;
+                            if (params.data.day_left < 0) {
                                 day_left = `<span class="text-danger"><b>${params.data.day_left}</b></span>`
                             } else if (params.data.day_left <= 5) {
                                 day_left = `<span class="text-warning"><b>${params.data.day_left}</b></span>`
@@ -103,33 +111,66 @@
             },
             onSelectionChanged() {
                 this.selected = this.gridApi.getSelectedRows();
+            },
+            //destroy
+            confirmDelete(){
+                this.$vs.dialog({
+                    color:'danger',
+                    title: 'លុបទិន្នន័យ?',
+                    text: 'ចុចពាក្យ Accept ដើម្បីយល់ព្រម!',
+                    accept:this.deleteStudyYear
+                })
+            },
+            async deleteStudyYear() {
+                let self = this;
+                const promises = self.selected.map(async function (data) {
+                    if (parseInt(data.last_term)===0) {
+                        await self.$store.dispatch('destroyStudyInfo', data.study_info_id);
+                    }
+                });
+                await Promise.all(promises).then(function () {
+                    self.$vs.notify({
+                        title:'ប្រតិបត្តិការណ៍ជោគជ័យ',
+                        text:'ទិន្នន័យត្រូវបានលុប!',
+                        color:'success',
+                        iconPack: 'feather',
+                        icon:'icon-check',
+                        position:'top-center'
+                    });
+                    self.selected = [];
+                    self.$vs.loading.close()
+                });
             }
         },
         computed: {
-            getStudyInfos(){
+            getStudyInfos() {
                 return this.$store.getters.get_study_infos
             },
-            study_info_extract(){
+            study_info_extract() {
                 let self = this;
-                return this.getStudyInfos.map(function (data) {
-                    var to_day = self.moment();
-                    var day_pay = self.moment(data.date_pay);
-                    return{
-                        study_info_id   : data.id,
-                        id         : data.students.id,
-                        year       : data.year,
-                        student_id : data.students.id,
-                        name       : data.students.name,
-                        latin      : data.students.latin,
-                        gender     : data.students.gender,
-                        dob        : data.students.dob,
-                        class_name : data.study_infos.level + data.study_infos.class_name,
-                        shift      : data.study_infos.shift,
-                        date_pay   : data.date_pay,
-                        last_date_pay   : data.last_date_pay,
-                        last_term  : data.last_term,
-                        to_class   : data.to_class,
-                        day_left   : day_pay.diff(to_day, 'days'),
+                return this.getStudyInfos.map(function (x) {
+                    let to_day = self.moment();
+                    let day_pay = self.moment(x.date_pay);
+                    if (self.getStudyInfos.length) {
+                        return {
+                            study_info_id: x.id,
+                            id: x.students.id,
+                            year: x.year,
+                            student_id: x.students.id,
+                            name: x.students.name,
+                            latin: x.students.latin,
+                            gender: x.students.gender,
+                            dob: x.students.dob,
+                            class_name: x.study_infos.level + x.study_infos.class_name,
+                            shift: x.study_infos.shift,
+                            date_pay: x.date_pay,
+                            last_date_pay: x.last_date_pay,
+                            last_term: x.last_term,
+                            to_class: x.to_class,
+                            day_left: day_pay.diff(to_day, 'days'),
+                        }
+                    } else {
+                        return true
                     }
                 });
             }

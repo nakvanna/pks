@@ -16,7 +16,7 @@ const actions = {
         }
         if (!state.students.length >= state.total) {
             try {
-                axios.post(route('student.json')).then(function (res) {
+                axios.post(route('report.student_info')).then(function (res) {
                     return res.data
                 }).then(async function (data) {
                     commit('SET_STUDENT', data);

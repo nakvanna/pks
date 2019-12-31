@@ -348,11 +348,11 @@
                 return return_bal;
             }
         },
-        async created (){
+        /*async created (){
             await this.$store.dispatch('fetchStudent');
             await this.$store.dispatch('fetchCurYear');
             await this.$store.dispatch('fetchInvoices');
-        },
+        },*/
         data() {
             return {
                 discount: 0,
@@ -711,9 +711,6 @@
                 this.$refs.DueHistory.show(inv_id, due_bal)
             },
         },
-        mounted() {
-            this.moment.locale('en');
-        }
     }
 </script>
 

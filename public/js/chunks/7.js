@@ -2700,7 +2700,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 type: 'material'
               });
               _context.next = 7;
-              return Promise.all([self.$store.dispatch('fetchGroupSections'), self.$store.dispatch('fetchSections'), self.$store.dispatch('fetchLevels'), self.$store.dispatch('fetchShifts'), self.$store.dispatch('fetchStudyClasses'), self.$store.dispatch('fetchCollections'), self.$store.dispatch('fetchYears'), self.$store.dispatch('fetchStudent'), self.$store.dispatch('fetchEmployees'), self.$store.dispatch('fetchServices'), self.$store.dispatch('fetchPosition'), self.$store.dispatch('fetchDegreeNote'), self.$store.dispatch('fetchStudyInfos'), self.$store.dispatch('fetchServiceInfos'), self.$store.dispatch('fetchInvoices'), self.$store.dispatch('fetchCurYear')]).then(function () {
+              return Promise.all([self.$store.dispatch('fetchGroupSections'), self.$store.dispatch('fetchSections'), self.$store.dispatch('fetchLevels'), self.$store.dispatch('fetchShifts'), self.$store.dispatch('fetchStudyClasses'), self.$store.dispatch('fetchCollections'), self.$store.dispatch('fetchYears'), self.$store.dispatch('fetchStudent'), self.$store.dispatch('fetchEmployees'), self.$store.dispatch('fetchServices'), self.$store.dispatch('fetchPosition'), self.$store.dispatch('fetchDegreeNote'), self.$store.dispatch('fetchStudyInfos'), self.$store.dispatch('fetchServiceInfos'), self.$store.dispatch('fetchInvoices'), self.$store.dispatch('fetchCurYear') //report
+              // self.$store.dispatch('fetchStudent'),
+              ]).then(function () {
                 self.$vs.loading.close();
               });
 

@@ -220,12 +220,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _student_addStudyInfo__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../student/addStudyInfo */ "./resources/js/src/views/student/addStudyInfo.vue");
-/* harmony import */ var _student_changeStudyInfo__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../student/changeStudyInfo */ "./resources/js/src/views/student/changeStudyInfo.vue");
-/* harmony import */ var ag_grid_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ag-grid-vue */ "./node_modules/ag-grid-vue/main.js");
-/* harmony import */ var ag_grid_vue__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(ag_grid_vue__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _sass_vuexy_extraComponents_agGridStyleOverride_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @sass/vuexy/extraComponents/agGridStyleOverride.scss */ "./resources/sass/vuexy/extraComponents/agGridStyleOverride.scss");
-/* harmony import */ var _sass_vuexy_extraComponents_agGridStyleOverride_scss__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_sass_vuexy_extraComponents_agGridStyleOverride_scss__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _student_addStudyInfo__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../student/addStudyInfo */ "./resources/js/src/views/student/addStudyInfo.vue");
+/* harmony import */ var _student_changeStudyInfo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../student/changeStudyInfo */ "./resources/js/src/views/student/changeStudyInfo.vue");
+/* harmony import */ var ag_grid_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ag-grid-vue */ "./node_modules/ag-grid-vue/main.js");
+/* harmony import */ var ag_grid_vue__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(ag_grid_vue__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _sass_vuexy_extraComponents_agGridStyleOverride_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @sass/vuexy/extraComponents/agGridStyleOverride.scss */ "./resources/sass/vuexy/extraComponents/agGridStyleOverride.scss");
+/* harmony import */ var _sass_vuexy_extraComponents_agGridStyleOverride_scss__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_sass_vuexy_extraComponents_agGridStyleOverride_scss__WEBPACK_IMPORTED_MODULE_4__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -285,9 +300,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "StudyYear",
   components: {
-    ChangeStudyInfo: _student_changeStudyInfo__WEBPACK_IMPORTED_MODULE_1__["default"],
-    AddStudyInfo: _student_addStudyInfo__WEBPACK_IMPORTED_MODULE_0__["default"],
-    AgGridVue: ag_grid_vue__WEBPACK_IMPORTED_MODULE_2__["AgGridVue"]
+    ChangeStudyInfo: _student_changeStudyInfo__WEBPACK_IMPORTED_MODULE_2__["default"],
+    AddStudyInfo: _student_addStudyInfo__WEBPACK_IMPORTED_MODULE_1__["default"],
+    AgGridVue: ag_grid_vue__WEBPACK_IMPORTED_MODULE_3__["AgGridVue"]
   },
   data: function data() {
     return {
@@ -349,7 +364,84 @@ __webpack_require__.r(__webpack_exports__);
     },
     onSelectionChanged: function onSelectionChanged() {
       this.selected = this.gridApi.getSelectedRows();
-    }
+    },
+    //destroy
+    confirmDelete: function confirmDelete() {
+      this.$vs.dialog({
+        color: 'danger',
+        title: 'លុបទិន្នន័យ?',
+        text: 'ចុចពាក្យ Accept ដើម្បីយល់ព្រម!',
+        accept: this.deleteStudyYear
+      });
+    },
+    deleteStudyYear: function () {
+      var _deleteStudyYear = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var self, promises;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                self = this;
+                promises = self.selected.map(
+                /*#__PURE__*/
+                function () {
+                  var _ref = _asyncToGenerator(
+                  /*#__PURE__*/
+                  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(data) {
+                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+                      while (1) {
+                        switch (_context.prev = _context.next) {
+                          case 0:
+                            if (!(parseInt(data.last_term) === 0)) {
+                              _context.next = 3;
+                              break;
+                            }
+
+                            _context.next = 3;
+                            return self.$store.dispatch('destroyStudyInfo', data.study_info_id);
+
+                          case 3:
+                          case "end":
+                            return _context.stop();
+                        }
+                      }
+                    }, _callee);
+                  }));
+
+                  return function (_x) {
+                    return _ref.apply(this, arguments);
+                  };
+                }());
+                _context2.next = 4;
+                return Promise.all(promises).then(function () {
+                  self.$vs.notify({
+                    title: 'ប្រតិបត្តិការណ៍ជោគជ័យ',
+                    text: 'ទិន្នន័យត្រូវបានលុប!',
+                    color: 'success',
+                    iconPack: 'feather',
+                    icon: 'icon-check',
+                    position: 'top-center'
+                  });
+                  self.selected = [];
+                  self.$vs.loading.close();
+                });
+
+              case 4:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function deleteStudyYear() {
+        return _deleteStudyYear.apply(this, arguments);
+      }
+
+      return deleteStudyYear;
+    }()
   },
   computed: {
     getStudyInfos: function getStudyInfos() {
@@ -357,26 +449,31 @@ __webpack_require__.r(__webpack_exports__);
     },
     study_info_extract: function study_info_extract() {
       var self = this;
-      return this.getStudyInfos.map(function (data) {
+      return this.getStudyInfos.map(function (x) {
         var to_day = self.moment();
-        var day_pay = self.moment(data.date_pay);
-        return {
-          study_info_id: data.id,
-          id: data.students.id,
-          year: data.year,
-          student_id: data.students.id,
-          name: data.students.name,
-          latin: data.students.latin,
-          gender: data.students.gender,
-          dob: data.students.dob,
-          class_name: data.study_infos.level + data.study_infos.class_name,
-          shift: data.study_infos.shift,
-          date_pay: data.date_pay,
-          last_date_pay: data.last_date_pay,
-          last_term: data.last_term,
-          to_class: data.to_class,
-          day_left: day_pay.diff(to_day, 'days')
-        };
+        var day_pay = self.moment(x.date_pay);
+
+        if (self.getStudyInfos.length) {
+          return {
+            study_info_id: x.id,
+            id: x.students.id,
+            year: x.year,
+            student_id: x.students.id,
+            name: x.students.name,
+            latin: x.students.latin,
+            gender: x.students.gender,
+            dob: x.students.dob,
+            class_name: x.study_infos.level + x.study_infos.class_name,
+            shift: x.study_infos.shift,
+            date_pay: x.date_pay,
+            last_date_pay: x.last_date_pay,
+            last_term: x.last_term,
+            to_class: x.to_class,
+            day_left: day_pay.diff(to_day, 'days')
+          };
+        } else {
+          return true;
+        }
       });
     }
   }
@@ -772,14 +869,11 @@ var render = function() {
                             color: "danger",
                             type: "relief",
                             "icon-pack": "feather",
-                            icon: "icon-refresh-ccw"
-                          }
+                            icon: "icon-trash"
+                          },
+                          on: { click: _vm.confirmDelete }
                         },
-                        [
-                          _vm._v(
-                            "\n                    ឈប់រៀន\n                "
-                          )
-                        ]
+                        [_vm._v("\n                    លុប\n                ")]
                       )
                     ],
                     1

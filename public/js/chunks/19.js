@@ -86,6 +86,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -146,78 +154,37 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         resizable: true,
         filter: true
       },
-      service_info_extract: [],
       new_last_date_pay: null
     };
   },
   computed: {
     getServiceInfos: function getServiceInfos() {
       return this.$store.getters.get_service_infos;
+    },
+    service_info_extract: function service_info_extract() {
+      var self = this;
+      return this.getServiceInfos.map(function (x) {
+        if (self.getServiceInfos.length) {
+          return {
+            id: x.id,
+            year: x.year,
+            student_id: x.students.id,
+            name: x.students.name,
+            latin: x.students.latin,
+            gender: x.students.gender,
+            dob: x.students.dob,
+            service: x.services.type + '-' + x.services.service,
+            date_pay: x.date_pay,
+            last_term: x.last_term,
+            last_date_pay: x.last_date_pay,
+            is_used: x.is_used === true ? 'នៅប្រើ' : 'បានផ្អាក'
+          };
+        } else {
+          return true;
+        }
+      });
     }
   },
-  created: function () {
-    var _created = _asyncToGenerator(
-    /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-      var sie, raw;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
-            case 0:
-              sie = this.service_info_extract;
-              raw = this.getServiceInfos;
-              raw.map(
-              /*#__PURE__*/
-              function () {
-                var _ref = _asyncToGenerator(
-                /*#__PURE__*/
-                _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(data) {
-                  return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-                    while (1) {
-                      switch (_context.prev = _context.next) {
-                        case 0:
-                          sie.push({
-                            id: data.id,
-                            year: data.year,
-                            student_id: data.students.id,
-                            name: data.students.name,
-                            latin: data.students.latin,
-                            gender: data.students.gender,
-                            dob: data.students.dob,
-                            service: data.services.type + '-' + data.services.service,
-                            date_pay: data.date_pay,
-                            last_term: data.last_term,
-                            last_date_pay: data.last_date_pay,
-                            is_used: data.is_used === true ? 'នៅប្រើ' : 'បានផ្អាក'
-                          });
-
-                        case 1:
-                        case "end":
-                          return _context.stop();
-                      }
-                    }
-                  }, _callee);
-                }));
-
-                return function (_x) {
-                  return _ref.apply(this, arguments);
-                };
-              }());
-
-            case 3:
-            case "end":
-              return _context2.stop();
-          }
-        }
-      }, _callee2, this);
-    }));
-
-    function created() {
-      return _created.apply(this, arguments);
-    }
-
-    return created;
-  }(),
   methods: {
     onGridReady: function onGridReady(params) {
       this.gridApi = params.api;
@@ -228,14 +195,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     updateServiceInfo: function () {
       var _updateServiceInfo = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
         var self, promises;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context4.prev = _context4.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
                 if (!(this.new_last_date_pay !== null)) {
-                  _context4.next = 6;
+                  _context2.next = 6;
                   break;
                 }
 
@@ -244,31 +211,31 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 promises = self.selected.map(
                 /*#__PURE__*/
                 function () {
-                  var _ref2 = _asyncToGenerator(
+                  var _ref = _asyncToGenerator(
                   /*#__PURE__*/
-                  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(data) {
-                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+                  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(data) {
+                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
                       while (1) {
-                        switch (_context3.prev = _context3.next) {
+                        switch (_context.prev = _context.next) {
                           case 0:
                             data.last_date_pay = self.new_last_date_pay;
                             data.is_used = false;
-                            _context3.next = 4;
+                            _context.next = 4;
                             return self.$store.dispatch('updateServiceInfo', data);
 
                           case 4:
                           case "end":
-                            return _context3.stop();
+                            return _context.stop();
                         }
                       }
-                    }, _callee3);
+                    }, _callee);
                   }));
 
-                  return function (_x2) {
-                    return _ref2.apply(this, arguments);
+                  return function (_x) {
+                    return _ref.apply(this, arguments);
                   };
                 }());
-                _context4.next = 6;
+                _context2.next = 6;
                 return Promise.all(promises).then(function () {
                   self.$vs.notify({
                     time: 4000,
@@ -285,10 +252,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 6:
               case "end":
-                return _context4.stop();
+                return _context2.stop();
             }
           }
-        }, _callee4, this);
+        }, _callee2, this);
       }));
 
       function updateServiceInfo() {
@@ -296,6 +263,83 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
 
       return updateServiceInfo;
+    }(),
+    //destroy
+    confirmDelete: function confirmDelete() {
+      this.$vs.dialog({
+        color: 'danger',
+        title: 'លុបទិន្នន័យ?',
+        text: 'ចុចពាក្យ Accept ដើម្បីយល់ព្រម!',
+        accept: this.destroyServiceInfo
+      });
+    },
+    destroyServiceInfo: function () {
+      var _destroyServiceInfo = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        var self, promises;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                self = this;
+                promises = self.selected.map(
+                /*#__PURE__*/
+                function () {
+                  var _ref2 = _asyncToGenerator(
+                  /*#__PURE__*/
+                  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(data) {
+                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+                      while (1) {
+                        switch (_context3.prev = _context3.next) {
+                          case 0:
+                            if (!(parseInt(data.last_term) === 0)) {
+                              _context3.next = 3;
+                              break;
+                            }
+
+                            _context3.next = 3;
+                            return self.$store.dispatch('destroyServiceInfo', data.id);
+
+                          case 3:
+                          case "end":
+                            return _context3.stop();
+                        }
+                      }
+                    }, _callee3);
+                  }));
+
+                  return function (_x2) {
+                    return _ref2.apply(this, arguments);
+                  };
+                }());
+                _context4.next = 4;
+                return Promise.all(promises).then(function () {
+                  self.$vs.notify({
+                    title: 'ប្រតិបត្តិការណ៍ជោគជ័យ',
+                    text: 'ទិន្នន័យត្រូវបានលុប!',
+                    color: 'success',
+                    iconPack: 'feather',
+                    icon: 'icon-check',
+                    position: 'top-center'
+                  });
+                  self.selected = [];
+                  self.$vs.loading.close();
+                });
+
+              case 4:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4, this);
+      }));
+
+      function destroyServiceInfo() {
+        return _destroyServiceInfo.apply(this, arguments);
+      }
+
+      return destroyServiceInfo;
     }()
   }
 });
@@ -378,7 +422,7 @@ var render = function() {
                         "vs-button",
                         {
                           attrs: {
-                            color: "danger",
+                            color: "warning",
                             type: "relief",
                             "icon-pack": "feather",
                             icon: "icon-refresh-ccw"
@@ -394,6 +438,20 @@ var render = function() {
                             "\n                    ផ្ដាច់សេវាកម្ម\n                "
                           )
                         ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "vs-button",
+                        {
+                          attrs: {
+                            color: "danger",
+                            type: "relief",
+                            "icon-pack": "feather",
+                            icon: "icon-trash"
+                          },
+                          on: { click: _vm.confirmDelete }
+                        },
+                        [_vm._v("\n                    លុប\n                ")]
                       )
                     ],
                     1

@@ -70,6 +70,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //ag-grid
 
 
@@ -88,6 +104,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   data: function data() {
     return {
+      data: {
+        collection_id: null,
+        service_id: null,
+        year: null
+      },
       selected: [],
       gridApi: null,
       columnDefs: [{
@@ -130,6 +151,57 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   computed: {
     all_students: function all_students() {
       return this.$store.getters.all_students;
+    },
+    filter_all_students: function filter_all_students() {
+      var self = this;
+      return self.all_students.filter(function (x) {
+        var filter_std_info = x.report_study_info.some(function (c) {
+          return self.data.collection_id ? c.collection_id === self.data.collection_id.id : true;
+        });
+        var filter_service_info = x.report_service_info.some(function (c) {
+          return self.data.service_id ? c.service_id === self.data.service_id.id : true;
+        });
+        var filter_year_service = x.report_service_info.some(function (c) {
+          return self.data.year ? String(c.year) === String(self.data.year.name) : true;
+        });
+        var filter_year_std_info = x.report_study_info.some(function (c) {
+          return self.data.year ? String(c.year) === String(self.data.year.name) : true;
+        });
+        return self.data.collection_id ? filter_std_info : self.data.service_id ? filter_service_info : self.data.year ? filter_year_service || filter_year_std_info : true;
+      });
+    },
+    getYears: function getYears() {
+      return this.$store.getters.get_years;
+    },
+    getServices: function getServices() {
+      return this.$store.getters.get_services;
+    },
+    getCollection: function getCollection() {
+      return this.$store.getters.get_collections;
+    },
+    filteredServices: function filteredServices() {
+      var self = this;
+      var data = self.getServices.filter(function (x) {
+        return self.data.year ? x.year === self.data.year.name : x.year === '';
+      });
+      return data.map(function (x) {
+        return {
+          id: x.id,
+          item_data: "(".concat(x.year, ")-").concat(x.type, "-").concat(x.service)
+        };
+      });
+    },
+    filteredCollection: function filteredCollection() {
+      var self = this;
+      var data = self.getCollection.filter(function (x) {
+        return self.data.year ? x.year === self.data.year.name : x.year === '';
+      });
+      return data.map(function (x) {
+        return {
+          id: x.id,
+          item_data: "(".concat(x.year, ")-").concat(x.group_section, "-").concat(x.section, "-").concat(x.level).concat(x.class_name)
+        };
+      });
     }
   },
   methods: {
@@ -455,7 +527,7 @@ __webpack_require__.r(__webpack_exports__);
         name: '',
         latin: '',
         gender: 'ប្រុស',
-        photo: 'placeholder/placeholder.png',
+        photo: 'images/placeholder/placeholder.png',
         dob: '',
         std_contact: '',
         pob: '',
@@ -702,7 +774,7 @@ __webpack_require__.r(__webpack_exports__);
         name: '',
         latin: '',
         gender: 'ប្រុស',
-        photo: 'placeholder/placeholder.png',
+        photo: 'images/placeholder/placeholder.png',
         dob: '',
         std_contact: '',
         pob: '',
@@ -943,6 +1015,75 @@ var render = function() {
         1
       ),
       _vm._v(" "),
+      _c("div", { staticClass: "vx-row mt-base" }, [
+        _c(
+          "div",
+          { staticClass: "vx-col md:w-1/3 w-full" },
+          [
+            _c("v-select", {
+              staticClass: "w-full",
+              attrs: {
+                placeholder: "ជ្រើសរើស",
+                label: "name",
+                options: _vm.getYears
+              },
+              model: {
+                value: _vm.data.year,
+                callback: function($$v) {
+                  _vm.$set(_vm.data, "year", $$v)
+                },
+                expression: "data.year"
+              }
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "vx-col md:w-1/3 w-full" },
+          [
+            _c("v-select", {
+              attrs: {
+                placeholder: "ជ្រើសរើស",
+                label: "item_data",
+                options: _vm.filteredCollection
+              },
+              model: {
+                value: _vm.data.collection_id,
+                callback: function($$v) {
+                  _vm.$set(_vm.data, "collection_id", $$v)
+                },
+                expression: "data.collection_id"
+              }
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "vx-col md:w-1/3 w-full" },
+          [
+            _c("v-select", {
+              attrs: {
+                placeholder: "ជ្រើសរើស",
+                label: "item_data",
+                options: _vm.filteredServices
+              },
+              model: {
+                value: _vm.data.service_id,
+                callback: function($$v) {
+                  _vm.$set(_vm.data, "service_id", $$v)
+                },
+                expression: "data.service_id"
+              }
+            })
+          ],
+          1
+        )
+      ]),
+      _vm._v(" "),
       _c("ag-grid-vue", {
         staticClass: "ag-theme-material w-100 my-4 ag-grid-table",
         staticStyle: { height: "900px" },
@@ -953,7 +1094,7 @@ var render = function() {
           pagination: true,
           paginationPageSize: 150,
           animateRows: true,
-          rowData: _vm.all_students
+          rowData: _vm.filter_all_students
         },
         on: {
           "grid-ready": _vm.onGridReady,
