@@ -56,8 +56,8 @@ const actions = {
     async updateStudyInfo({commit}, study_infos){
         try {
             const res = await axios.put(route('study-info.update', study_infos.id), study_infos);
-            commit('UPDATE_STUDY_INFO', study_infos);
-            return res.data
+            commit('UPDATE_STUDY_INFO', res.data);
+            return true
         }catch (e) {
             return false
         }
