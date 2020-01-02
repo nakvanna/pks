@@ -89,7 +89,7 @@ class StudyInfoController extends Controller
         $update->date_pay = $input['date_pay'];
         $update->last_term = $input['last_term'];
         $update->save();
-        return $update;
+        return StudyInfo::with('students')->with('study_infos')->where('id',$update->id)->first();
     }
     public function destroy($id){
         $delete = StudyInfo::findOrFail($id);
