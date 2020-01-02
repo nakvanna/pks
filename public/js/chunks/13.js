@@ -301,18 +301,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       study_infos: [],
-<<<<<<< HEAD
-=======
-      name: '',
-      gender: '',
-      class_name: '',
-      shift: '',
-      employee_name: '',
-      last_term: 0,
-      date_pay: null,
-      group_section: '',
-      last_price: 0,
->>>>>>> 86aaf8f9cc35327bff2e48b0e876263e9b9b88b9
       notification_infos: []
     };
   },
@@ -693,10 +681,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     study_info_extract: function study_info_extract() {
       var self = this;
       return this.getStudyInfos.map(function (data) {
-<<<<<<< HEAD
         console.log(data);
-=======
->>>>>>> 86aaf8f9cc35327bff2e48b0e876263e9b9b88b9
         var to_day = self.moment();
         var day_pay = self.moment(data.date_pay);
         return {
@@ -742,11 +727,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-<<<<<<< HEAD
 exports.push([module.i, ".line-height-25[data-v-7fe52854] {\n  line-height: 25px;\n}\n.height-30percent[data-v-7fe52854] {\n  height: 350px;\n}\n", ""]);
-=======
-exports.push([module.i, ".line-height-25[data-v-7fe52854] {\n  line-height: 25px;\n}\n.height-30percent[data-v-7fe52854] {\n  height: 350px;\n}\n[dir] .height-30percent[data-v-7fe52854] {\n  background: #28C76F;\n}\n", ""]);
->>>>>>> 86aaf8f9cc35327bff2e48b0e876263e9b9b88b9
 
 // exports
 
@@ -1370,22 +1351,7 @@ var render = function() {
                                               )
                                           )
                                         ])
-<<<<<<< HEAD
                                       : _vm._e()
-=======
-                                      : _c("b", [
-                                          _vm._v(
-                                            "- សំរាប់" +
-                                              _vm._s(sub_item.services.type) +
-                                              " " +
-                                              _vm._s(
-                                                sub_item.services.service
-                                              ) +
-                                              " ចំនួន " +
-                                              _vm._s(_vm.$formatter.format(0))
-                                          )
-                                        ])
->>>>>>> 86aaf8f9cc35327bff2e48b0e876263e9b9b88b9
                                   ]
                                 )
                               : _vm._e()
