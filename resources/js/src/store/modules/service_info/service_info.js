@@ -1,10 +1,14 @@
 import axios from  'axios'
 const state = {
-    service_infos:[]
+    service_infos:[],
+    show_service_infos: [],
 };
 const getters = {
     get_service_infos:function (state) {
         return state.service_infos
+    },
+    show_service_infos: function (state) {
+        return state.show_service_infos
     }
 };
 const actions = {
@@ -12,6 +16,14 @@ const actions = {
         try {
             const res = await axios.get(route('service-info.index'));
             commit('SET_SERVICE_INFO', res.data);
+        } catch (e) {
+            return false
+        }
+    },
+    async showServiceInfos({commit}, data){
+        try {
+            const res = await axios.post(route('service-info.by-year', {data}));
+            commit('SHOW_SERVICE_INFO', res.data)
         } catch (e) {
             return false
         }
@@ -38,7 +50,6 @@ const actions = {
         try {
             const res = await axios.delete(route('service-info.destroy',id));
             commit('UPDATE_SERVICE_INFO',res.data);
-            console.log(res.data);
             return true
         }catch (e) {
             return false
@@ -57,6 +68,9 @@ const actions = {
 const mutations = {
     SET_SERVICE_INFO:function (state,data) {
         state.service_infos = data
+    },
+    SHOW_SERVICE_INFO:function (state,data) {
+        state.show_service_infos = data
     },
     ADD_SERVICE_INFO:function (state,data) {
         state.service_infos.unshift(data);

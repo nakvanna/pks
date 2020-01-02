@@ -28,6 +28,14 @@
                     >
                         ឈប់រៀន
                     </vs-button>
+                    <vs-button
+                            @click="$refs.PrintNotification.show(selected)"
+                            type="relief"
+                            icon-pack="feather"
+                            icon="icon-printer"
+                    >
+                        បោះពុម្ព
+                    </vs-button>
                 </div>
             </vs-col>
         </vs-row>
@@ -44,9 +52,10 @@
                      :animateRows="true"
                      :rowData="study_info_extract">
         </ag-grid-vue>
-
+        <pre>{{selected}}</pre>
         <add-study-info @finished="selected=[]" ref="addStudyInfo"></add-study-info>
         <change-study-info @finished="selected=[]" ref="changeStudyInfo"></change-study-info>
+        <print-notification @finished="selected=[]" ref="PrintNotification"></print-notification>
     </vx-card>
 </template>
 
@@ -55,10 +64,11 @@
     import ChangeStudyInfo from "../student/changeStudyInfo";
     import {AgGridVue} from "ag-grid-vue";
     import '@sass/vuexy/extraComponents/agGridStyleOverride.scss'
+    import PrintNotification from './PrintNotification'
     export default {
         name: "StudyYear",
         components: {
-            ChangeStudyInfo,
+            ChangeStudyInfo, PrintNotification,
             AddStudyInfo, AgGridVue
         },
         data() {
@@ -127,9 +137,16 @@
                         shift      : data.study_infos.shift,
                         date_pay   : data.date_pay,
                         last_date_pay   : data.last_date_pay,
-                        last_term  : data.last_term,
-                        to_class   : data.to_class,
-                        day_left   : day_pay.diff(to_day, 'days'),
+                        last_term       : data.last_term,
+                        to_class        : data.to_class,
+                        employees       : data.study_infos.employees,
+                        group_section   : data.study_infos.group_section,
+                        cost_one        : data.study_infos.cost_one,
+                        cost_three      : data.study_infos.cost_three,
+                        cost_six        : data.study_infos.cost_six,
+                        cost_twelve     : data.study_infos.cost_twelve,
+                        service_infos   : [],
+                        day_left        : day_pay.diff(to_day, 'days'),
                     }
                 });
             }

@@ -95,7 +95,6 @@
                 let self = this;
                 self.$modal.show('change-study-info');
                 self.data.students = data;
-                console.log(self.data)
             },
             plus() {
                 this.data.study_infos.push({collection_id: null})

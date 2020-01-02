@@ -180,7 +180,6 @@ export default {
         last_term  : data.last_term,
       })
     });
-    console.log(this.study_info_extract)
   },
   computed: {
     getStudyInfos(){

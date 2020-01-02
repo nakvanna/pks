@@ -18,7 +18,6 @@ const actions = {
     },
     async fetchDueHistoryOnly({commit}, inv_id){
         try {
-            console.log(inv_id);
             const res = await axios.get(route('due-history.only', inv_id));
             commit('SET_DUE_HISTORY', res.data);
         } catch (e) {
@@ -67,7 +66,6 @@ const mutations = {
         }
     },
     ADD_DUE_HISTORY:function (state, data) {
-        console.log(data);
         // state.due_history.unshift(data);
         state.due_history.unshift({
             invoice_id: data.invoice_id,

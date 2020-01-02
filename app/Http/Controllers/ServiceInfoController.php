@@ -10,6 +10,9 @@ class ServiceInfoController extends Controller
     public function index(){
         return ServiceInfo::with('students')->with('services')->get();
     }
+    public function show_by_year(Request $request){
+        return ServiceInfo::where('student_id', $request['data']['std_id'])->where('year', $request['data']['year'])->with('students')->with('services')->get();
+    }
     public function store(Request $request){
         $input = $request->all();
         $request->validate([
@@ -27,7 +30,7 @@ class ServiceInfoController extends Controller
         $store->last_term = 0;
         $store->is_used = true;
         $store->save();
-        return $store;
+        return ServiceInfo::with('students')->with('services')->where('id', $store->id)->first();
     }
     public function update($id, Request $request){
         $input = $request->all();

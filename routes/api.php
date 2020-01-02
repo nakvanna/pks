@@ -42,6 +42,7 @@ Route::resource('/study-info','StudyInfoController');
 Route::post('/study-info-json','StudyInfoController@json')->name('study_info.json');
 Route::post('/study-info-change','StudyInfoController@storeChange')->name('study_info.change');
 Route::resource('/service-info','ServiceInfoController');
+Route::post('/service-info-by-year','ServiceInfoController@show_by_year')->name('service-info.by-year');
 Route::post('/payment','PaymentController@getInfo')->name('payment.get-info');
 Route::resource('/invoice','InvoiceController');
 Route::resource('/invoice-detail','InvoiceDetailController');
@@ -52,3 +53,4 @@ Route::post('/import-service','ExcelImportController@import_service')->name('imp
 Route::post('/import-employee','ExcelImportController@import_employee')->name('import.employee');
 Route::resource('/due-history', 'DueHistoryController');
 Route::get('/due-history-only/{id}', 'DueHistoryController@index_only')->name('due-history.only');
+

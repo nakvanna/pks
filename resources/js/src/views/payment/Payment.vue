@@ -412,7 +412,6 @@
             getCostThree(three, date_pay, i){
                 var price = three;
                 var temp_next_date = this.moment(date_pay).add('month', 3).format('YYYY-MM-DD');
-                console.log(this.moment().add('months', 2).format('YYYY-MM-DD'));
                 if(temp_next_date > this.all_infos[i].last_date_pay){
                     this.all_infos[i].next_date_pay = this.all_infos[i].last_date_pay;
                     var a = this.moment(date_pay);
@@ -589,7 +588,6 @@
                 });
                 const promises = update_service_items.map(async function (data) {
                     await self.$store.dispatch('updateServiceInfo', data);
-                    console.log(data)
                 });
                 await Promise.all(promises).then(function () {
                     self.$vs.notify({

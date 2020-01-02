@@ -64,7 +64,6 @@ const mutations = {
         }
     },
     ADD_INVOICE:function (state, data) {
-        console.log(data);
         // state.invoice_extract.unshift(data);
         state.invoice_extract.unshift({
             name: data.students.name,
