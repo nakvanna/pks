@@ -159,6 +159,7 @@
             study_info_extract() {
                 let self = this;
                 return this.getStudyInfos.map(function (data) {
+                    console.log(data);
                     var to_day = self.moment();
                     var day_pay = self.moment(data.date_pay);
                     return{

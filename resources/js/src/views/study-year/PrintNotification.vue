@@ -48,7 +48,7 @@
                                     <b v-if="sub_item.last_term === 1">- សំរាប់{{sub_item.services.type}} {{sub_item.services.service}} ចំនួន {{$formatter.format(sub_item.services.cost_one)}}</b>
                                     <b v-if="sub_item.last_term === 3">- សំរាប់{{sub_item.services.type}} {{sub_item.services.service}} ចំនួន {{$formatter.format(sub_item.services.cost_three)}}</b>
                                     <b v-if="sub_item.last_term === 6">- សំរាប់{{sub_item.services.type}} {{sub_item.services.service}} ចំនួន {{$formatter.format(sub_item.services.cost_six)}}</b>
-                                    <b v-else>- សំរាប់{{sub_item.services.type}} {{sub_item.services.service}} ចំនួន {{$formatter.format(0)}}</b>
+                                    <!--<b v-else>- សំរាប់{{sub_item.services.type}} {{sub_item.services.service}} ចំនួន {{$formatter.format(0)}}</b>-->
                                 </div>
                             </div>
                         </div>
@@ -71,17 +71,7 @@
         data() {
             return {
                 study_infos: [],
-                name: '',
-                gender: '',
-                class_name: '',
-                shift: '',
-                employee_name: '',
-                last_term: 0,
-                date_pay: null,
-                group_section: '',
-                last_price: 0,
                 notification_infos: [],
-
             }
         },
         computed: {
@@ -150,6 +140,5 @@
     }
     .height-30percent {
         height: 350px;
-        background: #28C76F;
     }
 </style>

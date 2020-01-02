@@ -104,6 +104,7 @@
         },
         methods:{
             show (selected, is_student) {
+                this.student_ids = [];
                 this.$modal.show('addServiceService');
                 if (is_student === true){
                     for(var j = 0; j < selected.length; j ++){
