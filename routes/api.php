@@ -53,4 +53,9 @@ Route::post('/import-service','ExcelImportController@import_service')->name('imp
 Route::post('/import-employee','ExcelImportController@import_employee')->name('import.employee');
 Route::resource('/due-history', 'DueHistoryController');
 Route::get('/due-history-only/{id}', 'DueHistoryController@index_only')->name('due-history.only');
+<<<<<<< HEAD
 
+=======
+//report
+Route::post('/report-student-info','ReportController@student_information')->name('report.student_info');
+>>>>>>> 6cae3c3af6b25790a6c94fc450886f86c76155af

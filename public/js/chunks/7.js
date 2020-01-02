@@ -156,7 +156,264 @@ eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+<<<<<<< HEAD
 eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _functions = __webpack_require__(/*! ./functions */ \"./src/js/functions.js\");\n\nvar _print = __webpack_require__(/*! ./print */ \"./src/js/print.js\");\n\nvar _print2 = _interopRequireDefault(_print);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nexports.default = {\n  print: function print(params, printFrame) {\n    // Check if we are printing one image or multiple images\n    if (params.printable.constructor !== Array) {\n      // Create array with one image\n      params.printable = [params.printable];\n    }\n\n    // Create printable element (container)\n    params.printableElement = document.createElement('div');\n\n    // Create all image elements and append them to the printable container\n    params.printable.forEach(function (src) {\n      // Create the image element\n      var img = document.createElement('img');\n      img.setAttribute('style', params.imageStyle);\n\n      // Set image src with the file url\n      img.src = src;\n\n      // Create the image wrapper\n      var imageWrapper = document.createElement('div');\n\n      // Append image to the wrapper element\n      imageWrapper.appendChild(img);\n\n      // Append wrapper to the printable element\n      params.printableElement.appendChild(imageWrapper);\n    });\n\n    // Check if we are adding a print header\n    if (params.header) (0, _functions.addHeader)(params.printableElement, params);\n\n    // Print image\n    _print2.default.send(params, printFrame);\n  }\n};\n\n//# sourceURL=webpack://printJS/./src/js/image.js?");
+=======
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue_backtotop__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-backtotop */ "./node_modules/vue-backtotop/src/main.js");
+/* harmony import */ var _layouts_components_horizontal_nav_menu_HorizontalNavMenu_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/layouts/components/horizontal-nav-menu/HorizontalNavMenu.vue */ "./resources/js/src/layouts/components/horizontal-nav-menu/HorizontalNavMenu.vue");
+/* harmony import */ var _layouts_components_vertical_nav_menu_navMenuItems_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/layouts/components/vertical-nav-menu/navMenuItems.js */ "./resources/js/src/layouts/components/vertical-nav-menu/navMenuItems.js");
+/* harmony import */ var _layouts_components_navbar_TheNavbarHorizontal_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/layouts/components/navbar/TheNavbarHorizontal.vue */ "./resources/js/src/layouts/components/navbar/TheNavbarHorizontal.vue");
+/* harmony import */ var _layouts_components_navbar_TheNavbarVertical_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/layouts/components/navbar/TheNavbarVertical.vue */ "./resources/js/src/layouts/components/navbar/TheNavbarVertical.vue");
+/* harmony import */ var _layouts_components_TheFooter_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/layouts/components/TheFooter.vue */ "./resources/js/src/layouts/components/TheFooter.vue");
+/* harmony import */ var _themeConfig_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/../themeConfig.js */ "./resources/js/themeConfig.js");
+/* harmony import */ var _layouts_components_vertical_nav_menu_VerticalNavMenu_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/layouts/components/vertical-nav-menu/VerticalNavMenu.vue */ "./resources/js/src/layouts/components/vertical-nav-menu/VerticalNavMenu.vue");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    BackToTop: vue_backtotop__WEBPACK_IMPORTED_MODULE_1__["default"],
+    HNavMenu: _layouts_components_horizontal_nav_menu_HorizontalNavMenu_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+    TheFooter: _layouts_components_TheFooter_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
+    TheNavbarHorizontal: _layouts_components_navbar_TheNavbarHorizontal_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+    TheNavbarVertical: _layouts_components_navbar_TheNavbarVertical_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
+    VNavMenu: _layouts_components_vertical_nav_menu_VerticalNavMenu_vue__WEBPACK_IMPORTED_MODULE_8__["default"]
+  },
+  data: function data() {
+    return {
+      footerType: _themeConfig_js__WEBPACK_IMPORTED_MODULE_7__["default"].footerType || 'static',
+      hideScrollToTop: _themeConfig_js__WEBPACK_IMPORTED_MODULE_7__["default"].hideScrollToTop,
+      isNavbarDark: false,
+      navbarColor: _themeConfig_js__WEBPACK_IMPORTED_MODULE_7__["default"].navbarColor || '#fff',
+      navbarType: _themeConfig_js__WEBPACK_IMPORTED_MODULE_7__["default"].navbarType || 'floating',
+      navMenuItems: _layouts_components_vertical_nav_menu_navMenuItems_js__WEBPACK_IMPORTED_MODULE_3__["default"],
+      routerTransition: _themeConfig_js__WEBPACK_IMPORTED_MODULE_7__["default"].routerTransition || 'none',
+      routeTitle: this.$route.meta.pageTitle
+    };
+  },
+  watch: {
+    "$route": function $route() {
+      this.routeTitle = this.$route.meta.pageTitle;
+    },
+    isThemeDark: function isThemeDark(val) {
+      var color = this.navbarColor == "#fff" && val ? "#10163a" : "#fff";
+      this.updateNavbarColor(color);
+    },
+    "$store.state.mainLayoutType": function $storeStateMainLayoutType(val) {
+      this.setNavMenuVisibility(val);
+    }
+  },
+  computed: {
+    bodyOverlay: function bodyOverlay() {
+      return this.$store.state.bodyOverlay;
+    },
+    contentAreaClass: function contentAreaClass() {
+      if (this.mainLayoutType === "vertical") {
+        if (this.verticalNavMenuWidth == "default") return "content-area-reduced";else if (this.verticalNavMenuWidth == "reduced") return "content-area-lg";else return "content-area-full";
+      } // else if(this.mainLayoutType === "boxed") return "content-area-reduced"
+      else return "content-area-full";
+    },
+    footerClasses: function footerClasses() {
+      return {
+        'footer-hidden': this.footerType == 'hidden',
+        'footer-sticky': this.footerType == 'sticky',
+        'footer-static': this.footerType == 'static'
+      };
+    },
+    isAppPage: function isAppPage() {
+      return this.$route.meta.no_scroll;
+    },
+    isThemeDark: function isThemeDark() {
+      return this.$store.state.theme == 'dark';
+    },
+    layoutTypeClass: function layoutTypeClass() {
+      return "main-".concat(this.mainLayoutType);
+    },
+    mainLayoutType: function mainLayoutType() {
+      return this.$store.state.mainLayoutType;
+    },
+    navbarClasses: function navbarClasses() {
+      return {
+        'navbar-hidden': this.navbarType == 'hidden',
+        'navbar-sticky': this.navbarType == 'sticky',
+        'navbar-static': this.navbarType == 'static',
+        'navbar-floating': this.navbarType == 'floating'
+      };
+    },
+    verticalNavMenuWidth: function verticalNavMenuWidth() {
+      return this.$store.state.verticalNavMenuWidth;
+    },
+    windowWidth: function windowWidth() {
+      return this.$store.state.windowWidth;
+    }
+  },
+  methods: {
+    changeRouteTitle: function changeRouteTitle(title) {
+      this.routeTitle = title;
+    },
+    updateNavbar: function updateNavbar(val) {
+      if (val == "static") this.updateNavbarColor(this.isThemeDark ? "#10163a" : "#fff");
+      this.navbarType = val;
+    },
+    updateNavbarColor: function updateNavbarColor(val) {
+      this.navbarColor = val;
+      if (val == "#fff") this.isNavbarDark = false;else this.isNavbarDark = true;
+    },
+    updateFooter: function updateFooter(val) {
+      this.footerType = val;
+    },
+    setNavMenuVisibility: function setNavMenuVisibility(layoutType) {
+      if (layoutType === 'horizontal' && this.windowWidth >= 1200 || layoutType === "vertical" && this.windowWidth < 1200) {
+        this.$store.commit('TOGGLE_IS_VERTICAL_NAV_MENU_ACTIVE', false);
+        this.$store.dispatch('updateVerticalNavMenuWidth', 'no-nav-menu');
+      } else {
+        this.$store.commit('TOGGLE_IS_VERTICAL_NAV_MENU_ACTIVE', true);
+      }
+    },
+    toggleHideScrollToTop: function toggleHideScrollToTop(val) {
+      this.hideScrollToTop = val;
+    }
+  },
+  created: function () {
+    var _created = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+      var self, color;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              self = this;
+              color = self.navbarColor == "#fff" && self.isThemeDark ? "#10163a" : self.navbarColor;
+              self.updateNavbarColor(color);
+              self.setNavMenuVisibility(self.$store.state.mainLayoutType); // vuex fetch
+
+              self.$vs.loading({
+                type: 'material'
+              });
+              _context.next = 7;
+              return Promise.all([self.$store.dispatch('fetchGroupSections'), self.$store.dispatch('fetchSections'), self.$store.dispatch('fetchLevels'), self.$store.dispatch('fetchShifts'), self.$store.dispatch('fetchStudyClasses'), self.$store.dispatch('fetchCollections'), self.$store.dispatch('fetchYears'), self.$store.dispatch('fetchStudent'), self.$store.dispatch('fetchEmployees'), self.$store.dispatch('fetchServices'), self.$store.dispatch('fetchPosition'), self.$store.dispatch('fetchDegreeNote'), self.$store.dispatch('fetchStudyInfos'), self.$store.dispatch('fetchServiceInfos'), self.$store.dispatch('fetchInvoices'), self.$store.dispatch('fetchCurYear') //report
+              // self.$store.dispatch('fetchStudent'),
+              ]).then(function () {
+                self.$vs.loading.close();
+              });
+
+            case 7:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, this);
+    }));
+
+    function created() {
+      return _created.apply(this, arguments);
+    }
+
+    return created;
+  }()
+});
+>>>>>>> 6cae3c3af6b25790a6c94fc450886f86c76155af
 
 /***/ }),
 

@@ -21,6 +21,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+<<<<<<< HEAD
 //
 //
 //
@@ -72,8 +73,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+=======
+function _objectSpread(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+    var ownKeys = Object.keys(source);
+
+    if (typeof Object.getOwnPropertySymbols === 'function') {
+      ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {
+        return Object.getOwnPropertyDescriptor(source, sym).enumerable;
+      }));
+    }
+
+    ownKeys.forEach(function (key) {
+      _defineProperty(target, key, source[key]);
+    });
+  }
+
+  return target;
+}
+>>>>>>> 6cae3c3af6b25790a6c94fc450886f86c76155af
 
 
+<<<<<<< HEAD
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "changeStudyInfo",
   components: {
@@ -92,6 +114,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           collection_id: null
         }],
         students: []
+=======
+  _createClass(Language, [{
+    key: "language",
+    get: function get() {
+      return this._language;
+    },
+    set: function set(language) {
+      if (typeof language !== 'string') {
+        throw new TypeError('Language must be a string');
+      }
+
+      this._language = language;
+    }
+  }, {
+    key: "months",
+    get: function get() {
+      return this._months;
+    },
+    set: function set(months) {
+      if (months.length !== 12) {
+        throw new RangeError("There must be 12 months for ".concat(this.language, " language"));
+>>>>>>> 6cae3c3af6b25790a6c94fc450886f86c76155af
       }
     };
   },
@@ -115,6 +159,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         };
       });
     }
+<<<<<<< HEAD
   },
   methods: {
     show: function show(data) {
@@ -199,6 +244,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee, this);
       }));
+=======
+  }, {
+    key: "monthsAbbr",
+    get: function get() {
+      return this._monthsAbbr;
+    },
+    set: function set(monthsAbbr) {
+      if (monthsAbbr.length !== 12) {
+        throw new RangeError("There must be 12 abbreviated months for ".concat(this.language, " language"));
+      }
+>>>>>>> 6cae3c3af6b25790a6c94fc450886f86c76155af
 
       function storeChangeStudyInfo() {
         return _storeChangeStudyInfo.apply(this, arguments);

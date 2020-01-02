@@ -228,6 +228,8 @@
                 self.$store.dispatch('fetchServiceInfos'),
                 self.$store.dispatch('fetchInvoices'),
                 self.$store.dispatch('fetchCurYear'),
+                //report
+                // self.$store.dispatch('fetchStudent'),
             ]).then(function () {
                 self.$vs.loading.close();
             })

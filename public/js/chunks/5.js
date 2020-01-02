@@ -124,7 +124,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return data.map(function (x) {
         return {
           id: x.id,
-          item_data: "(".concat(x.year, ")-").concat(x.group_section, "-").concat(x.section, "-").concat(x.level).concat(x.class_name),
+          item_data: "(".concat(x.year, ")-").concat(x.group_section, "-").concat(x.section, "-").concat(x.level).concat(x.class_name, "-(").concat(x.shift, ")"),
           class_name: "".concat(x.level).concat(x.class_name)
         };
       });

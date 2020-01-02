@@ -57,9 +57,9 @@ const actions = {
     },
     async destroyServiceInfo({commit}, id){
         try {
-            const res = await axios.delete(route('service-info.destroy', id));
+            await axios.delete(route('service-info.destroy', id));
             commit('REMOVE_SERVICE_INFO', id);
-            return res.data;
+            return true;
         }catch (e) {
             return false;
         }

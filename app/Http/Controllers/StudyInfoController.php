@@ -92,7 +92,7 @@ class StudyInfoController extends Controller
         return $update;
     }
     public function destroy($id){
-        $delete = StudyInfo::find($id);
+        $delete = StudyInfo::findOrFail($id);
         $delete->delete();
         return $id;
     }

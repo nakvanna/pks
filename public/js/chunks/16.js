@@ -460,14 +460,33 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+<<<<<<< HEAD
 /* harmony import */ var vuejs_datepicker__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuejs-datepicker */ "./node_modules/vuejs-datepicker/dist/vuejs-datepicker.esm.js");
 /* harmony import */ var _Create__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Create */ "./resources/js/src/views/employee/Create.vue");
+=======
+/* harmony import */ var _student_addStudyInfo__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../student/addStudyInfo */ "./resources/js/src/views/student/addStudyInfo.vue");
+/* harmony import */ var _student_changeStudyInfo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../student/changeStudyInfo */ "./resources/js/src/views/student/changeStudyInfo.vue");
+/* harmony import */ var ag_grid_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ag-grid-vue */ "./node_modules/ag-grid-vue/main.js");
+/* harmony import */ var ag_grid_vue__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(ag_grid_vue__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _sass_vuexy_extraComponents_agGridStyleOverride_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @sass/vuexy/extraComponents/agGridStyleOverride.scss */ "./resources/sass/vuexy/extraComponents/agGridStyleOverride.scss");
+/* harmony import */ var _sass_vuexy_extraComponents_agGridStyleOverride_scss__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_sass_vuexy_extraComponents_agGridStyleOverride_scss__WEBPACK_IMPORTED_MODULE_4__);
+>>>>>>> 6cae3c3af6b25790a6c94fc450886f86c76155af
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+<<<<<<< HEAD
+=======
+//
+//
+//
+//
+//
+//
+//
+>>>>>>> 6cae3c3af6b25790a6c94fc450886f86c76155af
 //
 //
 //
@@ -520,6 +539,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+<<<<<<< HEAD
 //
 //
 //
@@ -711,15 +731,108 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
         var vm, promises;
+=======
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "StudyYear",
+  components: {
+    ChangeStudyInfo: _student_changeStudyInfo__WEBPACK_IMPORTED_MODULE_2__["default"],
+    AddStudyInfo: _student_addStudyInfo__WEBPACK_IMPORTED_MODULE_1__["default"],
+    AgGridVue: ag_grid_vue__WEBPACK_IMPORTED_MODULE_3__["AgGridVue"]
+  },
+  data: function data() {
+    return {
+      selected: [],
+      gridApi: null,
+      columnDefs: [{
+        headerName: 'ឆ្នាំសិក្សា',
+        field: 'year',
+        checkboxSelection: true,
+        pinned: true
+      }, {
+        headerName: 'ឈ្មោះសិស្ស',
+        field: 'name'
+      }, {
+        headerName: 'ឈ្មោះឡាតាំ',
+        field: 'latin'
+      }, {
+        headerName: 'ភេទ',
+        field: 'gender'
+      }, {
+        headerName: 'ថ្ងៃខែឆ្នាំកំណើត',
+        field: 'dob'
+      }, {
+        headerName: 'កំពុងរៀនថ្នាក់ទី',
+        field: 'class_name'
+      }, {
+        headerName: 'ពេលសិក្សា',
+        field: 'shift'
+      }, {
+        headerName: 'ថ្ងៃត្រូវបង់លុយ',
+        field: 'date_pay'
+      }, {
+        headerName: 'ចំនួនថ្ងៃនៅសល់',
+        field: 'day_left',
+        cellRenderer: function cellRenderer(params) {
+          var day_left;
+
+          if (params.data.day_left < 0) {
+            day_left = "<span class=\"text-danger\"><b>".concat(params.data.day_left, "</b></span>");
+          } else if (params.data.day_left <= 5) {
+            day_left = "<span class=\"text-warning\"><b>".concat(params.data.day_left, "</b></span>");
+          } else {
+            day_left = "<span class=\"text-success\"><b>".concat(params.data.day_left, "</b></span>");
+          }
+
+          return day_left;
+        }
+      }],
+      defaultColDef: {
+        sortable: true,
+        resizable: true,
+        filter: true
+      }
+    };
+  },
+  methods: {
+    onGridReady: function onGridReady(params) {
+      this.gridApi = params.api;
+    },
+    onSelectionChanged: function onSelectionChanged() {
+      this.selected = this.gridApi.getSelectedRows();
+    },
+    //destroy
+    confirmDelete: function confirmDelete() {
+      this.$vs.dialog({
+        color: 'danger',
+        title: 'លុបទិន្នន័យ?',
+        text: 'ចុចពាក្យ Accept ដើម្បីយល់ព្រម!',
+        accept: this.deleteStudyYear
+      });
+    },
+    deleteStudyYear: function () {
+      var _deleteStudyYear = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var self, promises;
+>>>>>>> 6cae3c3af6b25790a6c94fc450886f86c76155af
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
+<<<<<<< HEAD
                 vm = this;
                 this.$vs.loading({
                   type: 'material'
                 });
                 promises = vm.selected.map(
+=======
+                self = this;
+                promises = self.selected.map(
+>>>>>>> 6cae3c3af6b25790a6c94fc450886f86c76155af
                 /*#__PURE__*/
                 function () {
                   var _ref = _asyncToGenerator(
@@ -729,6 +842,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                       while (1) {
                         switch (_context.prev = _context.next) {
                           case 0:
+<<<<<<< HEAD
                             _context.next = 2;
                             return vm.$store.dispatch('destroyEmployee', data.id);
 
@@ -736,6 +850,186 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                           case "end":
                             return _context.stop();
                         }
+=======
+                            if (!(parseInt(data.last_term) === 0)) {
+                              _context.next = 3;
+                              break;
+                            }
+
+                            _context.next = 3;
+                            return self.$store.dispatch('destroyStudyInfo', data.study_info_id);
+
+                          case 3:
+                          case "end":
+                            return _context.stop();
+                        }
+                      }
+                    }, _callee);
+                  }));
+
+                  return function (_x) {
+                    return _ref.apply(this, arguments);
+                  };
+                }());
+                _context2.next = 4;
+                return Promise.all(promises).then(function () {
+                  self.$vs.notify({
+                    title: 'ប្រតិបត្តិការណ៍ជោគជ័យ',
+                    text: 'ទិន្នន័យត្រូវបានលុប!',
+                    color: 'success',
+                    iconPack: 'feather',
+                    icon: 'icon-check',
+                    position: 'top-center'
+                  });
+                  self.selected = [];
+                  self.$vs.loading.close();
+                });
+
+              case 4:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function deleteStudyYear() {
+        return _deleteStudyYear.apply(this, arguments);
+      }
+
+      return deleteStudyYear;
+    }()
+  },
+  computed: {
+    getStudyInfos: function getStudyInfos() {
+      return this.$store.getters.get_study_infos;
+    },
+    study_info_extract: function study_info_extract() {
+      var self = this;
+      return this.getStudyInfos.map(function (x) {
+        var to_day = self.moment();
+        var day_pay = self.moment(x.date_pay);
+
+        if (self.getStudyInfos.length) {
+          return {
+            study_info_id: x.id,
+            id: x.students.id,
+            year: x.year,
+            student_id: x.students.id,
+            name: x.students.name,
+            latin: x.students.latin,
+            gender: x.students.gender,
+            dob: x.students.dob,
+            class_name: x.study_infos.level + x.study_infos.class_name,
+            shift: x.study_infos.shift,
+            date_pay: x.date_pay,
+            last_date_pay: x.last_date_pay,
+            last_term: x.last_term,
+            to_class: x.to_class,
+            day_left: day_pay.diff(to_day, 'days')
+          };
+        } else {
+          return true;
+        }
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/student/changeStudyInfo.vue?vue&type=template&id=0b0db24e&scoped=true&":
+/*!*************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/student/changeStudyInfo.vue?vue&type=template&id=0b0db24e&scoped=true& ***!
+  \*************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "modal",
+    {
+      attrs: {
+        width: "700",
+        height: "auto",
+        scrollable: true,
+        pivotY: 0.2,
+        adaptive: true,
+        clickToClose: false,
+        name: "change-study-info"
+      }
+    },
+    [
+      _c("div", { staticClass: "flex justify-end" }, [
+        _c(
+          "i",
+          {
+            staticClass: "vs-icon vs-popup--close material-icons text-warning",
+            staticStyle: { background: "rgb(255, 255, 255)" },
+            on: {
+              click: function($event) {
+                return _vm.$modal.hide("change-study-info")
+              }
+            }
+          },
+          [_vm._v("close")]
+        )
+      ]),
+      _vm._v(" "),
+      _c("h4", { staticClass: "ml-2" }, [_c("u", [_vm._v(" ការសិក្សា")])]),
+      _vm._v(" "),
+      _c(
+        "vx-card",
+        { attrs: { "no-shadow": "" } },
+        [
+          _c("div", { staticClass: "vx-row" }, [
+            _c(
+              "div",
+              { staticClass: "vx-col lg:w-1/3 w-full" },
+              [
+                _c("v-select", {
+                  directives: [
+                    {
+                      name: "validate",
+                      rawName: "v-validate",
+                      value: "required",
+                      expression: "'required'"
+                    }
+                  ],
+                  staticClass: "w-full",
+                  attrs: {
+                    clearable: false,
+                    name: "year",
+                    placeholder: "ជ្រើសរើសឆ្នាំ",
+                    label: "name",
+                    options: _vm.getYears
+                  },
+                  model: {
+                    value: _vm.data.year,
+                    callback: function($$v) {
+                      _vm.$set(_vm.data, "year", $$v)
+                    },
+                    expression: "data.year"
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.errors.has("year"),
+                        expression: "errors.has('year')"
+>>>>>>> 6cae3c3af6b25790a6c94fc450886f86c76155af
                       }
                     }, _callee);
                   }));
@@ -1983,6 +2277,7 @@ var render = function() {
                         ]
                       ),
                       _vm._v(" "),
+<<<<<<< HEAD
                       _c("vs-td", { attrs: { data: data[indextr].contact } }, [
                         _vm._v(
                           "\n                    " +
@@ -1990,6 +2285,21 @@ var render = function() {
                             "\n                "
                         )
                       ])
+=======
+                      _c(
+                        "vs-button",
+                        {
+                          attrs: {
+                            color: "danger",
+                            type: "relief",
+                            "icon-pack": "feather",
+                            icon: "icon-trash"
+                          },
+                          on: { click: _vm.confirmDelete }
+                        },
+                        [_vm._v("\n                    លុប\n                ")]
+                      )
+>>>>>>> 6cae3c3af6b25790a6c94fc450886f86c76155af
                     ],
                     1
                   )

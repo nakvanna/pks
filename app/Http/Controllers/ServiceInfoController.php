@@ -42,10 +42,14 @@ class ServiceInfoController extends Controller
         $update->save();
         return $update;
     }
-    public function destroy($id){
+    /*public function destroy($id){
         $toggle = ServiceInfo::findOrFail($id);
         $toggle->is_used = !$toggle->is_used;
         $toggle->save();
         return $toggle;
+    }*/
+    public function destroy($id){
+        $toggle = ServiceInfo::findOrFail($id);
+        $toggle->delete();
     }
 }

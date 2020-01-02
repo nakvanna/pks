@@ -25,6 +25,22 @@
                        type="relief" icon-pack="feather" icon="icon-upload">សេវាកម្ម
             </vs-button>
         </div>
+        <div class="vx-row mt-base">
+            <div class="vx-col md:w-1/3 w-full">
+                <v-select v-model="data.year"
+                          placeholder="ជ្រើសរើស" label="name" class="w-full" :options="getYears"/>
+            </div>
+            <div class="vx-col md:w-1/3 w-full">
+                <v-select v-model="data.collection_id"
+                          placeholder="ជ្រើសរើស" label="item_data"
+                          :options="filteredCollection"/>
+            </div>
+            <div class="vx-col md:w-1/3 w-full">
+                <v-select v-model="data.service_id"
+                          placeholder="ជ្រើសរើស" label="item_data"
+                          :options="filteredServices"/>
+            </div>
+        </div>
         <ag-grid-vue style="height: 900px;" class="ag-theme-material w-100 my-4 ag-grid-table"
                      :columnDefs="columnDefs"
                      :defaultColDef="defaultColDef"
@@ -34,7 +50,7 @@
                      :pagination="true"
                      :paginationPageSize="150"
                      :animateRows="true"
-                     :rowData="all_students">
+                     :rowData="filter_all_students">
         </ag-grid-vue>
         <add-student ref="addStudent"></add-student>
         <edit-student @finished="selected = []" ref="editStudent"></edit-student>
@@ -57,6 +73,11 @@
         components: {AddServiceInfo, AddStudyInfo, EditStudent, AddStudent, AgGridVue},
         data(){
             return{
+                data:{
+                    collection_id:null,
+                    service_id:null,
+                    year: null,
+                },
                 selected:[],
                 gridApi: null,
                 columnDefs: [
@@ -80,6 +101,57 @@
         computed: {
             all_students() {
                 return this.$store.getters.all_students
+            },
+            filter_all_students(){
+                let self = this;
+                return self.all_students.filter(function (x) {
+                    let filter_std_info = x.report_study_info.some(function (c) {
+                        return self.data.collection_id ? c.collection_id === self.data.collection_id.id : true
+                    });
+                    let filter_service_info = x.report_service_info.some(function (c) {
+                        return self.data.service_id ? c.service_id === self.data.service_id.id : true
+                    });
+                    let filter_year_service = x.report_service_info.some(function (c) {
+                        return self.data.year ? String(c.year) === String(self.data.year.name) : true
+                    });
+                    let filter_year_std_info = x.report_study_info.some(function (c) {
+                        return self.data.year ? String(c.year) === String(self.data.year.name) : true
+                    });
+                    return (self.data.collection_id?filter_std_info:self.data.service_id?filter_service_info:self.data.year?filter_year_service || filter_year_std_info:true)
+                });
+            },
+            getYears() {
+                return this.$store.getters.get_years;
+            },
+            getServices(){
+                return this.$store.getters.get_services
+            },
+            getCollection() {
+                return this.$store.getters.get_collections
+            },
+            filteredServices: function () {
+                let self = this;
+                let data = self.getServices.filter(function (x) {
+                    return self.data.year ? x.year === self.data.year.name : x.year === ''
+                });
+                return data.map(function (x) {
+                    return {
+                        id: x.id,
+                        item_data: `(${x.year})-${x.type}-${x.service}`
+                    };
+                });
+            },
+            filteredCollection: function () {
+                let self = this;
+                let data = self.getCollection.filter(function (x) {
+                    return self.data.year ? x.year === self.data.year.name : x.year === ''
+                });
+                return data.map(function (x) {
+                    return {
+                        id: x.id,
+                        item_data: `(${x.year})-${x.group_section}-${x.section}-${x.level}${x.class_name}`
+                    };
+                });
             }
         },
         methods: {

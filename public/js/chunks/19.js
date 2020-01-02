@@ -18,11 +18,82 @@ var lookup = []
 var revLookup = []
 var Arr = typeof Uint8Array !== 'undefined' ? Uint8Array : Array
 
+<<<<<<< HEAD
 var code = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
 for (var i = 0, len = code.length; i < len; ++i) {
   lookup[i] = code[i]
   revLookup[code.charCodeAt(i)] = i
 }
+=======
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+>>>>>>> 6cae3c3af6b25790a6c94fc450886f86c76155af
 
 // Support decoding URL-safe base64 strings, as Node.js does.
 // See: https://en.wikipedia.org/wiki/Base64#URL_applications
@@ -45,6 +116,7 @@ function getLens (b64) {
     ? 0
     : 4 - (validLen % 4)
 
+<<<<<<< HEAD
   return [validLen, placeHoldersLen]
 }
 
@@ -59,6 +131,119 @@ function byteLength (b64) {
 function _byteLength (b64, validLen, placeHoldersLen) {
   return ((validLen + placeHoldersLen) * 3 / 4) - placeHoldersLen
 }
+=======
+          return is_used;
+        }
+      }],
+      defaultColDef: {
+        sortable: true,
+        resizable: true,
+        filter: true
+      },
+      new_last_date_pay: null
+    };
+  },
+  computed: {
+    getServiceInfos: function getServiceInfos() {
+      return this.$store.getters.get_service_infos;
+    },
+    service_info_extract: function service_info_extract() {
+      var self = this;
+      return this.getServiceInfos.map(function (x) {
+        if (self.getServiceInfos.length) {
+          return {
+            id: x.id,
+            year: x.year,
+            student_id: x.students.id,
+            name: x.students.name,
+            latin: x.students.latin,
+            gender: x.students.gender,
+            dob: x.students.dob,
+            service: x.services.type + '-' + x.services.service,
+            date_pay: x.date_pay,
+            last_term: x.last_term,
+            last_date_pay: x.last_date_pay,
+            is_used: x.is_used === true ? 'នៅប្រើ' : 'បានផ្អាក'
+          };
+        } else {
+          return true;
+        }
+      });
+    }
+  },
+  methods: {
+    onGridReady: function onGridReady(params) {
+      this.gridApi = params.api;
+    },
+    onSelectionChanged: function onSelectionChanged() {
+      this.selected = this.gridApi.getSelectedRows();
+    },
+    updateServiceInfo: function () {
+      var _updateServiceInfo = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var self, promises;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                if (!(this.new_last_date_pay !== null)) {
+                  _context2.next = 6;
+                  break;
+                }
+
+                self = this;
+                self.$vs.loading();
+                promises = self.selected.map(
+                /*#__PURE__*/
+                function () {
+                  var _ref = _asyncToGenerator(
+                  /*#__PURE__*/
+                  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(data) {
+                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+                      while (1) {
+                        switch (_context.prev = _context.next) {
+                          case 0:
+                            data.last_date_pay = self.new_last_date_pay;
+                            data.is_used = false;
+                            _context.next = 4;
+                            return self.$store.dispatch('updateServiceInfo', data);
+
+                          case 4:
+                          case "end":
+                            return _context.stop();
+                        }
+                      }
+                    }, _callee);
+                  }));
+
+                  return function (_x) {
+                    return _ref.apply(this, arguments);
+                  };
+                }());
+                _context2.next = 6;
+                return Promise.all(promises).then(function () {
+                  self.$vs.notify({
+                    time: 4000,
+                    title: 'ប្រតិបត្តិការជោគជ័យ',
+                    text: 'ទិន្នន័យបានកែប្រែ',
+                    color: 'success',
+                    iconPack: 'feather',
+                    icon: 'icon-check',
+                    position: 'top-center'
+                  });
+                  self.selected = [];
+                  self.$vs.loading.close();
+                });
+
+              case 6:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+>>>>>>> 6cae3c3af6b25790a6c94fc450886f86c76155af
 
 function toByteArray (b64) {
   var tmp
@@ -68,6 +253,7 @@ function toByteArray (b64) {
 
   var arr = new Arr(_byteLength(b64, validLen, placeHoldersLen))
 
+<<<<<<< HEAD
   var curByte = 0
 
   // if there are placeholders, only get up to the last complete 4 chars
@@ -85,6 +271,87 @@ function toByteArray (b64) {
     arr[curByte++] = (tmp >> 16) & 0xFF
     arr[curByte++] = (tmp >> 8) & 0xFF
     arr[curByte++] = tmp & 0xFF
+=======
+      return updateServiceInfo;
+    }(),
+    //destroy
+    confirmDelete: function confirmDelete() {
+      this.$vs.dialog({
+        color: 'danger',
+        title: 'លុបទិន្នន័យ?',
+        text: 'ចុចពាក្យ Accept ដើម្បីយល់ព្រម!',
+        accept: this.destroyServiceInfo
+      });
+    },
+    destroyServiceInfo: function () {
+      var _destroyServiceInfo = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        var self, promises;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                self = this;
+                promises = self.selected.map(
+                /*#__PURE__*/
+                function () {
+                  var _ref2 = _asyncToGenerator(
+                  /*#__PURE__*/
+                  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(data) {
+                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+                      while (1) {
+                        switch (_context3.prev = _context3.next) {
+                          case 0:
+                            if (!(parseInt(data.last_term) === 0)) {
+                              _context3.next = 3;
+                              break;
+                            }
+
+                            _context3.next = 3;
+                            return self.$store.dispatch('destroyServiceInfo', data.id);
+
+                          case 3:
+                          case "end":
+                            return _context3.stop();
+                        }
+                      }
+                    }, _callee3);
+                  }));
+
+                  return function (_x2) {
+                    return _ref2.apply(this, arguments);
+                  };
+                }());
+                _context4.next = 4;
+                return Promise.all(promises).then(function () {
+                  self.$vs.notify({
+                    title: 'ប្រតិបត្តិការណ៍ជោគជ័យ',
+                    text: 'ទិន្នន័យត្រូវបានលុប!',
+                    color: 'success',
+                    iconPack: 'feather',
+                    icon: 'icon-check',
+                    position: 'top-center'
+                  });
+                  self.selected = [];
+                  self.$vs.loading.close();
+                });
+
+              case 4:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4, this);
+      }));
+
+      function destroyServiceInfo() {
+        return _destroyServiceInfo.apply(this, arguments);
+      }
+
+      return destroyServiceInfo;
+    }()
+>>>>>>> 6cae3c3af6b25790a6c94fc450886f86c76155af
   }
 
   if (placeHoldersLen === 2) {
@@ -172,6 +439,7 @@ function fromByteArray (uint8) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+<<<<<<< HEAD
 /* WEBPACK VAR INJECTION */(function(global) {/*!
  * The buffer module from node.js, for the browser.
  *
@@ -280,6 +548,233 @@ function Buffer (arg, encodingOrOffset, length) {
     if (typeof encodingOrOffset === 'string') {
       throw new Error(
         'If encoding is specified then the first argument must be a string'
+=======
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "vx-card",
+    { attrs: { "no-shadow": "" } },
+    [
+      _c(
+        "vs-row",
+        { attrs: { "vs-type": "flex", "vs-justify": "flex-end" } },
+        [
+          _c(
+            "vs-col",
+            {
+              staticClass: "1/2",
+              attrs: { "vs-type": "flex", "vs-justify": "flex-start" }
+            },
+            [
+              _c("h5", [
+                _vm._v("ចំនួនដែលបានជ្រើសរើស: " + _vm._s(_vm.selected.length))
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "vs-col",
+            {
+              staticClass: "1/2",
+              attrs: { "vs-type": "flex", "vs-justify": "flex-end" }
+            },
+            [
+              _vm.selected.length
+                ? _c(
+                    "div",
+                    { staticClass: "flex btn-group" },
+                    [
+                      _c(
+                        "vs-button",
+                        {
+                          attrs: {
+                            type: "relief",
+                            "icon-pack": "feather",
+                            icon: "icon-plus-square"
+                          },
+                          on: {
+                            click: function($event) {
+                              return _vm.$refs.addServiceInfo.show(
+                                _vm.selected,
+                                false
+                              )
+                            }
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n                    បន្ថែមសេវាកម្ម\n                "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "vs-button",
+                        {
+                          attrs: {
+                            color: "warning",
+                            type: "relief",
+                            "icon-pack": "feather",
+                            icon: "icon-refresh-ccw"
+                          },
+                          on: {
+                            click: function($event) {
+                              return _vm.$modal.show("stopService")
+                            }
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n                    ផ្ដាច់សេវាកម្ម\n                "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "vs-button",
+                        {
+                          attrs: {
+                            color: "danger",
+                            type: "relief",
+                            "icon-pack": "feather",
+                            icon: "icon-trash"
+                          },
+                          on: { click: _vm.confirmDelete }
+                        },
+                        [_vm._v("\n                    លុប\n                ")]
+                      )
+                    ],
+                    1
+                  )
+                : _vm._e()
+            ]
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("vs-divider"),
+      _vm._v(" "),
+      _c("ag-grid-vue", {
+        staticClass: "ag-theme-material w-100 my-4 ag-grid-table",
+        attrs: {
+          columnDefs: _vm.columnDefs,
+          defaultColDef: _vm.defaultColDef,
+          rowSelection: "multiple",
+          pagination: true,
+          paginationPageSize: 100,
+          animateRows: true,
+          rowData: _vm.service_info_extract
+        },
+        on: {
+          "grid-ready": _vm.onGridReady,
+          "selection-changed": _vm.onSelectionChanged
+        }
+      }),
+      _vm._v(" "),
+      _c("add-service-info", { ref: "addServiceInfo" }),
+      _vm._v(" "),
+      _c(
+        "modal",
+        {
+          attrs: {
+            width: "500",
+            height: "auto",
+            scrollable: true,
+            pivotY: 0.2,
+            adaptive: true,
+            clickToClose: false,
+            name: "stopService"
+          }
+        },
+        [
+          _c("div", { staticClass: "flex justify-end" }, [
+            _c(
+              "i",
+              {
+                staticClass:
+                  "vs-icon vs-popup--close material-icons text-warning",
+                staticStyle: { background: "rgb(255, 255, 255)" },
+                on: {
+                  click: function($event) {
+                    return _vm.$modal.hide("stopService")
+                  }
+                }
+              },
+              [_vm._v("close")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("h4", { staticClass: "ml-2" }, [
+            _c("u", [_vm._v(" ផ្ដាច់សេវាកម្ម")])
+          ]),
+          _vm._v(" "),
+          _c(
+            "vx-card",
+            { attrs: { "no-shadow": "" } },
+            [
+              _c(
+                "div",
+                { staticClass: "vx-col flex" },
+                [
+                  _c("flat-pickr", {
+                    directives: [
+                      {
+                        name: "validate",
+                        rawName: "v-validate",
+                        value: "required",
+                        expression: "'required'"
+                      }
+                    ],
+                    staticClass: "w-full",
+                    attrs: {
+                      placeholder: "ថ្ងៃត្រូវបង់ផ្ដាច់",
+                      name: "date-pay"
+                    },
+                    model: {
+                      value: _vm.new_last_date_pay,
+                      callback: function($$v) {
+                        _vm.new_last_date_pay = $$v
+                      },
+                      expression: "new_last_date_pay"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("vs-divider"),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "flex justify-end btn-group" },
+                [
+                  _c(
+                    "vs-button",
+                    {
+                      attrs: {
+                        icon: "icon-save",
+                        "icon-pack": "feather",
+                        type: "relief"
+                      },
+                      on: { click: _vm.updateServiceInfo }
+                    },
+                    [_vm._v("ផ្ដាច់សេវាកម្ម")]
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+>>>>>>> 6cae3c3af6b25790a6c94fc450886f86c76155af
       )
     }
     return allocUnsafe(this, arg)

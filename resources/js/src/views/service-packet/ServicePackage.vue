@@ -16,10 +16,18 @@
                     </vs-button>
                     <vs-button
                             @click="$modal.show('stopService')"
-                            color="danger" type="relief"
+                            color="warning" type="relief"
                             icon-pack="feather" icon="icon-refresh-ccw"
                     >
                         ផ្ដាច់សេវាកម្ម
+                    </vs-button>
+                    <vs-button
+                            color="danger"
+                            type="relief"
+                            icon-pack="feather" icon="icon-trash"
+                            @click="confirmDelete"
+                    >
+                        លុប
                     </vs-button>
                 </div>
             </vs-col>
@@ -101,34 +109,36 @@
                     resizable: true,
                     filter: true,
                 },
-                service_info_extract: [],
                 new_last_date_pay: null,
             }
         },
         computed: {
             getServiceInfos(){
                 return this.$store.getters.get_service_infos
+            },
+            service_info_extract() {
+                let self = this;
+                return this.getServiceInfos.map(function (x) {
+                    if (self.getServiceInfos.length) {
+                        return {
+                            id         : x.id,
+                            year       : x.year,
+                            student_id : x.students.id,
+                            name       : x.students.name,
+                            latin      : x.students.latin,
+                            gender     : x.students.gender,
+                            dob        : x.students.dob,
+                            service    : x.services.type+'-'+ x.services.service,
+                            date_pay   : x.date_pay,
+                            last_term  : x.last_term,
+                            last_date_pay  : x.last_date_pay,
+                            is_used    : x.is_used === true? 'នៅប្រើ' : 'បានផ្អាក' ,
+                        }
+                    } else {
+                        return true
+                    }
+                });
             }
-        },
-        async created() {
-            let sie = this.service_info_extract;
-            let raw = this.getServiceInfos;
-            raw.map(async function (data) {
-                sie.push({
-                    id         : data.id,
-                    year       : data.year,
-                    student_id : data.students.id,
-                    name       : data.students.name,
-                    latin      : data.students.latin,
-                    gender     : data.students.gender,
-                    dob        : data.students.dob,
-                    service    : data.services.type+'-'+ data.services.service,
-                    date_pay   : data.date_pay,
-                    last_term  : data.last_term,
-                    last_date_pay  : data.last_date_pay,
-                    is_used    : data.is_used === true? 'នៅប្រើ' : 'បានផ្អាក' ,
-                })
-            });
         },
         methods: {
             onGridReady(params) {
@@ -160,6 +170,35 @@
                         self.$vs.loading.close();
                     })
                 }
+            },
+            //destroy
+            confirmDelete(){
+                this.$vs.dialog({
+                    color:'danger',
+                    title: 'លុបទិន្នន័យ?',
+                    text: 'ចុចពាក្យ Accept ដើម្បីយល់ព្រម!',
+                    accept:this.destroyServiceInfo
+                })
+            },
+            async destroyServiceInfo() {
+                let self = this;
+                const promises = self.selected.map(async function (data) {
+                    if (parseInt(data.last_term)===0) {
+                        await self.$store.dispatch('destroyServiceInfo', data.id);
+                    }
+                });
+                await Promise.all(promises).then(function () {
+                    self.$vs.notify({
+                        title:'ប្រតិបត្តិការណ៍ជោគជ័យ',
+                        text:'ទិន្នន័យត្រូវបានលុប!',
+                        color:'success',
+                        iconPack: 'feather',
+                        icon:'icon-check',
+                        position:'top-center'
+                    });
+                    self.selected = [];
+                    self.$vs.loading.close()
+                });
             }
         }
     }

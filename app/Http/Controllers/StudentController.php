@@ -50,7 +50,10 @@ class StudentController extends Controller
         $store->mother_job = $input['mother_job'];
         $store->mother_contact = $input['mother_contact'];
         $store->save();
-        return Student::find($store->id);
+        return Student::with('report_study_info')
+            ->with('report_service_info')
+            ->where('id',$store->id)
+            ->orderBy('id','desc')->first();
     }
     //edit
     public function edit($id){
@@ -91,7 +94,10 @@ class StudentController extends Controller
         $update->mother_job = $input['mother_job'];
         $update->mother_contact = $input['mother_contact'];
         $update->save();
-        return $update;
+        return Student::with('report_study_info')
+            ->with('report_service_info')
+            ->where('id',$update->id)
+            ->orderBy('id','desc')->first();
     }
     //update only balance
     public function update_balance(Request $request,$id){

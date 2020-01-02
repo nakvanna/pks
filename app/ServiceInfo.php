@@ -10,6 +10,11 @@ class ServiceInfo extends Model
         return $this->belongsTo(Student::class, 'student_id', 'id')
             ->select('id', 'name', 'latin', 'gender', 'dob', 'photo');
     }
+    public function report_service(){
+        return $this->belongsTo( Service::class, 'service_id', 'id')
+            ->select('id', 'type', 'service', 'cost_one', 'cost_three', 'cost_six', 'cost_twelve', 'employee_id')
+            ->with('employees');
+    }
     public function services(){
         return $this->belongsTo( Service::class, 'service_id', 'id')
             ->select('id', 'type', 'service', 'cost_one', 'cost_three', 'cost_six', 'cost_twelve', 'employee_id')

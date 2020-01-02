@@ -98,7 +98,7 @@
                 return data.map(function (x) {
                     return {
                         id: x.id,
-                        item_data: `(${x.year})-${x.group_section}-${x.section}-${x.level}${x.class_name}`,
+                        item_data: `(${x.year})-${x.group_section}-${x.section}-${x.level}${x.class_name}-(${x.shift})`,
                         class_name:`${x.level}${x.class_name}`
                     };
                 });
