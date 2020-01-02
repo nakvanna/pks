@@ -21,7 +21,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-<<<<<<< HEAD
 //
 //
 //
@@ -73,29 +72,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-=======
-function _objectSpread(target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = arguments[i] != null ? arguments[i] : {};
-    var ownKeys = Object.keys(source);
-
-    if (typeof Object.getOwnPropertySymbols === 'function') {
-      ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {
-        return Object.getOwnPropertyDescriptor(source, sym).enumerable;
-      }));
-    }
-
-    ownKeys.forEach(function (key) {
-      _defineProperty(target, key, source[key]);
-    });
-  }
-
-  return target;
-}
->>>>>>> 6cae3c3af6b25790a6c94fc450886f86c76155af
 
 
-<<<<<<< HEAD
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "changeStudyInfo",
   components: {
@@ -114,28 +92,6 @@ function _objectSpread(target) {
           collection_id: null
         }],
         students: []
-=======
-  _createClass(Language, [{
-    key: "language",
-    get: function get() {
-      return this._language;
-    },
-    set: function set(language) {
-      if (typeof language !== 'string') {
-        throw new TypeError('Language must be a string');
-      }
-
-      this._language = language;
-    }
-  }, {
-    key: "months",
-    get: function get() {
-      return this._months;
-    },
-    set: function set(months) {
-      if (months.length !== 12) {
-        throw new RangeError("There must be 12 months for ".concat(this.language, " language"));
->>>>>>> 6cae3c3af6b25790a6c94fc450886f86c76155af
       }
     };
   },
@@ -159,14 +115,12 @@ function _objectSpread(target) {
         };
       });
     }
-<<<<<<< HEAD
   },
   methods: {
     show: function show(data) {
       var self = this;
       self.$modal.show('change-study-info');
       self.data.students = data;
-      console.log(self.data);
     },
     plus: function plus() {
       this.data.study_infos.push({
@@ -244,17 +198,6 @@ function _objectSpread(target) {
           }
         }, _callee, this);
       }));
-=======
-  }, {
-    key: "monthsAbbr",
-    get: function get() {
-      return this._monthsAbbr;
-    },
-    set: function set(monthsAbbr) {
-      if (monthsAbbr.length !== 12) {
-        throw new RangeError("There must be 12 abbreviated months for ".concat(this.language, " language"));
-      }
->>>>>>> 6cae3c3af6b25790a6c94fc450886f86c76155af
 
       function storeChangeStudyInfo() {
         return _storeChangeStudyInfo.apply(this, arguments);
@@ -342,12 +285,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "PrintInvoice",
   data: function data() {
     return {
-      service_infos: [],
       study_infos: [],
       name: '',
       gender: '',
@@ -357,7 +309,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       last_term: 0,
       date_pay: null,
       group_section: '',
-      last_price: 0
+      last_price: 0,
+      notification_infos: []
     };
   },
   computed: {
@@ -366,57 +319,79 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   methods: {
+    /*async show(selected){
+        this.study_infos = [];
+        this.service_infos = [];
+        this.study_infos = selected;
+        this.$refs.print_invoice.open();
+         for (var i = 0; i <=selected.length; i ++){
+            if (this.study_infos[i].shift.split('-')[1] === "ពេញម៉ោង"){
+                await this.$store.dispatch('showServiceInfos', {std_id:this.study_infos[i].student_id, year: this.study_infos[i].year});
+                this.service_infos = this.showServiceInfos;
+            }
+            this.name = this.study_infos[i].name;
+            this.gender = this.study_infos[i].gender;
+            this.class_name = this.study_infos[i].class_name;
+            this.shift = this.study_infos[i].shift;
+            this.last_term = this.study_infos[i].last_term;
+            this.date_pay = this.study_infos[i].date_pay;
+            this.group_section = this.study_infos[i].group_section;
+            this.employee_name = this.study_infos[i].employees === null ? 'មិនបានដាក់ជូន' : this.study_infos[i].employees.kh_name; //គ្រូប្រចាំថ្នាក់
+            if (this.last_term === 1){
+                this.last_price = this.study_infos[i].cost_one;
+            }else if (this.last_term === 3){
+                this.last_price = this.study_infos[i].cost_three;
+            } else if (this.last_term === 6){
+                this.last_price = this.study_infos[i].cost_six;
+            } else {
+                this.last_price = this.study_infos[i].cost_twelve;
+            }
+        }
+    },*/
     show: function () {
       var _show = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(selected) {
+        var vm, i;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                if (!(selected[0].shift.split('-')[1] === "ពេញម៉ោង")) {
-                  _context.next = 4;
+                vm = this;
+                vm.$refs.print_invoice.open();
+                vm.notification_infos = selected;
+                i = 0;
+
+              case 4:
+                if (!(i < vm.notification_infos.length)) {
+                  _context.next = 12;
                   break;
                 }
 
-                _context.next = 3;
-                return this.$store.dispatch('showServiceInfos', {
-                  std_id: selected[0].student_id,
-                  year: selected[0].year
+                if (!(vm.notification_infos[i].shift.split('-')[1] === "ពេញម៉ោង")) {
+                  _context.next = 9;
+                  break;
+                }
+
+                _context.next = 8;
+                return vm.$store.dispatch('showServiceInfos', {
+                  std_id: vm.notification_infos[i].student_id,
+                  year: vm.notification_infos[i].year
                 });
 
-              case 3:
-                console.log(this.showServiceInfos);
+              case 8:
+                vm.notification_infos[i].service_infos = vm.showServiceInfos;
 
-              case 4:
-                this.$refs.print_invoice.open();
-                this.study_infos = selected;
-                console.log(this.study_infos);
-                this.name = this.study_infos[0].name;
-                this.gender = this.study_infos[0].gender;
-                this.class_name = this.study_infos[0].class_name;
-                this.shift = this.study_infos[0].shift;
-                this.last_term = this.study_infos[0].last_term;
-                this.date_pay = this.study_infos[0].date_pay;
-                this.group_section = this.study_infos[0].group_section;
+              case 9:
+                i++;
+                _context.next = 4;
+                break;
 
-                if (this.study_infos[0].employees === null) {
-                  this.employee_name = 'មិនបានដាក់ជូន';
-                } else {
-                  this.employee_name = this.study_infos[0].employees.kh_name;
-                }
+              case 12:
+                _context.next = 14;
+                return console.log(vm.notification_infos);
 
-                if (this.last_term === 3) {
-                  this.last_price = this.study_infos[0].cost_three;
-                } else if (this.last_term === 6) {
-                  this.last_price = this.study_infos[0].cost_six;
-                } else {
-                  this.last_price = this.study_infos[0].cost_twelve;
-                }
-
-                this.service_infos = this.showServiceInfos;
-
-              case 17:
+              case 14:
               case "end":
                 return _context.stop();
             }
@@ -472,13 +447,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _student_addStudyInfo__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../student/addStudyInfo */ "./resources/js/src/views/student/addStudyInfo.vue");
-/* harmony import */ var _student_changeStudyInfo__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../student/changeStudyInfo */ "./resources/js/src/views/student/changeStudyInfo.vue");
-/* harmony import */ var ag_grid_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ag-grid-vue */ "./node_modules/ag-grid-vue/main.js");
-/* harmony import */ var ag_grid_vue__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(ag_grid_vue__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _sass_vuexy_extraComponents_agGridStyleOverride_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @sass/vuexy/extraComponents/agGridStyleOverride.scss */ "./resources/sass/vuexy/extraComponents/agGridStyleOverride.scss");
-/* harmony import */ var _sass_vuexy_extraComponents_agGridStyleOverride_scss__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_sass_vuexy_extraComponents_agGridStyleOverride_scss__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _PrintNotification__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./PrintNotification */ "./resources/js/src/views/study-year/PrintNotification.vue");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _student_addStudyInfo__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../student/addStudyInfo */ "./resources/js/src/views/student/addStudyInfo.vue");
+/* harmony import */ var _student_changeStudyInfo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../student/changeStudyInfo */ "./resources/js/src/views/student/changeStudyInfo.vue");
+/* harmony import */ var ag_grid_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ag-grid-vue */ "./node_modules/ag-grid-vue/main.js");
+/* harmony import */ var ag_grid_vue__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(ag_grid_vue__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _sass_vuexy_extraComponents_agGridStyleOverride_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @sass/vuexy/extraComponents/agGridStyleOverride.scss */ "./resources/sass/vuexy/extraComponents/agGridStyleOverride.scss");
+/* harmony import */ var _sass_vuexy_extraComponents_agGridStyleOverride_scss__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_sass_vuexy_extraComponents_agGridStyleOverride_scss__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _PrintNotification__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./PrintNotification */ "./resources/js/src/views/study-year/PrintNotification.vue");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -548,10 +539,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "StudyYear",
   components: {
-    ChangeStudyInfo: _student_changeStudyInfo__WEBPACK_IMPORTED_MODULE_1__["default"],
-    PrintNotification: _PrintNotification__WEBPACK_IMPORTED_MODULE_4__["default"],
-    AddStudyInfo: _student_addStudyInfo__WEBPACK_IMPORTED_MODULE_0__["default"],
-    AgGridVue: ag_grid_vue__WEBPACK_IMPORTED_MODULE_2__["AgGridVue"]
+    ChangeStudyInfo: _student_changeStudyInfo__WEBPACK_IMPORTED_MODULE_2__["default"],
+    PrintNotification: _PrintNotification__WEBPACK_IMPORTED_MODULE_5__["default"],
+    AddStudyInfo: _student_addStudyInfo__WEBPACK_IMPORTED_MODULE_1__["default"],
+    AgGridVue: ag_grid_vue__WEBPACK_IMPORTED_MODULE_3__["AgGridVue"]
   },
   data: function data() {
     return {
@@ -613,7 +604,84 @@ __webpack_require__.r(__webpack_exports__);
     },
     onSelectionChanged: function onSelectionChanged() {
       this.selected = this.gridApi.getSelectedRows();
-    }
+    },
+    //destroy
+    confirmDelete: function confirmDelete() {
+      this.$vs.dialog({
+        color: 'danger',
+        title: 'លុបទិន្នន័យ?',
+        text: 'ចុចពាក្យ Accept ដើម្បីយល់ព្រម!',
+        accept: this.deleteStudyYear
+      });
+    },
+    deleteStudyYear: function () {
+      var _deleteStudyYear = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var self, promises;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                self = this;
+                promises = self.selected.map(
+                /*#__PURE__*/
+                function () {
+                  var _ref = _asyncToGenerator(
+                  /*#__PURE__*/
+                  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(data) {
+                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+                      while (1) {
+                        switch (_context.prev = _context.next) {
+                          case 0:
+                            if (!(parseInt(data.last_term) === 0)) {
+                              _context.next = 3;
+                              break;
+                            }
+
+                            _context.next = 3;
+                            return self.$store.dispatch('destroyStudyInfo', data.study_info_id);
+
+                          case 3:
+                          case "end":
+                            return _context.stop();
+                        }
+                      }
+                    }, _callee);
+                  }));
+
+                  return function (_x) {
+                    return _ref.apply(this, arguments);
+                  };
+                }());
+                _context2.next = 4;
+                return Promise.all(promises).then(function () {
+                  self.$vs.notify({
+                    title: 'ប្រតិបត្តិការណ៍ជោគជ័យ',
+                    text: 'ទិន្នន័យត្រូវបានលុប!',
+                    color: 'success',
+                    iconPack: 'feather',
+                    icon: 'icon-check',
+                    position: 'top-center'
+                  });
+                  self.selected = [];
+                  self.$vs.loading.close();
+                });
+
+              case 4:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function deleteStudyYear() {
+        return _deleteStudyYear.apply(this, arguments);
+      }
+
+      return deleteStudyYear;
+    }()
   },
   computed: {
     getStudyInfos: function getStudyInfos() {
@@ -622,7 +690,6 @@ __webpack_require__.r(__webpack_exports__);
     study_info_extract: function study_info_extract() {
       var self = this;
       return this.getStudyInfos.map(function (data) {
-        console.log(data);
         var to_day = self.moment();
         var day_pay = self.moment(data.date_pay);
         return {
@@ -646,6 +713,7 @@ __webpack_require__.r(__webpack_exports__);
           cost_three: data.study_infos.cost_three,
           cost_six: data.study_infos.cost_six,
           cost_twelve: data.study_infos.cost_twelve,
+          service_infos: [],
           day_left: day_pay.diff(to_day, 'days')
         };
       });
@@ -667,7 +735,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "#noti[data-v-7fe52854] {\n  line-height: 25px;\n}\n", ""]);
+exports.push([module.i, ".line-height-25[data-v-7fe52854] {\n  line-height: 25px;\n}\n.height-30percent[data-v-7fe52854] {\n  height: 350px;\n}\n[dir] .height-30percent[data-v-7fe52854] {\n  background: #28C76F;\n}\n", ""]);
 
 // exports
 
@@ -1014,7 +1082,7 @@ var render = function() {
       attrs: {
         title: "Print Notifications",
         blocking: true,
-        width: !_vm.mobilecheck() ? "70%" : ""
+        width: !_vm.mobilecheck() ? "60%" : ""
       }
     },
     [
@@ -1024,161 +1092,298 @@ var render = function() {
         [
           _c(
             "div",
-            { staticClass: "pb-4", attrs: { id: "section-to-print" } },
-            [
-              _c("div", { staticClass: "vx-row" }, [
-                _c("div", { staticClass: "vx-col md:w-1/3" }, [
-                  _c("img", {
-                    staticClass: "w-full",
-                    staticStyle: { height: "100px" },
-                    attrs: {
-                      src: "images/ponlok-khmer-header.jpg",
-                      alt: "header"
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "vx-col md:w-1/3 text-center mt-10" },
-                  [_c("h2", [_c("u", [_vm._v("ជំរាបជូន")])])]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "vx-row" }, [
-                _c("div", { staticClass: "vx-col" }, [
-                  _c("h6", { attrs: { id: "noti" } }, [
-                    _vm._v(
-                      "\n                        មាតា - បិតា ឬអាណាព្យាបាលសិស្សឈ្មោះ "
-                    ),
-                    _c("b", [_vm._v(_vm._s(_vm.name))]),
-                    _vm._v(" ភេទ "),
-                    _c("b", [_vm._v(_vm._s(_vm.gender))]),
-                    _vm._v(" រៀនថ្នាក់ "),
-                    _c("b", [_vm._v(_vm._s(_vm.class_name))]),
-                    _vm._v("\n                        ម៉ោង "),
-                    _c("b", [_vm._v(_vm._s(_vm.shift))]),
-                    _vm._v(" គ្រូប្រចាំថ្នាក់ "),
-                    _c("b", [_vm._v(_vm._s(_vm.employee_name))]),
-                    _vm._v(" អោយបានជ្រាបថា៖ ការបង់ប្រាក់ថ្លៃសិក្សរយៈពេល "),
-                    _c("b", [_vm._v(_vm._s(_vm.last_term))]),
-                    _vm._v(
-                      " ខែ នឹងត្រូវផុតកំណត់ត្រឹម\n                        ថ្ងៃទី "
-                    ),
-                    _c("b", [
-                      _vm._v(_vm._s(_vm.moment(_vm.date_pay).format("DD")))
-                    ]),
-                    _vm._v(" ខែ "),
-                    _c("b", [
-                      _vm._v(_vm._s(_vm.moment(_vm.date_pay).format("MM")))
-                    ]),
-                    _vm._v(" ឆ្នាំ "),
-                    _c("b", [
-                      _vm._v(_vm._s(_vm.moment(_vm.date_pay).format("YYYY")))
-                    ]),
-                    _vm._v(
-                      " ដូចនេះសូមអញ្ញើញមាតា - បិតា ឬអាណាព្យាបាល សិស្ស មកបង់ប្រាក់សិក្សាសំរាប់\n                        រយៈពេល "
-                    ),
-                    _c("b", [_vm._v(_vm._s(_vm.last_term))]),
-                    _vm._v(" ខែ បន្ទាប់នៅថ្ងៃថ្ងៃទី "),
-                    _c("b", [
-                      _vm._v(_vm._s(_vm.moment(_vm.date_pay).format("DD")))
-                    ]),
-                    _vm._v(" ខែ "),
-                    _c("b", [
-                      _vm._v(_vm._s(_vm.moment(_vm.date_pay).format("MM")))
-                    ]),
-                    _vm._v(" ឆ្នាំ "),
-                    _c("b", [
-                      _vm._v(_vm._s(_vm.moment(_vm.date_pay).format("YYYY")))
-                    ]),
-                    _vm._v("។\n                    ")
-                  ]),
-                  _vm._v(" "),
-                  _c("h6", { staticClass: "mt-3" }, [
-                    _vm._v("\n                        ("),
-                    _c("b", { staticClass: "text-danger" }, [
-                      _vm._v("សូមយកបង្កាន់ដៃបង់ប្រាក់លើកមុនមកជាមួយផង")
-                    ]),
-                    _vm._v(") សូមអរគុណ។\n                    ")
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "vx-row" }, [
-                _c("div", { staticClass: "vx-col md:w-1/3 print:w-1/3" }),
-                _vm._v(" "),
-                _c("div", { staticClass: "vx-col md:w-1/3 print:w-1/3" }),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "vx-col md:w-1/3 print:w-1/3 text-center" },
-                  [
-                    _c("h6", [
-                      _vm._v("ថ្ងៃទី "),
-                      _c("b", [_vm._v(_vm._s(_vm.moment().format("DD")))]),
-                      _vm._v(" ខែ "),
-                      _c("b", [
-                        _vm._v(
-                          _vm._s(
-                            _vm
-                              .moment()
-                              .locale("km")
-                              .format("MMMM")
-                          )
-                        )
-                      ]),
-                      _vm._v(" ឆ្នាំ "),
-                      _c("b", [_vm._v(_vm._s(_vm.moment().format("YYYY")))])
+            { attrs: { id: "section-to-print" } },
+            _vm._l(_vm.notification_infos, function(item, i) {
+              return _c(
+                "div",
+                { key: i, staticClass: "mt-1 height-30percent" },
+                [
+                  _c("div", { staticClass: "vx-row" }, [
+                    _c("div", { staticClass: "vx-col md:w-1/3 print:w-1/3" }, [
+                      _c("img", {
+                        staticClass: "w-full print:w-full",
+                        staticStyle: { height: "100px" },
+                        attrs: {
+                          src: "images/ponlok-khmer-header.jpg",
+                          alt: "header"
+                        }
+                      })
                     ]),
                     _vm._v(" "),
-                    _c("h5", { staticClass: "mt-3" }, [
-                      _c("b", [_vm._v("ទីចាត់ការសាលា")])
-                    ])
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "vx-row" }, [
-                _c("div", { staticClass: "vx-col md:w-2/3" }, [
-                  _c(
-                    "div",
-                    { staticClass: "vx-row flex" },
-                    [
-                      _c("div", { staticClass: "vx-col md:w-1/2" }, [
-                        _vm._v("\n                            - "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "vx-col md:w-1/3 print:w-1/3 text-center margin-top-30"
+                      },
+                      [_c("h2", [_c("u", [_vm._v("ជំរាបជូន")])])]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "vx-row" }, [
+                    _c("div", { staticClass: "vx-col" }, [
+                      _c("h6", { staticClass: "line-height-25" }, [
+                        _vm._v(
+                          "\n                            មាតា - បិតា ឬអាណាព្យាបាលសិស្សឈ្មោះ "
+                        ),
+                        _c("b", [_vm._v(_vm._s(item.name))]),
+                        _vm._v(" ភេទ "),
+                        _c("b", [_vm._v(_vm._s(item.gender))]),
+                        _vm._v(" រៀនថ្នាក់ "),
+                        _c("b", [_vm._v(_vm._s(item.class_name))]),
+                        _vm._v("\n                            ម៉ោង "),
+                        _c("b", [_vm._v(_vm._s(item.shift))]),
+                        _vm._v(" គ្រូប្រចាំថ្នាក់ "),
                         _c("b", [
                           _vm._v(
-                            _vm._s(_vm.group_section) +
-                              " " +
-                              _vm._s(_vm.last_term) +
-                              "ខែ ស្មើនឹង " +
-                              _vm._s(_vm.$formatter.format(_vm.last_price))
+                            _vm._s(
+                              item.employees === null
+                                ? "គ្មានអ្នកទទួលបន្ទុក"
+                                : item.employees.kh_name
+                            )
                           )
-                        ])
+                        ]),
+                        _vm._v(
+                          " អោយបានជ្រាបថា៖\n                            ការបង់ប្រាក់ថ្លៃសិក្សរយៈពេល "
+                        ),
+                        _c("b", [_vm._v(_vm._s(item.last_term))]),
+                        _vm._v(
+                          " ខែ នឹងត្រូវផុតកំណត់ត្រឹម\n                            ថ្ងៃទី "
+                        ),
+                        _c("b", [
+                          _vm._v(_vm._s(_vm.moment(item.date_pay).format("DD")))
+                        ]),
+                        _vm._v(" ខែ "),
+                        _c("b", [
+                          _vm._v(_vm._s(_vm.moment(item.date_pay).format("MM")))
+                        ]),
+                        _vm._v(" ឆ្នាំ "),
+                        _c("b", [
+                          _vm._v(
+                            _vm._s(_vm.moment(item.date_pay).format("YYYY"))
+                          )
+                        ]),
+                        _vm._v(
+                          "\n                            ដូចនេះសូមអញ្ញើញមាតា - បិតា ឬអាណាព្យាបាល សិស្ស មកបង់ប្រាក់សិក្សាសំរាប់\n                            រយៈពេល "
+                        ),
+                        _c("b", [_vm._v(_vm._s(item.last_term))]),
+                        _vm._v(" ខែ បន្ទាប់នៅថ្ងៃថ្ងៃទី "),
+                        _c("b", [
+                          _vm._v(_vm._s(_vm.moment(item.date_pay).format("DD")))
+                        ]),
+                        _vm._v(" ខែ "),
+                        _c("b", [
+                          _vm._v(_vm._s(_vm.moment(item.date_pay).format("MM")))
+                        ]),
+                        _vm._v("\n                            ឆ្នាំ "),
+                        _c("b", [
+                          _vm._v(
+                            _vm._s(_vm.moment(item.date_pay).format("YYYY"))
+                          )
+                        ]),
+                        _vm._v("។\n                        ")
                       ]),
                       _vm._v(" "),
-                      _vm._l(_vm.showServiceInfos, function(item, i) {
-                        return _vm.showServiceInfos.length
-                          ? _c(
-                              "div",
-                              { key: i, staticClass: "vx-col md:w-1/2" },
-                              [
-                                _vm._v(
-                                  "\n                            " +
-                                    _vm._s(item) +
-                                    "\n                            "
-                                )
-                              ]
+                      _c("h6", { staticClass: "mt-1" }, [
+                        _vm._v("\n                            ("),
+                        _c("b", { staticClass: "text-danger" }, [
+                          _vm._v("សូមយកបង្កាន់ដៃបង់ប្រាក់លើកមុនមកជាមួយផង")
+                        ]),
+                        _vm._v(") សូមអរគុណ។\n                        ")
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "vx-row" }, [
+                    _c("div", { staticClass: "vx-col md:w-1/3 print:w-1/3" }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "vx-col md:w-1/3 print:w-1/3" }),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "vx-col md:w-1/3 print:w-1/3 text-center"
+                      },
+                      [
+                        _c("h6", [
+                          _vm._v("ថ្ងៃទី "),
+                          _c("b", [_vm._v(_vm._s(_vm.moment().format("DD")))]),
+                          _vm._v(" ខែ "),
+                          _c("b", [
+                            _vm._v(
+                              _vm._s(
+                                _vm
+                                  .moment()
+                                  .locale("km")
+                                  .format("MMMM")
+                              )
                             )
-                          : _vm._e()
-                      })
-                    ],
-                    2
-                  )
-                ])
-              ])
-            ]
+                          ]),
+                          _vm._v(" ឆ្នាំ "),
+                          _c("b", [_vm._v(_vm._s(_vm.moment().format("YYYY")))])
+                        ]),
+                        _vm._v(" "),
+                        _c("h5", { staticClass: "mt-3" }, [
+                          _c("b", [_vm._v("ទីចាត់ការសាលា")])
+                        ])
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "vx-row" }, [
+                    _c("div", { staticClass: "vx-col md:w-4/5" }, [
+                      _c(
+                        "div",
+                        { staticClass: "vx-row flex" },
+                        [
+                          _c("div", { staticClass: "vx-col md:w-1/2" }, [
+                            item.last_term === 1
+                              ? _c("b", [
+                                  _vm._v(
+                                    "- " +
+                                      _vm._s(item.group_section) +
+                                      " " +
+                                      _vm._s(item.last_term) +
+                                      "ខែ ស្មើនឹង " +
+                                      _vm._s(
+                                        _vm.$formatter.format(item.cost_one)
+                                      )
+                                  )
+                                ])
+                              : _vm._e(),
+                            _vm._v(" "),
+                            item.last_term === 3
+                              ? _c("b", [
+                                  _vm._v(
+                                    "- " +
+                                      _vm._s(item.group_section) +
+                                      " " +
+                                      _vm._s(item.last_term) +
+                                      "ខែ ស្មើនឹង " +
+                                      _vm._s(
+                                        _vm.$formatter.format(item.cost_three)
+                                      )
+                                  )
+                                ])
+                              : _vm._e(),
+                            _vm._v(" "),
+                            item.last_term === 6
+                              ? _c("b", [
+                                  _vm._v(
+                                    "- " +
+                                      _vm._s(item.group_section) +
+                                      " " +
+                                      _vm._s(item.last_term) +
+                                      "ខែ ស្មើនឹង " +
+                                      _vm._s(
+                                        _vm.$formatter.format(item.cost_six)
+                                      )
+                                  )
+                                ])
+                              : _vm._e(),
+                            _vm._v(" "),
+                            item.last_term === 12
+                              ? _c("b", [
+                                  _vm._v(
+                                    "- " +
+                                      _vm._s(item.group_section) +
+                                      " " +
+                                      _vm._s(item.last_term) +
+                                      "ខែ ស្មើនឹង " +
+                                      _vm._s(
+                                        _vm.$formatter.format(item.cost_twelve)
+                                      )
+                                  )
+                                ])
+                              : _vm._e()
+                          ]),
+                          _vm._v(" "),
+                          _vm._l(item.service_infos, function(sub_item, i) {
+                            return item.service_infos.length
+                              ? _c(
+                                  "div",
+                                  { key: i, staticClass: "vx-col md:w-1/2" },
+                                  [
+                                    sub_item.last_term === 1
+                                      ? _c("b", [
+                                          _vm._v(
+                                            "- សំរាប់" +
+                                              _vm._s(sub_item.services.type) +
+                                              " " +
+                                              _vm._s(
+                                                sub_item.services.service
+                                              ) +
+                                              " ចំនួន " +
+                                              _vm._s(
+                                                _vm.$formatter.format(
+                                                  sub_item.services.cost_one
+                                                )
+                                              )
+                                          )
+                                        ])
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    sub_item.last_term === 3
+                                      ? _c("b", [
+                                          _vm._v(
+                                            "- សំរាប់" +
+                                              _vm._s(sub_item.services.type) +
+                                              " " +
+                                              _vm._s(
+                                                sub_item.services.service
+                                              ) +
+                                              " ចំនួន " +
+                                              _vm._s(
+                                                _vm.$formatter.format(
+                                                  sub_item.services.cost_three
+                                                )
+                                              )
+                                          )
+                                        ])
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    sub_item.last_term === 6
+                                      ? _c("b", [
+                                          _vm._v(
+                                            "- សំរាប់" +
+                                              _vm._s(sub_item.services.type) +
+                                              " " +
+                                              _vm._s(
+                                                sub_item.services.service
+                                              ) +
+                                              " ចំនួន " +
+                                              _vm._s(
+                                                _vm.$formatter.format(
+                                                  sub_item.services.cost_six
+                                                )
+                                              )
+                                          )
+                                        ])
+                                      : _c("b", [
+                                          _vm._v(
+                                            "- សំរាប់" +
+                                              _vm._s(sub_item.services.type) +
+                                              " " +
+                                              _vm._s(
+                                                sub_item.services.service
+                                              ) +
+                                              " ចំនួន " +
+                                              _vm._s(_vm.$formatter.format(0))
+                                          )
+                                        ])
+                                  ]
+                                )
+                              : _vm._e()
+                          })
+                        ],
+                        2
+                      )
+                    ])
+                  ])
+                ]
+              )
+            }),
+            0
           ),
           _vm._v(" "),
           _c("vs-divider"),
@@ -1316,14 +1521,11 @@ var render = function() {
                             color: "danger",
                             type: "relief",
                             "icon-pack": "feather",
-                            icon: "icon-refresh-ccw"
-                          }
+                            icon: "icon-trash"
+                          },
+                          on: { click: _vm.confirmDelete }
                         },
-                        [
-                          _vm._v(
-                            "\n                    ឈប់រៀន\n                "
-                          )
-                        ]
+                        [_vm._v("\n                    លុប\n                ")]
                       ),
                       _vm._v(" "),
                       _c(
@@ -1397,7 +1599,14 @@ var render = function() {
         }
       }),
       _vm._v(" "),
-      _c("print-notification", { ref: "PrintNotification" })
+      _c("print-notification", {
+        ref: "PrintNotification",
+        on: {
+          finished: function($event) {
+            _vm.selected = []
+          }
+        }
+      })
     ],
     1
   )
@@ -1569,14 +1778,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!*********************************************************!*\
   !*** ./resources/js/src/views/study-year/StudyYear.vue ***!
   \*********************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _StudyYear_vue_vue_type_template_id_9e20e27c_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./StudyYear.vue?vue&type=template&id=9e20e27c&scoped=true& */ "./resources/js/src/views/study-year/StudyYear.vue?vue&type=template&id=9e20e27c&scoped=true&");
 /* harmony import */ var _StudyYear_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./StudyYear.vue?vue&type=script&lang=js& */ "./resources/js/src/views/study-year/StudyYear.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _StudyYear_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _StudyYear_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -1606,7 +1816,7 @@ component.options.__file = "resources/js/src/views/study-year/StudyYear.vue"
 /*!**********************************************************************************!*\
   !*** ./resources/js/src/views/study-year/StudyYear.vue?vue&type=script&lang=js& ***!
   \**********************************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

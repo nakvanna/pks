@@ -35,8 +35,7 @@
                             icon-pack="feather" icon="icon-refresh-ccw"
                     >
                         ឈប់រៀន
-<<<<<<< HEAD
-                    </vs-button>
+                    </vs-button>-->
                     <vs-button
                             @click="$refs.PrintNotification.show(selected)"
                             type="relief"
@@ -45,9 +44,6 @@
                     >
                         បោះពុម្ព
                     </vs-button>
-=======
-                    </vs-button>-->
->>>>>>> 6cae3c3af6b25790a6c94fc450886f86c76155af
                 </div>
             </vs-col>
         </vs-row>
@@ -64,10 +60,7 @@
                      :animateRows="true"
                      :rowData="study_info_extract">
         </ag-grid-vue>
-<<<<<<< HEAD
         <pre>{{selected}}</pre>
-=======
->>>>>>> 6cae3c3af6b25790a6c94fc450886f86c76155af
         <add-study-info @finished="selected=[]" ref="addStudyInfo"></add-study-info>
         <change-study-info @finished="selected=[]" ref="changeStudyInfo"></change-study-info>
         <print-notification @finished="selected=[]" ref="PrintNotification"></print-notification>
@@ -78,12 +71,8 @@
     import AddStudyInfo from "../student/addStudyInfo";
     import ChangeStudyInfo from "../student/changeStudyInfo";
     import {AgGridVue} from "ag-grid-vue";
-    import '@sass/vuexy/extraComponents/agGridStyleOverride.scss'
-<<<<<<< HEAD
+    import '@sass/vuexy/extraComponents/agGridStyleOverride.scss';
     import PrintNotification from './PrintNotification'
-=======
-
->>>>>>> 6cae3c3af6b25790a6c94fc450886f86c76155af
     export default {
         name: "StudyYear",
         components: {
@@ -169,7 +158,6 @@
             },
             study_info_extract() {
                 let self = this;
-<<<<<<< HEAD
                 return this.getStudyInfos.map(function (data) {
                     var to_day = self.moment();
                     var day_pay = self.moment(data.date_pay);
@@ -196,33 +184,8 @@
                         cost_twelve     : data.study_infos.cost_twelve,
                         service_infos   : [],
                         day_left        : day_pay.diff(to_day, 'days'),
-=======
-                return this.getStudyInfos.map(function (x) {
-                    let to_day = self.moment();
-                    let day_pay = self.moment(x.date_pay);
-                    if (self.getStudyInfos.length) {
-                        return {
-                            study_info_id: x.id,
-                            id: x.students.id,
-                            year: x.year,
-                            student_id: x.students.id,
-                            name: x.students.name,
-                            latin: x.students.latin,
-                            gender: x.students.gender,
-                            dob: x.students.dob,
-                            class_name: x.study_infos.level + x.study_infos.class_name,
-                            shift: x.study_infos.shift,
-                            date_pay: x.date_pay,
-                            last_date_pay: x.last_date_pay,
-                            last_term: x.last_term,
-                            to_class: x.to_class,
-                            day_left: day_pay.diff(to_day, 'days'),
-                        }
-                    } else {
-                        return true
->>>>>>> 6cae3c3af6b25790a6c94fc450886f86c76155af
                     }
-                });
+                })
             }
         },
     }
