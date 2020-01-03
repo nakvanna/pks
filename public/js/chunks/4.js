@@ -158,10 +158,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   }(),
   methods: {
     show: function show(selected, is_student) {
-<<<<<<< HEAD
       this.student_ids = [];
-=======
->>>>>>> 86aaf8f9cc35327bff2e48b0e876263e9b9b88b9
       this.$modal.show('addServiceService');
 
       if (is_student === true) {
