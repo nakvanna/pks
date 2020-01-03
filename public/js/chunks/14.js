@@ -1124,7 +1124,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                       total: self.total_payment,
                       after: self.after_discount,
                       discount: self.discount,
-                      due_balance: self.due_balance
+                      due_balance: self.due_balance,
+                      receive_balance: self.rec_balance
                     }, new_all_infos);
                   }
                 });
@@ -1180,7 +1181,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     printInvoice: function () {
       var _printInvoice = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee11(id, name, latin, gender, total, after, discount, due) {
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee11(id, name, latin, gender, total, after, discount, due, receive_balance) {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee11$(_context11) {
           while (1) {
             switch (_context11.prev = _context11.next) {
@@ -1197,7 +1198,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   total: total,
                   after: after,
                   discount: discount,
-                  due_balance: due
+                  due_balance: due,
+                  receive_balance: receive_balance
                 }, this.getInvoicesDetail);
 
               case 3:
@@ -1208,7 +1210,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee11, this);
       }));
 
-      function printInvoice(_x10, _x11, _x12, _x13, _x14, _x15, _x16, _x17) {
+      function printInvoice(_x10, _x11, _x12, _x13, _x14, _x15, _x16, _x17, _x18) {
         return _printInvoice.apply(this, arguments);
       }
 
@@ -1700,7 +1702,7 @@ var render = function() {
         ],
         1
       ),
-      _vm._v(" "),
+      _vm._v("\n    " + _vm._s(_vm.getInvoices) + "\n    "),
       _c(
         "vs-table",
         {
@@ -1848,7 +1850,8 @@ var render = function() {
                                       tr.balance,
                                       tr.after_discount,
                                       tr.discount,
-                                      tr.due_balance
+                                      tr.due_balance,
+                                      tr.receive_balance
                                     )
                                   }
                                 }
@@ -2662,63 +2665,60 @@ var render = function() {
             "div",
             { staticClass: "pb-4", attrs: { id: "section-to-print" } },
             [
-              _c("div", { staticClass: "vx-row" }, [
-                _c("div", { staticClass: "vx-col w-full" }, [
-                  _c("table", { staticClass: "w-full text-primary" }, [
-                    _c("tr", [
-                      _c("td", { staticClass: "w-1/3 print:w-1/3" }, [
-                        _c("img", {
-                          staticClass: "w-full",
-                          staticStyle: { height: "100px" },
-                          attrs: {
-                            src: "images/ponlok-khmer-header.jpg",
-                            alt: "header"
-                          }
-                        })
+              _c("div", { staticClass: "w-full" }, [
+                _c("table", { staticClass: "w-full text-primary" }, [
+                  _c("tr", [
+                    _c("td", [
+                      _c("img", {
+                        staticStyle: { height: "100px", width: "250px" },
+                        attrs: {
+                          src: "images/ponlok-khmer-header.jpg",
+                          alt: "header"
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "text-center pt-10" }, [
+                      _c("h4", { staticClass: "text-primary" }, [
+                        _c("u", [_vm._v("វិក័យបត្របង់ប្រាក់")])
                       ]),
                       _vm._v(" "),
-                      _c(
-                        "td",
-                        { staticClass: "w-1/3 print:w-1/3 text-center" },
-                        [
-                          _c("h4", { staticClass: "text-primary" }, [
-                            _c("u", [_vm._v("វិក័យបត្របង់ប្រាក់")])
-                          ]),
-                          _vm._v(" "),
-                          _c("h4", { staticClass: "text-primary" }, [
-                            _c("u", [_vm._v("Invoice")])
-                          ])
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "td",
-                        { staticClass: "w-1/3 print:w-1/3 text-right" },
-                        [
-                          _vm.master_item.id
-                            ? _c(
-                                "barcode",
-                                {
-                                  staticClass: "d-inline",
-                                  staticStyle: { display: "inline" },
-                                  attrs: {
-                                    tag: "img",
-                                    "text-aling": "right",
-                                    value: _vm.master_item.id,
-                                    height: 100
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                                    Show this if the rendering fails.\n                                "
-                                  )
-                                ]
-                              )
-                            : _vm._e()
-                        ],
-                        1
-                      )
-                    ])
+                      _c("h4", { staticClass: "text-primary" }, [
+                        _c("u", [_vm._v("Invoice")])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "td",
+                      { staticClass: "text-right text-dark" },
+                      [
+                        _vm.master_item.id
+                          ? _c(
+                              "barcode",
+                              {
+                                staticClass: "d-inline",
+                                staticStyle: { display: "inline" },
+                                attrs: {
+                                  tag: "img",
+                                  value: _vm.master_item.id,
+                                  height: 70,
+                                  options: { displayValue: false }
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                Show this if the rendering fails.\n                            "
+                                )
+                              ]
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _c("div", [
+                          _vm._v("លេខវិក័យបត្រ: " + _vm._s(_vm.master_item.id))
+                        ])
+                      ],
+                      1
+                    )
                   ])
                 ])
               ]),
@@ -2802,13 +2802,19 @@ var render = function() {
                             ]),
                             _vm._v(" "),
                             _c("td", { staticClass: "custom" }, [
-                              _vm._v(_vm._s(item.emp_name))
+                              _vm._v(
+                                _vm._s(
+                                  item.emp_name === "គ្មានអ្នកទទួលបន្ទុក"
+                                    ? "--"
+                                    : item.emp_name
+                                )
+                              )
                             ]),
                             _vm._v(" "),
                             _c("td", { staticClass: "custom" }, [
                               _vm._v(
                                 _vm._s(
-                                  _vm.moment(item.date_pay).format("YYYY-MM-DD")
+                                  _vm.moment(item.date_pay).format("DD/MM/YYYY")
                                 )
                               )
                             ]),
@@ -2819,7 +2825,7 @@ var render = function() {
                                   _vm
                                     .moment(item.next_date_pay)
                                     .subtract(1, "day")
-                                    .format("YYYY-MM-DD")
+                                    .format("DD/MM/YYYY")
                                 )
                               )
                             ])
@@ -2833,48 +2839,9 @@ var render = function() {
                       _c("tr", [
                         _c(
                           "td",
-                          { staticClass: "pt-3", attrs: { colspan: "5" } },
-                          [
-                            _c("b", [_vm._v("ទឹកប្រាក់សរុប:")]),
-                            _vm._v(
-                              " " +
-                                _vm._s(
-                                  _vm.$formatter.format(_vm.master_item.total)
-                                ) +
-                                "\n                                "
-                            ),
-                            _c("b", [_vm._v("បញ្ចុះតម្លៃ:")]),
-                            _vm._v(
-                              " " +
-                                _vm._s(_vm.master_item.discount) +
-                                " %\n                                "
-                            ),
-                            _c("b", [_vm._v("ទឹកប្រាក់ត្រូវបង់:")]),
-                            _vm._v(
-                              " " +
-                                _vm._s(
-                                  _vm.$formatter.format(_vm.master_item.after)
-                                ) +
-                                "\n                                "
-                            ),
-                            _c("b", [_vm._v("ទឹកប្រាក់ជំពាក់:")]),
-                            _vm._v(
-                              " " +
-                                _vm._s(
-                                  _vm.$formatter.format(
-                                    _vm.master_item.due_balance
-                                  )
-                                ) +
-                                "\n                            "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "td",
                           {
-                            staticClass: "text-center",
-                            attrs: { colspan: "2" }
+                            staticClass: "text-right pt-3",
+                            attrs: { colspan: "7" }
                           },
                           [
                             _vm._v(
@@ -2893,21 +2860,11 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("tr", [
-                        _c("td"),
-                        _vm._v(" "),
-                        _c("td"),
-                        _vm._v(" "),
-                        _c("td"),
-                        _vm._v(" "),
-                        _c("td"),
-                        _vm._v(" "),
-                        _c("td"),
-                        _vm._v(" "),
                         _c(
                           "td",
                           {
-                            staticClass: "text-center",
-                            attrs: { colspan: "2" }
+                            staticClass: "text-right pt-3",
+                            attrs: { colspan: "7" }
                           },
                           [
                             _vm._v(
@@ -2917,7 +2874,74 @@ var render = function() {
                         )
                       ])
                     ])
-                  ])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "table",
+                    {
+                      staticClass: "top-minus",
+                      staticStyle: { "margin-top": "-51px" }
+                    },
+                    [
+                      _c("tr", [
+                        _c("td", { staticClass: "pr-3" }, [
+                          _c("b", [_vm._v("ទឹកប្រាក់សរុប:")])
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            _vm._s(_vm.$formatter.format(_vm.master_item.total))
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "pr-3" }, [
+                          _c("b", [_vm._v("បញ្ចុះតម្លៃ:")])
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(_vm._s(_vm.master_item.discount) + " %")
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "pr-3" }, [
+                          _c("b", [_vm._v("ទឹកប្រាក់ត្រូវបង់:")])
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            _vm._s(_vm.$formatter.format(_vm.master_item.after))
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("tr", [
+                        _c("td", { staticClass: "pr-3" }, [
+                          _c("b", [_vm._v("ទឹកប្រាក់ទទួល:")])
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            _vm._s(
+                              _vm.$formatter.format(
+                                _vm.master_item.receive_balance
+                              )
+                            )
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "pr-3" }, [
+                          _c("b", [_vm._v("ទឹកប្រាក់ជំពាក់:")])
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            _vm._s(
+                              _vm.$formatter.format(_vm.master_item.due_balance)
+                            )
+                          )
+                        ])
+                      ])
+                    ]
+                  )
                 ])
               ]),
               _vm._v(" "),
@@ -2927,7 +2951,7 @@ var render = function() {
                     _c("tr", [
                       _c("td", { staticClass: "text-danger" }, [
                         _vm._v(
-                          "\n                                1: ទឹកប្រាក់បង់ហើយមិនអាចដកវិញបានទេ 2: សូមរក្សាបង្កាន់ដៃបង់ប្រាក់ដើម្បីផ្ទៀងផ្ទាត់\n                            "
+                          "\n                                1: ទឹកប្រាក់បង់ហើយមិនអាចដកវិញបានទេ\n                            "
                         )
                       ])
                     ]),
@@ -2935,15 +2959,15 @@ var render = function() {
                     _c("tr", [
                       _c("td", { staticClass: "text-danger" }, [
                         _vm._v(
-                          "\n                                3: តម្លៃខាងលើ គឺសម្រាប់តែសេវាកម្មអប់រំប៉ុណ្ណោះ\n                            "
+                          "\n                                2: សូមរក្សាបង្កាន់ដៃបង់ប្រាក់ដើម្បីផ្ទៀងផ្ទាត់\n                            "
                         )
                       ])
                     ]),
                     _vm._v(" "),
                     _c("tr", [
-                      _c("td", { staticClass: "text-danger pl-3" }, [
+                      _c("td", { staticClass: "text-danger" }, [
                         _vm._v(
-                          "\n                                ចំពោះការគ្រោះថ្នាក់ជាយថាហេតុជាបន្ទុករបស់ មាតាបិតា ឬអាណាព្យាបាលសិស្ស\n                            "
+                          "\n                                3: តម្លៃខាងលើ គឺសម្រាប់តែសេវាកម្មអប់រំប៉ុណ្ណោះ ចំពោះការគ្រោះថ្នាក់ជាយថាហេតុជាបន្ទុករបស់ មាតាបិតា ឬអាណាព្យាបាលសិស្ស\n                            "
                         )
                       ])
                     ])
@@ -2973,19 +2997,10 @@ var render = function() {
                         _vm._v("012 383 838 / 012 382 957 / 085 598 999")
                       ]),
                       _vm._v(" "),
-                      _c("td", [_c("b", [_vm._v("អ៊ីម៉ែល:")])]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v("ponlorkkhmerschool@gmail.com")])
-                    ]),
-                    _vm._v(" "),
-                    _c("tr", [
-                      _c("td"),
-                      _vm._v(" "),
-                      _c("td", [_vm._v("096 799 9999 / 068 598 999")]),
-                      _vm._v(" "),
-                      _c("td"),
-                      _vm._v(" "),
-                      _c("td")
+                      _c("td", [
+                        _c("b", [_vm._v("អ៊ីម៉ែល:")]),
+                        _vm._v(" ponlokkhmerschool@gmail.com")
+                      ])
                     ])
                   ])
                 ])

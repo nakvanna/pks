@@ -1,29 +1,43 @@
 <template>
     <vx-card no-shadow>
-        <div class="flex btn-group">
-            <vs-button @click="$refs.addStudent.show()" type="relief" icon-pack="feather" icon="icon-plus-square">
-                បន្ថែម
-            </vs-button>
-            <vs-button color="success" :disabled="selected.length<=0" @click="gridApi.deselectAll()" type="relief"
-                       icon-pack="feather" icon="icon-check-square">Clear
-            </vs-button>
-            <vs-button v-if="selected.length===1"
-                       @click="$refs.editStudent.show(); $refs.editStudent.editStudent(selected[0])" color="warning"
-                       type="relief" icon-pack="feather" icon="icon-edit">កែប្រែ
-            </vs-button>
-            <vs-button v-if="selected.length" @click="confirmToggle" color="danger" type="relief" icon-pack="feather"
-                       icon="icon-circle">Toggle Status
-            </vs-button>
-            <vs-button v-if="selected.length===1" @click="confirmDelete" color="warning" type="relief" icon-pack="feather"
-                       icon="icon-trash">លុប
-            </vs-button>
+        <div class="vx-row">
+            <div class="vx-col md:w-2/3 w-full">
+                <div class="flex btn-group">
+                    <vs-button @click="$refs.addStudent.show()" type="relief" icon-pack="feather" icon="icon-plus-square">
+                        បន្ថែម
+                    </vs-button>
+                    <vs-button color="success" :disabled="selected.length<=0" @click="gridApi.deselectAll()" type="relief"
+                               icon-pack="feather" icon="icon-check-square">Clear
+                    </vs-button>
+                    <vs-button v-if="selected.length===1"
+                               @click="$refs.editStudent.show(); $refs.editStudent.editStudent(selected[0])" color="warning"
+                               type="relief" icon-pack="feather" icon="icon-edit">កែប្រែ
+                    </vs-button>
+                    <vs-button v-if="selected.length" @click="confirmToggle" color="danger" type="relief" icon-pack="feather"
+                               icon="icon-circle">Toggle Status
+                    </vs-button>
+                    <vs-button v-if="selected.length===1" @click="confirmDelete" color="warning" type="relief" icon-pack="feather"
+                               icon="icon-trash">លុប
+                    </vs-button>
 
-            <vs-button v-if="selected.length" @click="$refs.addStudyInfo.show(selected)" type="relief"
-                       icon-pack="feather" icon="icon-upload">ការសិក្សា
-            </vs-button>
-            <vs-button v-if="selected.length" @click="$refs.addServiceInfo.show(selected, true)" color="dark"
-                       type="relief" icon-pack="feather" icon="icon-upload">សេវាកម្ម
-            </vs-button>
+                    <vs-button v-if="selected.length" @click="$refs.addStudyInfo.show(selected)" type="relief"
+                               icon-pack="feather" icon="icon-upload">ការសិក្សា
+                    </vs-button>
+                    <vs-button v-if="selected.length" @click="$refs.addServiceInfo.show(selected, true)" color="dark"
+                               type="relief" icon-pack="feather" icon="icon-upload">សេវាកម្ម
+                    </vs-button>
+                </div>
+            </div>
+            <div class="vx-col md:w-1/3 w-full">
+                <div class="flex btn-group justify-end">
+                    <vs-button @click="$refs.printStdInfo.show(selected)" type="relief" icon-pack="feather" icon="icon-printer">
+                        បោះពុម្ភ
+                    </vs-button>
+                    <vs-button color="success" @click="$refs.addStudent.show()" type="relief" icon-pack="feather" icon="icon-info">
+                        បង្ហាញ
+                    </vs-button>
+                </div>
+            </div>
         </div>
         <div class="vx-row mt-base">
             <div class="vx-col md:w-1/3 w-full">
@@ -56,6 +70,7 @@
         <edit-student @finished="selected = []" ref="editStudent"></edit-student>
         <add-study-info @finished="selected = [];gridApi.deselectAll()" ref="addStudyInfo"></add-study-info>
         <add-service-info ref="addServiceInfo"></add-service-info>
+        <print-student-info ref="printStdInfo"/>
     </vx-card>
 </template>
 
@@ -67,10 +82,11 @@
     import EditStudent from "./editStudent";
     import AddStudyInfo from "./addStudyInfo";
     import AddServiceInfo from "./addServiceInfo";
+    import PrintStudentInfo from "./PrintStudentInfo";
 
     export default {
         name: "Student",
-        components: {AddServiceInfo, AddStudyInfo, EditStudent, AddStudent, AgGridVue},
+        components: {PrintStudentInfo, AddServiceInfo, AddStudyInfo, EditStudent, AddStudent, AgGridVue},
         data(){
             return{
                 data:{

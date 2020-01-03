@@ -11,7 +11,6 @@
             </vs-button>
         </div>
         <vs-table pagination max-items="5" search :data="getInvoices">
-
             <template slot="thead">
                 <vs-th sort-key="id">លេខវិក័យបត្រ</vs-th>
                 <vs-th sort-key="name">ឈ្មោះសិស្ស</vs-th>
@@ -79,7 +78,7 @@
                             > លម្អិត
                             </vs-button>
                             <vs-button
-                                    @click="printInvoice(preFixZero(tr.id, 7), tr.name, tr.latin, tr.gender, tr.balance, tr.after_discount, tr.discount, tr.due_balance)"
+                                    @click="printInvoice(preFixZero(tr.id, 7), tr.name, tr.latin, tr.gender, tr.balance, tr.after_discount, tr.discount, tr.due_balance,tr.receive_balance)"
                                     size="small" color="primary" type="line" icon-pack="feather" icon="icon-printer"
                             > បោះពុម្ភ
                             </vs-button>
@@ -684,7 +683,8 @@
                                 total: self.total_payment,
                                 after: self.after_discount,
                                 discount: self.discount,
-                                due_balance: self.due_balance
+                                due_balance: self.due_balance,
+                                receive_balance: self.rec_balance
                             },
                             new_all_infos
                         );
@@ -701,9 +701,9 @@
                 this.$modal.show('show-invoice-detail');
                 await this.$store.dispatch('showInvoiceDetail', id);
             },
-            async printInvoice(id, name, latin, gender, total, after, discount, due){
+            async printInvoice(id, name, latin, gender, total, after, discount, due,receive_balance){
                 await this.$store.dispatch('showInvoiceDetail', id);
-                this.$refs.PrintInvoice.show({id:id,name: name, latin: latin, gender: gender, total: total, after: after, discount: discount, due_balance: due}, this.getInvoicesDetail);
+                this.$refs.PrintInvoice.show({id:id,name: name, latin: latin, gender: gender, total: total, after: after, discount: discount, due_balance: due,receive_balance:receive_balance}, this.getInvoicesDetail);
             },
             dueHistory(inv_id, due_bal){
                 this.$refs.DueHistory.show(inv_id, due_bal)
