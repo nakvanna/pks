@@ -407,7 +407,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 print_js__WEBPACK_IMPORTED_MODULE_1___default()({
                   printable: 'section-to-print',
                   type: 'html',
-                  css: ['https://fonts.googleapis.com/css?family=Battambang&display=swap', 'http://localhost:3000/css/main.css', 'http://localhost:3000/css/vuesax.css', 'http://localhost:3000/css/app.css']
+                  css: ['https://fonts.googleapis.com/css?family=Battambang&display=swap', 'https://pks.siqware.com/css/main.css', 'https://pks.siqware.com/css/vuesax.css', 'https://pks.siqware.com/css/app.css']
                 });
 
               case 1:

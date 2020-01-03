@@ -125,9 +125,9 @@
             async printHtml() {
                 printJS({printable: 'section-to-print', type: 'html',css:[
                     'https://fonts.googleapis.com/css?family=Battambang&display=swap',
-                        'http://localhost:3000/css/main.css',
-                        'http://localhost:3000/css/vuesax.css',
-                        'http://localhost:3000/css/app.css'
+                        'https://pks.siqware.com/css/main.css',
+                        'https://pks.siqware.com/css/vuesax.css',
+                        'https://pks.siqware.com/css/app.css'
                     ]})
             },
         },

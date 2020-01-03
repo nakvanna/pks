@@ -1,6 +1,11 @@
 {
+<<<<<<< HEAD
     "/js/app.js": "/js/app.js?id=a2843c7991dee2101cba",
     "/css/app.css": "/css/app.css?id=5b4b97564671d06fa62c",
+=======
+    "/js/app.js": "/js/app.js?id=acd32168655053896949",
+    "/css/app.css": "/css/app.css?id=9615508ebeb827dbe9a7",
+>>>>>>> a7063978124544c9d8843620745d84e60b55a200
     "/css/main.css": "/css/main.css?id=43ef052466e70fe0dec7",
     "/css/vuesax.css": "/css/vuesax.css?id=a95681e95b969218ee14",
     "/css/iconfont.css": "/css/iconfont.css?id=667273af1a014bd141bd",
