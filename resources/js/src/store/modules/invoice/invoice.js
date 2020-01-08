@@ -60,6 +60,7 @@ const mutations = {
                 invoice_date   : data[i].invoice_date,
                 payment_status : data[i].payment_status,
                 id             : data[i].id,
+                receive_balance: data[i].receive_balance,
             })
         }
     },

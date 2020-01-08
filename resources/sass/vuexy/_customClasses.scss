@@ -568,6 +568,12 @@ ul.bordered-items {
   .pt-3 {
     padding-top: 3px;
   }
+  .pt-10 {
+    padding-top: 10px;
+  }
+  .top-minus{
+    margin-top: -51px !important;
+  }
   .pl-3 {
     padding-left: 3px;
   }
@@ -576,6 +582,10 @@ ul.bordered-items {
   }
   .text-center {
     text-align: center;
+  }
+  .d-right{
+    margin-right: 0 !important;
+    margin-left: auto !important;
   }
   .d-inline{
     display: inline !important;
