@@ -1,11 +1,15 @@
 import axios from  'axios'
 const state = {
     study_infos:[],
+    show_study_infos:[],
     total:null
 };
 const getters = {
     get_study_infos:function (state) {
         return state.study_infos
+    },
+    show_study_infos: function (state) {
+        return state.show_study_infos
     }
 };
 const actions = {
@@ -33,6 +37,14 @@ const actions = {
             } catch (e) {
                 return false
             }
+        }
+    },
+    async showStudyInfos({commit}, data){
+        try {
+            const res = await axios.post(route('study-info.by-year', {data}));
+            commit('SHOW_STUDY_INFO', res.data);
+        } catch (e) {
+            return false
         }
     },
     async storeStudyInfo({commit},data){
@@ -78,6 +90,9 @@ const mutations = {
         data.data.forEach(function (item, index) {
             state.study_infos.push(item);
         });
+    },
+    SHOW_STUDY_INFO:function (state,data) {
+        state.show_study_infos = data
     },
     ADD_STUDY_INFO:function (state,data) {
         data.forEach(function (item,index) {

@@ -15,6 +15,13 @@ class StudyInfoController extends Controller
     public function index(){
         return StudyInfo::with('students')->with('study_infos')->get();
     }
+    public function show_by_year(Request $request){
+        return StudyInfo::where('student_id', $request['data']['std_id'])
+            ->where('year', $request['data']['year'])
+            ->where('date_pay', $request['data']['date_pay'])
+            ->with('students')->with('study_infos')
+            ->get();
+    }
     public function store(Request $request){
         $input = $request->all();
         $request->validate([

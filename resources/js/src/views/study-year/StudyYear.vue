@@ -159,32 +159,31 @@
             study_info_extract() {
                 let self = this;
                 return this.getStudyInfos.map(function (data) {
-                    console.log(data);
                     var to_day = self.moment();
                     var day_pay = self.moment(data.date_pay);
-                    return{
-                        study_info_id   : data.id,
-                        id         : data.students.id,
-                        year       : data.year,
-                        student_id : data.students.id,
-                        name       : data.students.name,
-                        latin      : data.students.latin,
-                        gender     : data.students.gender,
-                        dob        : data.students.dob,
-                        class_name : data.study_infos.level + data.study_infos.class_name,
-                        shift      : data.study_infos.shift,
-                        date_pay   : data.date_pay,
-                        last_date_pay   : data.last_date_pay,
-                        last_term       : data.last_term,
-                        to_class        : data.to_class,
-                        employees       : data.study_infos.employees,
-                        group_section   : data.study_infos.group_section,
-                        cost_one        : data.study_infos.cost_one,
-                        cost_three      : data.study_infos.cost_three,
-                        cost_six        : data.study_infos.cost_six,
-                        cost_twelve     : data.study_infos.cost_twelve,
-                        service_infos   : [],
-                        day_left        : day_pay.diff(to_day, 'days'),
+                    return {
+                        study_info_id : data.id,
+                        id            : data.students.id,
+                        year          : data.year,
+                        student_id    : data.students.id,
+                        name          : data.students.name,
+                        latin         : data.students.latin,
+                        gender        : data.students.gender,
+                        dob           : data.students.dob,
+                        class_name    : data.study_infos.level + data.study_infos.class_name,
+                        shift         : data.study_infos.shift,
+                        date_pay      : data.date_pay,
+                        last_date_pay : data.last_date_pay,
+                        last_term     : data.last_term,
+                        to_class      : data.to_class,
+                        employees     : data.study_infos.employees,
+                        group_section : data.study_infos.group_section,
+                        cost_one      : data.study_infos.cost_one,
+                        cost_three    : data.study_infos.cost_three,
+                        cost_six      : data.study_infos.cost_six,
+                        cost_twelve   : data.study_infos.cost_twelve,
+                        service_infos : [],
+                        day_left      : day_pay.diff(to_day, 'days'),
                     }
                 })
             }

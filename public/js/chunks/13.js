@@ -295,94 +295,180 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "PrintInvoice",
   data: function data() {
     return {
       study_infos: [],
+      service_infos: [],
+      total_price_study: [],
+      total_price_service: [],
       notification_infos: []
     };
   },
   computed: {
     showServiceInfos: function showServiceInfos() {
       return this.$store.getters.show_service_infos;
+    },
+    showStudyInfos: function showStudyInfos() {
+      return this.$store.getters.show_study_infos;
     }
   },
   methods: {
-    /*async show(selected){
-        this.study_infos = [];
-        this.service_infos = [];
-        this.study_infos = selected;
-        this.$refs.print_invoice.open();
-         for (var i = 0; i <=selected.length; i ++){
-            if (this.study_infos[i].shift.split('-')[1] === "ពេញម៉ោង"){
-                await this.$store.dispatch('showServiceInfos', {std_id:this.study_infos[i].student_id, year: this.study_infos[i].year});
-                this.service_infos = this.showServiceInfos;
-            }
-            this.name = this.study_infos[i].name;
-            this.gender = this.study_infos[i].gender;
-            this.class_name = this.study_infos[i].class_name;
-            this.shift = this.study_infos[i].shift;
-            this.last_term = this.study_infos[i].last_term;
-            this.date_pay = this.study_infos[i].date_pay;
-            this.group_section = this.study_infos[i].group_section;
-            this.employee_name = this.study_infos[i].employees === null ? 'មិនបានដាក់ជូន' : this.study_infos[i].employees.kh_name; //គ្រូប្រចាំថ្នាក់
-            if (this.last_term === 1){
-                this.last_price = this.study_infos[i].cost_one;
-            }else if (this.last_term === 3){
-                this.last_price = this.study_infos[i].cost_three;
-            } else if (this.last_term === 6){
-                this.last_price = this.study_infos[i].cost_six;
-            } else {
-                this.last_price = this.study_infos[i].cost_twelve;
-            }
-        }
-    },*/
     show: function () {
       var _show = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(selected) {
-        var vm, i;
+        var vm, each_study, each_service, i, k, j, l;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 vm = this;
+                each_service = 0;
+                vm.study_infos = [];
+                vm.service_infos = [];
+                vm.total_price_service = [];
+                vm.total_price_study = [];
                 vm.$refs.print_invoice.open();
                 vm.notification_infos = selected;
                 i = 0;
 
-              case 4:
+              case 9:
                 if (!(i < vm.notification_infos.length)) {
-                  _context.next = 12;
+                  _context.next = 19;
                   break;
                 }
 
-                if (!(vm.notification_infos[i].shift.split('-')[1] === "ពេញម៉ោង")) {
-                  _context.next = 9;
-                  break;
-                }
-
-                _context.next = 8;
+                each_service = 0;
+                _context.next = 13;
                 return vm.$store.dispatch('showServiceInfos', {
                   std_id: vm.notification_infos[i].student_id,
-                  year: vm.notification_infos[i].year
+                  year: vm.notification_infos[i].year,
+                  date_pay: vm.notification_infos[i].date_pay
                 });
 
-              case 8:
-                vm.notification_infos[i].service_infos = vm.showServiceInfos;
+              case 13:
+                vm.service_infos.push(vm.showServiceInfos);
 
-              case 9:
+                for (k = 0; k < vm.showServiceInfos.length; k++) {
+                  if (vm.notification_infos[i].last_term === 1) {
+                    each_service += parseFloat(vm.showServiceInfos[k].services.cost_one);
+                  } else if (vm.notification_infos[i].last_term === 3) {
+                    each_service += parseFloat(vm.showServiceInfos[k].services.cost_three);
+                  } else if (vm.notification_infos[i].last_term === 6) {
+                    each_service += parseFloat(vm.showServiceInfos[k].services.cost_six);
+                  } else if (vm.notification_infos[i].last_term === 12) {
+                    each_service += parseFloat(vm.showServiceInfos[k].services.cost_twelve);
+                  }
+                }
+
+                vm.total_price_service.push(each_service);
+
+              case 16:
                 i++;
-                _context.next = 4;
+                _context.next = 9;
                 break;
 
-              case 12:
-                _context.next = 14;
-                return console.log(vm.notification_infos);
+              case 19:
+                j = 0;
 
-              case 14:
+              case 20:
+                if (!(j < vm.notification_infos.length)) {
+                  _context.next = 30;
+                  break;
+                }
+
+                each_study = 0;
+                _context.next = 24;
+                return vm.$store.dispatch('showStudyInfos', {
+                  std_id: vm.notification_infos[j].student_id,
+                  year: vm.notification_infos[j].year,
+                  date_pay: vm.notification_infos[j].date_pay
+                });
+
+              case 24:
+                vm.study_infos.push(vm.showStudyInfos);
+
+                for (l = 0; l < vm.showStudyInfos.length; l++) {
+                  if (vm.notification_infos[j].last_term === 1) {
+                    each_study += parseFloat(vm.showStudyInfos[l].study_infos.cost_one);
+                  } else if (vm.notification_infos[j].last_term === 3) {
+                    each_study += parseFloat(vm.showStudyInfos[l].study_infos.cost_three);
+                  } else if (vm.notification_infos[j].last_term === 6) {
+                    each_study += parseFloat(vm.showStudyInfos[l].study_infos.cost_six);
+                  } else if (vm.notification_infos[j].last_term === 12) {
+                    each_study += parseFloat(vm.showStudyInfos[l].study_infos.cost_twelve);
+                  }
+                }
+
+                vm.total_price_study.push(each_study);
+
+              case 27:
+                j++;
+                _context.next = 20;
+                break;
+
+              case 30:
+                _context.next = 32;
+                return console.log(vm.total_price_study);
+
+              case 32:
+                _context.next = 34;
+                return console.log(vm.total_price_service);
+
+              case 34:
               case "end":
                 return _context.stop();
             }
@@ -407,7 +493,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 print_js__WEBPACK_IMPORTED_MODULE_1___default()({
                   printable: 'section-to-print',
                   type: 'html',
-                  css: ['https://fonts.googleapis.com/css?family=Battambang&display=swap', 'https://pks.siqware.com/css/main.css', 'https://pks.siqware.com/css/vuesax.css', 'https://pks.siqware.com/css/app.css']
+                  css: ['https://fonts.googleapis.com/css?family=Battambang&display=swap', 'https://pks.siqware.com/css/main.css', 'https://pks.siqware.com/css/vuesax.css', 'https://pks.siqware.com/css/app.css', 'http://localhost:3000/css/main.css', 'http://localhost:3000/css/vuesax.css', 'http://localhost:3000/css/app.css']
                 });
 
               case 1:
@@ -681,7 +767,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     study_info_extract: function study_info_extract() {
       var self = this;
       return this.getStudyInfos.map(function (data) {
-        console.log(data);
         var to_day = self.moment();
         var day_pay = self.moment(data.date_pay);
         return {
@@ -727,7 +812,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, ".line-height-25[data-v-7fe52854] {\n  line-height: 25px;\n}\n.height-30percent[data-v-7fe52854] {\n  height: 350px;\n}\n", ""]);
+exports.push([module.i, ".line-height-25[data-v-7fe52854] {\n  line-height: 25px;\n}\n.height-30percent[data-v-7fe52854] {\n  height: 400px;\n}\n", ""]);
 
 // exports
 
@@ -1085,284 +1170,381 @@ var render = function() {
           _c(
             "div",
             { attrs: { id: "section-to-print" } },
-            _vm._l(_vm.notification_infos, function(item, i) {
-              return _c(
-                "div",
-                { key: i, staticClass: "mt-1 height-30percent" },
-                [
-                  _c("div", { staticClass: "vx-row" }, [
-                    _c("div", { staticClass: "vx-col md:w-1/3 print:w-1/3" }, [
-                      _c("img", {
-                        staticClass: "w-full print:w-full",
-                        staticStyle: { height: "100px" },
-                        attrs: {
-                          src: "images/ponlok-khmer-header.jpg",
-                          alt: "header"
-                        }
-                      })
+            _vm._l(_vm.notification_infos, function(item, ii) {
+              return _c("div", { key: ii, staticClass: "height-30percent" }, [
+                _c("div", { staticClass: "vx-row" }, [
+                  _c("div", { staticClass: "vx-col md:w-1/3 print:w-1/3" }, [
+                    _c("img", {
+                      staticClass: "w-full print:w-full",
+                      staticStyle: { height: "100px" },
+                      attrs: {
+                        src: "images/ponlok-khmer-header.jpg",
+                        alt: "header"
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "vx-col md:w-1/3 print:w-1/3 text-center margin-top-30"
+                    },
+                    [_c("h2", [_c("u", [_vm._v("ជំរាបជូន")])])]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "vx-row" }, [
+                  _c("div", { staticClass: "vx-col" }, [
+                    _c("p", { staticClass: "line-height-25" }, [
+                      _vm._v(
+                        "\n                                           \n                            មាតា - បិតា ឬអាណាព្យាបាលសិស្សឈ្មោះ "
+                      ),
+                      _c("b", [_vm._v(_vm._s(item.name))]),
+                      _vm._v(" ភេទ "),
+                      _c("b", [_vm._v(_vm._s(item.gender))]),
+                      _vm._v(
+                        " អោយបានជ្រាបថា៖\n                            ការបង់ប្រាក់ថ្លៃសិក្សរយៈពេល "
+                      ),
+                      _c("b", [_vm._v(_vm._s(item.last_term))]),
+                      _vm._v(
+                        " ខែ នឹងត្រូវផុតកំណត់ត្រឹម\n                            ថ្ងៃទី "
+                      ),
+                      _c("b", [
+                        _vm._v(_vm._s(_vm.moment(item.date_pay).format("DD")))
+                      ]),
+                      _vm._v(" ខែ "),
+                      _c("b", [
+                        _vm._v(_vm._s(_vm.moment(item.date_pay).format("MM")))
+                      ]),
+                      _vm._v(" ឆ្នាំ "),
+                      _c("b", [
+                        _vm._v(_vm._s(_vm.moment(item.date_pay).format("YYYY")))
+                      ])
                     ]),
                     _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        staticClass:
-                          "vx-col md:w-1/3 print:w-1/3 text-center margin-top-30"
-                      },
-                      [_c("h2", [_c("u", [_vm._v("ជំរាបជូន")])])]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "vx-row" }, [
-                    _c("div", { staticClass: "vx-col" }, [
-                      _c("h6", { staticClass: "line-height-25" }, [
-                        _vm._v(
-                          "\n                            មាតា - បិតា ឬអាណាព្យាបាលសិស្សឈ្មោះ "
-                        ),
-                        _c("b", [_vm._v(_vm._s(item.name))]),
-                        _vm._v(" ភេទ "),
-                        _c("b", [_vm._v(_vm._s(item.gender))]),
-                        _vm._v(" រៀនថ្នាក់ "),
-                        _c("b", [_vm._v(_vm._s(item.class_name))]),
-                        _vm._v("\n                            ម៉ោង "),
-                        _c("b", [_vm._v(_vm._s(item.shift))]),
-                        _vm._v(" គ្រូប្រចាំថ្នាក់ "),
-                        _c("b", [
-                          _vm._v(
-                            _vm._s(
-                              item.employees === null
-                                ? "គ្មានអ្នកទទួលបន្ទុក"
-                                : item.employees.kh_name
-                            )
-                          )
-                        ]),
-                        _vm._v(
-                          " អោយបានជ្រាបថា៖\n                            ការបង់ប្រាក់ថ្លៃសិក្សរយៈពេល "
-                        ),
-                        _c("b", [_vm._v(_vm._s(item.last_term))]),
-                        _vm._v(
-                          " ខែ នឹងត្រូវផុតកំណត់ត្រឹម\n                            ថ្ងៃទី "
-                        ),
-                        _c("b", [
-                          _vm._v(_vm._s(_vm.moment(item.date_pay).format("DD")))
-                        ]),
-                        _vm._v(" ខែ "),
-                        _c("b", [
-                          _vm._v(_vm._s(_vm.moment(item.date_pay).format("MM")))
-                        ]),
-                        _vm._v(" ឆ្នាំ "),
-                        _c("b", [
-                          _vm._v(
-                            _vm._s(_vm.moment(item.date_pay).format("YYYY"))
-                          )
-                        ]),
-                        _vm._v(
-                          "\n                            ដូចនេះសូមអញ្ញើញមាតា - បិតា ឬអាណាព្យាបាល សិស្ស មកបង់ប្រាក់សិក្សាសំរាប់\n                            រយៈពេល "
-                        ),
-                        _c("b", [_vm._v(_vm._s(item.last_term))]),
-                        _vm._v(" ខែ បន្ទាប់នៅថ្ងៃថ្ងៃទី "),
-                        _c("b", [
-                          _vm._v(_vm._s(_vm.moment(item.date_pay).format("DD")))
-                        ]),
-                        _vm._v(" ខែ "),
-                        _c("b", [
-                          _vm._v(_vm._s(_vm.moment(item.date_pay).format("MM")))
-                        ]),
-                        _vm._v("\n                            ឆ្នាំ "),
-                        _c("b", [
-                          _vm._v(
-                            _vm._s(_vm.moment(item.date_pay).format("YYYY"))
-                          )
-                        ]),
-                        _vm._v("។\n                        ")
+                    _c("p", [
+                      _vm._v(
+                        "\n                                           \n                            ហេតុដូចនេះសូមគោរពអញ្ញើញ​ មាតា - បិតា ឬ អាណាព្យាបាលសិស្ស មកបង់ប្រាក់សិក្សាសំរាប់\n                            រយៈពេល "
+                      ),
+                      _c("b", [_vm._v(_vm._s(item.last_term))]),
+                      _vm._v(" ខែ បន្ទាប់នៅថ្ងៃថ្ងៃទី "),
+                      _c("b", [
+                        _vm._v(_vm._s(_vm.moment(item.date_pay).format("DD")))
                       ]),
-                      _vm._v(" "),
-                      _c("h6", { staticClass: "mt-1" }, [
-                        _vm._v("\n                            ("),
-                        _c("b", { staticClass: "text-danger" }, [
-                          _vm._v("សូមយកបង្កាន់ដៃបង់ប្រាក់លើកមុនមកជាមួយផង")
-                        ]),
-                        _vm._v(") សូមអរគុណ។\n                        ")
-                      ])
+                      _vm._v(" ខែ "),
+                      _c("b", [
+                        _vm._v(_vm._s(_vm.moment(item.date_pay).format("MM")))
+                      ]),
+                      _vm._v("\n                            ឆ្នាំ "),
+                      _c("b", [
+                        _vm._v(_vm._s(_vm.moment(item.date_pay).format("YYYY")))
+                      ]),
+                      _vm._v("។\n                        ")
                     ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "vx-row" }, [
-                    _c("div", { staticClass: "vx-col md:w-1/3 print:w-1/3" }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "vx-col md:w-1/3 print:w-1/3" }),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        staticClass: "vx-col md:w-1/3 print:w-1/3 text-center"
-                      },
-                      [
-                        _c("h6", [
-                          _vm._v("ថ្ងៃទី "),
-                          _c("b", [_vm._v(_vm._s(_vm.moment().format("DD")))]),
-                          _vm._v(" ខែ "),
-                          _c("b", [
-                            _vm._v(
-                              _vm._s(
-                                _vm
-                                  .moment()
-                                  .locale("km")
-                                  .format("MMMM")
-                              )
-                            )
-                          ]),
-                          _vm._v(" ឆ្នាំ "),
-                          _c("b", [_vm._v(_vm._s(_vm.moment().format("YYYY")))])
-                        ]),
-                        _vm._v(" "),
-                        _c("h5", { staticClass: "mt-3" }, [
-                          _c("b", [_vm._v("ទីចាត់ការសាលា")])
-                        ])
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "vx-row" }, [
-                    _c("div", { staticClass: "vx-col md:w-4/5" }, [
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "vx-row" }, [
+                  _c("div", { staticClass: "vx-col w-full" }, [
+                    _c("table", { staticClass: "custom" }, [
                       _c(
-                        "div",
-                        { staticClass: "vx-row flex" },
+                        "tbody",
                         [
-                          _c("div", { staticClass: "vx-col md:w-1/2" }, [
-                            item.last_term === 1
-                              ? _c("b", [
-                                  _vm._v(
-                                    "- " +
-                                      _vm._s(item.group_section) +
-                                      " " +
-                                      _vm._s(item.last_term) +
-                                      "ខែ ស្មើនឹង " +
-                                      _vm._s(
-                                        _vm.$formatter.format(item.cost_one)
-                                      )
-                                  )
-                                ])
-                              : _vm._e(),
+                          _c("tr", [
+                            _c("th", { staticClass: "custom" }, [
+                              _vm._v("ល.រ")
+                            ]),
                             _vm._v(" "),
-                            item.last_term === 3
-                              ? _c("b", [
-                                  _vm._v(
-                                    "- " +
-                                      _vm._s(item.group_section) +
-                                      " " +
-                                      _vm._s(item.last_term) +
-                                      "ខែ ស្មើនឹង " +
-                                      _vm._s(
-                                        _vm.$formatter.format(item.cost_three)
-                                      )
-                                  )
-                                ])
-                              : _vm._e(),
+                            _c("th", { staticClass: "custom" }, [
+                              _vm._v("រាយមុខសេវាកម្ម")
+                            ]),
                             _vm._v(" "),
-                            item.last_term === 6
-                              ? _c("b", [
-                                  _vm._v(
-                                    "- " +
-                                      _vm._s(item.group_section) +
-                                      " " +
-                                      _vm._s(item.last_term) +
-                                      "ខែ ស្មើនឹង " +
-                                      _vm._s(
-                                        _vm.$formatter.format(item.cost_six)
-                                      )
-                                  )
-                                ])
-                              : _vm._e(),
+                            _c("th", { staticClass: "custom" }, [
+                              _vm._v("រយៈពេលបង់")
+                            ]),
                             _vm._v(" "),
-                            item.last_term === 12
-                              ? _c("b", [
-                                  _vm._v(
-                                    "- " +
-                                      _vm._s(item.group_section) +
-                                      " " +
-                                      _vm._s(item.last_term) +
-                                      "ខែ ស្មើនឹង " +
-                                      _vm._s(
-                                        _vm.$formatter.format(item.cost_twelve)
-                                      )
-                                  )
-                                ])
-                              : _vm._e()
+                            _c("th", { staticClass: "custom" }, [
+                              _vm._v("ចំនួនទឹកប្រាក់")
+                            ]),
+                            _vm._v(" "),
+                            _c("th", { staticClass: "custom" }, [
+                              _vm._v("អ្នកទទូលបន្ទុក")
+                            ]),
+                            _vm._v(" "),
+                            _c("th", { staticClass: "custom" }, [
+                              _vm._v("ផុតកំណត់ត្រឹមថ្ងៃទី")
+                            ])
                           ]),
                           _vm._v(" "),
-                          _vm._l(item.service_infos, function(sub_item, i) {
-                            return item.service_infos.length
-                              ? _c(
-                                  "div",
-                                  { key: i, staticClass: "vx-col md:w-1/2" },
-                                  [
-                                    sub_item.last_term === 1
-                                      ? _c("b", [
-                                          _vm._v(
-                                            "- សំរាប់" +
-                                              _vm._s(sub_item.services.type) +
-                                              " " +
-                                              _vm._s(
-                                                sub_item.services.service
-                                              ) +
-                                              " ចំនួន " +
-                                              _vm._s(
-                                                _vm.$formatter.format(
-                                                  sub_item.services.cost_one
-                                                )
-                                              )
+                          _vm._l(_vm.study_infos[ii], function(item_study, i) {
+                            return _vm.study_infos[ii].length
+                              ? _c("tr", { key: "study" + i }, [
+                                  _c("td", { staticClass: "custom" }, [
+                                    _vm._v(_vm._s(i + 1))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", { staticClass: "custom" }, [
+                                    _vm._v(
+                                      _vm._s(
+                                        item_study.study_infos.group_section
+                                      )
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", { staticClass: "custom" }, [
+                                    _vm._v(_vm._s(item_study.last_term))
+                                  ]),
+                                  _vm._v(" "),
+                                  item_study.last_term === 0
+                                    ? _c("td", { staticClass: "custom" }, [
+                                        _vm._v(_vm._s(0))
+                                      ])
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  item_study.last_term === 1
+                                    ? _c("td", { staticClass: "custom" }, [
+                                        _vm._v(
+                                          _vm._s(
+                                            item_study.study_infos.cost_one
                                           )
-                                        ])
-                                      : _vm._e(),
-                                    _vm._v(" "),
-                                    sub_item.last_term === 3
-                                      ? _c("b", [
-                                          _vm._v(
-                                            "- សំរាប់" +
-                                              _vm._s(sub_item.services.type) +
-                                              " " +
-                                              _vm._s(
-                                                sub_item.services.service
-                                              ) +
-                                              " ចំនួន " +
-                                              _vm._s(
-                                                _vm.$formatter.format(
-                                                  sub_item.services.cost_three
-                                                )
-                                              )
+                                        )
+                                      ])
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  item_study.last_term === 3
+                                    ? _c("td", { staticClass: "custom" }, [
+                                        _vm._v(
+                                          _vm._s(
+                                            item_study.study_infos.cost_three
                                           )
-                                        ])
-                                      : _vm._e(),
-                                    _vm._v(" "),
-                                    sub_item.last_term === 6
-                                      ? _c("b", [
-                                          _vm._v(
-                                            "- សំរាប់" +
-                                              _vm._s(sub_item.services.type) +
-                                              " " +
-                                              _vm._s(
-                                                sub_item.services.service
-                                              ) +
-                                              " ចំនួន " +
-                                              _vm._s(
-                                                _vm.$formatter.format(
-                                                  sub_item.services.cost_six
-                                                )
-                                              )
+                                        )
+                                      ])
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  item_study.last_term === 6
+                                    ? _c("td", { staticClass: "custom" }, [
+                                        _vm._v(
+                                          _vm._s(
+                                            item_study.study_infos.cost_six
                                           )
-                                        ])
-                                      : _vm._e()
-                                  ]
-                                )
+                                        )
+                                      ])
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  item_study.last_term === 12
+                                    ? _c("td", { staticClass: "custom" }, [
+                                        _vm._v(
+                                          _vm._s(
+                                            item_study.study_infos.cost_twelve
+                                          )
+                                        )
+                                      ])
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _c("td", { staticClass: "custom" }, [
+                                    _vm._v(
+                                      "\n                                    " +
+                                        _vm._s(
+                                          item_study.study_infos.employees ===
+                                            null
+                                            ? "គ្មាន"
+                                            : item_study.study_infos.employees
+                                                .kh_name
+                                        ) +
+                                        "\n                                "
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", { staticClass: "custom" }, [
+                                    _vm._v(_vm._s(item_study.date_pay))
+                                  ])
+                                ])
+                              : _vm._e()
+                          }),
+                          _vm._v(" "),
+                          _vm._l(_vm.service_infos[ii], function(
+                            item_service,
+                            j
+                          ) {
+                            return _vm.service_infos[ii].length
+                              ? _c("tr", { key: "service" + j }, [
+                                  _c("td", { staticClass: "custom" }, [
+                                    _vm._v(
+                                      _vm._s(_vm.study_infos.length + j + 1)
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", { staticClass: "custom" }, [
+                                    _vm._v(
+                                      _vm._s(item_service.services.service)
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", { staticClass: "custom" }, [
+                                    _vm._v(_vm._s(item_service.last_term))
+                                  ]),
+                                  _vm._v(" "),
+                                  item_service.last_term === 0
+                                    ? _c("td", { staticClass: "custom" }, [
+                                        _vm._v(_vm._s(0))
+                                      ])
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  item_service.last_term === 1
+                                    ? _c("td", { staticClass: "custom" }, [
+                                        _vm._v(
+                                          _vm._s(item_service.services.cost_one)
+                                        )
+                                      ])
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  item_service.last_term === 3
+                                    ? _c("td", { staticClass: "custom" }, [
+                                        _vm._v(
+                                          _vm._s(
+                                            item_service.services.cost_three
+                                          )
+                                        )
+                                      ])
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  item_service.last_term === 6
+                                    ? _c("td", { staticClass: "custom" }, [
+                                        _vm._v(
+                                          _vm._s(item_service.services.cost_six)
+                                        )
+                                      ])
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  item_service.last_term === 12
+                                    ? _c("td", { staticClass: "custom" }, [
+                                        _vm._v(
+                                          _vm._s(
+                                            item_service.services.cost_twelve
+                                          )
+                                        )
+                                      ])
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _c("td", { staticClass: "custom" }, [
+                                    _vm._v(
+                                      "\n                                    " +
+                                        _vm._s(
+                                          item_service.services.employees ===
+                                            null
+                                            ? "គ្មាន"
+                                            : item_service.services.employees
+                                                .kh_name
+                                        ) +
+                                        "\n                                "
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", { staticClass: "custom" }, [
+                                    _vm._v(_vm._s(item_service.date_pay))
+                                  ])
+                                ])
                               : _vm._e()
                           })
                         ],
                         2
-                      )
+                      ),
+                      _vm._v(" "),
+                      _c("tfoot", [
+                        _c("tr", [
+                          _c("td"),
+                          _vm._v(" "),
+                          _c("td"),
+                          _vm._v(" "),
+                          _c("td"),
+                          _vm._v(" "),
+                          _c("td"),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "custom" }, [
+                            _c("b", [_vm._v("ទឹកប្រាក់សរុប:")])
+                          ]),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "custom" }, [
+                            _vm._v(
+                              "\n                                     " +
+                                _vm._s(
+                                  _vm.$formatter.format(
+                                    parseFloat(
+                                      _vm.total_price_study[ii] +
+                                        parseFloat(_vm.total_price_service[ii])
+                                    )
+                                  )
+                                ) +
+                                "\n                                "
+                            )
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("tr", [
+                          _c("td"),
+                          _vm._v(" "),
+                          _c("td"),
+                          _vm._v(" "),
+                          _c("td"),
+                          _vm._v(" "),
+                          _c("td"),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            {
+                              staticClass: "text-center pt-4",
+                              attrs: { colspan: "3" }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                    ម៉ោង " +
+                                  _vm._s(_vm.moment().format("h:mm:ss A")) +
+                                  " ថ្ងៃទី " +
+                                  _vm._s(_vm.moment().format("DD")) +
+                                  " ខែ " +
+                                  _vm._s(_vm.moment().format("MM")) +
+                                  " ឆ្នាំ " +
+                                  _vm._s(_vm.moment().format("Y")) +
+                                  "\n                                "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("tr", [
+                          _c(
+                            "td",
+                            { staticClass: "pt-3", attrs: { colspan: "4" } },
+                            [
+                              _vm._v("\n                                    ("),
+                              _c("b", { staticClass: "text-danger" }, [
+                                _vm._v("សូមយកបង្កាន់ដៃបង់ប្រាក់លើកមុនមកជាមួយផង")
+                              ]),
+                              _vm._v(
+                                ") សូមអរគុណ។\n                                "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            {
+                              staticClass: "text-center",
+                              attrs: { colspan: "3" }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                    ទីចាត់ការសាលា\n                                "
+                              )
+                            ]
+                          )
+                        ])
+                      ])
                     ])
                   ])
-                ]
-              )
+                ])
+              ])
             }),
             0
           ),

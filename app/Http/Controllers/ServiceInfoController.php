@@ -11,7 +11,11 @@ class ServiceInfoController extends Controller
         return ServiceInfo::with('students')->with('services')->get();
     }
     public function show_by_year(Request $request){
-        return ServiceInfo::where('student_id', $request['data']['std_id'])->where('year', $request['data']['year'])->with('students')->with('services')->get();
+        return ServiceInfo::where('student_id', $request['data']['std_id'])
+            ->where('year', $request['data']['year'])
+            ->where('date_pay', $request['data']['date_pay'])
+            ->with('students')->with('services')
+            ->get();
     }
     public function store(Request $request){
         $input = $request->all();
@@ -42,12 +46,6 @@ class ServiceInfoController extends Controller
         $update->save();
         return $update;
     }
-    /*public function destroy($id){
-        $toggle = ServiceInfo::findOrFail($id);
-        $toggle->is_used = !$toggle->is_used;
-        $toggle->save();
-        return $toggle;
-    }*/
     public function destroy($id){
         $toggle = ServiceInfo::findOrFail($id);
         $toggle->delete();

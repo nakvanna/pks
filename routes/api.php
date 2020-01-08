@@ -41,6 +41,7 @@ Route::post('/student-json','StudentController@json')->name('student.json');
 Route::resource('/study-info','StudyInfoController');
 Route::post('/study-info-json','StudyInfoController@json')->name('study_info.json');
 Route::post('/study-info-change','StudyInfoController@storeChange')->name('study_info.change');
+Route::post('/study-info-by-year','StudyInfoController@show_by_year')->name('study-info.by-year');
 Route::resource('/service-info','ServiceInfoController');
 Route::post('/service-info-by-year','ServiceInfoController@show_by_year')->name('service-info.by-year');
 Route::post('/payment','PaymentController@getInfo')->name('payment.get-info');
