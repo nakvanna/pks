@@ -75,6 +75,7 @@ const mutations = {
             due_balance: data.due_balance,
             invoice_date: data.invoice_date,
             payment_status: data.payment_status,
+            receive_balance: data.receive_balance,
             id: data.id,
         })
     },

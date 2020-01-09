@@ -501,7 +501,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 
 
 
@@ -1702,7 +1701,7 @@ var render = function() {
         ],
         1
       ),
-      _vm._v("\n    " + _vm._s(_vm.getInvoices) + "\n    "),
+      _vm._v(" "),
       _c(
         "vs-table",
         {

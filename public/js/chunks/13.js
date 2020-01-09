@@ -1371,7 +1371,7 @@ var render = function() {
                               ? _c("tr", { key: "service" + j }, [
                                   _c("td", { staticClass: "custom" }, [
                                     _vm._v(
-                                      _vm._s(_vm.study_infos.length + j + 1)
+                                      _vm._s(_vm.study_infos[ii].length + j + 1)
                                     )
                                   ]),
                                   _vm._v(" "),

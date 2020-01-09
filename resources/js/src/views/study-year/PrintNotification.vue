@@ -55,7 +55,7 @@
                                     <td class="custom">{{item_study.date_pay}}</td>
                                 </tr>
                                 <tr v-if="service_infos[ii].length" v-for="(item_service, j) in service_infos[ii]" :key="'service'+j">
-                                    <td class="custom">{{study_infos.length+j+1}}</td>
+                                    <td class="custom">{{study_infos[ii].length+j+1}}</td>
                                     <td class="custom">{{item_service.services.service}}</td>
                                     <td class="custom">{{item_service.last_term}}</td>
                                     <td class="custom" v-if="item_service.last_term === 0">{{0}}</td>
