@@ -89,6 +89,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return {
       date_reduce_due: null,
       pay_due: 0,
+      student_id: null,
       desc: '',
       invoice_id: null,
       total_due: 0
@@ -119,21 +120,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     show: function () {
       var _show = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(inv_id, due_bal) {
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(inv_id, due_bal, stu_id) {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
+                console.log(stu_id);
                 this.total_due = -1 * due_bal;
                 this.invoice_id = inv_id;
+                this.student_id = stu_id;
                 this.$refs.due_history.open();
-                _context.next = 5;
+                _context.next = 7;
                 return this.$store.dispatch('fetchDueHistoryOnly', inv_id);
 
-              case 5:
+              case 7:
                 this.total_due -= this.get_SumRow;
 
-              case 6:
+              case 8:
               case "end":
                 return _context.stop();
             }
@@ -141,7 +144,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee, this);
       }));
 
-      function show(_x, _x2) {
+      function show(_x, _x2, _x3) {
         return _show.apply(this, arguments);
       }
 
@@ -159,7 +162,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 self = this;
 
                 if (!(self.date_reduce_due !== null || self.pay_due > 0)) {
-                  _context2.next = 5;
+                  _context2.next = 7;
                   break;
                 }
 
@@ -167,6 +170,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   type: 'material'
                 });
                 _context2.next = 5;
+                return self.$store.dispatch('updateIncrementDue', {
+                  id: self.student_id,
+                  due: self.pay_due
+                });
+
+              case 5:
+                _context2.next = 7;
                 return self.$store.dispatch('storeDueHistory', {
                   invoice_id: self.invoice_id,
                   date_reduce_due: self.date_reduce_due,
@@ -179,7 +189,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   }
                 });
 
-              case 5:
+              case 7:
               case "end":
                 return _context2.stop();
             }
@@ -221,6 +231,11 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
+//
+//
 //
 //
 //
@@ -1050,6 +1065,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 }
 
                 _context9.next = 10;
+                return this.$store.dispatch('updateIncrementDue', {
+                  id: this.student_id,
+                  due: this.due_balance
+                });
+
+              case 10:
+                _context9.next = 12;
                 return self.$store.dispatch('storeInvoice', {
                   student_id: this.student_id,
                   invoice_date: this.today_date,
@@ -1129,12 +1151,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   }
                 });
 
-              case 10:
+              case 12:
                 this.discount = 0;
                 this.cash_discount = 0;
                 this.all_infos = [];
 
-              case 13:
+              case 15:
               case "end":
                 return _context9.stop();
             }
@@ -1215,8 +1237,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       return printInvoice;
     }(),
-    dueHistory: function dueHistory(inv_id, due_bal) {
-      this.$refs.DueHistory.show(inv_id, due_bal);
+    dueHistory: function dueHistory(inv_id, due_bal, stu_id) {
+      this.$refs.DueHistory.show(inv_id, due_bal, stu_id);
     }
   }
 });
@@ -1729,6 +1751,14 @@ var render = function() {
                         )
                       ]),
                       _vm._v(" "),
+                      _c("vs-td", { attrs: { data: tr.student_id } }, [
+                        _vm._v(
+                          "\n                    " +
+                            _vm._s(tr.student_id) +
+                            "\n                "
+                        )
+                      ]),
+                      _vm._v(" "),
                       _c("vs-td", { attrs: { data: tr.name } }, [
                         _vm._v(
                           "\n                    " +
@@ -1870,7 +1900,11 @@ var render = function() {
                                 },
                                 on: {
                                   click: function($event) {
-                                    return _vm.dueHistory(tr.id, tr.due_balance)
+                                    return _vm.dueHistory(
+                                      tr.id,
+                                      tr.due_balance,
+                                      tr.student_id
+                                    )
                                   }
                                 }
                               },
@@ -1899,6 +1933,10 @@ var render = function() {
             [
               _c("vs-th", { attrs: { "sort-key": "id" } }, [
                 _vm._v("លេខវិក័យបត្រ")
+              ]),
+              _vm._v(" "),
+              _c("vs-th", { attrs: { "sort-key": "student_id" } }, [
+                _vm._v("អត្តលេខសិស្ស")
               ]),
               _vm._v(" "),
               _c("vs-th", { attrs: { "sort-key": "name" } }, [

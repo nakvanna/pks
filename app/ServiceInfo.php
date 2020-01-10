@@ -8,7 +8,7 @@ class ServiceInfo extends Model
 {
     public function students(){
         return $this->belongsTo(Student::class, 'student_id', 'id')
-            ->select('id', 'name', 'latin', 'gender', 'dob', 'photo');
+            ->select('id', 'name', 'latin', 'gender', 'dob', 'photo', 'balance');
     }
     public function report_service(){
         return $this->belongsTo( Service::class, 'service_id', 'id')

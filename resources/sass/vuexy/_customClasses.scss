@@ -591,10 +591,10 @@ ul.bordered-items {
     display: inline !important;
   }
   .line-height-25 {
-    line-height: 25px;
+    line-height: 18px;
   }
   .margin-top-30 {
-    margin-top: 30px;
+    margin-top: 20px;
   }
 }
 
@@ -620,4 +620,18 @@ table.custom {
 
 th.custom, td.custom {
   padding: 2px 10px
+}
+//custom table Notification
+td.custom_noti, th.custom_noti {
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+table.custom_noti {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th.custom_noti, td.custom_noti {
+  padding: 1px 4px
 }

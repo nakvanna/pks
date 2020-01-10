@@ -13,6 +13,7 @@
         <vs-table pagination max-items="5" search :data="getInvoices">
             <template slot="thead">
                 <vs-th sort-key="id">លេខវិក័យបត្រ</vs-th>
+                <vs-th sort-key="student_id">អត្តលេខសិស្ស</vs-th>
                 <vs-th sort-key="name">ឈ្មោះសិស្ស</vs-th>
                 <vs-th sort-key="latin">ឈ្មោះឡាតាំង</vs-th>
                 <vs-th sort-key="balance">តម្លៃដើម</vs-th>
@@ -29,6 +30,10 @@
 
                     <vs-td :data="tr.id">
                         {{ preFixZero(tr.id, 7) }}
+                    </vs-td>
+
+                    <vs-td :data="tr.student_id">
+                        {{ tr.student_id }}
                     </vs-td>
 
                     <vs-td :data="tr.name">
@@ -83,7 +88,7 @@
                             > បោះពុម្ភ
                             </vs-button>
                             <vs-button
-                                    @click="dueHistory(tr.id, tr.due_balance)"
+                                    @click="dueHistory(tr.id, tr.due_balance, tr.student_id)"
                                     size="small" color="success" type="line" icon-pack="feather" icon="icon-money"
                             > ទូទាត់ប្រាក់
                             </vs-button>
@@ -639,6 +644,7 @@
                     this.updateServiceInfo(update_service_items);
                 }
 
+                await this.$store.dispatch('updateIncrementDue', {id: this.student_id, due: this.due_balance});
                 await self.$store.dispatch('storeInvoice', {
                     student_id: this.student_id, invoice_date : this.today_date, balance : this.total_payment, after_discount : this.after_discount,
                     discount : this.discount, payment_status : false, due_balance: this.due_balance,
@@ -705,8 +711,8 @@
                 await this.$store.dispatch('showInvoiceDetail', id);
                 this.$refs.PrintInvoice.show({id:id,name: name, latin: latin, gender: gender, total: total, after: after, discount: discount, due_balance: due,receive_balance:receive_balance}, this.getInvoicesDetail);
             },
-            dueHistory(inv_id, due_bal){
-                this.$refs.DueHistory.show(inv_id, due_bal)
+            dueHistory(inv_id, due_bal, stu_id){
+                this.$refs.DueHistory.show(inv_id, due_bal, stu_id)
             },
         },
     }

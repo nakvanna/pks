@@ -100,15 +100,11 @@ class StudentController extends Controller
             ->orderBy('id','desc')->first();
     }
     //update only balance
-    public function update_balance(Request $request,$id){
-        $input = $request->all();
-        $request->validate([
-            'balance' => 'required',
-        ]);
-        $update = Student::findOrFail($id);
-        $update->balance = $input['balance'];
-        $update->save();
-        return $update;
+    public function increment_due(Request $request){
+        Student::findOrFail($request['data']['id'])->increment('balance', $request['data']['due']);
+    }
+    public function decrement_due(Request $request){
+        Student::findOrFail($request['data']['id'])->decrement('balance', $request['data']['due']);
     }
     //destroy
     public function destroy($id){

@@ -50,6 +50,7 @@ const mutations = {
         state.invoice_extract = [];
         for (var i = 0; i < data.length; i ++){
             state.invoice_extract.push({
+                student_id     : data[i].student_id,
                 name           : data[i].students.name,
                 latin          : data[i].students.latin,
                 gender         : data[i].students.gender,
@@ -67,6 +68,7 @@ const mutations = {
     ADD_INVOICE:function (state, data) {
         // state.invoice_extract.unshift(data);
         state.invoice_extract.unshift({
+            student_id: data.student_id,
             name: data.students.name,
             latin: data.students.latin,
             balance: data.balance,

@@ -18,6 +18,20 @@ const actions = {
             }
         }
     },
+    async updateIncrementDue({commit}, data){
+        try {
+            const res = await axios.post(route('student.increment-due', {data}));
+        } catch (e) {
+            return false;
+        }
+    },
+    async updateDecrementDue({commit}, data){
+        try {
+            const res = await axios.post(route('student.decrement-due', {data}));
+        } catch (e) {
+            return false;
+        }
+    }
 };
 const mutations = {
     SET_PAYMENT:function (state,data) {

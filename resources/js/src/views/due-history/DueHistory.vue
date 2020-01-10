@@ -67,6 +67,7 @@
             return {
                 date_reduce_due: null,
                 pay_due: 0,
+                student_id: null,
                 desc: '',
                 invoice_id: null,
                 total_due: 0,
@@ -92,9 +93,11 @@
                 }
                 return str;
             },
-            async show(inv_id, due_bal){
+            async show(inv_id, due_bal, stu_id){
+                console.log(stu_id);
                 this.total_due = (-1) * due_bal;
                 this.invoice_id = inv_id;
+                this.student_id = stu_id;
                 this.$refs.due_history.open();
                 await this.$store.dispatch('fetchDueHistoryOnly', inv_id);
                 this.total_due -= this.get_SumRow;
@@ -105,6 +108,7 @@
                     self.$vs.loading({
                         type:'material',
                     });
+                    await self.$store.dispatch('updateIncrementDue', {id: self.student_id, due: self.pay_due});
                     await self.$store.dispatch('storeDueHistory', {
                         invoice_id: self.invoice_id, date_reduce_due: self.date_reduce_due,
                         pay_due: self.pay_due, desc: self.desc

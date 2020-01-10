@@ -4,81 +4,89 @@
             <div id="section-to-print">
                 <div class="height-30percent" v-for="(item, ii) in notification_infos" :key="ii">
                     <div class="vx-row">
-                        <div class="vx-col md:w-1/3 print:w-1/3">
-                            <img class="w-full print:w-full" style="height: 100px;" src="images/ponlok-khmer-header.jpg" alt="header">
-                        </div>
-                        <div class="vx-col md:w-1/3 print:w-1/3 text-center margin-top-30">
-                            <h2><u>ជំរាបជូន</u></h2>
+                        <div class="vx-col md:w-full print:w-full">
+                            <img class="w-full print:w-full" src="images/placeholder/notification-header.png" alt="header">
                         </div>
                     </div>
-                    <div class="vx-row">
+                    <div class="vx-row ml-2 mr-2">
                         <div class="vx-col">
                             <p class="line-height-25">
                                 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                                មាតា - បិតា ឬអាណាព្យាបាលសិស្សឈ្មោះ <b>{{item.name}}</b> ភេទ <b>{{item.gender}}</b> អោយបានជ្រាបថា៖
-                                ការបង់ប្រាក់ថ្លៃសិក្សរយៈពេល <b>{{item.last_term}}</b> ខែ នឹងត្រូវផុតកំណត់ត្រឹម
-                                ថ្ងៃទី <b>{{moment(item.date_pay).format('DD')}}</b> ខែ <b>{{moment(item.date_pay).format('MM')}}</b> ឆ្នាំ <b>{{moment(item.date_pay).format('YYYY')}}</b>
-                            </p>
-                            <p>
-                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                                ហេតុដូចនេះសូមគោរពអញ្ញើញ​ មាតា - បិតា ឬ អាណាព្យាបាលសិស្ស មកបង់ប្រាក់សិក្សាសំរាប់
-                                រយៈពេល <b>{{item.last_term}}</b> ខែ បន្ទាប់នៅថ្ងៃថ្ងៃទី <b>{{moment(item.date_pay).format('DD')}}</b> ខែ <b>{{moment(item.date_pay).format('MM')}}</b>
-                                ឆ្នាំ <b>{{moment(item.date_pay).format('YYYY')}}</b>។
+                                មាតា - បិតា ឬអាណាព្យាបាលសិស្សឈ្មោះ <b class="text-primary">{{item.name}}</b> ភេទ <b class="text-primary">{{item.gender}}</b> អោយបានជ្រាបថា៖
+                                ការបង់ប្រាក់ថ្លៃសិក្សរយៈពេល <b class="text-primary">{{item.last_term}}</b> ខែ នឹងត្រូវផុតកំណត់ត្រឹម
+                                ថ្ងៃទី <b class="text-primary">{{moment(item.date_pay).format('DD')}}</b> ខែ <b  class="text-primary">{{moment(item.date_pay).format('MM')}}</b>
+                                ឆ្នាំ <b class="text-primary">{{moment(item.date_pay).format('YYYY')}}</b>
+                                នេះហើយ។​ ហេតុដូចនេះសូមគោរពអញ្ញើញ​ មាតា - បិតា ឬអាណាព្យាបាលសិស្ស មកបង់ប្រាក់សិក្សាសម្រាប់ រយៈពេល
+                                <b class="text-primary">{{item.last_term}}</b> ខែ បន្ទាប់នៅថ្ងៃថ្ងៃទី
+                                <b class="text-primary">{{moment(item.date_pay).format('DD')}}</b> ខែ
+                                <b class="text-primary">{{moment(item.date_pay).format('MM')}}</b>
+                                ឆ្នាំ <b class="text-primary">{{moment(item.date_pay).format('YYYY')}}</b>។
                             </p>
                         </div>
                     </div>
-                    <div class="vx-row">
+                    <div class="vx-row  ml-2 mr-2">
                         <div class="vx-col w-full">
-                            <table class="custom">
-                                <tbody>
+                            <table class="custom_noti">
+                                <tbody class="text-primary">
                                 <tr>
-                                    <th class="custom">ល.រ</th>
-                                    <th class="custom">រាយមុខសេវាកម្ម</th>
-                                    <th class="custom">រយៈពេលបង់</th>
-                                    <th class="custom">ចំនួនទឹកប្រាក់</th>
-                                    <th class="custom">អ្នកទទូលបន្ទុក</th>
-                                    <th class="custom">ផុតកំណត់ត្រឹមថ្ងៃទី</th>
+                                    <th class="custom_noti">ល.រ</th>
+                                    <th class="custom_noti">សេវាកម្ម</th>
+                                    <th class="custom_noti">អ្នកទទូលបន្ទុក</th>
+                                    <th class="custom_noti">រយៈពេលបង់</th>
+                                    <th class="custom_noti">ផុតកំណត់ត្រឹមថ្ងៃទី</th>
+                                    <th class="custom_noti">ចំនួនទឹកប្រាក់</th>
                                 </tr>
                                 <tr v-if="study_infos[ii].length" v-for="(item_study, i) in study_infos[ii]" :key="'study'+i">
 
-                                    <td class="custom">{{i + 1}}</td>
-                                    <td class="custom">{{item_study.study_infos.group_section}}</td>
-                                    <td class="custom">{{item_study.last_term}}</td>
-                                    <td class="custom" v-if="item_study.last_term === 0">{{0}}</td>
-                                    <td class="custom" v-if="item_study.last_term === 1">{{item_study.study_infos.cost_one}}</td>
-                                    <td class="custom" v-if="item_study.last_term === 3">{{item_study.study_infos.cost_three}}</td>
-                                    <td class="custom" v-if="item_study.last_term === 6">{{item_study.study_infos.cost_six}}</td>
-                                    <td class="custom" v-if="item_study.last_term === 12">{{item_study.study_infos.cost_twelve}}</td>
-                                    <td class="custom">
+                                    <td class="custom_noti">{{i + 1}}</td>
+                                    <td class="custom_noti">
+                                        {{item_study.study_infos.group_section}}
+                                        {{item_study.study_infos.level}}
+                                        {{item_study.study_infos.class_name}}
+                                    </td>
+                                    <td class="custom_noti">
                                         {{item_study.study_infos.employees === null ? 'គ្មាន': item_study.study_infos.employees.kh_name}}
                                     </td>
-                                    <td class="custom">{{item_study.date_pay}}</td>
+
+                                    <td class="custom_noti">{{item_study.last_term}} ខែ</td>
+
+                                    <td class="custom_noti">{{item_study.date_pay}}</td>
+
+                                    <td class="custom_noti" v-if="item_study.last_term === 0">{{0}}</td>
+                                    <td class="custom_noti" v-if="item_study.last_term === 1">{{$formatter.format(item_study.study_infos.cost_one)}}</td>
+                                    <td class="custom_noti" v-if="item_study.last_term === 3">{{$formatter.format(item_study.study_infos.cost_three)}}</td>
+                                    <td class="custom_noti" v-if="item_study.last_term === 6">{{$formatter.format(item_study.study_infos.cost_six)}}</td>
+                                    <td class="custom_noti" v-if="item_study.last_term === 12">{{$formatter.format(item_study.study_infos.cost_twelve)}}</td>
                                 </tr>
                                 <tr v-if="service_infos[ii].length" v-for="(item_service, j) in service_infos[ii]" :key="'service'+j">
-                                    <td class="custom">{{study_infos[ii].length+j+1}}</td>
-                                    <td class="custom">{{item_service.services.service}}</td>
-                                    <td class="custom">{{item_service.last_term}}</td>
-                                    <td class="custom" v-if="item_service.last_term === 0">{{0}}</td>
-                                    <td class="custom" v-if="item_service.last_term === 1">{{item_service.services.cost_one}}</td>
-                                    <td class="custom" v-if="item_service.last_term === 3">{{item_service.services.cost_three}}</td>
-                                    <td class="custom" v-if="item_service.last_term === 6">{{item_service.services.cost_six}}</td>
-                                    <td class="custom" v-if="item_service.last_term === 12">{{item_service.services.cost_twelve}}</td>
-                                    <td class="custom">
+                                    <td class="custom_noti">{{study_infos[ii].length+j+1}}</td>
+                                    <td class="custom_noti">{{item_service.services.service}}</td>
+
+                                    <td class="custom_noti">
                                         {{item_service.services.employees === null ? 'គ្មាន': item_service.services.employees.kh_name}}
                                     </td>
-                                    <td class="custom">{{item_service.date_pay}}</td>
+
+                                    <td class="custom_noti">{{item_service.last_term}} ខែ</td>
+
+                                    <td class="custom_noti">{{item_service.date_pay}}</td>
+
+                                    <td class="custom_noti" v-if="item_service.last_term === 0">{{0}}</td>
+                                    <td class="custom_noti" v-if="item_service.last_term === 1">{{$formatter.format(item_service.services.cost_one)}}</td>
+                                    <td class="custom_noti" v-if="item_service.last_term === 3">{{$formatter.format(item_service.services.cost_three)}}</td>
+                                    <td class="custom_noti" v-if="item_service.last_term === 6">{{$formatter.format(item_service.services.cost_six)}}</td>
+                                    <td class="custom_noti" v-if="item_service.last_term === 12">{{$formatter.format(item_service.services.cost_twelve)}}</td>
                                 </tr>
                                 </tbody>
                                 <tfoot>
-                                <tr>
+                                <tr class="text-primary">
                                     <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td class="custom">
+                                    <td class="custom_noti">
                                         <b>ទឹកប្រាក់សរុប:</b>
                                     </td>
-                                    <td class="custom">
+                                    <td class="custom_noti">
                                          {{$formatter.format(parseFloat(total_price_study[ii] + parseFloat(total_price_service[ii])))}}
                                     </td>
                                 </tr>
@@ -93,7 +101,7 @@
                                 </tr>
                                 <tr>
                                     <td class="pt-3" colspan="4">
-                                        (<b class="text-danger">សូមយកបង្កាន់ដៃបង់ប្រាក់លើកមុនមកជាមួយផង</b>) សូមអរគុណ។
+                                        <b class="text-danger">បញ្ចាក់៖</b> ការបង់ប្រាក់លើកចុងក្រោយនៅខ្វះចំនួន {{$formatter.format(item.balance)}}។
                                     </td>
                                     <td class="text-center" colspan="3">
                                         ទីចាត់ការសាលា
@@ -208,9 +216,9 @@
 
 <style scoped>
     .line-height-25 {
-        line-height: 25px;
+        line-height: 18px;
     }
     .height-30percent {
-        height: 400px;
+        height: 420px;
     }
 </style>

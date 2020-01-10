@@ -345,6 +345,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "PrintInvoice",
@@ -791,7 +799,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           cost_six: data.study_infos.cost_six,
           cost_twelve: data.study_infos.cost_twelve,
           service_infos: [],
-          day_left: day_pay.diff(to_day, 'days')
+          day_left: day_pay.diff(to_day, 'days'),
+          balance: data.students.balance
         };
       });
     }
@@ -812,7 +821,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, ".line-height-25[data-v-7fe52854] {\n  line-height: 25px;\n}\n.height-30percent[data-v-7fe52854] {\n  height: 400px;\n}\n", ""]);
+exports.push([module.i, ".line-height-25[data-v-7fe52854] {\n  line-height: 18px;\n}\n.height-30percent[data-v-7fe52854] {\n  height: 420px;\n}\n", ""]);
 
 // exports
 
@@ -1173,71 +1182,68 @@ var render = function() {
             _vm._l(_vm.notification_infos, function(item, ii) {
               return _c("div", { key: ii, staticClass: "height-30percent" }, [
                 _c("div", { staticClass: "vx-row" }, [
-                  _c("div", { staticClass: "vx-col md:w-1/3 print:w-1/3" }, [
+                  _c("div", { staticClass: "vx-col md:w-full print:w-full" }, [
                     _c("img", {
                       staticClass: "w-full print:w-full",
-                      staticStyle: { height: "100px" },
                       attrs: {
-                        src: "images/ponlok-khmer-header.jpg",
+                        src: "images/placeholder/notification-header.png",
                         alt: "header"
                       }
                     })
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "vx-col md:w-1/3 print:w-1/3 text-center margin-top-30"
-                    },
-                    [_c("h2", [_c("u", [_vm._v("ជំរាបជូន")])])]
-                  )
+                  ])
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "vx-row" }, [
+                _c("div", { staticClass: "vx-row ml-2 mr-2" }, [
                   _c("div", { staticClass: "vx-col" }, [
                     _c("p", { staticClass: "line-height-25" }, [
                       _vm._v(
                         "\n                                           \n                            មាតា - បិតា ឬអាណាព្យាបាលសិស្សឈ្មោះ "
                       ),
-                      _c("b", [_vm._v(_vm._s(item.name))]),
+                      _c("b", { staticClass: "text-primary" }, [
+                        _vm._v(_vm._s(item.name))
+                      ]),
                       _vm._v(" ភេទ "),
-                      _c("b", [_vm._v(_vm._s(item.gender))]),
+                      _c("b", { staticClass: "text-primary" }, [
+                        _vm._v(_vm._s(item.gender))
+                      ]),
                       _vm._v(
                         " អោយបានជ្រាបថា៖\n                            ការបង់ប្រាក់ថ្លៃសិក្សរយៈពេល "
                       ),
-                      _c("b", [_vm._v(_vm._s(item.last_term))]),
+                      _c("b", { staticClass: "text-primary" }, [
+                        _vm._v(_vm._s(item.last_term))
+                      ]),
                       _vm._v(
                         " ខែ នឹងត្រូវផុតកំណត់ត្រឹម\n                            ថ្ងៃទី "
                       ),
-                      _c("b", [
+                      _c("b", { staticClass: "text-primary" }, [
                         _vm._v(_vm._s(_vm.moment(item.date_pay).format("DD")))
                       ]),
                       _vm._v(" ខែ "),
-                      _c("b", [
-                        _vm._v(_vm._s(_vm.moment(item.date_pay).format("MM")))
-                      ]),
-                      _vm._v(" ឆ្នាំ "),
-                      _c("b", [
-                        _vm._v(_vm._s(_vm.moment(item.date_pay).format("YYYY")))
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "\n                                           \n                            ហេតុដូចនេះសូមគោរពអញ្ញើញ​ មាតា - បិតា ឬ អាណាព្យាបាលសិស្ស មកបង់ប្រាក់សិក្សាសំរាប់\n                            រយៈពេល "
-                      ),
-                      _c("b", [_vm._v(_vm._s(item.last_term))]),
-                      _vm._v(" ខែ បន្ទាប់នៅថ្ងៃថ្ងៃទី "),
-                      _c("b", [
-                        _vm._v(_vm._s(_vm.moment(item.date_pay).format("DD")))
-                      ]),
-                      _vm._v(" ខែ "),
-                      _c("b", [
+                      _c("b", { staticClass: "text-primary" }, [
                         _vm._v(_vm._s(_vm.moment(item.date_pay).format("MM")))
                       ]),
                       _vm._v("\n                            ឆ្នាំ "),
-                      _c("b", [
+                      _c("b", { staticClass: "text-primary" }, [
+                        _vm._v(_vm._s(_vm.moment(item.date_pay).format("YYYY")))
+                      ]),
+                      _vm._v(
+                        "\n                            នេះហើយ។​ ហេតុដូចនេះសូមគោរពអញ្ញើញ​ មាតា - បិតា ឬអាណាព្យាបាលសិស្ស មកបង់ប្រាក់សិក្សាសម្រាប់ រយៈពេល\n                            "
+                      ),
+                      _c("b", { staticClass: "text-primary" }, [
+                        _vm._v(_vm._s(item.last_term))
+                      ]),
+                      _vm._v(
+                        " ខែ បន្ទាប់នៅថ្ងៃថ្ងៃទី\n                            "
+                      ),
+                      _c("b", { staticClass: "text-primary" }, [
+                        _vm._v(_vm._s(_vm.moment(item.date_pay).format("DD")))
+                      ]),
+                      _vm._v(" ខែ\n                            "),
+                      _c("b", { staticClass: "text-primary" }, [
+                        _vm._v(_vm._s(_vm.moment(item.date_pay).format("MM")))
+                      ]),
+                      _vm._v("\n                            ឆ្នាំ "),
+                      _c("b", { staticClass: "text-primary" }, [
                         _vm._v(_vm._s(_vm.moment(item.date_pay).format("YYYY")))
                       ]),
                       _vm._v("។\n                        ")
@@ -1245,104 +1251,63 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "vx-row" }, [
+                _c("div", { staticClass: "vx-row  ml-2 mr-2" }, [
                   _c("div", { staticClass: "vx-col w-full" }, [
-                    _c("table", { staticClass: "custom" }, [
+                    _c("table", { staticClass: "custom_noti" }, [
                       _c(
                         "tbody",
+                        { staticClass: "text-primary" },
                         [
                           _c("tr", [
-                            _c("th", { staticClass: "custom" }, [
+                            _c("th", { staticClass: "custom_noti" }, [
                               _vm._v("ល.រ")
                             ]),
                             _vm._v(" "),
-                            _c("th", { staticClass: "custom" }, [
-                              _vm._v("រាយមុខសេវាកម្ម")
+                            _c("th", { staticClass: "custom_noti" }, [
+                              _vm._v("សេវាកម្ម")
                             ]),
                             _vm._v(" "),
-                            _c("th", { staticClass: "custom" }, [
-                              _vm._v("រយៈពេលបង់")
-                            ]),
-                            _vm._v(" "),
-                            _c("th", { staticClass: "custom" }, [
-                              _vm._v("ចំនួនទឹកប្រាក់")
-                            ]),
-                            _vm._v(" "),
-                            _c("th", { staticClass: "custom" }, [
+                            _c("th", { staticClass: "custom_noti" }, [
                               _vm._v("អ្នកទទូលបន្ទុក")
                             ]),
                             _vm._v(" "),
-                            _c("th", { staticClass: "custom" }, [
+                            _c("th", { staticClass: "custom_noti" }, [
+                              _vm._v("រយៈពេលបង់")
+                            ]),
+                            _vm._v(" "),
+                            _c("th", { staticClass: "custom_noti" }, [
                               _vm._v("ផុតកំណត់ត្រឹមថ្ងៃទី")
+                            ]),
+                            _vm._v(" "),
+                            _c("th", { staticClass: "custom_noti" }, [
+                              _vm._v("ចំនួនទឹកប្រាក់")
                             ])
                           ]),
                           _vm._v(" "),
                           _vm._l(_vm.study_infos[ii], function(item_study, i) {
                             return _vm.study_infos[ii].length
                               ? _c("tr", { key: "study" + i }, [
-                                  _c("td", { staticClass: "custom" }, [
+                                  _c("td", { staticClass: "custom_noti" }, [
                                     _vm._v(_vm._s(i + 1))
                                   ]),
                                   _vm._v(" "),
-                                  _c("td", { staticClass: "custom" }, [
+                                  _c("td", { staticClass: "custom_noti" }, [
                                     _vm._v(
-                                      _vm._s(
-                                        item_study.study_infos.group_section
-                                      )
+                                      "\n                                    " +
+                                        _vm._s(
+                                          item_study.study_infos.group_section
+                                        ) +
+                                        "\n                                    " +
+                                        _vm._s(item_study.study_infos.level) +
+                                        "\n                                    " +
+                                        _vm._s(
+                                          item_study.study_infos.class_name
+                                        ) +
+                                        "\n                                "
                                     )
                                   ]),
                                   _vm._v(" "),
-                                  _c("td", { staticClass: "custom" }, [
-                                    _vm._v(_vm._s(item_study.last_term))
-                                  ]),
-                                  _vm._v(" "),
-                                  item_study.last_term === 0
-                                    ? _c("td", { staticClass: "custom" }, [
-                                        _vm._v(_vm._s(0))
-                                      ])
-                                    : _vm._e(),
-                                  _vm._v(" "),
-                                  item_study.last_term === 1
-                                    ? _c("td", { staticClass: "custom" }, [
-                                        _vm._v(
-                                          _vm._s(
-                                            item_study.study_infos.cost_one
-                                          )
-                                        )
-                                      ])
-                                    : _vm._e(),
-                                  _vm._v(" "),
-                                  item_study.last_term === 3
-                                    ? _c("td", { staticClass: "custom" }, [
-                                        _vm._v(
-                                          _vm._s(
-                                            item_study.study_infos.cost_three
-                                          )
-                                        )
-                                      ])
-                                    : _vm._e(),
-                                  _vm._v(" "),
-                                  item_study.last_term === 6
-                                    ? _c("td", { staticClass: "custom" }, [
-                                        _vm._v(
-                                          _vm._s(
-                                            item_study.study_infos.cost_six
-                                          )
-                                        )
-                                      ])
-                                    : _vm._e(),
-                                  _vm._v(" "),
-                                  item_study.last_term === 12
-                                    ? _c("td", { staticClass: "custom" }, [
-                                        _vm._v(
-                                          _vm._s(
-                                            item_study.study_infos.cost_twelve
-                                          )
-                                        )
-                                      ])
-                                    : _vm._e(),
-                                  _vm._v(" "),
-                                  _c("td", { staticClass: "custom" }, [
+                                  _c("td", { staticClass: "custom_noti" }, [
                                     _vm._v(
                                       "\n                                    " +
                                         _vm._s(
@@ -1356,9 +1321,67 @@ var render = function() {
                                     )
                                   ]),
                                   _vm._v(" "),
-                                  _c("td", { staticClass: "custom" }, [
+                                  _c("td", { staticClass: "custom_noti" }, [
+                                    _vm._v(_vm._s(item_study.last_term) + " ខែ")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", { staticClass: "custom_noti" }, [
                                     _vm._v(_vm._s(item_study.date_pay))
-                                  ])
+                                  ]),
+                                  _vm._v(" "),
+                                  item_study.last_term === 0
+                                    ? _c("td", { staticClass: "custom_noti" }, [
+                                        _vm._v(_vm._s(0))
+                                      ])
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  item_study.last_term === 1
+                                    ? _c("td", { staticClass: "custom_noti" }, [
+                                        _vm._v(
+                                          _vm._s(
+                                            _vm.$formatter.format(
+                                              item_study.study_infos.cost_one
+                                            )
+                                          )
+                                        )
+                                      ])
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  item_study.last_term === 3
+                                    ? _c("td", { staticClass: "custom_noti" }, [
+                                        _vm._v(
+                                          _vm._s(
+                                            _vm.$formatter.format(
+                                              item_study.study_infos.cost_three
+                                            )
+                                          )
+                                        )
+                                      ])
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  item_study.last_term === 6
+                                    ? _c("td", { staticClass: "custom_noti" }, [
+                                        _vm._v(
+                                          _vm._s(
+                                            _vm.$formatter.format(
+                                              item_study.study_infos.cost_six
+                                            )
+                                          )
+                                        )
+                                      ])
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  item_study.last_term === 12
+                                    ? _c("td", { staticClass: "custom_noti" }, [
+                                        _vm._v(
+                                          _vm._s(
+                                            _vm.$formatter.format(
+                                              item_study.study_infos.cost_twelve
+                                            )
+                                          )
+                                        )
+                                      ])
+                                    : _vm._e()
                                 ])
                               : _vm._e()
                           }),
@@ -1369,65 +1392,19 @@ var render = function() {
                           ) {
                             return _vm.service_infos[ii].length
                               ? _c("tr", { key: "service" + j }, [
-                                  _c("td", { staticClass: "custom" }, [
+                                  _c("td", { staticClass: "custom_noti" }, [
                                     _vm._v(
                                       _vm._s(_vm.study_infos[ii].length + j + 1)
                                     )
                                   ]),
                                   _vm._v(" "),
-                                  _c("td", { staticClass: "custom" }, [
+                                  _c("td", { staticClass: "custom_noti" }, [
                                     _vm._v(
                                       _vm._s(item_service.services.service)
                                     )
                                   ]),
                                   _vm._v(" "),
-                                  _c("td", { staticClass: "custom" }, [
-                                    _vm._v(_vm._s(item_service.last_term))
-                                  ]),
-                                  _vm._v(" "),
-                                  item_service.last_term === 0
-                                    ? _c("td", { staticClass: "custom" }, [
-                                        _vm._v(_vm._s(0))
-                                      ])
-                                    : _vm._e(),
-                                  _vm._v(" "),
-                                  item_service.last_term === 1
-                                    ? _c("td", { staticClass: "custom" }, [
-                                        _vm._v(
-                                          _vm._s(item_service.services.cost_one)
-                                        )
-                                      ])
-                                    : _vm._e(),
-                                  _vm._v(" "),
-                                  item_service.last_term === 3
-                                    ? _c("td", { staticClass: "custom" }, [
-                                        _vm._v(
-                                          _vm._s(
-                                            item_service.services.cost_three
-                                          )
-                                        )
-                                      ])
-                                    : _vm._e(),
-                                  _vm._v(" "),
-                                  item_service.last_term === 6
-                                    ? _c("td", { staticClass: "custom" }, [
-                                        _vm._v(
-                                          _vm._s(item_service.services.cost_six)
-                                        )
-                                      ])
-                                    : _vm._e(),
-                                  _vm._v(" "),
-                                  item_service.last_term === 12
-                                    ? _c("td", { staticClass: "custom" }, [
-                                        _vm._v(
-                                          _vm._s(
-                                            item_service.services.cost_twelve
-                                          )
-                                        )
-                                      ])
-                                    : _vm._e(),
-                                  _vm._v(" "),
-                                  _c("td", { staticClass: "custom" }, [
+                                  _c("td", { staticClass: "custom_noti" }, [
                                     _vm._v(
                                       "\n                                    " +
                                         _vm._s(
@@ -1441,9 +1418,69 @@ var render = function() {
                                     )
                                   ]),
                                   _vm._v(" "),
-                                  _c("td", { staticClass: "custom" }, [
+                                  _c("td", { staticClass: "custom_noti" }, [
+                                    _vm._v(
+                                      _vm._s(item_service.last_term) + " ខែ"
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", { staticClass: "custom_noti" }, [
                                     _vm._v(_vm._s(item_service.date_pay))
-                                  ])
+                                  ]),
+                                  _vm._v(" "),
+                                  item_service.last_term === 0
+                                    ? _c("td", { staticClass: "custom_noti" }, [
+                                        _vm._v(_vm._s(0))
+                                      ])
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  item_service.last_term === 1
+                                    ? _c("td", { staticClass: "custom_noti" }, [
+                                        _vm._v(
+                                          _vm._s(
+                                            _vm.$formatter.format(
+                                              item_service.services.cost_one
+                                            )
+                                          )
+                                        )
+                                      ])
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  item_service.last_term === 3
+                                    ? _c("td", { staticClass: "custom_noti" }, [
+                                        _vm._v(
+                                          _vm._s(
+                                            _vm.$formatter.format(
+                                              item_service.services.cost_three
+                                            )
+                                          )
+                                        )
+                                      ])
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  item_service.last_term === 6
+                                    ? _c("td", { staticClass: "custom_noti" }, [
+                                        _vm._v(
+                                          _vm._s(
+                                            _vm.$formatter.format(
+                                              item_service.services.cost_six
+                                            )
+                                          )
+                                        )
+                                      ])
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  item_service.last_term === 12
+                                    ? _c("td", { staticClass: "custom_noti" }, [
+                                        _vm._v(
+                                          _vm._s(
+                                            _vm.$formatter.format(
+                                              item_service.services.cost_twelve
+                                            )
+                                          )
+                                        )
+                                      ])
+                                    : _vm._e()
                                 ])
                               : _vm._e()
                           })
@@ -1452,7 +1489,7 @@ var render = function() {
                       ),
                       _vm._v(" "),
                       _c("tfoot", [
-                        _c("tr", [
+                        _c("tr", { staticClass: "text-primary" }, [
                           _c("td"),
                           _vm._v(" "),
                           _c("td"),
@@ -1461,11 +1498,11 @@ var render = function() {
                           _vm._v(" "),
                           _c("td"),
                           _vm._v(" "),
-                          _c("td", { staticClass: "custom" }, [
+                          _c("td", { staticClass: "custom_noti" }, [
                             _c("b", [_vm._v("ទឹកប្រាក់សរុប:")])
                           ]),
                           _vm._v(" "),
-                          _c("td", { staticClass: "custom" }, [
+                          _c("td", { staticClass: "custom_noti" }, [
                             _vm._v(
                               "\n                                     " +
                                 _vm._s(
@@ -1517,12 +1554,13 @@ var render = function() {
                             "td",
                             { staticClass: "pt-3", attrs: { colspan: "4" } },
                             [
-                              _vm._v("\n                                    ("),
                               _c("b", { staticClass: "text-danger" }, [
-                                _vm._v("សូមយកបង្កាន់ដៃបង់ប្រាក់លើកមុនមកជាមួយផង")
+                                _vm._v("បញ្ចាក់៖")
                               ]),
                               _vm._v(
-                                ") សូមអរគុណ។\n                                "
+                                " ការបង់ប្រាក់លើកចុងក្រោយនៅខ្វះចំនួន " +
+                                  _vm._s(_vm.$formatter.format(item.balance)) +
+                                  "។\n                                "
                               )
                             ]
                           ),

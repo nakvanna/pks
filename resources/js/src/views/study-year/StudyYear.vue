@@ -184,6 +184,7 @@
                         cost_twelve   : data.study_infos.cost_twelve,
                         service_infos : [],
                         day_left      : day_pay.diff(to_day, 'days'),
+                        balance       : data.students.balance,
                     }
                 })
             }

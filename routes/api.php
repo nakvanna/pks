@@ -35,6 +35,8 @@ Route::resource('/employee','EmployeeController');
 Route::post('/employee-json','EmployeeController@json')->name('employee.json');
 Route::resource('/student','StudentController');
 Route::delete('/student-delete/{id}','StudentController@delete')->name('student.delete');
+Route::post('/student-increment-due','StudentController@increment_due')->name('student.increment-due');
+Route::post('/student-decrement-due','StudentController@decrement_due')->name('student.decrement-due');
 Route::resource('/user','UserController');
 Route::post('/user-json','UserController@json')->name('user.json');
 Route::post('/student-json','StudentController@json')->name('student.json');
