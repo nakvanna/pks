@@ -13,11 +13,11 @@
                             <p class="line-height-25">
                                 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                                 មាតា - បិតា ឬអាណាព្យាបាលសិស្សឈ្មោះ <b class="text-primary">{{item.name}}</b> ភេទ <b class="text-primary">{{item.gender}}</b> អោយបានជ្រាបថា៖
-                                ការបង់ប្រាក់ថ្លៃសិក្សរយៈពេល <b class="text-primary">{{item.last_term}}</b> ខែ នឹងត្រូវផុតកំណត់ត្រឹម
+                                ការបង់ប្រាក់ថ្លៃសិក្សារយៈពេល <b class="text-primary">{{item.last_term}}</b> ខែ នឹងត្រូវផុតកំណត់ត្រឹម
                                 ថ្ងៃទី <b class="text-primary">{{moment(item.date_pay).format('DD')}}</b> ខែ <b  class="text-primary">{{moment(item.date_pay).format('MM')}}</b>
                                 ឆ្នាំ <b class="text-primary">{{moment(item.date_pay).format('YYYY')}}</b>
-                                នេះហើយ។​ ហេតុដូចនេះសូមគោរពអញ្ញើញ​ មាតា - បិតា ឬអាណាព្យាបាលសិស្ស មកបង់ប្រាក់សិក្សាសម្រាប់ រយៈពេល
-                                <b class="text-primary">{{item.last_term}}</b> ខែ បន្ទាប់នៅថ្ងៃថ្ងៃទី
+                                នេះហើយ។​ ហេតុដូចនេះសូមគោរពអញ្ជើញ​ មាតា - បិតា ឬអាណាព្យាបាលសិស្ស មកបង់ប្រាក់សិក្សាសម្រាប់ រយៈពេល
+                                <b class="text-primary">{{item.last_term}}</b> ខែ បន្ទាប់នៅថ្ងៃទី
                                 <b class="text-primary">{{moment(item.date_pay).format('DD')}}</b> ខែ
                                 <b class="text-primary">{{moment(item.date_pay).format('MM')}}</b>
                                 ឆ្នាំ <b class="text-primary">{{moment(item.date_pay).format('YYYY')}}</b>។
@@ -50,7 +50,7 @@
 
                                     <td class="custom_noti">{{item_study.last_term}} ខែ</td>
 
-                                    <td class="custom_noti">{{item_study.date_pay}}</td>
+                                    <td class="custom_noti">{{moment(item_study.date_pay).format('DD-MM-YYYY')}}</td>
 
                                     <td class="custom_noti" v-if="item_study.last_term === 0">{{0}}</td>
                                     <td class="custom_noti" v-if="item_study.last_term === 1">{{$formatter.format(item_study.study_infos.cost_one)}}</td>
@@ -68,7 +68,7 @@
 
                                     <td class="custom_noti">{{item_service.last_term}} ខែ</td>
 
-                                    <td class="custom_noti">{{item_service.date_pay}}</td>
+                                    <td class="custom_noti">{{moment(item_service.date_pay).format('DD-MM-YYYY')}}</td>
 
                                     <td class="custom_noti" v-if="item_service.last_term === 0">{{0}}</td>
                                     <td class="custom_noti" v-if="item_service.last_term === 1">{{$formatter.format(item_service.services.cost_one)}}</td>
@@ -101,7 +101,7 @@
                                 </tr>
                                 <tr>
                                     <td class="pt-3" colspan="4">
-                                        <b class="text-danger">បញ្ចាក់៖</b> ការបង់ប្រាក់លើកចុងក្រោយនៅខ្វះចំនួន {{$formatter.format(item.balance)}}។
+                                        <b class="text-danger">បញ្ជាក់៖</b> ការបង់ប្រាក់លើកចុងក្រោយនៅខ្វះចំនួន {{$formatter.format(item.balance)}}។
                                     </td>
                                     <td class="text-center" colspan="3">
                                         ទីចាត់ការសាលា

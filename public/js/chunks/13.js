@@ -1207,7 +1207,7 @@ var render = function() {
                         _vm._v(_vm._s(item.gender))
                       ]),
                       _vm._v(
-                        " អោយបានជ្រាបថា៖\n                            ការបង់ប្រាក់ថ្លៃសិក្សរយៈពេល "
+                        " អោយបានជ្រាបថា៖\n                            ការបង់ប្រាក់ថ្លៃសិក្សារយៈពេល "
                       ),
                       _c("b", { staticClass: "text-primary" }, [
                         _vm._v(_vm._s(item.last_term))
@@ -1227,13 +1227,13 @@ var render = function() {
                         _vm._v(_vm._s(_vm.moment(item.date_pay).format("YYYY")))
                       ]),
                       _vm._v(
-                        "\n                            នេះហើយ។​ ហេតុដូចនេះសូមគោរពអញ្ញើញ​ មាតា - បិតា ឬអាណាព្យាបាលសិស្ស មកបង់ប្រាក់សិក្សាសម្រាប់ រយៈពេល\n                            "
+                        "\n                            នេះហើយ។​ ហេតុដូចនេះសូមគោរពអញ្ជើញ​ មាតា - បិតា ឬអាណាព្យាបាលសិស្ស មកបង់ប្រាក់សិក្សាសម្រាប់ រយៈពេល\n                            "
                       ),
                       _c("b", { staticClass: "text-primary" }, [
                         _vm._v(_vm._s(item.last_term))
                       ]),
                       _vm._v(
-                        " ខែ បន្ទាប់នៅថ្ងៃថ្ងៃទី\n                            "
+                        " ខែ បន្ទាប់នៅថ្ងៃទី\n                            "
                       ),
                       _c("b", { staticClass: "text-primary" }, [
                         _vm._v(_vm._s(_vm.moment(item.date_pay).format("DD")))
@@ -1326,7 +1326,13 @@ var render = function() {
                                   ]),
                                   _vm._v(" "),
                                   _c("td", { staticClass: "custom_noti" }, [
-                                    _vm._v(_vm._s(item_study.date_pay))
+                                    _vm._v(
+                                      _vm._s(
+                                        _vm
+                                          .moment(item_study.date_pay)
+                                          .format("DD-MM-YYYY")
+                                      )
+                                    )
                                   ]),
                                   _vm._v(" "),
                                   item_study.last_term === 0
@@ -1425,7 +1431,13 @@ var render = function() {
                                   ]),
                                   _vm._v(" "),
                                   _c("td", { staticClass: "custom_noti" }, [
-                                    _vm._v(_vm._s(item_service.date_pay))
+                                    _vm._v(
+                                      _vm._s(
+                                        _vm
+                                          .moment(item_service.date_pay)
+                                          .format("DD-MM-YYYY")
+                                      )
+                                    )
                                   ]),
                                   _vm._v(" "),
                                   item_service.last_term === 0
@@ -1555,7 +1567,7 @@ var render = function() {
                             { staticClass: "pt-3", attrs: { colspan: "4" } },
                             [
                               _c("b", { staticClass: "text-danger" }, [
-                                _vm._v("បញ្ចាក់៖")
+                                _vm._v("បញ្ជាក់៖")
                               ]),
                               _vm._v(
                                 " ការបង់ប្រាក់លើកចុងក្រោយនៅខ្វះចំនួន " +
