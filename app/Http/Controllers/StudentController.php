@@ -111,7 +111,10 @@ class StudentController extends Controller
         $toggle = Student::findOrFail($id);
         $toggle->status = !$toggle->status;
         $toggle->save();
-        return $toggle;
+        return Student::with('report_study_info')
+            ->with('report_service_info')
+            ->where('id',$toggle->id)
+            ->first();
     }
     //delete
     public function delete($id){

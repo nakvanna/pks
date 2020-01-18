@@ -60,15 +60,17 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var ag_grid_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ag-grid-vue */ "./node_modules/ag-grid-vue/main.js");
-/* harmony import */ var ag_grid_vue__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(ag_grid_vue__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _sass_vuexy_extraComponents_agGridStyleOverride_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @sass/vuexy/extraComponents/agGridStyleOverride.scss */ "./resources/sass/vuexy/extraComponents/agGridStyleOverride.scss");
-/* harmony import */ var _sass_vuexy_extraComponents_agGridStyleOverride_scss__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_sass_vuexy_extraComponents_agGridStyleOverride_scss__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _addStudent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./addStudent */ "./resources/js/src/views/student/addStudent.vue");
-/* harmony import */ var _editStudent__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./editStudent */ "./resources/js/src/views/student/editStudent.vue");
-/* harmony import */ var _addStudyInfo__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./addStudyInfo */ "./resources/js/src/views/student/addStudyInfo.vue");
-/* harmony import */ var _addServiceInfo__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./addServiceInfo */ "./resources/js/src/views/student/addServiceInfo.vue");
-/* harmony import */ var _PrintStudentInfo__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./PrintStudentInfo */ "./resources/js/src/views/student/PrintStudentInfo.vue");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var ag_grid_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ag-grid-vue */ "./node_modules/ag-grid-vue/main.js");
+/* harmony import */ var ag_grid_vue__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(ag_grid_vue__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _sass_vuexy_extraComponents_agGridStyleOverride_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @sass/vuexy/extraComponents/agGridStyleOverride.scss */ "./resources/sass/vuexy/extraComponents/agGridStyleOverride.scss");
+/* harmony import */ var _sass_vuexy_extraComponents_agGridStyleOverride_scss__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_sass_vuexy_extraComponents_agGridStyleOverride_scss__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _addStudent__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./addStudent */ "./resources/js/src/views/student/addStudent.vue");
+/* harmony import */ var _editStudent__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./editStudent */ "./resources/js/src/views/student/editStudent.vue");
+/* harmony import */ var _addStudyInfo__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./addStudyInfo */ "./resources/js/src/views/student/addStudyInfo.vue");
+/* harmony import */ var _addServiceInfo__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./addServiceInfo */ "./resources/js/src/views/student/addServiceInfo.vue");
+/* harmony import */ var _PrintStudentInfo__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./PrintStudentInfo */ "./resources/js/src/views/student/PrintStudentInfo.vue");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -159,15 +161,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
+
+var statusComponent = vue__WEBPACK_IMPORTED_MODULE_1___default.a.extend({
+  template: '<vs-chip transparent style="height: 10px; margin-top: 10px;" :color="com_method()?\'success\':\'warning\'">\n' + '            {{com_method()?\'កំពុងរៀន\':\'បានឈប់រៀន\'}}\n' + '        </vs-chip>',
+  methods: {
+    com_method: function com_method() {
+      return this.params.data.status;
+    }
+  }
+});
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Student",
   components: {
-    PrintStudentInfo: _PrintStudentInfo__WEBPACK_IMPORTED_MODULE_7__["default"],
-    AddServiceInfo: _addServiceInfo__WEBPACK_IMPORTED_MODULE_6__["default"],
-    AddStudyInfo: _addStudyInfo__WEBPACK_IMPORTED_MODULE_5__["default"],
-    EditStudent: _editStudent__WEBPACK_IMPORTED_MODULE_4__["default"],
-    AddStudent: _addStudent__WEBPACK_IMPORTED_MODULE_3__["default"],
-    AgGridVue: ag_grid_vue__WEBPACK_IMPORTED_MODULE_1__["AgGridVue"]
+    PrintStudentInfo: _PrintStudentInfo__WEBPACK_IMPORTED_MODULE_8__["default"],
+    AddServiceInfo: _addServiceInfo__WEBPACK_IMPORTED_MODULE_7__["default"],
+    AddStudyInfo: _addStudyInfo__WEBPACK_IMPORTED_MODULE_6__["default"],
+    EditStudent: _editStudent__WEBPACK_IMPORTED_MODULE_5__["default"],
+    AddStudent: _addStudent__WEBPACK_IMPORTED_MODULE_4__["default"],
+    AgGridVue: ag_grid_vue__WEBPACK_IMPORTED_MODULE_2__["AgGridVue"]
   },
   data: function data() {
     return {
@@ -206,7 +217,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         field: 'address'
       }, {
         headerName: 'ស្ថានភាព',
-        field: 'status'
+        field: 'status',
+        cellRendererFramework: statusComponent
       }, {
         headerName: 'ថ្នាក់បណ្តុះអាសន្ន',
         field: 'temp_grade'
@@ -290,7 +302,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         color: 'warning',
         title: 'Make active/inactive\'s status?',
         text: 'ចុចពាក្យ Accept ដើម្បីយល់ព្រម!',
-        accept: this.deleteStudent
+        accept: this.toggleStudent
       });
     },
     toggleStudent: function () {
