@@ -196,6 +196,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         headerName: 'ទំនាក់ទំនង',
         field: 'std_contact'
       }, {
+        headerName: 'ទំនាក់ទំនងឪពុក',
+        field: 'father_contact'
+      }, {
+        headerName: 'ទំនាក់ទំនងម្តាយ',
+        field: 'mother_contact'
+      }, {
         headerName: 'អាស័យដ្ឋានបច្ចុប្បន្ន',
         field: 'address'
       }, {

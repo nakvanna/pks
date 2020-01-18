@@ -102,6 +102,8 @@
                     {headerName: 'ឈ្មោះឡាតាំង', field: 'latin'},
                     {headerName: 'ថ្ងៃខែឆ្នាំកំណើត', field: 'dob'},
                     {headerName: 'ទំនាក់ទំនង', field: 'std_contact'},
+                    {headerName: 'ទំនាក់ទំនងឪពុក', field: 'father_contact'},
+                    {headerName: 'ទំនាក់ទំនងម្តាយ', field: 'mother_contact'},
                     {headerName: 'អាស័យដ្ឋានបច្ចុប្បន្ន', field: 'address'},
                     {headerName: 'ស្ថានភាព', field: 'status'},
                     {headerName: 'ថ្នាក់បណ្តុះអាសន្ន', field: 'temp_grade'},
