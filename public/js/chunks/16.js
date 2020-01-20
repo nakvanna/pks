@@ -1929,33 +1929,33 @@ var render = function() {
                     [
                       _c("vs-td", { attrs: { data: data[indextr].kh_name } }, [
                         _vm._v(
-                          "\n                    " +
+                          "\n                        " +
                             _vm._s(data[indextr].kh_name) +
-                            "\n                "
+                            "\n                    "
                         )
                       ]),
                       _vm._v(" "),
                       _c("vs-td", { attrs: { data: data[indextr].en_name } }, [
                         _vm._v(
-                          "\n                    " +
+                          "\n                        " +
                             _vm._s(data[indextr].en_name) +
-                            "\n                "
+                            "\n                    "
                         )
                       ]),
                       _vm._v(" "),
                       _c("vs-td", { attrs: { data: data[indextr].gender } }, [
                         _vm._v(
-                          "\n                    " +
+                          "\n                        " +
                             _vm._s(data[indextr].gender) +
-                            "\n                "
+                            "\n                    "
                         )
                       ]),
                       _vm._v(" "),
                       _c("vs-td", { attrs: { data: data[indextr].position } }, [
                         _vm._v(
-                          "\n                    " +
+                          "\n                        " +
                             _vm._s(data[indextr].position) +
-                            "\n                "
+                            "\n                    "
                         )
                       ]),
                       _vm._v(" "),
@@ -1964,9 +1964,9 @@ var render = function() {
                         { attrs: { data: data[indextr].degree_note } },
                         [
                           _vm._v(
-                            "\n                    " +
+                            "\n                        " +
                               _vm._s(data[indextr].degree_note) +
-                              "\n                "
+                              "\n                    "
                           )
                         ]
                       ),
@@ -1976,18 +1976,18 @@ var render = function() {
                         { attrs: { data: data[indextr].start_work } },
                         [
                           _vm._v(
-                            "\n                    " +
+                            "\n                        " +
                               _vm._s(data[indextr].start_work) +
-                              "\n                "
+                              "\n                    "
                           )
                         ]
                       ),
                       _vm._v(" "),
                       _c("vs-td", { attrs: { data: data[indextr].contact } }, [
                         _vm._v(
-                          "\n                    " +
+                          "\n                        " +
                             _vm._s(data[indextr].contact) +
-                            "\n                "
+                            "\n                    "
                         )
                       ])
                     ],

@@ -4,51 +4,51 @@
         <Create ref="createEmployee"></Create>
        <!--Create popup-->
         <vs-divider/>
-        <vs-table multiple v-model="selected" pagination max-items="5" search :data="getEmployees">
+            <vs-table multiple v-model="selected" pagination max-items="5" search :data="getEmployees">
 
-            <template slot="thead">
-                <vs-th sort-key="kh_name">ឈ្មោះ</vs-th>
-                <vs-th sort-key="en_name">ឡាតាំង</vs-th>
-                <vs-th sort-key="gender">ភេទ</vs-th>
-                <vs-th sort-key="position">មុខតំណែង</vs-th>
-                <vs-th sort-key="degree_note">កម្រិតសម្គាល់</vs-th>
-                <vs-th sort-key="start_work">ថ្ងៃចូលធ្វើការ</vs-th>
-                <vs-th sort-key="contact">ទំនាក់ទំនង</vs-th>
-            </template>
+                <template slot="thead">
+                    <vs-th sort-key="kh_name">ឈ្មោះ</vs-th>
+                    <vs-th sort-key="en_name">ឡាតាំង</vs-th>
+                    <vs-th sort-key="gender">ភេទ</vs-th>
+                    <vs-th sort-key="position">មុខតំណែង</vs-th>
+                    <vs-th sort-key="degree_note">កម្រិតសម្គាល់</vs-th>
+                    <vs-th sort-key="start_work">ថ្ងៃចូលធ្វើការ</vs-th>
+                    <vs-th sort-key="contact">ទំនាក់ទំនង</vs-th>
+                </template>
 
-            <template slot-scope="{data}">
-                <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in data">
+                <template slot-scope="{data}">
+                    <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in data">
 
-                    <vs-td :data="data[indextr].kh_name">
-                        {{ data[indextr].kh_name }}
-                    </vs-td>
+                        <vs-td :data="data[indextr].kh_name">
+                            {{ data[indextr].kh_name }}
+                        </vs-td>
 
-                    <vs-td :data="data[indextr].en_name">
-                        {{ data[indextr].en_name }}
-                    </vs-td>
+                        <vs-td :data="data[indextr].en_name">
+                            {{ data[indextr].en_name }}
+                        </vs-td>
 
-                    <vs-td :data="data[indextr].gender">
-                        {{ data[indextr].gender }}
-                    </vs-td>
+                        <vs-td :data="data[indextr].gender">
+                            {{ data[indextr].gender }}
+                        </vs-td>
 
-                    <vs-td :data="data[indextr].position">
-                        {{ data[indextr].position }}
-                    </vs-td>
+                        <vs-td :data="data[indextr].position">
+                            {{ data[indextr].position }}
+                        </vs-td>
 
-                    <vs-td :data="data[indextr].degree_note">
-                        {{ data[indextr].degree_note }}
-                    </vs-td>
+                        <vs-td :data="data[indextr].degree_note">
+                            {{ data[indextr].degree_note }}
+                        </vs-td>
 
-                    <vs-td :data="data[indextr].start_work">
-                        {{ data[indextr].start_work}}
-                    </vs-td>
+                        <vs-td :data="data[indextr].start_work">
+                            {{ data[indextr].start_work}}
+                        </vs-td>
 
-                    <vs-td :data="data[indextr].contact">
-                        {{ data[indextr].contact}}
-                    </vs-td>
-                </vs-tr>
-            </template>
-        </vs-table>
+                        <vs-td :data="data[indextr].contact">
+                            {{ data[indextr].contact}}
+                        </vs-td>
+                    </vs-tr>
+                </template>
+            </vs-table>
         <div class="flex btn-group">
             <vs-button
                     @click="openAlert('danger')" class="mb-2" color="danger"
