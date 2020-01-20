@@ -615,7 +615,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 
 
 
@@ -674,7 +673,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
 
           return day_left;
-        }
+        },
+        filter: "agNumberColumnFilter"
       }],
       defaultColDef: {
         sortable: true,
@@ -1791,8 +1791,6 @@ var render = function() {
           "selection-changed": _vm.onSelectionChanged
         }
       }),
-      _vm._v(" "),
-      _c("pre", [_vm._v(_vm._s(_vm.selected))]),
       _vm._v(" "),
       _c("add-study-info", {
         ref: "addStudyInfo",

@@ -60,7 +60,6 @@
                      :animateRows="true"
                      :rowData="study_info_extract">
         </ag-grid-vue>
-        <pre>{{selected}}</pre>
         <add-study-info @finished="selected=[]" ref="addStudyInfo"></add-study-info>
         <change-study-info @finished="selected=[]" ref="changeStudyInfo"></change-study-info>
         <print-notification @finished="selected=[]" ref="PrintNotification"></print-notification>
@@ -105,7 +104,8 @@
                                 day_left = `<span class="text-success"><b>${params.data.day_left}</b></span>`
                             }
                             return day_left;
-                        }
+                        },
+                        filter: "agNumberColumnFilter"
                     }
                 ],
                 defaultColDef: {
