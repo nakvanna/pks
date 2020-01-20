@@ -76,6 +76,7 @@
 
 <script>
     //ag-grid
+    import Vue from 'vue';
     import {AgGridVue} from "ag-grid-vue";
     import '@sass/vuexy/extraComponents/agGridStyleOverride.scss'
     import AddStudent from "./addStudent";
@@ -83,7 +84,16 @@
     import AddStudyInfo from "./addStudyInfo";
     import AddServiceInfo from "./addServiceInfo";
     import PrintStudentInfo from "./PrintStudentInfo";
-
+    let statusComponent = Vue.extend({
+        template: '<vs-chip transparent style="height: 10px; margin-top: 10px;" :color="com_method()?\'success\':\'warning\'">\n' +
+            '            {{com_method()?\'កំពុងរៀន\':\'បានឈប់រៀន\'}}\n' +
+            '        </vs-chip>',
+        methods: {
+            com_method() {
+                return this.params.data.status;
+            }
+        }
+    });
     export default {
         name: "Student",
         components: {PrintStudentInfo, AddServiceInfo, AddStudyInfo, EditStudent, AddStudent, AgGridVue},
@@ -102,8 +112,10 @@
                     {headerName: 'ឈ្មោះឡាតាំង', field: 'latin'},
                     {headerName: 'ថ្ងៃខែឆ្នាំកំណើត', field: 'dob'},
                     {headerName: 'ទំនាក់ទំនង', field: 'std_contact'},
+                    {headerName: 'ទំនាក់ទំនងឪពុក', field: 'father_contact'},
+                    {headerName: 'ទំនាក់ទំនងម្តាយ', field: 'mother_contact'},
                     {headerName: 'អាស័យដ្ឋានបច្ចុប្បន្ន', field: 'address'},
-                    {headerName: 'ស្ថានភាព', field: 'status'},
+                    {headerName: 'ស្ថានភាព', field: 'status',cellRendererFramework: statusComponent},
                     {headerName: 'ថ្នាក់បណ្តុះអាសន្ន', field: 'temp_grade'},
                     {headerName: 'កាលបរិច្ឆេទ', field: 'created_at'},
                 ],
@@ -183,7 +195,7 @@
                     color:'warning',
                     title: 'Make active/inactive\'s status?',
                     text: 'ចុចពាក្យ Accept ដើម្បីយល់ព្រម!',
-                    accept:this.deleteStudent
+                    accept:this.toggleStudent
                 })
             },
             async toggleStudent() {
