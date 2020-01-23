@@ -6816,7 +6816,7 @@ __webpack_require__.r(__webpack_exports__);
   url: "/payment",
   name: "ការបង់លុយ",
   slug: "ការបង់លុយ",
-  icon: "PackageIcon"
+  icon: "DollarSignIcon"
 }, {
   url: "/report",
   name: "របាយការណ៌",

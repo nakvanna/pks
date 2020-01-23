@@ -516,6 +516,40 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -548,6 +582,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     getPayments: function getPayments() {
       return this.$store.getters.get_payments;
+    },
+    getInvoicePayments: function getInvoicePayments() {
+      return this.$store.getters.get_invoice_payments;
+    },
+    getInvoiceDetailPayments: function getInvoiceDetailPayments() {
+      return this.$store.getters.get_invoice_detail_payments;
     },
     totalPayment: function totalPayment() {
       var self = this;
@@ -627,7 +667,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       latin: '',
       all_infos: [],
       total_payment: 0,
-      today_date: this.moment().format('YYYY-MM-DD')
+      today_date: this.moment().format('YYYY-MM-DD'),
+      edit_all_infos: [],
+      edit_student_info: '',
+      temp_para: [],
+      val: 1,
+      activePrompt: false
     };
   },
   methods: {
@@ -1239,6 +1284,122 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }(),
     dueHistory: function dueHistory(inv_id, due_bal, stu_id) {
       this.$refs.DueHistory.show(inv_id, due_bal, stu_id);
+    },
+    deleteInvoice: function () {
+      var _deleteInvoice = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee12() {
+        var date_rollback, vm, update_study_items, update_service_items, i;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee12$(_context12) {
+          while (1) {
+            switch (_context12.prev = _context12.next) {
+              case 0:
+                _context12.next = 2;
+                return this.$store.dispatch('fetchInvoicePayment', this.temp_para);
+
+              case 2:
+                _context12.next = 4;
+                return this.$store.dispatch('fetchInvoiceDetailPayment', this.temp_para);
+
+              case 4:
+                _context12.next = 6;
+                return this.$store.dispatch('updateDecrementDue', {
+                  id: this.temp_para.stu_id,
+                  due: this.temp_para.due
+                });
+
+              case 6:
+                date_rollback = null;
+
+                if (this.val === '2') {
+                  date_rollback = this.getInvoiceDetailPayments[0].date_pay;
+                  console.log(date_rollback);
+                }
+
+                vm = this.all_infos; //ឈ្មោះ ខុសគ្នារវាង Service and Study with Invoice detail
+
+                update_study_items = [];
+                update_service_items = [];
+
+                for (i = 0; i < vm.length; i++) {
+                  if (vm[i].study_id === undefined) {
+                    update_service_items.push({
+                      id: vm[i].service_id,
+                      date_pay: date_rollback,
+                      last_term: vm[i].last_term,
+                      last_date_pay: vm[i].last_date_pay,
+                      is_used: vm[i].is_used
+                    });
+                  } else {
+                    update_study_items.push({
+                      id: vm[i].study_id,
+                      date_pay: date_rollback,
+                      last_term: vm[i].last_term,
+                      year: vm[i].year,
+                      last_date_pay: vm[i].last_date_pay,
+                      from_class: null,
+                      to_class: null,
+                      date_change: null,
+                      is_used: true
+                    });
+                  }
+                }
+
+                console.log(update_study_items);
+                console.log(update_service_items);
+
+                if (update_study_items.length) {
+                  this.updateStudyInfo(update_study_items);
+                }
+
+                if (update_service_items.length) {
+                  this.updateServiceInfo(update_service_items);
+                }
+
+                this.$store.dispatch('deleteInvoice', this.temp_para.inv_id);
+
+              case 17:
+              case "end":
+                return _context12.stop();
+            }
+          }
+        }, _callee12, this);
+      }));
+
+      function deleteInvoice() {
+        return _deleteInvoice.apply(this, arguments);
+      }
+
+      return deleteInvoice;
+    }(),
+    confirmDeleted: function confirmDeleted(data) {
+      this.temp_para = data;
+      this.getServiceStudy({
+        'id': data.stu_id,
+        'cur_year': this.getCurYear
+      });
+      this.$vs.dialog({
+        type: 'confirm',
+        color: 'danger',
+        title: "\u179B\u17BB\u1794\u179C\u17B7\u1780\u17D0\u1799\u1794\u178F\u17D2\u179A\u1780\u17D2\u1793\u17BB\u1784\u1786\u17D2\u1793\u17B6\u17C6 " + this.getCurYear,
+        text: 'ចុចពាក្យ Accept ដើម្បីលុបទិន្នន័យ!',
+        accept: this.deleteInvoice
+      });
+    },
+    deletedelete: function deletedelete(data) {
+      this.temp_para = data;
+      this.getServiceStudy({
+        'id': data.stu_id,
+        'cur_year': this.getCurYear
+      });
+      this.activePrompt = true;
+    },
+    close: function close() {
+      this.$vs.notify({
+        color: 'danger',
+        title: 'Closed',
+        text: 'You close a dialog!'
+      });
     }
   }
 });
@@ -1896,7 +2057,7 @@ var render = function() {
                                   color: "success",
                                   type: "line",
                                   "icon-pack": "feather",
-                                  icon: "icon-money"
+                                  icon: "icon-dollar-sign"
                                 },
                                 on: {
                                   click: function($event) {
@@ -1913,6 +2074,29 @@ var render = function() {
                                   " ទូទាត់ប្រាក់\n                        "
                                 )
                               ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "vs-button",
+                              {
+                                attrs: {
+                                  size: "small",
+                                  color: "primary",
+                                  type: "line",
+                                  "icon-pack": "feather",
+                                  icon: "icon-edit"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.deletedelete({
+                                      inv_id: tr.id,
+                                      stu_id: tr.student_id,
+                                      due: tr.due_balance
+                                    })
+                                  }
+                                }
+                              },
+                              [_vm._v(" Rollback\n                        ")]
                             )
                           ],
                           1
@@ -2017,11 +2201,7 @@ var render = function() {
               _c(
                 "vs-table",
                 {
-                  attrs: {
-                    pagination: "",
-                    "max-items": "10",
-                    data: _vm.getInvoicesDetail
-                  },
+                  attrs: { data: _vm.getInvoicesDetail },
                   scopedSlots: _vm._u([
                     {
                       key: "default",
@@ -2070,7 +2250,36 @@ var render = function() {
                                     _vm._s(tr.created_at) +
                                     "\n                        "
                                 )
-                              ])
+                              ]),
+                              _vm._v(" "),
+                              _c("vs-td", { attrs: { data: tr.date_pay } }, [
+                                _vm._v(
+                                  "\n                            " +
+                                    _vm._s(
+                                      _vm
+                                        .moment(tr.date_pay)
+                                        .format("DD/MM/YYYY")
+                                    ) +
+                                    "\n                        "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "vs-td",
+                                { attrs: { data: tr.next_date_pay } },
+                                [
+                                  _vm._v(
+                                    "\n                            " +
+                                      _vm._s(
+                                        _vm
+                                          .moment(tr.next_date_pay)
+                                          .subtract(1, "day")
+                                          .format("DD/MM/YYYY")
+                                      ) +
+                                      "\n                        "
+                                  )
+                                ]
+                              )
                             ],
                             1
                           )
@@ -2102,6 +2311,14 @@ var render = function() {
                       _vm._v(" "),
                       _c("vs-th", { attrs: { "sort-key": "created_at" } }, [
                         _vm._v("កាលបរិច្ឆេទ")
+                      ]),
+                      _vm._v(" "),
+                      _c("vs-th", { attrs: { "sort-key": "created_at" } }, [
+                        _vm._v("ថ្ងៃបង់លុយ")
+                      ]),
+                      _vm._v(" "),
+                      _c("vs-th", { attrs: { "sort-key": "created_at" } }, [
+                        _vm._v("ថ្ងៃបង់បន្ទាប់")
                       ])
                     ],
                     1
@@ -2123,7 +2340,7 @@ var render = function() {
         {
           ref: "add_payment",
           attrs: {
-            title: "បង់លុយ",
+            title: "ការបង់លុយ",
             blocking: true,
             width: !_vm.mobilecheck() ? "100%" : ""
           }
@@ -2132,7 +2349,7 @@ var render = function() {
           _c("div", { staticClass: "vx-row" }, [
             _c(
               "div",
-              { staticClass: "vx-col w-full" },
+              { staticClass: "vx-col md:w-5/6" },
               [
                 _c("v-select", {
                   staticClass: "w-full",
@@ -2153,62 +2370,11 @@ var render = function() {
                 })
               ],
               1
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "vx-row mt-base mb-base" }, [
-            _c("div", { staticClass: "vx-col md:w-1/5 w-full" }, [
-              _c("img", {
-                staticClass: "shadow-md",
-                attrs: { alt: "", height: "150", src: _vm.students.photo }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "vx-col md:w-2/5 w-full" }, [
-              _c("div", { staticClass: "vx-row" }, [
-                _c(
-                  "div",
-                  { staticClass: "vx-col w-full" },
-                  [
-                    _c("vs-input", {
-                      staticClass: "w-full",
-                      attrs: { placeholder: "ភេទ", disabled: "" },
-                      model: {
-                        value: _vm.students.gender,
-                        callback: function($$v) {
-                          _vm.$set(_vm.students, "gender", $$v)
-                        },
-                        expression: "students.gender"
-                      }
-                    })
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "vx-col w-full mt-base" },
-                  [
-                    _c("vs-input", {
-                      staticClass: "w-full",
-                      attrs: { placeholder: "ថ្ងៃខែឆ្នាំកំណើត", disabled: "" },
-                      model: {
-                        value: _vm.students.dob,
-                        callback: function($$v) {
-                          _vm.$set(_vm.students, "dob", $$v)
-                        },
-                        expression: "students.dob"
-                      }
-                    })
-                  ],
-                  1
-                )
-              ])
-            ]),
+            ),
             _vm._v(" "),
             _c(
               "div",
-              { staticClass: "vx-col md:w-1/5 w-full" },
+              { staticClass: "vx-col md:w-1/6" },
               [
                 _c("flat-pickr", {
                   staticClass: "w-full",
@@ -2224,6 +2390,15 @@ var render = function() {
               ],
               1
             )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "vx-row mt-base mb-base" }, [
+            _c("div", { staticClass: "vx-col md:w-1/5 w-full" }, [
+              _c("img", {
+                staticClass: "shadow-md",
+                attrs: { alt: "", height: "150", src: _vm.students.photo }
+              })
+            ])
           ]),
           _vm._v(" "),
           _c("h3", { staticClass: "mb-10" }, [
@@ -2382,8 +2557,7 @@ var render = function() {
                                     staticClass: "w-full",
                                     attrs: {
                                       value: tr.date_pay,
-                                      placeholder: "ថ្ងៃត្រូវបង់លុយដំបូង",
-                                      disabled: ""
+                                      placeholder: "ថ្ងៃត្រូវបង់លុយដំបូង"
                                     }
                                   })
                                 ],
@@ -2495,7 +2669,7 @@ var render = function() {
                   _c("b", [
                     _vm._v(
                       _vm._s(_vm.$formatter.format(_vm.totalPayment)) +
-                        "​ -> " +
+                        "​ => " +
                         _vm._s(
                           _vm.$formatter.format(parseFloat(_vm.after_discount))
                         )
@@ -2656,7 +2830,65 @@ var render = function() {
       _vm._v(" "),
       _c("print-invoice", { ref: "PrintInvoice" }),
       _vm._v(" "),
-      _c("due-history", { ref: "DueHistory" })
+      _c("due-history", { ref: "DueHistory" }),
+      _vm._v(" "),
+      _c(
+        "vs-prompt",
+        {
+          attrs: { active: _vm.activePrompt },
+          on: {
+            cancel: function($event) {
+              _vm.val = 1
+            },
+            accept: _vm.deleteInvoice,
+            close: _vm.close,
+            "update:active": function($event) {
+              _vm.activePrompt = $event
+            }
+          }
+        },
+        [
+          _c(
+            "div",
+            { staticClass: "con-exemple-prompt" },
+            [
+              _c("span", [_vm._v("Select condition!")]),
+              _vm._v(" "),
+              _c(
+                "vs-select",
+                {
+                  staticClass: "w-full",
+                  attrs: { autocomplete: "", placeholder: "ជ្រើសរើសលក្ខ័ណ" },
+                  model: {
+                    value: _vm.val,
+                    callback: function($$v) {
+                      _vm.val = $$v
+                    },
+                    expression: "val"
+                  }
+                },
+                [
+                  _c("vs-select-item", {
+                    attrs: { value: "1", text: "Rollback to NULL Date" }
+                  }),
+                  _vm._v(" "),
+                  _c("vs-select-item", {
+                    attrs: { value: "2", text: "Rollback to last Payment Date" }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("h6", { staticClass: "text-danger mt-2" }, [
+                _vm._v(
+                  "ចំណាំមិនអាច RollBack ចំពោះវិក័យបត្រដែលបានទូទាត់ការជំពាក់បានទេ"
+                )
+              ])
+            ],
+            1
+          )
+        ]
+      )
     ],
     1
   )

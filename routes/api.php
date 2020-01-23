@@ -47,7 +47,10 @@ Route::post('/study-info-by-year','StudyInfoController@show_by_year')->name('stu
 Route::resource('/service-info','ServiceInfoController');
 Route::post('/service-info-by-year','ServiceInfoController@show_by_year')->name('service-info.by-year');
 Route::post('/payment','PaymentController@getInfo')->name('payment.get-info');
+Route::post('/invoice-payment','PaymentController@getInvoice')->name('payment.get-invoice');
+Route::post('/invoice-detail-payment','PaymentController@getInvoiceDetail')->name('payment.get-invoice-detail');
 Route::resource('/invoice','InvoiceController');
+Route::delete('/invoice-delete/{id}','InvoiceController@delete')->name('invoice.delete');
 Route::resource('/invoice-detail','InvoiceDetailController');
 Route::resource('/import','ExcelImportController');
 Route::post('/import-student','ExcelImportController@import_student')->name('import.student');

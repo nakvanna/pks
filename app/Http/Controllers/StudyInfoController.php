@@ -89,7 +89,6 @@ class StudyInfoController extends Controller
     public function update($id, Request $request){
         $input = $request->all();
         $request->validate([
-            'date_pay'=>'required',
             'last_term'=>'required',
         ]);
         $update = StudyInfo::findOrFail($id);

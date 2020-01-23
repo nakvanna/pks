@@ -61,4 +61,9 @@ class InvoiceController extends Controller
         $delete->delete();
         return $id;
     }
+    public function delete($id){
+        $invoice = Invoice::findOrFail($id);
+        $invoice->invoice_detail()->delete();
+        $invoice->delete();
+    }
 }

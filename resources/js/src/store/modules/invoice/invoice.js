@@ -43,7 +43,16 @@ const actions = {
         }catch (e) {
             return false;
         }
-    }
+    },
+    async deleteInvoice({commit},id){
+        try {
+            await axios.delete(route('invoice.delete',id));
+            commit('DELETE_INVOICE',id);
+            return true
+        }catch (e) {
+            return false
+        }
+    },
 };
 const mutations = {
     SET_INVOICE:function (state,data) {
@@ -97,6 +106,11 @@ const mutations = {
     },
     REMOVE_INVOICE: function (state, id) {
         state.invoices = state.invoices.filter(invoice => invoice.id !== id);
+    },
+    DELETE_INVOICE:function (state,id) {
+        return state.invoice_extract = state.invoice_extract.filter(function (invoice,index) {
+            return invoice.id !== id
+        })
     }
 };
 export default {

@@ -89,8 +89,14 @@
                             </vs-button>
                             <vs-button
                                     @click="dueHistory(tr.id, tr.due_balance, tr.student_id)"
-                                    size="small" color="success" type="line" icon-pack="feather" icon="icon-money"
+                                    size="small" color="success" type="line" icon-pack="feather" icon="icon-dollar-sign"
                             > ទូទាត់ប្រាក់
+                            </vs-button>
+                            <!--@click="confirmDeleted({inv_id: tr.id, stu_id: tr.student_id})"-->
+                            <vs-button
+                                   @click="deletedelete({inv_id: tr.id, stu_id: tr.student_id, due: tr.due_balance})"
+                                    size="small" color="primary" type="line" icon-pack="feather" icon="icon-edit"
+                            > Rollback
                             </vs-button>
                         </div>
                     </vs-td>
@@ -103,13 +109,15 @@
                 <i @click="$modal.hide('show-invoice-detail')" class="vs-icon vs-popup--close material-icons text-warning" style="background: rgb(255, 255, 255);">close</i>
             </div>
             <vx-card no-shadow>
-                <vs-table pagination max-items="10" :data="getInvoicesDetail">
+                <vs-table :data="getInvoicesDetail">
                     <template slot="thead">
                         <vs-th sort-key="index">ល.រ</vs-th>
                         <vs-th sort-key="item">ប្រភេទត្រូវបង់</vs-th>
                         <vs-th sort-key="term">រយៈពេលបង់</vs-th>
                         <vs-th sort-key="balance">តម្លៃ</vs-th>
                         <vs-th sort-key="created_at">កាលបរិច្ឆេទ</vs-th>
+                        <vs-th sort-key="created_at">ថ្ងៃបង់លុយ</vs-th>
+                        <vs-th sort-key="created_at">ថ្ងៃបង់បន្ទាប់</vs-th>
                     </template>
                     <template slot-scope="{data}">
                         <vs-tr :data="tr" :key="index" v-for="(tr, index) in data">
@@ -133,6 +141,12 @@
                             <vs-td :data="tr.created_at">
                                 {{ tr.created_at }}
                             </vs-td>
+                            <vs-td :data="tr.date_pay">
+                                {{ moment(tr.date_pay).format('DD/MM/YYYY') }}
+                            </vs-td>
+                            <vs-td :data="tr.next_date_pay">
+                                {{ moment(tr.next_date_pay).subtract(1, 'day').format('DD/MM/YYYY') }}
+                            </vs-td>
 
                         </vs-tr>
                     </template>
@@ -142,9 +156,9 @@
         </modal>
 
         <!--Modal payment-->
-        <sweet-modal ref="add_payment" title="បង់លុយ" :blocking="true" :width="!mobilecheck()?'100%':''">
+        <sweet-modal ref="add_payment" title="ការបង់លុយ" :blocking="true" :width="!mobilecheck()?'100%':''">
             <div class="vx-row">
-                <div class="vx-col w-full">
+                <div class="vx-col md:w-5/6">
                     <v-select
                             class="w-full"
                             :clearable="false"
@@ -155,12 +169,15 @@
                             @input="passStudentInfo"
                     ></v-select>
                 </div>
+                <div class="vx-col md:w-1/6">
+                    <flat-pickr class="w-full"  v-model="today_date" placeholder="ថ្ងៃបង់លុយ" />
+                </div>
             </div>
             <div class="vx-row mt-base mb-base">
                 <div class="vx-col md:w-1/5 w-full">
                     <img alt="" class="shadow-md" height="150" :src="students.photo"/>
                 </div>
-                <div class="vx-col md:w-2/5 w-full">
+                <!--<div class="vx-col md:w-2/5 w-full" v-show="false">
                     <div class="vx-row">
                         <div class="vx-col w-full">
                             <vs-input class="w-full" placeholder="ភេទ" v-model="students.gender" disabled />
@@ -169,10 +186,7 @@
                             <vs-input class="w-full" placeholder="ថ្ងៃខែឆ្នាំកំណើត" v-model="students.dob" disabled />
                         </div>
                     </div>
-                </div>
-                <div class="vx-col md:w-1/5 w-full">
-                    <flat-pickr class="w-full"  v-model="today_date" placeholder="ថ្ងៃបង់លុយ" />
-                </div>
+                </div>-->
             </div>
             <h3 class="mb-10">បញ្ចុះតម្លៃ {{default_discount}}%</h3>
             <vs-table :data="all_infos">
@@ -233,7 +247,7 @@
                         <!--Cost term-->
 
                         <vs-td v-if="tr.date_pay !== null">
-                            <flat-pickr class="w-full" :value="tr.date_pay" placeholder="ថ្ងៃត្រូវបង់លុយដំបូង" disabled/>
+                            <flat-pickr class="w-full" :value="tr.date_pay" placeholder="ថ្ងៃត្រូវបង់លុយដំបូង"/>
                         </vs-td>
                         <vs-td v-else >
                             <flat-pickr class="w-full" v-model="tr.date_pay"  placeholder="ថ្ងៃត្រូវបង់លុយដំបូង"/>
@@ -251,7 +265,7 @@
             </vs-table>
             <div class="centerx vx-row mt-10">
                 <div class="vx-col md:w-1/2">
-                    <h3><span>តម្លៃសរុប: <b>{{$formatter.format(totalPayment)}}​ -> {{$formatter.format(parseFloat(after_discount))}}</b></span></h3>
+                    <h3><span>តម្លៃសរុប: <b>{{$formatter.format(totalPayment)}}​ => {{$formatter.format(parseFloat(after_discount))}}</b></span></h3>
                     <div class="flex">
                         <div class="flex mt-5">
                             <vs-input-number @input="percentDiscount" v-model="discount" label="បញ្ចុះភាគរយ %:" min="0" max="100" icon-inc="expand_less" icon-dec="expand_more"/>
@@ -278,8 +292,28 @@
             </div>
             <vs-button @click="storeInvoice" slot="button" v-if="all_infos.length">បង់លុយ</vs-button>
         </sweet-modal>
+
         <print-invoice ref="PrintInvoice"></print-invoice>
         <due-history ref="DueHistory"></due-history>
+        <vs-prompt
+                @cancel="val=1"
+                @accept="deleteInvoice"
+                @close="close"
+                :active.sync="activePrompt">
+            <div class="con-exemple-prompt">
+                <span>Select condition!</span>
+                <vs-select
+                        class="w-full"
+                        autocomplete
+                        placeholder="ជ្រើសរើសលក្ខ័ណ"
+                        v-model="val"
+                >
+                    <vs-select-item value="1" text="Rollback to NULL Date"/>
+                    <vs-select-item value="2" text="Rollback to last Payment Date"/>
+                </vs-select>
+                <h6 class="text-danger mt-2">ចំណាំមិនអាច RollBack ចំពោះវិក័យបត្រដែលបានទូទាត់ការជំពាក់បានទេ</h6>
+            </div>
+        </vs-prompt>
     </vx-card>
 </template>
 
@@ -314,6 +348,12 @@
             },
             getPayments() {
                 return this.$store.getters.get_payments;
+            },
+            getInvoicePayments() {
+                return this.$store.getters.get_invoice_payments;
+            },
+            getInvoiceDetailPayments() {
+                return this.$store.getters.get_invoice_detail_payments;
             },
             totalPayment(){
                 let self = this;
@@ -350,7 +390,7 @@
                 }
                 this.due_balance = return_bal;
                 return return_bal;
-            }
+            },
         },
         /*async created (){
             await this.$store.dispatch('fetchStudent');
@@ -380,6 +420,11 @@
                 all_infos: [],
                 total_payment: 0,
                 today_date: this.moment().format('YYYY-MM-DD'),
+                edit_all_infos: [],
+                edit_student_info: '',
+                temp_para:[],
+                val: 1,
+                activePrompt:false
             }
         },
         methods: {
@@ -713,6 +758,76 @@
             },
             dueHistory(inv_id, due_bal, stu_id){
                 this.$refs.DueHistory.show(inv_id, due_bal, stu_id)
+            },
+            async deleteInvoice(){
+                await this.$store.dispatch('fetchInvoicePayment', this.temp_para);
+                await this.$store.dispatch('fetchInvoiceDetailPayment', this.temp_para);
+                await this.$store.dispatch('updateDecrementDue', {id: this.temp_para.stu_id, due: this.temp_para.due});
+                var date_rollback = null;
+                if(this.val === '2'){
+                    date_rollback = this.getInvoiceDetailPayments[0].date_pay;
+                    console.log(date_rollback);
+                }
+
+                let vm = this.all_infos; //ឈ្មោះ ខុសគ្នារវាង Service and Study with Invoice detail
+                var update_study_items = [];
+                var update_service_items = [];
+                for(var i = 0; i < vm.length; i ++){
+                    if(vm[i].study_id === undefined){
+                        update_service_items.push({
+                            id: vm[i].service_id,
+                            date_pay: date_rollback,
+                            last_term: vm[i].last_term,
+                            last_date_pay: vm[i].last_date_pay,
+                            is_used: vm[i].is_used
+                        })
+                    } else {
+                        update_study_items.push({
+                            id: vm[i].study_id,
+                            date_pay: date_rollback,
+                            last_term: vm[i].last_term,
+                            year : vm[i].year,
+                            last_date_pay : vm[i].last_date_pay,
+                            from_class : null,
+                            to_class : null,
+                            date_change : null,
+                            is_used : true,
+                        })
+                    }
+                }
+                console.log(update_study_items);
+                console.log(update_service_items);
+                if (update_study_items.length){
+                    this.updateStudyInfo(update_study_items);
+                }
+                if (update_service_items.length){
+                    this.updateServiceInfo(update_service_items);
+                }
+                this.$store.dispatch('deleteInvoice', this.temp_para.inv_id);
+
+            },
+            confirmDeleted(data){
+                this.temp_para = data;
+                this.getServiceStudy({'id':data.stu_id, 'cur_year': this.getCurYear});
+                this.$vs.dialog({
+                    type: 'confirm',
+                    color: 'danger',
+                    title: `លុបវិក័យបត្រក្នុងឆ្នាំ `+this.getCurYear,
+                    text: 'ចុចពាក្យ Accept ដើម្បីលុបទិន្នន័យ!',
+                    accept: this.deleteInvoice
+                })
+            },
+            deletedelete(data){
+                this.temp_para = data;
+                this.getServiceStudy({'id':data.stu_id, 'cur_year': this.getCurYear});
+                this.activePrompt = true;
+            },
+            close(){
+                this.$vs.notify({
+                    color:'danger',
+                    title:'Closed',
+                    text:'You close a dialog!'
+                })
             },
         },
     }

@@ -10,4 +10,7 @@ class Invoice extends Model
         return $this->belongsTo(Student::class, 'student_id', 'id')
             ->select('id', 'name', 'latin', 'gender', 'dob', 'photo');
     }
+    public function invoice_detail(){
+        return $this->hasMany(InvoiceDetail::class);
+    }
 }

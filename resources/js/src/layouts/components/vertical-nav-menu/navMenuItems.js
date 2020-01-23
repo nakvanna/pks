@@ -55,7 +55,7 @@ export default [
     url: "/payment",
     name: "ការបង់លុយ",
     slug: "ការបង់លុយ",
-    icon: "PackageIcon",
+    icon: "DollarSignIcon",
   },
   {
     url: "/report",
