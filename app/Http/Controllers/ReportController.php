@@ -16,4 +16,9 @@ class ReportController extends Controller
             ->orderBy('id','desc')
             ->paginate(25);
     }
+
+    //index
+    public function due_report(){
+        return Student::where('balance', '<', 0)->paginate(25);
+    }
 }

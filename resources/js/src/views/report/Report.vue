@@ -16,43 +16,30 @@
                     </vx-card>
                 </div>
             </vs-tab>
-            <vs-tab icon-pack="feather" icon="icon-lock" :label="!isSmallerScreen ? 'សិស្សមិនទាន់បង់លុយ' : ''">
+            <vs-tab icon-pack="feather" icon="icon-lock" :label="!isSmallerScreen ? 'សិស្សដែលជំពាក់' : ''">
                 <div class="tab-change-pwd md:ml-4 md:mt-4 mt-4 ml-0">
                     <vx-card no-shadow="">
-
+                        <student-due></student-due>
                     </vx-card>
                 </div>
             </vs-tab>
             <vs-tab icon-pack="feather" icon="icon-lock" :label="!isSmallerScreen ? 'របាយការណ៌ទឹកប្រាក់ទូលបាន' : ''">
-                <div class="tab-change-pwd md:ml-4 md:mt-4 mt-4 ml-0">
-                    <vx-card no-shadow="">
+            <div class="tab-change-pwd md:ml-4 md:mt-4 mt-4 ml-0">
+                <vx-card no-shadow="">
 
-                    </vx-card>
-                </div>
-            </vs-tab>
-            <vs-tab icon-pack="feather" icon="icon-lock" :label="!isSmallerScreen ? 'Shift' : ''">
-                <div class="tab-change-pwd md:ml-4 md:mt-4 mt-4 ml-0">
-                    <vx-card no-shadow="">
-
-                    </vx-card>
-                </div>
-            </vs-tab>
-            <vs-tab icon-pack="feather" icon="icon-lock" :label="!isSmallerScreen ? 'Study Year' : ''">
-                <div class="tab-change-pwd md:ml-4 md:mt-4 mt-4 ml-0">
-                    <vx-card no-shadow="">
-
-                    </vx-card>
-                </div>
-            </vs-tab>
+                </vx-card>
+            </div>
+        </vs-tab>
         </vs-tabs>
     </vx-card>
 </template>
 <script>
     import StudentStudyYear from './StudentStudyYear'
     import StudentUseService from './StudentUseService'
+    import StudentDue from './StudentDue'
     export default {
         components: {
-            StudentStudyYear, StudentUseService
+            StudentStudyYear, StudentUseService, StudentDue
         },
         name:'Setting',
         computed: {
