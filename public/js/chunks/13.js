@@ -615,6 +615,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -630,6 +644,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   data: function data() {
     return {
+      note_unused: '',
+      date_unused: this.moment().format('DD/MM/YYYY'),
+      activePrompt: false,
       selected: [],
       gridApi: null,
       columnDefs: [{
@@ -641,7 +658,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         headerName: 'ឈ្មោះសិស្ស',
         field: 'name'
       }, {
-        headerName: 'ឈ្មោះឡាតាំ',
+        headerName: 'ឈ្មោះឡាតាំង',
         field: 'latin'
       }, {
         headerName: 'ភេទ',
@@ -675,6 +692,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           return day_left;
         },
         filter: "agNumberColumnFilter"
+      }, {
+        headerName: 'ស្ថានភាព',
+        field: 'is_used'
+      }, {
+        headerName: 'មូលហេតុឈប់រៀន',
+        field: 'note_unused'
+      }, {
+        headerName: 'ថ្ងៃឈប់រៀន',
+        field: 'date_unused'
       }],
       defaultColDef: {
         sortable: true,
@@ -684,6 +710,72 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   methods: {
+    acceptAlert: function acceptAlert() {
+      if (this.note_unused === '') {
+        this.$vs.notify({
+          color: 'danger',
+          title: 'ប្រតិបត្តិការណ៍មិនដំណើរការ',
+          position: 'top-center',
+          text: 'សូមបញ្ចាក់មូលហេតុ!'
+        });
+      } else {
+        this.update_unused();
+      }
+    },
+    close: function close() {
+      this.$vs.notify({
+        color: 'danger',
+        title: 'ប្រតិបត្តិការណ៍មិនដំណើរការ',
+        text: 'You close a dialog!',
+        position: 'top-center'
+      });
+    },
+    update_unused: function () {
+      var _update_unused = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var _this = this;
+
+        var self;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                self = this;
+                self.$vs.notify({
+                  title: 'ប្រតិបត្តិការណ៍ជោគជ័យ',
+                  text: 'ទិន្នន័យត្រូវបានកែប្រែ!',
+                  color: 'success',
+                  iconPack: 'feather',
+                  icon: 'icon-check',
+                  position: 'top-center'
+                });
+                _context.next = 4;
+                return this.$store.dispatch('updateStudyInfoUnused', {
+                  id: this.selected[0].study_info_id,
+                  note_unused: this.note_unused,
+                  date_unused: this.date_unused,
+                  is_used: false
+                }).then(function (res) {
+                  if (res === true) {
+                    _this.note_unused = '';
+                  }
+                });
+
+              case 4:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function update_unused() {
+        return _update_unused.apply(this, arguments);
+      }
+
+      return update_unused;
+    }(),
     onGridReady: function onGridReady(params) {
       this.gridApi = params.api;
     },
@@ -702,11 +794,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     deleteStudyYear: function () {
       var _deleteStudyYear = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
         var self, promises;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
           while (1) {
-            switch (_context2.prev = _context2.next) {
+            switch (_context3.prev = _context3.next) {
               case 0:
                 self = this;
                 promises = self.selected.map(
@@ -714,32 +806,32 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 function () {
                   var _ref = _asyncToGenerator(
                   /*#__PURE__*/
-                  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(data) {
-                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+                  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(data) {
+                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
                       while (1) {
-                        switch (_context.prev = _context.next) {
+                        switch (_context2.prev = _context2.next) {
                           case 0:
                             if (!(parseInt(data.last_term) === 0)) {
-                              _context.next = 3;
+                              _context2.next = 3;
                               break;
                             }
 
-                            _context.next = 3;
+                            _context2.next = 3;
                             return self.$store.dispatch('destroyStudyInfo', data.study_info_id);
 
                           case 3:
                           case "end":
-                            return _context.stop();
+                            return _context2.stop();
                         }
                       }
-                    }, _callee);
+                    }, _callee2);
                   }));
 
                   return function (_x) {
                     return _ref.apply(this, arguments);
                   };
                 }());
-                _context2.next = 4;
+                _context3.next = 4;
                 return Promise.all(promises).then(function () {
                   self.$vs.notify({
                     title: 'ប្រតិបត្តិការណ៍ជោគជ័យ',
@@ -755,10 +847,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 4:
               case "end":
-                return _context2.stop();
+                return _context3.stop();
             }
           }
-        }, _callee2, this);
+        }, _callee3, this);
       }));
 
       function deleteStudyYear() {
@@ -788,6 +880,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           dob: data.students.dob,
           class_name: data.study_infos.level + data.study_infos.class_name,
           shift: data.study_infos.shift,
+          is_used: data.is_used === true ? 'នៅរៀន' : 'ឈប់រៀន',
+          note_unused: data.note_unused === null ? '------' : data.note_unused,
+          date_unused: data.date_unused === null ? '--/--/--' : data.date_unused,
           date_pay: data.date_pay,
           last_date_pay: data.last_date_pay,
           last_term: data.last_term,
@@ -1673,101 +1768,113 @@ var render = function() {
           _c(
             "vs-col",
             {
-              staticClass: "1/2",
+              staticClass: "1/2 btn-group",
               attrs: { "vs-type": "flex", "vs-justify": "flex-end" }
             },
             [
               _vm.selected.length
                 ? _c(
-                    "div",
-                    { staticClass: "flex btn-group" },
+                    "vs-button",
+                    {
+                      attrs: {
+                        type: "relief",
+                        "icon-pack": "feather",
+                        icon: "icon-plus-square"
+                      },
+                      on: {
+                        click: function($event) {
+                          return _vm.$refs.addStudyInfo.show(_vm.selected)
+                        }
+                      }
+                    },
                     [
-                      _c(
-                        "vs-button",
-                        {
-                          attrs: {
-                            type: "relief",
-                            "icon-pack": "feather",
-                            icon: "icon-plus-square"
-                          },
-                          on: {
-                            click: function($event) {
-                              return _vm.$refs.addStudyInfo.show(_vm.selected)
-                            }
-                          }
-                        },
-                        [
-                          _vm._v(
-                            "\n                    ឡើងថ្នាក់\n                "
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "vs-button",
-                        {
-                          attrs: {
-                            color: "warning",
-                            type: "relief",
-                            "icon-pack": "feather",
-                            icon: "icon-edit"
-                          },
-                          on: {
-                            click: function($event) {
-                              return _vm.$refs.changeStudyInfo.show(
-                                _vm.selected
-                              )
-                            }
-                          }
-                        },
-                        [
-                          _vm._v(
-                            "\n                    ប្តូរថ្នាក់\n                "
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "vs-button",
-                        {
-                          attrs: {
-                            color: "danger",
-                            type: "relief",
-                            "icon-pack": "feather",
-                            icon: "icon-trash"
-                          },
-                          on: { click: _vm.confirmDelete }
-                        },
-                        [_vm._v("\n                    លុប\n                ")]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "vs-button",
-                        {
-                          attrs: {
-                            type: "relief",
-                            "icon-pack": "feather",
-                            icon: "icon-printer"
-                          },
-                          on: {
-                            click: function($event) {
-                              return _vm.$refs.PrintNotification.show(
-                                _vm.selected
-                              )
-                            }
-                          }
-                        },
-                        [
-                          _vm._v(
-                            "\n                    បោះពុម្ព\n                "
-                          )
-                        ]
+                      _vm._v(
+                        "\n                    ឡើងថ្នាក់\n                "
                       )
-                    ],
-                    1
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.selected.length
+                ? _c(
+                    "vs-button",
+                    {
+                      attrs: {
+                        color: "warning",
+                        type: "relief",
+                        "icon-pack": "feather",
+                        icon: "icon-edit"
+                      },
+                      on: {
+                        click: function($event) {
+                          return _vm.$refs.changeStudyInfo.show(_vm.selected)
+                        }
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n                    ប្តូរថ្នាក់\n                "
+                      )
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.selected.length
+                ? _c(
+                    "vs-button",
+                    {
+                      attrs: {
+                        color: "danger",
+                        type: "relief",
+                        "icon-pack": "feather",
+                        icon: "icon-trash"
+                      },
+                      on: { click: _vm.confirmDelete }
+                    },
+                    [_vm._v("\n                    លុប\n                ")]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.selected.length
+                ? _c(
+                    "vs-button",
+                    {
+                      attrs: {
+                        type: "relief",
+                        "icon-pack": "feather",
+                        icon: "icon-printer"
+                      },
+                      on: {
+                        click: function($event) {
+                          return _vm.$refs.PrintNotification.show(_vm.selected)
+                        }
+                      }
+                    },
+                    [_vm._v("\n                    បោះពុម្ព\n                ")]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.selected.length === 1
+                ? _c(
+                    "vs-button",
+                    {
+                      attrs: {
+                        color: "danger",
+                        type: "relief",
+                        "icon-pack": "feather",
+                        icon: "icon-refresh-ccw"
+                      },
+                      on: {
+                        click: function($event) {
+                          _vm.activePrompt = true
+                        }
+                      }
+                    },
+                    [_vm._v("\n                ឈប់រៀន\n            ")]
                   )
                 : _vm._e()
-            ]
+            ],
+            1
           )
         ],
         1
@@ -1817,7 +1924,46 @@ var render = function() {
             _vm.selected = []
           }
         }
-      })
+      }),
+      _vm._v(" "),
+      _c(
+        "vs-prompt",
+        {
+          attrs: { active: _vm.activePrompt },
+          on: {
+            cancel: function($event) {
+              _vm.note_unused = ""
+            },
+            accept: _vm.acceptAlert,
+            close: _vm.close,
+            "update:active": function($event) {
+              _vm.activePrompt = $event
+            }
+          }
+        },
+        [
+          _c(
+            "div",
+            { staticClass: "con-exemple-prompt" },
+            [
+              _c("span", [_vm._v("មូលហេតុនៃការឈប់រៀន")]),
+              _vm._v(" "),
+              _c("vs-input", {
+                staticClass: "mt-3 w-full",
+                attrs: { placeholder: "មូលហេតុ", "vs-placeholder": "Code" },
+                model: {
+                  value: _vm.note_unused,
+                  callback: function($$v) {
+                    _vm.note_unused = $$v
+                  },
+                  expression: "note_unused"
+                }
+              })
+            ],
+            1
+          )
+        ]
+      )
     ],
     1
   )

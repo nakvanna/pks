@@ -41,6 +41,7 @@ Route::resource('/user','UserController');
 Route::post('/user-json','UserController@json')->name('user.json');
 Route::post('/student-json','StudentController@json')->name('student.json');
 Route::resource('/study-info','StudyInfoController');
+Route::put('/study-info-update_unused/{id}','StudyInfoController@update_unused')->name('study-info.update_unused');
 Route::post('/study-info-json','StudyInfoController@json')->name('study_info.json');
 Route::post('/study-info-change','StudyInfoController@storeChange')->name('study_info.change');
 Route::post('/study-info-by-year','StudyInfoController@show_by_year')->name('study-info.by-year');

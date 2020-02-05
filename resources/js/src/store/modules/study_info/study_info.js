@@ -74,6 +74,15 @@ const actions = {
             return false
         }
     },
+    async updateStudyInfoUnused({commit}, study_infos){
+        try {
+            const res = await axios.put(route('study-info.update_unused', study_infos.id), study_infos);
+            commit('UPDATE_STUDY_INFO', res.data);
+            return true
+        }catch (e) {
+            return false
+        }
+    },
     async destroyStudyInfo({commit}, id){
         try {
             const res = await axios.delete(route('study-info.destroy', id));

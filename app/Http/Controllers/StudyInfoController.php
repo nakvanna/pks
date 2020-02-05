@@ -97,6 +97,20 @@ class StudyInfoController extends Controller
         $update->save();
         return StudyInfo::with('students')->with('study_infos')->where('id',$update->id)->first();
     }
+    public function update_unused($id, Request $request){
+        $input = $request->all();
+        $request->validate([
+            'date_unused'=>'required',
+            'note_unused'=>'required',
+            'is_used'=>'required',
+        ]);
+        $update = StudyInfo::findOrFail($id);
+        $update->date_unused = $input['date_unused'];
+        $update->note_unused = $input['note_unused'];
+        $update->is_used = $input['is_used'];
+        $update->save();
+        return StudyInfo::with('students')->with('study_infos')->where('id',$update->id)->first();
+    }
     public function destroy($id){
         $delete = StudyInfo::findOrFail($id);
         $delete->delete();

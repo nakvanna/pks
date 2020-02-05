@@ -4,9 +4,9 @@
             <vs-col class="1/2" vs-type="flex" vs-justify="flex-start">
                 <h5>ចំនួនដែលបានជ្រើសរើស: {{selected.length}}</h5>
             </vs-col>
-            <vs-col class="1/2" vs-type="flex" vs-justify="flex-end">
-                <div v-if="selected.length" class="flex btn-group">
+            <vs-col class="1/2 btn-group" vs-type="flex"  vs-justify="flex-end">
                     <vs-button
+                            v-if="selected.length"
                             @click="$refs.addStudyInfo.show(selected)"
                             type="relief"
                             icon-pack="feather"
@@ -15,6 +15,7 @@
                         ឡើងថ្នាក់
                     </vs-button>
                     <vs-button
+                            v-if="selected.length"
                             @click="$refs.changeStudyInfo.show(selected)"
                             color="warning" type="relief"
                             icon-pack="feather" icon="icon-edit"
@@ -22,6 +23,7 @@
                         ប្តូរថ្នាក់
                     </vs-button>
                     <vs-button
+                            v-if="selected.length"
                             color="danger"
                             type="relief"
                             icon-pack="feather" icon="icon-trash"
@@ -29,14 +31,8 @@
                     >
                         លុប
                     </vs-button>
-                    <!--<vs-button
-                            color="danger"
-                            type="relief"
-                            icon-pack="feather" icon="icon-refresh-ccw"
-                    >
-                        ឈប់រៀន
-                    </vs-button>-->
                     <vs-button
+                            v-if="selected.length"
                             @click="$refs.PrintNotification.show(selected)"
                             type="relief"
                             icon-pack="feather"
@@ -44,7 +40,15 @@
                     >
                         បោះពុម្ព
                     </vs-button>
-                </div>
+                <vs-button
+                        v-if="selected.length === 1"
+                        @click="activePrompt = true"
+                        color="danger"
+                        type="relief"
+                        icon-pack="feather" icon="icon-refresh-ccw"
+                >
+                    ឈប់រៀន
+                </vs-button>
             </vs-col>
         </vs-row>
         <vs-divider/>
@@ -63,6 +67,16 @@
         <add-study-info @finished="selected=[]" ref="addStudyInfo"></add-study-info>
         <change-study-info @finished="selected=[]" ref="changeStudyInfo"></change-study-info>
         <print-notification @finished="selected=[]" ref="PrintNotification"></print-notification>
+        <vs-prompt
+                @cancel="note_unused=''"
+                @accept="acceptAlert"
+                @close="close"
+                :active.sync="activePrompt">
+            <div class="con-exemple-prompt">
+                <span>មូលហេតុនៃការឈប់រៀន</span>
+                <vs-input placeholder="មូលហេតុ" vs-placeholder="Code" v-model="note_unused" class="mt-3 w-full" />
+            </div>
+        </vs-prompt>
     </vx-card>
 </template>
 
@@ -80,12 +94,15 @@
         },
         data() {
             return {
+                note_unused: '',
+                date_unused: this.moment().format('DD/MM/YYYY'),
+                activePrompt:false,
                 selected: [],
                 gridApi: null,
                 columnDefs: [
                     {headerName: 'ឆ្នាំសិក្សា', field: 'year', checkboxSelection: true, pinned: true},
                     {headerName: 'ឈ្មោះសិស្ស', field: 'name',},
-                    {headerName: 'ឈ្មោះឡាតាំ', field: 'latin',},
+                    {headerName: 'ឈ្មោះឡាតាំង', field: 'latin',},
                     {headerName: 'ភេទ', field: 'gender',},
                     {headerName: 'ថ្ងៃខែឆ្នាំកំណើត', field: 'dob',},
                     {headerName: 'កំពុងរៀនថ្នាក់ទី', field: 'class_name',},
@@ -106,7 +123,10 @@
                             return day_left;
                         },
                         filter: "agNumberColumnFilter"
-                    }
+                    },
+                    {headerName: 'ស្ថានភាព', field: 'is_used',},
+                    {headerName: 'មូលហេតុឈប់រៀន', field: 'note_unused',},
+                    {headerName: 'ថ្ងៃឈប់រៀន', field: 'date_unused',},
                 ],
                 defaultColDef: {
                     sortable: true,
@@ -116,6 +136,47 @@
             }
         },
         methods: {
+            acceptAlert(){
+                if (this.note_unused === ''){
+                    this.$vs.notify({
+                        color:'danger',
+                        title:'ប្រតិបត្តិការណ៍មិនដំណើរការ',
+                        position:'top-center',
+                        text:'សូមបញ្ចាក់មូលហេតុ!'
+                    })
+                } else {
+                    this.update_unused()
+                }
+            },
+            close(){
+                this.$vs.notify({
+                    color:'danger',
+                    title:'ប្រតិបត្តិការណ៍មិនដំណើរការ',
+                    text:'You close a dialog!',
+                    position:'top-center'
+                })
+            },
+            async update_unused(){
+                let self = this;
+                self.$vs.notify({
+                    title:'ប្រតិបត្តិការណ៍ជោគជ័យ',
+                    text:'ទិន្នន័យត្រូវបានកែប្រែ!',
+                    color:'success',
+                    iconPack: 'feather',
+                    icon:'icon-check',
+                    position:'top-center'
+                });
+                await this.$store.dispatch('updateStudyInfoUnused', {
+                    id: this.selected[0].study_info_id,
+                    note_unused: this.note_unused,
+                    date_unused: this.date_unused,
+                    is_used: false
+                }).then((res) => {
+                    if (res === true){
+                        this.note_unused = '';
+                    }
+                })
+            },
             onGridReady(params) {
                 this.gridApi = params.api;
             },
@@ -172,6 +233,9 @@
                         dob           : data.students.dob,
                         class_name    : data.study_infos.level + data.study_infos.class_name,
                         shift         : data.study_infos.shift,
+                        is_used       : data.is_used === true ? 'នៅរៀន' : 'ឈប់រៀន',
+                        note_unused   : data.note_unused === null ? '------': data.note_unused,
+                        date_unused   : data.date_unused  === null ? '--/--/--': data.date_unused,
                         date_pay      : data.date_pay,
                         last_date_pay : data.last_date_pay,
                         last_term     : data.last_term,

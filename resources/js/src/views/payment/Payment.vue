@@ -61,7 +61,7 @@
                     </vs-td>
 
                     <vs-td :data="tr.invoice_date">
-                        {{ tr.invoice_date }}
+                        {{ moment(tr.invoice_date).format('DD/MM/YYYY') }}
                     </vs-td>
 
                     <vs-td v-if="tr.payment_status === true">
@@ -115,7 +115,6 @@
                         <vs-th sort-key="item">ប្រភេទត្រូវបង់</vs-th>
                         <vs-th sort-key="term">រយៈពេលបង់</vs-th>
                         <vs-th sort-key="balance">តម្លៃ</vs-th>
-                        <vs-th sort-key="created_at">កាលបរិច្ឆេទ</vs-th>
                         <vs-th sort-key="created_at">ថ្ងៃបង់លុយ</vs-th>
                         <vs-th sort-key="created_at">ថ្ងៃបង់បន្ទាប់</vs-th>
                     </template>
@@ -136,10 +135,6 @@
 
                             <vs-td :data="tr.balance">
                                 $ {{ tr.balance }}
-                            </vs-td>
-
-                            <vs-td :data="tr.created_at">
-                                {{ tr.created_at }}
                             </vs-td>
                             <vs-td :data="tr.date_pay">
                                 {{ moment(tr.date_pay).format('DD/MM/YYYY') }}
@@ -196,7 +191,7 @@
                     <vs-th sort-key="name">ប្រភេទត្រូវបង់</vs-th>
                     <vs-th>រយៈពេលបង់</vs-th>
                     <vs-th>តម្លៃ</vs-th>
-                    <vs-th>ថ្ងៃខែឆ្នាំត្រូវបង់</vs-th>
+                    <vs-th sort-key="date_pay">ថ្ងៃខែឆ្នាំត្រូវបង់</vs-th>
                     <vs-th>ថ្ងៃខែឆ្នាំត្រូវបង់បន្ទាប់</vs-th>
                     <vs-th>គ្រប់ឬនៅ</vs-th>
                 </template>
@@ -209,7 +204,38 @@
                         </vs-td>
 
                         <vs-td :data="tr.name">
-                            {{ tr.name }}
+                            <span v-if="moment(tr.date_pay).format('DD') === '01'" style="color: #01579B"><b>{{ tr.name }}</b></span>
+                            <span v-else-if="moment(tr.date_pay).format('DD') === '02'" style="color: #E91E63"><b>{{ tr.name }}</b></span>
+                            <span v-else-if="moment(tr.date_pay).format('DD') === '03'" style="color: #880E4F"><b>{{ tr.name }}</b></span>
+                            <span v-else-if="moment(tr.date_pay).format('DD') === '04'" style="color: #AA00FF"><b>{{ tr.name }}</b></span>
+                            <span v-else-if="moment(tr.date_pay).format('DD') === '05'" style="color: #3F51B5"><b>{{ tr.name }}</b></span>
+                            <span v-else-if="moment(tr.date_pay).format('DD') === '06'" style="color: #26C6DA"><b>{{ tr.name }}</b></span>
+                            <span v-else-if="moment(tr.date_pay).format('DD') === '07'" style="color: #80D8FF"><b>{{ tr.name }}</b></span>
+                            <span v-else-if="moment(tr.date_pay).format('DD') === '08'" style="color: #C0CA33"><b>{{ tr.name }}</b></span>
+                            <span v-else-if="moment(tr.date_pay).format('DD') === '09'" style="color: #689F38"><b>{{ tr.name }}</b></span>
+                            <span v-else-if="moment(tr.date_pay).format('DD') === '10'" style="color: #2E7D32"><b>{{ tr.name }}</b></span>
+                            <span v-else-if="moment(tr.date_pay).format('DD') === '11'" style="color: #FF9800"><b>{{ tr.name }}</b></span>
+                            <span v-else-if="moment(tr.date_pay).format('DD') === '12'" style="color: #FFEE58"><b>{{ tr.name }}</b></span>
+                            <span v-else-if="moment(tr.date_pay).format('DD') === '13'" style="color: #4E342E"><b>{{ tr.name }}</b></span>
+                            <span v-else-if="moment(tr.date_pay).format('DD') === '14'" style="color: #FFFF00"><b>{{ tr.name }}</b></span>
+                            <span v-else-if="moment(tr.date_pay).format('DD') === '15'" style="color: #64DD17"><b>{{ tr.name }}</b></span>
+                            <span v-else-if="moment(tr.date_pay).format('DD') === '16'" style="color: #1B5E20"><b>{{ tr.name }}</b></span>
+                            <span v-else-if="moment(tr.date_pay).format('DD') === '17'" style="color: #66BB6A"><b>{{ tr.name }}</b></span>
+                            <span v-else-if="moment(tr.date_pay).format('DD') === '18'" style="color: #00E5FF"><b>{{ tr.name }}</b></span>
+                            <span v-else-if="moment(tr.date_pay).format('DD') === '19'" style="color: #006064"><b>{{ tr.name }}</b></span>
+                            <span v-else-if="moment(tr.date_pay).format('DD') === '20'" style="color: #81D4FA"><b>{{ tr.name }}</b></span>
+                            <span v-else-if="moment(tr.date_pay).format('DD') === '21'" style="color: #26A69A"><b>{{ tr.name }}</b></span>
+                            <span v-else-if="moment(tr.date_pay).format('DD') === '22'" style="color: #B388FF"><b>{{ tr.name }}</b></span>
+                            <span v-else-if="moment(tr.date_pay).format('DD') === '23'" style="color: #FF4081"><b>{{ tr.name }}</b></span>
+                            <span v-else-if="moment(tr.date_pay).format('DD') === '24'" style="color: #B71C1C"><b>{{ tr.name }}</b></span>
+                            <span v-else-if="moment(tr.date_pay).format('DD') === '25'" style="color: #009688"><b>{{ tr.name }}</b></span>
+                            <span v-else-if="moment(tr.date_pay).format('DD') === '26'" style="color: #00BCD4"><b>{{ tr.name }}</b></span>
+                            <span v-else-if="moment(tr.date_pay).format('DD') === '27'" style="color: #1DE9B6"><b>{{ tr.name }}</b></span>
+                            <span v-else-if="moment(tr.date_pay).format('DD') === '28'" style="color: #2E7D32"><b>{{ tr.name }}</b></span>
+                            <span v-else-if="moment(tr.date_pay).format('DD') === '29'" style="color: #C6FF00"><b>{{ tr.name }}</b></span>
+                            <span v-else-if="moment(tr.date_pay).format('DD') === '30'" style="color: #64DD17"><b>{{ tr.name }}</b></span>
+                            <span v-else-if="moment(tr.date_pay).format('DD') === '31'" style="color: #795548"><b>{{ tr.name }}</b></span>
+                            <span v-else style="color: #6A1B9A"><b>{{ tr.name }}</b></span>
                         </vs-td>
 
                         <!--Term selected-->

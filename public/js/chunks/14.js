@@ -550,6 +550,32 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -1971,7 +1997,9 @@ var render = function() {
                       _c("vs-td", { attrs: { data: tr.invoice_date } }, [
                         _vm._v(
                           "\n                    " +
-                            _vm._s(tr.invoice_date) +
+                            _vm._s(
+                              _vm.moment(tr.invoice_date).format("DD/MM/YYYY")
+                            ) +
                             "\n                "
                         )
                       ]),
@@ -2244,14 +2272,6 @@ var render = function() {
                                 )
                               ]),
                               _vm._v(" "),
-                              _c("vs-td", { attrs: { data: tr.created_at } }, [
-                                _vm._v(
-                                  "\n                            " +
-                                    _vm._s(tr.created_at) +
-                                    "\n                        "
-                                )
-                              ]),
-                              _vm._v(" "),
                               _c("vs-td", { attrs: { data: tr.date_pay } }, [
                                 _vm._v(
                                   "\n                            " +
@@ -2307,10 +2327,6 @@ var render = function() {
                       _vm._v(" "),
                       _c("vs-th", { attrs: { "sort-key": "balance" } }, [
                         _vm._v("តម្លៃ")
-                      ]),
-                      _vm._v(" "),
-                      _c("vs-th", { attrs: { "sort-key": "created_at" } }, [
-                        _vm._v("កាលបរិច្ឆេទ")
                       ]),
                       _vm._v(" "),
                       _c("vs-th", { attrs: { "sort-key": "created_at" } }, [
@@ -2428,11 +2444,197 @@ var render = function() {
                           ]),
                           _vm._v(" "),
                           _c("vs-td", { attrs: { data: tr.name } }, [
-                            _vm._v(
-                              "\n                        " +
-                                _vm._s(tr.name) +
-                                "\n                    "
-                            )
+                            _vm.moment(tr.date_pay).format("DD") === "01"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#01579B" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "02"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#E91E63" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "03"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#880E4F" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "04"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#AA00FF" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "05"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#3F51B5" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "06"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#26C6DA" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "07"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#80D8FF" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "08"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#C0CA33" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "09"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#689F38" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "10"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#2E7D32" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "11"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#FF9800" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "12"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#FFEE58" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "13"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#4E342E" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "14"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#FFFF00" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "15"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#64DD17" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "16"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#1B5E20" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "17"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#66BB6A" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "18"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#00E5FF" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "19"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#006064" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "20"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#81D4FA" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "21"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#26A69A" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "22"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#B388FF" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "23"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#FF4081" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "24"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#B71C1C" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "25"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#009688" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "26"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#00BCD4" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "27"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#1DE9B6" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "28"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#2E7D32" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "29"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#C6FF00" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "30"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#64DD17" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "31"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#795548" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _c(
+                                  "span",
+                                  { staticStyle: { color: "#6A1B9A" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
                           ]),
                           _vm._v(" "),
                           _c(
@@ -2649,7 +2851,9 @@ var render = function() {
                   _vm._v(" "),
                   _c("vs-th", [_vm._v("តម្លៃ")]),
                   _vm._v(" "),
-                  _c("vs-th", [_vm._v("ថ្ងៃខែឆ្នាំត្រូវបង់")]),
+                  _c("vs-th", { attrs: { "sort-key": "date_pay" } }, [
+                    _vm._v("ថ្ងៃខែឆ្នាំត្រូវបង់")
+                  ]),
                   _vm._v(" "),
                   _c("vs-th", [_vm._v("ថ្ងៃខែឆ្នាំត្រូវបង់បន្ទាប់")]),
                   _vm._v(" "),

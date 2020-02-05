@@ -18,6 +18,7 @@ class PaymentController extends Controller
         $study_infos = StudyInfo::where('student_id', $request['payment']['id'])
             ->where('year', $request['payment']['cur_year'])->with('study_infos')
             ->where('to_class', null)
+            ->where('is_used', true)
             ->get();
         return response()->json(['services'=>$service_infos,'studies'=>$study_infos]);
     }
