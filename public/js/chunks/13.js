@@ -541,6 +541,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _sass_vuexy_extraComponents_agGridStyleOverride_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @sass/vuexy/extraComponents/agGridStyleOverride.scss */ "./resources/sass/vuexy/extraComponents/agGridStyleOverride.scss");
 /* harmony import */ var _sass_vuexy_extraComponents_agGridStyleOverride_scss__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_sass_vuexy_extraComponents_agGridStyleOverride_scss__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _PrintNotification__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./PrintNotification */ "./resources/js/src/views/study-year/PrintNotification.vue");
+/* harmony import */ var vue_flatpickr_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue-flatpickr-component */ "./node_modules/vue-flatpickr-component/dist/vue-flatpickr.min.js");
+/* harmony import */ var vue_flatpickr_component__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(vue_flatpickr_component__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var flatpickr_dist_flatpickr_min_css__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! flatpickr/dist/flatpickr.min.css */ "./node_modules/flatpickr/dist/flatpickr.min.css");
+/* harmony import */ var flatpickr_dist_flatpickr_min_css__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(flatpickr_dist_flatpickr_min_css__WEBPACK_IMPORTED_MODULE_7__);
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -629,6 +633,176 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
 
 
 
@@ -640,10 +814,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     ChangeStudyInfo: _student_changeStudyInfo__WEBPACK_IMPORTED_MODULE_2__["default"],
     PrintNotification: _PrintNotification__WEBPACK_IMPORTED_MODULE_5__["default"],
     AddStudyInfo: _student_addStudyInfo__WEBPACK_IMPORTED_MODULE_1__["default"],
-    AgGridVue: ag_grid_vue__WEBPACK_IMPORTED_MODULE_3__["AgGridVue"]
+    AgGridVue: ag_grid_vue__WEBPACK_IMPORTED_MODULE_3__["AgGridVue"],
+    flatPickr: vue_flatpickr_component__WEBPACK_IMPORTED_MODULE_6___default.a
   },
   data: function data() {
     return {
+      today_date: this.moment().format('YYYY-MM-DD'),
+      discount: 0,
+      after_discount: 0,
+      cash_discount: 0,
+      rec_balance: 0,
+      due_balance: 0,
+      ret_balance: 0,
+      default_discount: 0,
       note_unused: '',
       date_unused: this.moment().format('DD/MM/YYYY'),
       activePrompt: false,
@@ -710,6 +893,112 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   methods: {
+    preFixZero: function preFixZero(number, length) {
+      var str = '' + number;
+
+      while (str.length < length) {
+        str = '0' + str;
+      }
+
+      return str;
+    },
+    getCostOne: function getCostOne(one, date_pay, i) {
+      var price = one;
+      var temp_next_date = this.moment(date_pay).add('month', 1).format('YYYY-MM-DD');
+
+      if (temp_next_date > this.selected[i].last_date_pay) {
+        this.selected[i].next_date_pay = this.selected[i].last_date_pay;
+        var a = this.moment(date_pay);
+        var b = this.moment(this.selected[i].last_date_pay);
+        var over_days = b.diff(a, 'days');
+        price = (parseFloat(one) / 30 * over_days).toFixed();
+      } else {
+        this.selected[i].next_date_pay = temp_next_date;
+      }
+
+      this.selected[i].term_selected = price;
+      return price;
+    },
+    getCostThree: function getCostThree(three, date_pay, i) {
+      var price = three;
+      var temp_next_date = this.moment(date_pay).add('month', 3).format('YYYY-MM-DD');
+
+      if (temp_next_date > this.selected[i].last_date_pay) {
+        this.selected[i].next_date_pay = this.selected[i].last_date_pay;
+        var a = this.moment(date_pay);
+        var b = this.moment(this.selected[i].last_date_pay);
+        var over_days = b.diff(a, 'days');
+        price = (parseFloat(three) / 91.25 * over_days).toFixed(2);
+      } else {
+        this.selected[i].next_date_pay = temp_next_date;
+      }
+
+      this.selected[i].term_selected = price;
+      return price;
+    },
+    getCostSix: function getCostSix(six, date_pay, i) {
+      var price = six;
+      var temp_next_date = this.moment(date_pay).add('months', 6).format('YYYY-MM-DD');
+
+      if (temp_next_date > this.selected[i].last_date_pay) {
+        this.selected[i].next_date_pay = this.selected[i].last_date_pay;
+        var a = this.moment(date_pay);
+        var b = this.moment(this.selected[i].last_date_pay);
+        var over_days = b.diff(a, 'days');
+        price = (parseFloat(six) / 182.5 * over_days).toFixed(2);
+      } else {
+        this.selected[i].next_date_pay = temp_next_date;
+      }
+
+      this.selected[i].term_selected = price;
+      return price;
+    },
+    getCostTwelve: function getCostTwelve(twelve, date_pay, i) {
+      var price = twelve;
+      var temp_next_date = this.moment(date_pay).add('months', 12).subtract().format('YYYY-MM-DD');
+
+      if (temp_next_date > this.selected[i].last_date_pay) {
+        this.selected[i].next_date_pay = this.selected[i].last_date_pay;
+        var a = this.moment(date_pay);
+        var b = this.moment(this.selected[i].last_date_pay);
+        var over_days = b.diff(a, 'days');
+        price = (parseFloat(twelve) / 365 * over_days).toFixed(2);
+      } else {
+        this.selected[i].next_date_pay = temp_next_date;
+      }
+
+      this.selected[i].term_selected = price;
+      return price;
+    },
+    storeInvoice: function () {
+      var _storeInvoice = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+
+      function storeInvoice() {
+        return _storeInvoice.apply(this, arguments);
+      }
+
+      return storeInvoice;
+    }(),
+    cashDiscount: function cashDiscount() {
+      this.discount = parseFloat(this.cash_discount * 100 / this.total_payment).toFixed(2);
+      this.after_discount = this.total_payment - this.cash_discount;
+    },
+    percentDiscount: function percentDiscount() {
+      this.cash_discount = parseFloat(this.total_payment * this.discount / 100).toFixed(2);
+      this.after_discount = this.total_payment - this.cash_discount;
+    },
     acceptAlert: function acceptAlert() {
       if (this.note_unused === '') {
         this.$vs.notify({
@@ -733,13 +1022,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     update_unused: function () {
       var _update_unused = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
         var _this = this;
 
         var self;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context.prev = _context.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
                 self = this;
                 self.$vs.notify({
@@ -750,7 +1039,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   icon: 'icon-check',
                   position: 'top-center'
                 });
-                _context.next = 4;
+                _context2.next = 4;
                 return this.$store.dispatch('updateStudyInfoUnused', {
                   id: this.selected[0].study_info_id,
                   note_unused: this.note_unused,
@@ -759,15 +1048,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 }).then(function (res) {
                   if (res === true) {
                     _this.note_unused = '';
+
+                    _this.$refs.add_payment.open();
                   }
                 });
 
               case 4:
               case "end":
-                return _context.stop();
+                return _context2.stop();
             }
           }
-        }, _callee, this);
+        }, _callee2, this);
       }));
 
       function update_unused() {
@@ -781,6 +1072,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     onSelectionChanged: function onSelectionChanged() {
       this.selected = this.gridApi.getSelectedRows();
+      console.log(this.selected);
     },
     //destroy
     confirmDelete: function confirmDelete() {
@@ -794,11 +1086,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     deleteStudyYear: function () {
       var _deleteStudyYear = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
         var self, promises;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
           while (1) {
-            switch (_context3.prev = _context3.next) {
+            switch (_context4.prev = _context4.next) {
               case 0:
                 self = this;
                 promises = self.selected.map(
@@ -806,32 +1098,32 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 function () {
                   var _ref = _asyncToGenerator(
                   /*#__PURE__*/
-                  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(data) {
-                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+                  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(data) {
+                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
                       while (1) {
-                        switch (_context2.prev = _context2.next) {
+                        switch (_context3.prev = _context3.next) {
                           case 0:
                             if (!(parseInt(data.last_term) === 0)) {
-                              _context2.next = 3;
+                              _context3.next = 3;
                               break;
                             }
 
-                            _context2.next = 3;
+                            _context3.next = 3;
                             return self.$store.dispatch('destroyStudyInfo', data.study_info_id);
 
                           case 3:
                           case "end":
-                            return _context2.stop();
+                            return _context3.stop();
                         }
                       }
-                    }, _callee2);
+                    }, _callee3);
                   }));
 
                   return function (_x) {
                     return _ref.apply(this, arguments);
                   };
                 }());
-                _context3.next = 4;
+                _context4.next = 4;
                 return Promise.all(promises).then(function () {
                   self.$vs.notify({
                     title: 'ប្រតិបត្តិការណ៍ជោគជ័យ',
@@ -847,10 +1139,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 4:
               case "end":
-                return _context3.stop();
+                return _context4.stop();
             }
           }
-        }, _callee3, this);
+        }, _callee4, this);
       }));
 
       function deleteStudyYear() {
@@ -861,6 +1153,39 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }()
   },
   computed: {
+    totalPayment: function totalPayment() {
+      var self = this;
+      var payments = 0;
+      var vm = this.selected;
+
+      for (var i = 0; i < vm.length; i++) {
+        payments += parseFloat(vm[i].term_selected);
+      }
+
+      self.total_payment = payments;
+      self.after_discount = payments;
+      return payments;
+    },
+    returnBalance: function returnBalance() {
+      var return_bal = 0;
+
+      if (this.after_discount <= this.rec_balance) {
+        return_bal = this.rec_balance - this.after_discount;
+      }
+
+      this.ret_balance = return_bal;
+      return return_bal;
+    },
+    dueBalance: function dueBalance() {
+      var return_bal = 0;
+
+      if (this.after_discount >= this.rec_balance) {
+        return_bal = this.rec_balance - this.after_discount;
+      }
+
+      this.due_balance = return_bal;
+      return return_bal;
+    },
     getStudyInfos: function getStudyInfos() {
       return this.$store.getters.get_study_infos;
     },
@@ -1963,6 +2288,657 @@ var render = function() {
             1
           )
         ]
+      ),
+      _vm._v(" "),
+      _c(
+        "sweet-modal",
+        {
+          ref: "add_payment",
+          attrs: {
+            title: "ការបង់លុយ",
+            blocking: true,
+            width: !_vm.mobilecheck() ? "100%" : ""
+          }
+        },
+        [
+          _c("div", { staticClass: "vx-row" }, [
+            _c(
+              "div",
+              { staticClass: "vx-col md:w-1/6" },
+              [
+                _c("flat-pickr", {
+                  staticClass: "w-full",
+                  attrs: { placeholder: "ថ្ងៃបង់លុយ" },
+                  model: {
+                    value: _vm.today_date,
+                    callback: function($$v) {
+                      _vm.today_date = $$v
+                    },
+                    expression: "today_date"
+                  }
+                })
+              ],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "vx-row mt-base mb-base" }, [
+            _c("div", { staticClass: "vx-col md:w-1/5 w-full" })
+          ]),
+          _vm._v(" "),
+          _c("h3", { staticClass: "mb-10" }, [
+            _vm._v("បញ្ចុះតម្លៃ " + _vm._s(_vm.default_discount) + "%")
+          ]),
+          _vm._v(" "),
+          _c(
+            "vs-table",
+            {
+              attrs: { data: _vm.selected },
+              scopedSlots: _vm._u([
+                {
+                  key: "default",
+                  fn: function(ref) {
+                    var data = ref.data
+                    return _vm._l(data, function(tr, index) {
+                      return _c(
+                        "vs-tr",
+                        { key: index, attrs: { data: tr } },
+                        [
+                          _c("vs-td", { attrs: { data: tr.year } }, [
+                            _vm._v(
+                              "\n                        " +
+                                _vm._s(tr.year) +
+                                "\n                    "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("vs-td", { attrs: { data: tr.name } }, [
+                            _vm.moment(tr.date_pay).format("DD") === "01"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#01579B" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "02"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#E91E63" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "03"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#880E4F" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "04"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#AA00FF" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "05"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#3F51B5" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "06"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#26C6DA" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "07"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#80D8FF" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "08"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#C0CA33" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "09"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#689F38" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "10"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#2E7D32" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "11"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#FF9800" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "12"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#FFEE58" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "13"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#4E342E" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "14"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#FFFF00" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "15"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#64DD17" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "16"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#1B5E20" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "17"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#66BB6A" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "18"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#00E5FF" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "19"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#006064" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "20"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#81D4FA" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "21"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#26A69A" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "22"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#B388FF" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "23"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#FF4081" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "24"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#B71C1C" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "25"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#009688" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "26"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#00BCD4" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "27"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#1DE9B6" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "28"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#2E7D32" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "29"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#C6FF00" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "30"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#64DD17" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _vm.moment(tr.date_pay).format("DD") === "31"
+                              ? _c(
+                                  "span",
+                                  { staticStyle: { color: "#795548" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                              : _c(
+                                  "span",
+                                  { staticStyle: { color: "#6A1B9A" } },
+                                  [_c("b", [_vm._v(_vm._s(tr.name))])]
+                                )
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "vs-td",
+                            [
+                              _c(
+                                "vs-select",
+                                {
+                                  staticClass: "w-full",
+                                  attrs: {
+                                    autocomplete: "",
+                                    placeholder: "ជ្រើសរើសរយៈពេល"
+                                  },
+                                  model: {
+                                    value: tr.last_term,
+                                    callback: function($$v) {
+                                      _vm.$set(tr, "last_term", $$v)
+                                    },
+                                    expression: "tr.last_term"
+                                  }
+                                },
+                                [
+                                  _c("vs-select-item", {
+                                    attrs: { value: "1", text: "1" }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("vs-select-item", {
+                                    attrs: { value: "3", text: "3" }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("vs-select-item", {
+                                    attrs: { value: "6", text: "6" }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("vs-select-item", {
+                                    attrs: { value: "12", text: "12" }
+                                  })
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          tr.last_term === 1 || tr.last_term === "1"
+                            ? _c("vs-td", [
+                                _vm._v(
+                                  "\n                        " +
+                                    _vm._s(
+                                      _vm.getCostOne(
+                                        tr.cost_one,
+                                        tr.date_pay,
+                                        index
+                                      )
+                                    ) +
+                                    "\n                    "
+                                )
+                              ])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          tr.last_term === 3 || tr.last_term === "3"
+                            ? _c("vs-td", [
+                                _vm._v(
+                                  "\n                        " +
+                                    _vm._s(
+                                      _vm.getCostThree(
+                                        tr.cost_three,
+                                        tr.date_pay,
+                                        index
+                                      )
+                                    ) +
+                                    "\n                    "
+                                )
+                              ])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          tr.last_term === 6 || tr.last_term === "6"
+                            ? _c("vs-td", [
+                                _vm._v(
+                                  "\n                        " +
+                                    _vm._s(
+                                      _vm.getCostSix(
+                                        tr.cost_six,
+                                        tr.date_pay,
+                                        index
+                                      )
+                                    ) +
+                                    "\n                    "
+                                )
+                              ])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          tr.last_term === 12 || tr.last_term === "12"
+                            ? _c("vs-td", [
+                                _vm._v(
+                                  "\n                        " +
+                                    _vm._s(
+                                      _vm.getCostTwelve(
+                                        tr.cost_twelve,
+                                        tr.date_pay,
+                                        index
+                                      )
+                                    ) +
+                                    "\n                    "
+                                )
+                              ])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          tr.last_term === 0
+                            ? _c("vs-td", [
+                                _vm._v(
+                                  "\n                        0\n                    "
+                                )
+                              ])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          tr.date_pay !== null
+                            ? _c(
+                                "vs-td",
+                                [
+                                  _c("flat-pickr", {
+                                    staticClass: "w-full",
+                                    attrs: {
+                                      value: tr.date_pay,
+                                      placeholder: "ថ្ងៃត្រូវបង់លុយដំបូង"
+                                    }
+                                  })
+                                ],
+                                1
+                              )
+                            : _c(
+                                "vs-td",
+                                [
+                                  _c("flat-pickr", {
+                                    staticClass: "w-full",
+                                    attrs: {
+                                      placeholder: "ថ្ងៃត្រូវបង់លុយដំបូង"
+                                    },
+                                    model: {
+                                      value: tr.date_pay,
+                                      callback: function($$v) {
+                                        _vm.$set(tr, "date_pay", $$v)
+                                      },
+                                      expression: "tr.date_pay"
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                          _vm._v(" "),
+                          _c(
+                            "vs-td",
+                            [
+                              _c("flat-pickr", {
+                                staticClass: "w-full",
+                                attrs: {
+                                  placeholder: "ថ្ងៃត្រូវបង់លុយដំបូង",
+                                  disabled: ""
+                                },
+                                model: {
+                                  value: tr.next_date_pay,
+                                  callback: function($$v) {
+                                    _vm.$set(tr, "next_date_pay", $$v)
+                                  },
+                                  expression: "tr.next_date_pay"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "vs-td",
+                            [
+                              _c("vs-button", {
+                                attrs: {
+                                  radius: "",
+                                  color: "danger",
+                                  type: "relief",
+                                  "icon-pack": "feather",
+                                  icon: "icon-trash"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.removeItem(index)
+                                  }
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    })
+                  }
+                }
+              ])
+            },
+            [
+              _c(
+                "template",
+                { slot: "thead" },
+                [
+                  _c("vs-th", { attrs: { "sort-key": "year" } }, [
+                    _vm._v("ឆ្នាំសិក្សា")
+                  ]),
+                  _vm._v(" "),
+                  _c("vs-th", { attrs: { "sort-key": "name" } }, [
+                    _vm._v("ប្រភេទត្រូវបង់")
+                  ]),
+                  _vm._v(" "),
+                  _c("vs-th", [_vm._v("រយៈពេលបង់")]),
+                  _vm._v(" "),
+                  _c("vs-th", [_vm._v("តម្លៃ")]),
+                  _vm._v(" "),
+                  _c("vs-th", { attrs: { "sort-key": "date_pay" } }, [
+                    _vm._v("ថ្ងៃខែឆ្នាំត្រូវបង់")
+                  ]),
+                  _vm._v(" "),
+                  _c("vs-th", [_vm._v("ថ្ងៃខែឆ្នាំត្រូវបង់បន្ទាប់")]),
+                  _vm._v(" "),
+                  _c("vs-th", [_vm._v("គ្រប់ឬនៅ")])
+                ],
+                1
+              )
+            ],
+            2
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "centerx vx-row mt-10" }, [
+            _c("div", { staticClass: "vx-col md:w-1/2" }, [
+              _c("h3", [
+                _c("span", [
+                  _vm._v("តម្លៃសរុប: "),
+                  _c("b", [
+                    _vm._v(
+                      _vm._s(_vm.$formatter.format(_vm.totalPayment)) +
+                        "​ => " +
+                        _vm._s(
+                          _vm.$formatter.format(parseFloat(_vm.after_discount))
+                        )
+                    )
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "flex" }, [
+                _c(
+                  "div",
+                  { staticClass: "flex mt-5" },
+                  [
+                    _c("vs-input-number", {
+                      attrs: {
+                        label: "បញ្ចុះភាគរយ %:",
+                        min: "0",
+                        max: "100",
+                        "icon-inc": "expand_less",
+                        "icon-dec": "expand_more"
+                      },
+                      on: { input: _vm.percentDiscount },
+                      model: {
+                        value: _vm.discount,
+                        callback: function($$v) {
+                          _vm.discount = $$v
+                        },
+                        expression: "discount"
+                      }
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "flex mt-5" },
+                  [
+                    _c("vs-input-number", {
+                      attrs: {
+                        label: "បញ្ចុះជាសាច់ប្រាក់ $:",
+                        min: "0",
+                        max: _vm.total_payment,
+                        "icon-inc": "expand_less",
+                        "icon-dec": "expand_more"
+                      },
+                      on: { input: _vm.cashDiscount },
+                      model: {
+                        value: _vm.cash_discount,
+                        callback: function($$v) {
+                          _vm.cash_discount = $$v
+                        },
+                        expression: "cash_discount"
+                      }
+                    })
+                  ],
+                  1
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "vx-col md:w-1/2" },
+              [
+                _c("vs-divider", { attrs: { position: "left-center" } }, [
+                  _vm._v("ទូទាត់សាច់ប្រាក់")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "flex" },
+                  [
+                    _c("vs-input-number", {
+                      attrs: {
+                        label: "សាច់ប្រាក់ទទូល $:",
+                        "icon-inc": "expand_less",
+                        "icon-dec": "expand_more"
+                      },
+                      model: {
+                        value: _vm.rec_balance,
+                        callback: function($$v) {
+                          _vm.rec_balance = $$v
+                        },
+                        expression: "rec_balance"
+                      }
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "flex" }, [
+                  _c(
+                    "div",
+                    { staticClass: "flex " },
+                    [
+                      _c("vs-input-number", {
+                        attrs: {
+                          label: "សាច់ប្រាក់ជំពាក់ $:",
+                          disabled: "",
+                          "icon-inc": "expand_less",
+                          "icon-dec": "expand_more"
+                        },
+                        model: {
+                          value: _vm.dueBalance,
+                          callback: function($$v) {
+                            _vm.dueBalance = $$v
+                          },
+                          expression: "dueBalance"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "flex " },
+                    [
+                      _c("vs-input-number", {
+                        attrs: {
+                          label: "សាច់ប្រាក់អាប់ $:",
+                          disabled: "",
+                          "icon-inc": "expand_less",
+                          "icon-dec": "expand_more"
+                        },
+                        model: {
+                          value: _vm.returnBalance,
+                          callback: function($$v) {
+                            _vm.returnBalance = $$v
+                          },
+                          expression: "returnBalance"
+                        }
+                      })
+                    ],
+                    1
+                  )
+                ])
+              ],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          _vm.selected.length
+            ? _c(
+                "vs-button",
+                {
+                  attrs: { slot: "button" },
+                  on: { click: _vm.storeInvoice },
+                  slot: "button"
+                },
+                [_vm._v("បង់លុយ")]
+              )
+            : _vm._e()
+        ],
+        1
       )
     ],
     1
