@@ -232,7 +232,11 @@
                 // self.$store.dispatch('fetchStudent'),
             ]).then(function () {
                 self.$vs.loading.close();
-            })
+            });
+            const token = JSON.parse(localStorage.getItem("userInfo"));
+            if (token) {
+                await self.$store.dispatch('updateUserData',token);
+            }
 
         }
     }

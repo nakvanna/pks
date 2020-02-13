@@ -1,8 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-
-Vue.use(Router)
-
+import store from './store/store'
+Vue.use(Router);
 const router = new Router({
     mode: 'history',
     base: process.env.BASE_URL,
@@ -24,7 +23,10 @@ const router = new Router({
                 {
                     path: '/',
                     name: 'home',
-                    component: () => import('./views/student/Student')
+                    component: () => import('./views/student/Student'),
+                    meta:{
+                        requiresAuth: true
+                    }
                 },
                 {
                     path: '/page2',
@@ -32,7 +34,8 @@ const router = new Router({
                     component: () => import('./views/Page2.vue'),
                     meta: {
                         pageTitle: 'អ្នកប្រើប្រាស់',
-                        rule: 'editor'
+                        rule: 'editor',
+                        requiresAuth: true
                     }
                 },
                 {
@@ -41,7 +44,8 @@ const router = new Router({
                     component: () => import('./views/student/Student'),
                     meta: {
                         pageTitle: 'សិស្ស',
-                        rule: 'editor'
+                        rule: 'editor',
+                        requiresAuth: true
                     }
                 },
                 {
@@ -50,7 +54,8 @@ const router = new Router({
                     component: () => import('./views/setting/Setting'),
                     meta: {
                         pageTitle: 'ការកំណត់',
-                        rule: 'editor'
+                        rule: 'editor',
+                        requiresAuth: true
                     }
                 },
                 {
@@ -59,7 +64,8 @@ const router = new Router({
                     component: () => import('./views/service/Service'),
                     meta: {
                         pageTitle: 'ប្រភេទសេវាកម្ម',
-                        rule: 'editor'
+                        rule: 'editor',
+                        requiresAuth: true
                     }
                 },
                 {
@@ -68,7 +74,8 @@ const router = new Router({
                     component: () => import('./views/employee/Employee'),
                     meta: {
                         pageTitle: 'ចុះឈ្មោះបុគ្គលិក',
-                        rule: 'editor'
+                        rule: 'editor',
+                        requiresAuth: true
                     }
                 },
                 {
@@ -77,7 +84,8 @@ const router = new Router({
                     component: () => import('./views/study-year/StudyYear'),
                     meta: {
                         pageTitle: 'ចុះឈ្មោះតាមឆ្នាំសិក្សា',
-                        rule: 'editor'
+                        rule: 'editor',
+                        requiresAuth: true
                     }
                 },
                 {
@@ -86,7 +94,8 @@ const router = new Router({
                     component: () => import('./views/service-packet/ServicePackage'),
                     meta: {
                         pageTitle: 'ការទិញកញ្ចប់សេវាកម្ម',
-                        rule: 'editor'
+                        rule: 'editor',
+                        requiresAuth: true
                     }
                 },
                 {
@@ -95,7 +104,8 @@ const router = new Router({
                     component: () => import('./views/payment/Payment'),
                     meta: {
                         pageTitle: 'ការបង់លុយ',
-                        rule: 'editor'
+                        rule: 'editor',
+                        requiresAuth: true
                     }
                 },
                 {
@@ -104,7 +114,8 @@ const router = new Router({
                     component: () => import('./views/report/Report'),
                     meta: {
                         pageTitle: 'របាយការណ៌',
-                        rule: 'editor'
+                        rule: 'editor',
+                        requiresAuth: true
                     }
                 },
                 {
@@ -113,7 +124,8 @@ const router = new Router({
                     component: () => import('./views/import/Excel'),
                     meta: {
                         pageTitle: 'Import Data',
-                        rule: 'editor'
+                        rule: 'editor',
+                        requiresAuth: true
                     }
                 },
             ],
@@ -155,5 +167,15 @@ router.afterEach(() => {
         appLoading.style.display = "none";
     }
 });
-
+router.beforeEach((to, from, next) => {
+    if(to.matched.some(record => record.meta.requiresAuth)) {
+        if (store.getters.isAuthenticated) {
+            next();
+            return
+        }
+        next('/pages/login')
+    } else {
+        next()
+    }
+});
 export default router
