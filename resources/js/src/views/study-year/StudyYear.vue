@@ -273,7 +273,7 @@
                 ret_balance: 0,
                 default_discount: 0,
                 note_unused: '',
-                date_unused: this.moment().format('DD/MM/YYYY'),
+                date_unused: this.moment().format('MM/DD/YYYY'),
                 activePrompt:false,
                 selected: [],
                 gridApi: null,
@@ -324,10 +324,10 @@
             getCostOne(one, date_pay, i){
                 var price = one;
                 var temp_next_date = this.moment(date_pay).add('month', 1).format('YYYY-MM-DD');
-                if(temp_next_date > this.selected[i].last_date_pay){
-                    this.selected[i].next_date_pay = this.selected[i].last_date_pay;
+                if(temp_next_date > this.date_unused){
+                    this.selected[i].next_date_pay = this.date_unused;
                     var a = this.moment(date_pay);
-                    var b = this.moment(this.selected[i].last_date_pay);
+                    var b = this.moment(this.date_unused);
                     var over_days = b.diff(a, 'days');
                     price = (parseFloat(one) / 30 * over_days).toFixed();
                 } else {
@@ -339,10 +339,10 @@
             getCostThree(three, date_pay, i){
                 var price = three;
                 var temp_next_date = this.moment(date_pay).add('month', 3).format('YYYY-MM-DD');
-                if(temp_next_date > this.selected[i].last_date_pay){
-                    this.selected[i].next_date_pay = this.selected[i].last_date_pay;
+                if(temp_next_date > this.date_unused){
+                    this.selected[i].next_date_pay = this.date_unused;
                     var a = this.moment(date_pay);
-                    var b = this.moment(this.selected[i].last_date_pay);
+                    var b = this.moment(this.date_unused);
                     var over_days = b.diff(a, 'days');
                     price = (parseFloat(three) / 91.25 * over_days).toFixed(2);
                 } else {
@@ -354,10 +354,10 @@
             getCostSix(six, date_pay, i){
                 var price = six;
                 var temp_next_date = this.moment(date_pay).add('months', 6).format('YYYY-MM-DD');
-                if(temp_next_date > this.selected[i].last_date_pay){
-                    this.selected[i].next_date_pay = this.selected[i].last_date_pay;
+                if(temp_next_date > this.date_unused){
+                    this.selected[i].next_date_pay = this.date_unused;
                     var a = this.moment(date_pay);
-                    var b = this.moment(this.selected[i].last_date_pay);
+                    var b = this.moment(this.date_unused);
                     var over_days = b.diff(a, 'days');
                     price = (parseFloat(six) / 182.5 * over_days).toFixed(2);
                 } else {
@@ -369,10 +369,10 @@
             getCostTwelve(twelve, date_pay, i){
                 var price = twelve;
                 var temp_next_date = this.moment(date_pay).add('months', 12).subtract().format('YYYY-MM-DD');
-                if(temp_next_date > this.selected[i].last_date_pay){
-                    this.selected[i].next_date_pay = this.selected[i].last_date_pay;
+                if(temp_next_date > this.date_unused){
+                    this.selected[i].next_date_pay = this.date_unused;
                     var a = this.moment(date_pay);
-                    var b = this.moment(this.selected[i].last_date_pay);
+                    var b = this.moment(this.date_unused);
                     var over_days = b.diff(a, 'days');
                     price = (parseFloat(twelve) / 365 * over_days).toFixed(2);
                 } else {
@@ -573,7 +573,8 @@
                 }
                 self.total_payment = payments;
                 self.after_discount = payments;
-                return payments;
+                console.log(payments);
+                return 0;
             },
             returnBalance(){
                 var return_bal = 0;
