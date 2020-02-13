@@ -1,4 +1,4 @@
-import axios from  'axios'
+
 const state = {
     service_infos:[],
     show_service_infos: [],
