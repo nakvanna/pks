@@ -197,13 +197,13 @@
                 </template>
 
                 <template slot-scope="{data}">
-                    <vs-tr :data="tr" :key="index" v-for="(tr, index) in data">
+                    <vs-tr  :data="tr" :key="index" v-for="(tr, index) in data" style="background: powderblue; color: #1E1E1E">
 
                         <vs-td :data="tr.year">
                             {{ tr.year }}
                         </vs-td>
 
-                        <vs-td :data="tr.name">
+                        <!--<vs-td :data="tr.name">
                             <span v-if="moment(tr.date_pay).format('DD') === '01'" style="color: #01579B"><b>{{ tr.name }}</b></span>
                             <span v-else-if="moment(tr.date_pay).format('DD') === '02'" style="color: #E91E63"><b>{{ tr.name }}</b></span>
                             <span v-else-if="moment(tr.date_pay).format('DD') === '03'" style="color: #880E4F"><b>{{ tr.name }}</b></span>
@@ -236,6 +236,9 @@
                             <span v-else-if="moment(tr.date_pay).format('DD') === '30'" style="color: #64DD17"><b>{{ tr.name }}</b></span>
                             <span v-else-if="moment(tr.date_pay).format('DD') === '31'" style="color: #795548"><b>{{ tr.name }}</b></span>
                             <span v-else style="color: #6A1B9A"><b>{{ tr.name }}</b></span>
+                        </vs-td>-->
+                        <vs-td :data="tr.name">
+                            <span><b>{{ tr.name }}</b></span>
                         </vs-td>
 
                         <!--Term selected-->
@@ -769,6 +772,10 @@
                 });
                 this.discount = 0;
                 this.cash_discount = 0;
+                this.after_discount = 0;
+                this.rec_balance = 0;
+                this.due_balance = 0;
+                this.ret_balance = 0;
                 this.all_infos = [];
             },
             removeItem(i){

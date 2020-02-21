@@ -111,7 +111,7 @@
                 </div>-->
             </div>
             <h3 class="mb-10">បញ្ចុះតម្លៃ {{default_discount}}%</h3>
-            <vs-table :data="selected">
+            <vs-table :data="new_selected">
 
                 <template slot="thead">
                     <vs-th sort-key="year">ឆ្នាំសិក្សា</vs-th>
@@ -131,42 +131,14 @@
                         </vs-td>
 
                         <vs-td :data="tr.name">
-                            <span v-if="moment(tr.date_pay).format('DD') === '01'" style="color: #01579B"><b>{{ tr.name }}</b></span>
-                            <span v-else-if="moment(tr.date_pay).format('DD') === '02'" style="color: #E91E63"><b>{{ tr.name }}</b></span>
-                            <span v-else-if="moment(tr.date_pay).format('DD') === '03'" style="color: #880E4F"><b>{{ tr.name }}</b></span>
-                            <span v-else-if="moment(tr.date_pay).format('DD') === '04'" style="color: #AA00FF"><b>{{ tr.name }}</b></span>
-                            <span v-else-if="moment(tr.date_pay).format('DD') === '05'" style="color: #3F51B5"><b>{{ tr.name }}</b></span>
-                            <span v-else-if="moment(tr.date_pay).format('DD') === '06'" style="color: #26C6DA"><b>{{ tr.name }}</b></span>
-                            <span v-else-if="moment(tr.date_pay).format('DD') === '07'" style="color: #80D8FF"><b>{{ tr.name }}</b></span>
-                            <span v-else-if="moment(tr.date_pay).format('DD') === '08'" style="color: #C0CA33"><b>{{ tr.name }}</b></span>
-                            <span v-else-if="moment(tr.date_pay).format('DD') === '09'" style="color: #689F38"><b>{{ tr.name }}</b></span>
-                            <span v-else-if="moment(tr.date_pay).format('DD') === '10'" style="color: #2E7D32"><b>{{ tr.name }}</b></span>
-                            <span v-else-if="moment(tr.date_pay).format('DD') === '11'" style="color: #FF9800"><b>{{ tr.name }}</b></span>
-                            <span v-else-if="moment(tr.date_pay).format('DD') === '12'" style="color: #FFEE58"><b>{{ tr.name }}</b></span>
-                            <span v-else-if="moment(tr.date_pay).format('DD') === '13'" style="color: #4E342E"><b>{{ tr.name }}</b></span>
-                            <span v-else-if="moment(tr.date_pay).format('DD') === '14'" style="color: #FFFF00"><b>{{ tr.name }}</b></span>
-                            <span v-else-if="moment(tr.date_pay).format('DD') === '15'" style="color: #64DD17"><b>{{ tr.name }}</b></span>
-                            <span v-else-if="moment(tr.date_pay).format('DD') === '16'" style="color: #1B5E20"><b>{{ tr.name }}</b></span>
-                            <span v-else-if="moment(tr.date_pay).format('DD') === '17'" style="color: #66BB6A"><b>{{ tr.name }}</b></span>
-                            <span v-else-if="moment(tr.date_pay).format('DD') === '18'" style="color: #00E5FF"><b>{{ tr.name }}</b></span>
-                            <span v-else-if="moment(tr.date_pay).format('DD') === '19'" style="color: #006064"><b>{{ tr.name }}</b></span>
-                            <span v-else-if="moment(tr.date_pay).format('DD') === '20'" style="color: #81D4FA"><b>{{ tr.name }}</b></span>
-                            <span v-else-if="moment(tr.date_pay).format('DD') === '21'" style="color: #26A69A"><b>{{ tr.name }}</b></span>
-                            <span v-else-if="moment(tr.date_pay).format('DD') === '22'" style="color: #B388FF"><b>{{ tr.name }}</b></span>
-                            <span v-else-if="moment(tr.date_pay).format('DD') === '23'" style="color: #FF4081"><b>{{ tr.name }}</b></span>
-                            <span v-else-if="moment(tr.date_pay).format('DD') === '24'" style="color: #B71C1C"><b>{{ tr.name }}</b></span>
-                            <span v-else-if="moment(tr.date_pay).format('DD') === '25'" style="color: #009688"><b>{{ tr.name }}</b></span>
-                            <span v-else-if="moment(tr.date_pay).format('DD') === '26'" style="color: #00BCD4"><b>{{ tr.name }}</b></span>
-                            <span v-else-if="moment(tr.date_pay).format('DD') === '27'" style="color: #1DE9B6"><b>{{ tr.name }}</b></span>
-                            <span v-else-if="moment(tr.date_pay).format('DD') === '28'" style="color: #2E7D32"><b>{{ tr.name }}</b></span>
-                            <span v-else-if="moment(tr.date_pay).format('DD') === '29'" style="color: #C6FF00"><b>{{ tr.name }}</b></span>
-                            <span v-else-if="moment(tr.date_pay).format('DD') === '30'" style="color: #64DD17"><b>{{ tr.name }}</b></span>
-                            <span v-else-if="moment(tr.date_pay).format('DD') === '31'" style="color: #795548"><b>{{ tr.name }}</b></span>
-                            <span v-else style="color: #6A1B9A"><b>{{ tr.name }}</b></span>
+                            <span><b>{{ tr.name }}</b></span>
                         </vs-td>
 
                         <!--Term selected-->
                         <vs-td>
+                            {{tr.last_term}} ថ្ងៃ
+                        </vs-td>
+                        <!--<vs-td>
                             <vs-select
                                     class="w-full"
                                     autocomplete
@@ -178,27 +150,14 @@
                                 <vs-select-item value="6" text="6"/>
                                 <vs-select-item value="12" text="12"/>
                             </vs-select>
-                        </vs-td>
+                        </vs-td>-->
                         <!--Term selected-->
 
                         <!--Cost term-->
-                        <vs-td v-if="tr.last_term === 1 || tr.last_term === '1' ">
-                            {{getCostOne(tr.cost_one, tr.date_pay, index)}}
-                        </vs-td>
-                        <vs-td v-if="tr.last_term === 3 || tr.last_term === '3' ">
-                            {{getCostThree(tr.cost_three, tr.date_pay, index)}}
-                        </vs-td>
-                        <vs-td v-if="tr.last_term === 6 || tr.last_term === '6' ">
-                            {{getCostSix(tr.cost_six, tr.date_pay, index)}}
-                        </vs-td>
-                        <vs-td v-if="tr.last_term === 12 || tr.last_term === '12' ">
-                            {{getCostTwelve(tr.cost_twelve, tr.date_pay, index)}}
-                        </vs-td>
-                        <vs-td v-if="tr.last_term === 0">
-                            0
+                        <vs-td>
+                            {{$formatter.format(calculate_cost(tr.cost_one, tr.cost_three, tr.cost_six, tr.cost_twelve, tr.last_term, index))}}
                         </vs-td>
                         <!--Cost term-->
-
                         <vs-td v-if="tr.date_pay !== null">
                             <flat-pickr class="w-full" :value="tr.date_pay" placeholder="ថ្ងៃត្រូវបង់លុយដំបូង"/>
                         </vs-td>
@@ -207,7 +166,7 @@
                         </vs-td>
 
                         <vs-td>
-                            <flat-pickr class="w-full" v-model="tr.next_date_pay" placeholder="ថ្ងៃត្រូវបង់លុយដំបូង" disabled/>
+                            <flat-pickr class="w-full" v-model="tr.finish_date" placeholder="ថ្ងៃត្រូវបង់លុយដំបូង" disabled/>
                         </vs-td>
 
                         <vs-td>
@@ -218,13 +177,13 @@
             </vs-table>
             <div class="centerx vx-row mt-10">
                 <div class="vx-col md:w-1/2">
-                    <h3><span>តម្លៃសរុប: <b>{{$formatter.format(totalPayment)}}​ => {{$formatter.format(parseFloat(after_discount))}}</b></span></h3>
+                    <h3><span>តម្លៃសរុប: <b>{{$formatter.format(this.total_price)}} <b v-if="after_true === true">=> {{$formatter.format(parseFloat(after_discount))}}</b v-if="after_true === true"></b></span></h3>
                     <div class="flex">
                         <div class="flex mt-5">
                             <vs-input-number @input="percentDiscount" v-model="discount" label="បញ្ចុះភាគរយ %:" min="0" max="100" icon-inc="expand_less" icon-dec="expand_more"/>
                         </div>
                         <div class="flex mt-5">
-                            <vs-input-number @input="cashDiscount" v-model="cash_discount" label="បញ្ចុះជាសាច់ប្រាក់ $:" min="0" :max="total_payment" icon-inc="expand_less" icon-dec="expand_more"/>
+                            <vs-input-number @input="cashDiscount" v-model="cash_discount" label="បញ្ចុះជាសាច់ប្រាក់ $:" min="0" :max="total_price" icon-inc="expand_less" icon-dec="expand_more"/>
                         </div>
                     </div>
                 </div>
@@ -245,6 +204,7 @@
             </div>
             <vs-button @click="storeInvoice" slot="button" v-if="selected.length">បង់លុយ</vs-button>
         </sweet-modal>
+        <print-invoice ref="PrintInvoice"></print-invoice>
     </vx-card>
 </template>
 
@@ -256,14 +216,18 @@
     import PrintNotification from './PrintNotification'
     import flatPickr from 'vue-flatpickr-component';
     import 'flatpickr/dist/flatpickr.min.css';
+    import PrintInvoice from '.././payment/PrintInvoice';
     export default {
         name: "StudyYear",
         components: {
             ChangeStudyInfo, PrintNotification,
-            AddStudyInfo, AgGridVue, flatPickr
+            AddStudyInfo, AgGridVue, flatPickr, PrintInvoice
         },
         data() {
             return {
+                after_true: false,
+                total_price: 0,
+                new_selected: [],
                 today_date: this.moment().format('YYYY-MM-DD'),
                 discount: 0,
                 after_discount: 0,
@@ -273,7 +237,7 @@
                 ret_balance: 0,
                 default_discount: 0,
                 note_unused: '',
-                date_unused: this.moment().format('MM/DD/YYYY'),
+                date_unused: this.moment().format('YYYY-MM-DD'),
                 activePrompt:false,
                 selected: [],
                 gridApi: null,
@@ -303,6 +267,7 @@
                         filter: "agNumberColumnFilter"
                     },
                     {headerName: 'ស្ថានភាព', field: 'is_used',},
+                    {headerName: 'ស្ថានភាពប្តូរថ្នាក់', field: 'to_class',},
                     {headerName: 'មូលហេតុឈប់រៀន', field: 'note_unused',},
                     {headerName: 'ថ្ងៃឈប់រៀន', field: 'date_unused',},
                 ],
@@ -314,6 +279,29 @@
             }
         },
         methods: {
+            calculate_cost(c1, c3, c6, c12, duration){
+                let price = 0;
+                let p1 = c1 / 30;
+                let p3 = c3 / 90;
+                let p6 = c6 / 182;
+                let p12 = c12 / 365;
+                let num = parseInt(duration) / 30;
+                if (num < 0){
+                    price = 0;
+                } else {
+                    if (num < 3){
+                        price = p1 * duration;
+                    } else if (num < 6) {
+                        price = p3 * duration;
+                    } else if (num < 12) {
+                        price = p6 * duration
+                    } else {
+                        price = p12 * duration
+                    }
+                }
+                this.total_price = price;
+                return price.toFixed(2);
+            },
             preFixZero(number, length){
                 var str = '' + number;
                 while (str.length < length) {
@@ -321,133 +309,47 @@
                 }
                 return str;
             },
-            getCostOne(one, date_pay, i){
-                var price = one;
-                var temp_next_date = this.moment(date_pay).add('month', 1).format('YYYY-MM-DD');
-                if(temp_next_date > this.date_unused){
-                    this.selected[i].next_date_pay = this.date_unused;
-                    var a = this.moment(date_pay);
-                    var b = this.moment(this.date_unused);
-                    var over_days = b.diff(a, 'days');
-                    price = (parseFloat(one) / 30 * over_days).toFixed();
-                } else {
-                    this.selected[i].next_date_pay = temp_next_date;
-                }
-                this.selected[i].term_selected = price;
-                return price;
-            },
-            getCostThree(three, date_pay, i){
-                var price = three;
-                var temp_next_date = this.moment(date_pay).add('month', 3).format('YYYY-MM-DD');
-                if(temp_next_date > this.date_unused){
-                    this.selected[i].next_date_pay = this.date_unused;
-                    var a = this.moment(date_pay);
-                    var b = this.moment(this.date_unused);
-                    var over_days = b.diff(a, 'days');
-                    price = (parseFloat(three) / 91.25 * over_days).toFixed(2);
-                } else {
-                    this.selected[i].next_date_pay = temp_next_date;
-                }
-                this.selected[i].term_selected = price;
-                return price;
-            },
-            getCostSix(six, date_pay, i){
-                var price = six;
-                var temp_next_date = this.moment(date_pay).add('months', 6).format('YYYY-MM-DD');
-                if(temp_next_date > this.date_unused){
-                    this.selected[i].next_date_pay = this.date_unused;
-                    var a = this.moment(date_pay);
-                    var b = this.moment(this.date_unused);
-                    var over_days = b.diff(a, 'days');
-                    price = (parseFloat(six) / 182.5 * over_days).toFixed(2);
-                } else {
-                    this.selected[i].next_date_pay = temp_next_date;
-                }
-                this.selected[i].term_selected = price;
-                return price;
-            },
-            getCostTwelve(twelve, date_pay, i){
-                var price = twelve;
-                var temp_next_date = this.moment(date_pay).add('months', 12).subtract().format('YYYY-MM-DD');
-                if(temp_next_date > this.date_unused){
-                    this.selected[i].next_date_pay = this.date_unused;
-                    var a = this.moment(date_pay);
-                    var b = this.moment(this.date_unused);
-                    var over_days = b.diff(a, 'days');
-                    price = (parseFloat(twelve) / 365 * over_days).toFixed(2);
-                } else {
-                    this.selected[i].next_date_pay = temp_next_date;
-                }
-                this.selected[i].term_selected = price;
-                return price;
-            },
+            // storeInvoice(){},
             async storeInvoice(){
-                /*this.$vs.loading({
+                let self = this;
+                let vm = this.selected[0];
+                console.log(vm);
+                var after_discount = this.total_price;
+                if(self.after_true === true){
+                    after_discount = self.after_discount;
+                }
+                self.$vs.loading({
                     type:'material',
                 });
-                let self = this;
-                let vm = this.selected; //ឈ្មោះ ខុសគ្នារវាង Service and Study with Invoice detail
-                var update_study_items = [];
-                var update_service_items = [];
-                for(var i = 0; i < vm.length; i ++){
-                    if(vm[i].study_id === undefined){
-                        update_service_items.push({
-                            id: vm[i].service_id,
-                            date_pay: vm[i].next_date_pay,
-                            last_term: vm[i].last_term,
-                            last_date_pay: vm[i].last_date_pay,
-                            is_used: vm[i].is_used
-                        })
-                    } else {
-                        update_study_items.push({
-                            id: vm[i].study_id,
-                            date_pay: vm[i].next_date_pay,
-                            last_term: vm[i].last_term,
-                            year : vm[i].year,
-                            last_date_pay : vm[i].last_date_pay,
-                            from_class : null,
-                            to_class : null,
-                            date_change : null,
-                            is_used : true,
-                        })
-                    }
-                }
-
-                if (update_study_items.length){
-                    this.updateStudyInfo(update_study_items);
-                }
-                if (update_service_items.length){
-                    this.updateServiceInfo(update_service_items);
-                }
-
-                await this.$store.dispatch('updateIncrementDue', {id: this.student_id, due: this.due_balance});
+                await self.$store.dispatch('updateIncrementDue', {id: vm.student_id, due: self.due_balance});
                 await self.$store.dispatch('storeInvoice', {
-                    student_id: this.student_id, invoice_date : this.today_date, balance : this.total_payment, after_discount : this.after_discount,
-                    discount : this.discount, payment_status : false, due_balance: this.due_balance,
-                    receive_balance: this.rec_balance, return_balance: this.ret_balance
+                    student_id: vm.student_id, invoice_date : self.date_unused, balance : self.total_price, after_discount : after_discount,
+                    discount : self.discount, payment_status : false, due_balance: self.due_balance,
+                    receive_balance: self.rec_balance, return_balance: self.ret_balance
                 }).then(function (data_res) {
                     if (data_res){
+                        var id = data_res.id;
                         var new_all_infos = []; //បង្កើតសម្រាប់បោះតម្លៃទៅ Print
-                        self.all_infos.map(async function (data) {
+                        // self.selected.map(async function (data) {
                             new_all_infos.push({
-                                invoice_id : data_res.id,
-                                item : data.name,
-                                term : data.last_term,
-                                balance : data.term_selected,
-                                date_pay : data.date_pay,
-                                next_date_pay : data.next_date_pay,
-                                emp_name: data.employee_name,
+                                invoice_id : id,
+                                item : vm.class_name,
+                                term : parseInt(vm.day_left) * (-1),
+                                balance : self.after_true === true ? self.after_discount : self.total_price,
+                                date_pay : vm.date_pay,
+                                next_date_pay : self.date_unused,
+                                emp_name: vm.employee_name === null ? '---' : vm.employee_name,
                             });
-                            await self.$store.dispatch('storeInvoiceDetail', {
-                                invoice_id : data_res.id,
-                                item : data.name,
-                                term : data.last_term,
-                                balance : data.term_selected,
-                                date_pay : data.date_pay,
-                                next_date_pay : data.next_date_pay,
-                                emp_name: data.employee_name,
-                            })
-                        });
+                        self.$store.dispatch('storeInvoiceDetail', {
+                                invoice_id : id,
+                                item : vm.class_name,
+                                term : parseInt(vm.day_left) * (-1),
+                                balance : self.after_true === true ? self.after_discount : self.total_price,
+                                date_pay : vm.date_pay,
+                                next_date_pay : self.date_unused,
+                                emp_name: vm.employees === null ? 'គ្មានអ្នកទទួលបន្ទុក' : vm.study_infos.employees.kh_name
+                            }).then();
+                        // });
                         self.$vs.notify({
                             title:'ប្រតិបត្តិការណ៍ជោគជ័យ',
                             text:'ទិន្នន័យត្រូវបានរក្សាទុក',
@@ -459,11 +361,11 @@
                         self.$vs.loading.close();
                         self.$refs.PrintInvoice.show({
                                 id: self.preFixZero(new_all_infos[0].invoice_id, 7),
-                                name: self.name,
-                                latin: self.latin,
-                                gender: self.gender,
-                                total: self.total_payment,
-                                after: self.after_discount,
+                                name: vm.name,
+                                latin: vm.latin,
+                                gender: vm.gender,
+                                total: self.total_price,
+                                after: self.after_true === true ? self.after_discount : self.total_price,
                                 discount: self.discount,
                                 due_balance: self.due_balance,
                                 receive_balance: self.rec_balance
@@ -474,16 +376,22 @@
                 });
                 this.discount = 0;
                 this.cash_discount = 0;
-                this.all_infos = [];*/
+                this.selected = [];
+
             },
             cashDiscount(){
-                this.discount = parseFloat(this.cash_discount * 100 / this.total_payment).toFixed(2);
-                this.after_discount = this.total_payment - this.cash_discount;
+                this.after_true = true;
+                this.discount = parseFloat(this.cash_discount * 100 / this.total_price).toFixed(2);
+                this.after_discount = this.total_price - this.cash_discount;
+                console.log(this.after_discount)
             },
             percentDiscount(){
-                this.cash_discount = parseFloat(this.total_payment * this.discount / 100).toFixed(2);
-                this.after_discount = this.total_payment - this.cash_discount;
+                this.after_true = true;
+                this.cash_discount = parseFloat(this.total_price * this.discount / 100).toFixed(2);
+                this.after_discount = this.total_price - this.cash_discount;
+                console.log(this.after_discount)
             },
+
             acceptAlert(){
                 if (this.note_unused === ''){
                     this.$vs.notify({
@@ -493,7 +401,54 @@
                         text:'សូមបញ្ចាក់មូលហេតុ!'
                     })
                 } else {
-                    this.update_unused()
+                    console.log(this.selected);
+                    var vm = this.selected[0];
+                    var date_now = this.moment();
+                    var date_pay = this.moment(vm.date_pay);
+                    var drt = null;
+                    drt = date_now.diff(date_pay, 'days');
+                    this.new_selected = [];
+                    this.after_discount = 0;
+                    this.total_price = 0;
+                    this.after_true = false;
+                    if (vm.date_pay > this.date_unused){
+                        this.new_selected.push({
+                            year: vm.year,
+                            name: vm.class_name,
+                            student_id: vm.student_id,
+                            collection_id: vm.collection_id,
+                            date_pay: vm.date_unused,
+                            last_date_pay: vm.last_date_pay,
+                            last_term: drt,
+                            is_used: vm.is_used,
+                            finish_date: this.date_unused,
+                            cost_one: vm.cost_one,
+                            cost_three: vm.cost_three,
+                            cost_six: vm.cost_six,
+                            cost_twelve: vm.cost_twelve,
+                            balance: vm.balance,
+                            next_date_pay: vm.next_date_pay,
+                        });
+                    } else {
+                        this.new_selected.push({
+                            year: vm.year,
+                            name: vm.class_name,
+                            student_id: vm.student_id,
+                            collection_id: vm.collection_id,
+                            date_pay: vm.date_pay,
+                            last_date_pay: vm.last_date_pay,
+                            last_term: drt,
+                            is_used: vm.is_used,
+                            finish_date: this.date_unused,
+                            cost_one: vm.cost_one,
+                            cost_three: vm.cost_three,
+                            cost_six: vm.cost_six,
+                            cost_twelve: vm.cost_twelve,
+                            balance: vm.balance,
+                            next_date_pay: vm.next_date_pay,
+                        });
+                    }
+                    this.update_unused();
                 }
             },
             close(){
@@ -531,7 +486,6 @@
             },
             onSelectionChanged() {
                 this.selected = this.gridApi.getSelectedRows();
-                console.log(this.selected)
             },
             //destroy
             confirmDelete(){
@@ -564,33 +518,25 @@
             }
         },
         computed: {
-            totalPayment(){
-                let self = this;
-                let payments = 0;
-                let vm = this.selected;
-                for (var i = 0; i < vm.length; i ++) {
-                    payments += parseFloat(vm[i].term_selected);
-                }
-                self.total_payment = payments;
-                self.after_discount = payments;
-                console.log(payments);
-                return 0;
-            },
             returnBalance(){
                 var return_bal = 0;
                 if(this.after_discount <= this.rec_balance){
                     return_bal = this.rec_balance - this.after_discount;
                 }
                 this.ret_balance = return_bal;
-                return return_bal;
+                return return_bal.toFixed(2);
             },
             dueBalance(){
                 var return_bal = 0;
                 if(this.after_discount >= this.rec_balance){
-                    return_bal = this.rec_balance - this.after_discount;
+                    if ( this.after_true === true) {
+                        return_bal = this.rec_balance - this.after_discount;
+                    } else {
+                        return_bal = this.total_price;
+                    }
                 }
                 this.due_balance = return_bal;
-                return return_bal;
+                return return_bal.toFixed(2);
             },
             getStudyInfos() {
                 return this.$store.getters.get_study_infos
@@ -617,7 +563,7 @@
                         date_pay      : data.date_pay,
                         last_date_pay : data.last_date_pay,
                         last_term     : data.last_term,
-                        to_class      : data.to_class,
+                        to_class      : data.to_class === null ? 'ថ្នាក់ដដែល' : 'បានប្តូរ',
                         employees     : data.study_infos.employees,
                         group_section : data.study_infos.group_section,
                         cost_one      : data.study_infos.cost_one,
