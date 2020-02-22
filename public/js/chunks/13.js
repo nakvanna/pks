@@ -1249,6 +1249,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return this.getStudyInfos.map(function (data) {
         var to_day = self.moment();
         var day_pay = self.moment(data.date_pay);
+        var last_date = self.moment(data.last_date_pay);
         return {
           study_info_id: data.id,
           id: data.students.id,
@@ -1274,7 +1275,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           cost_six: data.study_infos.cost_six,
           cost_twelve: data.study_infos.cost_twelve,
           service_infos: [],
-          day_left: day_pay.diff(to_day, 'days'),
+          day_left: last_date <= to_day ? 'គ្រប់' : day_pay.diff(to_day, 'days'),
           balance: data.students.balance
         };
       });
