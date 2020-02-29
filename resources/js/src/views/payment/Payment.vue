@@ -183,7 +183,7 @@
                     </div>
                 </div>-->
             </div>
-            <h3 class="mb-10">បញ្ចុះតម្លៃ {{default_discount}}% ជំពាក់ {{$formatter.format(balance)}}</h3>
+            <h3 class="mb-10"><span style="color: #108ee9">បញ្ចុះតម្លៃ {{default_discount}}%</span> <span style="color: red">ជំពាក់ {{$formatter.format(balance * (-1))}}</span></h3>
             <vs-table :data="all_infos">
 
                 <template slot="thead">

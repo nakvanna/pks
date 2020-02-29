@@ -16,7 +16,7 @@
                 <flat-pickr class="w-full"  v-model="today_date" placeholder="ថ្ងៃបង់លុយ" />
             </div>
         </div>
-        <h5 class="pt-2">ជំពាក់សរុប៖ {{balance}}</h5>
+        <h5 class="pt-2">ជំពាក់សរុប៖ {{$formatter.format(balance * (-1))}}</h5>
         <vx-card no-shadow v-if="is_selected">
             <div class="flex">
                 <div class="w-1/2 mr-2">

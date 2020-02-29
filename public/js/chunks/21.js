@@ -489,7 +489,7 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("h5", { staticClass: "pt-2" }, [
-        _vm._v("ជំពាក់សរុប៖ " + _vm._s(_vm.balance))
+        _vm._v("ជំពាក់សរុប៖ " + _vm._s(_vm.$formatter.format(_vm.balance * -1)))
       ]),
       _vm._v(" "),
       _vm.is_selected

@@ -2218,12 +2218,15 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("h3", { staticClass: "mb-10" }, [
-            _vm._v(
-              "បញ្ចុះតម្លៃ " +
-                _vm._s(_vm.default_discount) +
-                "% ជំពាក់ " +
-                _vm._s(_vm.$formatter.format(_vm.balance))
-            )
+            _c("span", { staticStyle: { color: "#108ee9" } }, [
+              _vm._v("បញ្ចុះតម្លៃ " + _vm._s(_vm.default_discount) + "%")
+            ]),
+            _vm._v(" "),
+            _c("span", { staticStyle: { color: "red" } }, [
+              _vm._v(
+                "ជំពាក់ " + _vm._s(_vm.$formatter.format(_vm.balance * -1))
+              )
+            ])
           ]),
           _vm._v(" "),
           _c(
