@@ -87,7 +87,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   data: function data() {
     return {
-      date_reduce_due: null,
+      date_reduce_due: this.moment().format('YYYY-MM-DD'),
       pay_due: 0,
       student_id: null,
       desc: '',
@@ -2218,7 +2218,12 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("h3", { staticClass: "mb-10" }, [
-            _vm._v("បញ្ចុះតម្លៃ " + _vm._s(_vm.default_discount) + "%")
+            _vm._v(
+              "បញ្ចុះតម្លៃ " +
+                _vm._s(_vm.default_discount) +
+                "% ជំពាក់ " +
+                _vm._s(_vm.$formatter.format(_vm.balance))
+            )
           ]),
           _vm._v(" "),
           _c(

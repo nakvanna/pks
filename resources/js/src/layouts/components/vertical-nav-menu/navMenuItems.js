@@ -58,6 +58,12 @@ export default [
     icon: "DollarSignIcon",
   },
   {
+    url: "/pay-due",
+    name: "ការទូទាត់ការជំពាក់",
+    slug: "ការទូទាត់ការជំពាក់",
+    icon: "DollarSignIcon",
+  },
+  {
     url: "/report",
     name: "របាយការណ៌",
     slug: "របាយការណ៌",

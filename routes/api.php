@@ -66,4 +66,6 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/due-history-only/{id}', 'DueHistoryController@index_only')->name('due-history.only');
     Route::post('/report-student-info', 'ReportController@student_information')->name('report.student_info');
     Route::post('/report-student-due', 'ReportController@due_report')->name('report.student_due');
+    Route::get('/get-invoice/{id}', 'InvoiceController@get_invoice')->name('invoice.get');
 });
+//Route::get('/get-invoice/{id}', 'InvoiceController@get_invoice')->name('invoice.get');

@@ -109,6 +109,16 @@ const router = new Router({
                     }
                 },
                 {
+                    path: '/pay-due',
+                    name: 'pay-due',
+                    component: () => import('./views/due-history/PayDue'),
+                    meta: {
+                        pageTitle: 'ការទូទាត់ការជំពាក់',
+                        rule: 'editor',
+                        requiresAuth: true
+                    }
+                },
+                {
                     path: '/report',
                     name: 'report',
                     component: () => import('./views/report/Report'),

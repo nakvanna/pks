@@ -1,11 +1,16 @@
 
 const state = {
     due_history: [],
+    all_due_history: [],
 };
 const getters = {
     get_due_histories:function (state) {
         return state.due_history;
     },
+
+    get_all_due_histories: function (state) {
+        return state.all_due_history;
+    }
 };
 const actions = {
     async fetchDueHistories({commit}){
@@ -53,10 +58,27 @@ const actions = {
     }
 };
 const mutations = {
-    SET_DUE_HISTORY:function (state,data) {
+     SET_DUE_HISTORY: async function (state,data) {
+        /*console.log(data);
         state.due_history = [];
         for (var i = 0; i < data.length; i ++){
             state.due_history.push({
+                id              : data[i].id,
+                invoice_id      : data[i].invoice_id,
+                pay_due         : data[i].pay_due,
+                date_reduce_due : data[i].date_reduce_due,
+                desc            : data[i].desc,
+            })
+        }*/
+        state.due_history = [];
+       data.map(function (dta) {
+           state.due_history.push(dta);
+       });
+    },
+    SET_ALL_DUE_HISTORY:function (state, data) {
+        state.all_due_history = [];
+        for (var i = 0; i < data.length; i ++){
+            state.all_due_history.push({
                 id              : data[i].id,
                 invoice_id      : data[i].invoice_id,
                 pay_due         : data[i].pay_due,

@@ -65,7 +65,7 @@
         },
         data(){
             return {
-                date_reduce_due: null,
+                date_reduce_due: this.moment().format('YYYY-MM-DD'),
                 pay_due: 0,
                 student_id: null,
                 desc: '',

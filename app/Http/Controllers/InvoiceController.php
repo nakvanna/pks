@@ -66,4 +66,7 @@ class InvoiceController extends Controller
         $invoice->invoice_detail()->delete();
         $invoice->delete();
     }
+    public function get_invoice($stu_id){
+        return Invoice::where('student_id', $stu_id)->orderBy('id', 'asc')->get();
+    }
 }

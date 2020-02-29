@@ -2,11 +2,15 @@
 const state = {
     invoices:[],
     invoice_extract: [],
+    invoice_by_stu: [],
 };
 const getters = {
     get_invoices:function (state) {
         return state.invoice_extract;
     },
+    get_invoice_stu: function (state) {
+        return state.invoice_by_stu;
+    }
 };
 const actions = {
     async fetchInvoices({commit}){
@@ -16,6 +20,14 @@ const actions = {
             } catch (e) {
                 return false
             }
+    },
+    async fetchInvoiceByStuID({commit}, stu_id){
+        try {
+            const res = await axios.get(route('invoice.get', stu_id));
+            commit('SET_INVOICE_STU', res.data);
+        } catch (e) {
+            return false
+        }
     },
     async storeInvoice({commit}, invoices){
         try {
@@ -73,6 +85,9 @@ const mutations = {
                 receive_balance: data[i].receive_balance,
             })
         }
+    },
+    SET_INVOICE_STU: function (state, data){
+        state.invoice_by_stu = data;
     },
     ADD_INVOICE:function (state, data) {
         // state.invoice_extract.unshift(data);
